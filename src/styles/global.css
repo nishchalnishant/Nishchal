@@ -12,9 +12,11 @@
   --text-color: #111111;
   --border-color: #e5e5e5;
   --muted-color: #666666;
-  --card-bg: #f9f9f9;
-  --card-border: #e5e5e5;
-  --hover-bg: #f3f4f6;
+  --card-bg: #f4f4f5;
+  /* zinc-100 */
+  --card-border: #e4e4e7;
+  /* zinc-200 */
+  --hover-bg: #ececee;
   --accent-color: #000000;
 }
 
@@ -25,8 +27,10 @@
   --border-color: #27272a;
   /* zinc-800 */
   --muted-color: #a1a1aa;
-  --card-bg: #09090b;
+  --card-bg: #121215;
+  /* slightly lighter than bg */
   --card-border: #27272a;
+  /* zinc-800 */
   --hover-bg: #18181b;
   /* zinc-900 */
   --accent-color: #ffffff;
