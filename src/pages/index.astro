@@ -23,8 +23,8 @@ const articles = articlesData;
       <!-- Section 1: Technical Writing (Priority) -->
       <section class="flex-1 min-h-0 flex flex-col">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xs font-bold text-[var(--muted-color)] uppercase tracking-widest font-mono">Technical Writing</h2>
-            <div class="h-[1px] flex-grow bg-[var(--border-color)] ml-4"></div>
+            <h2 class="text-lg font-bold text-[var(--text-color)] tracking-tight">Technical Writing</h2>
+            <div class="h-[1px] flex-grow bg-[var(--border-color)] ml-4 opacity-50"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto pr-2 custom-scrollbar pb-2">
           {articles.map((article) => (
@@ -34,10 +34,10 @@ const articles = articlesData;
       </section>
 
       <!-- Section 2: Projects -->
-      <section class="h-auto lg:h-[45%] flex flex-col">
+      <section class="flex-1 min-h-0 flex flex-col">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xs font-bold text-[var(--muted-color)] uppercase tracking-widest font-mono">Featured Projects</h2>
-            <div class="h-[1px] flex-grow bg-[var(--border-color)] ml-4"></div>
+            <h2 class="text-lg font-bold text-[var(--text-color)] tracking-tight">Featured Projects</h2>
+            <div class="h-[1px] flex-grow bg-[var(--border-color)] ml-4 opacity-50"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto pr-2 custom-scrollbar pb-2">
             {projects.map((project) => (
