@@ -11,22 +11,22 @@ const articles = articlesData;
 ---
 
 <Layout title="Nishchal | MLOps Engineer">
-  <main class="h-screen w-full bg-slate-950 flex flex-col lg:flex-row overflow-hidden">
+  <main class="lg:h-screen w-full flex flex-col lg:flex-row overflow-hidden bg-[var(--bg-color)]">
     <!-- Left Panel: Hero / Profile -->
-    <section class="lg:w-[35%] w-full h-auto lg:h-full border-b lg:border-b-0 lg:border-r border-gray-900 bg-slate-950/50">
+    <section class="lg:w-[35%] w-full h-auto lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--border-color)] bg-[var(--bg-color)]">
       <Hero />
     </section>
 
     <!-- Right Panel: Content Grid -->
-    <div class="lg:w-[65%] w-full h-full flex flex-col p-6 lg:p-10 overflow-y-auto lg:overflow-hidden gap-6">
+    <div class="lg:w-[65%] w-full h-full flex flex-col p-6 lg:p-10 overflow-y-auto lg:overflow-hidden gap-8 bg-[var(--bg-color)]">
       
       <!-- Section 1: Technical Writing (Priority) -->
       <section class="flex-1 min-h-0 flex flex-col">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-sm font-bold text-gray-500 uppercase tracking-widest">Technical Writing</h2>
-            <div class="h-[1px] flex-grow bg-gray-900 ml-4"></div>
+            <h2 class="text-xs font-bold text-[var(--muted-color)] uppercase tracking-widest font-mono">Technical Writing</h2>
+            <div class="h-[1px] flex-grow bg-[var(--border-color)] ml-4"></div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto pr-2 custom-scrollbar">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto pr-2 custom-scrollbar pb-2">
           {articles.map((article) => (
             <ArticleCard {...article} />
           ))}
@@ -34,12 +34,12 @@ const articles = articlesData;
       </section>
 
       <!-- Section 2: Projects -->
-      <section class="h-[40%] flex flex-col">
+      <section class="h-auto lg:h-[45%] flex flex-col">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-sm font-bold text-gray-500 uppercase tracking-widest">Featured Projects</h2>
-            <div class="h-[1px] flex-grow bg-gray-900 ml-4"></div>
+            <h2 class="text-xs font-bold text-[var(--muted-color)] uppercase tracking-widest font-mono">Featured Projects</h2>
+            <div class="h-[1px] flex-grow bg-[var(--border-color)] ml-4"></div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto pr-2 custom-scrollbar">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto pr-2 custom-scrollbar pb-2">
             {projects.map((project) => (
               <ProjectCard {...project} />
             ))}
@@ -53,16 +53,16 @@ const articles = articlesData;
 <style>
   /* Minimalist Scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #1f2937;
-    border-radius: 20px;
+    background-color: var(--border-color);
+    border-radius: 4px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #374151;
+    background-color: var(--muted-color);
   }
 </style>
