@@ -1,26 +1,74 @@
 [
   {
     "title": "Portfolio Website",
-    "description": "This very website! Built with Astro and Tailwind CSS to showcase my work.",
-    "liveUrl": "#",
+    "description": "Minimalist documentation-style portfolio built with Astro and Tailwind CSS.",
+    "liveUrl": "https://nishchalnishant.github.io/Nishchal/",
     "repoUrl": "https://github.com/nishchalnishant/Nishchal",
-    "tags": ["Astro", "Tailwind CSS", "GitHub Pages"],
-    "thumbnail": "https://placehold.co/600x400/222/white?text=Portfolio"
+    "tags": [
+      "Astro",
+      "Tailwind",
+      "GitHub Pages"
+    ],
+    "thumbnail": ""
   },
   {
-    "title": "Weather App",
-    "description": "A weather dashboard providing accurate predictions using custom ML models.",
+    "title": "Weather Prediction",
+    "description": "ML-powered weather forecasting system with drift detection.",
     "liveUrl": "#",
-    "repoUrl": "#",
-    "tags": ["Python", "ML", "Azure"],
-    "thumbnail": "https://placehold.co/600x400/2a9d8f/white?text=Weather+App"
+    "repoUrl": "https://github.com/nishchalnishant/weather-prediction",
+    "tags": [
+      "Python",
+      "Sklearn",
+      "Azure"
+    ],
+    "thumbnail": ""
+  },
+  {
+    "title": "Algorithmic Trader",
+    "description": "Automated trading bot using technical analysis and sentiment data.",
+    "liveUrl": "#",
+    "repoUrl": "https://github.com/nishchalnishant/algo-trader",
+    "tags": [
+      "Python",
+      "Pandas",
+      "Binance API"
+    ],
+    "thumbnail": ""
   },
   {
     "title": "Drift Detector",
-    "description": "Monitoring system to detect concept drift in machine learning models.",
+    "description": "Real-time concept drift monitoring for production ML pipelines.",
     "liveUrl": "#",
-    "repoUrl": "#",
-    "tags": ["Python", "Streamlit", "Scikit-Learn"],
-    "thumbnail": "https://placehold.co/600x400/e9c46a/333?text=Drift+Detector"
+    "repoUrl": "https://github.com/nishchalnishant/drift-detector",
+    "tags": [
+      "MLOps",
+      "Streamlit",
+      "Docker"
+    ],
+    "thumbnail": ""
+  },
+  {
+    "title": "Resume Parser",
+    "description": "NLP-based tool to extract entities and skills from PDF resumes.",
+    "liveUrl": "#",
+    "repoUrl": "https://github.com/nishchalnishant/resume-parser",
+    "tags": [
+      "NLP",
+      "SpaCy",
+      "FastAPI"
+    ],
+    "thumbnail": ""
+  },
+  {
+    "title": "Kubernetes Dashboard",
+    "description": "Lightweight monitoring dashboard for K8s clusters.",
+    "liveUrl": "#",
+    "repoUrl": "https://github.com/nishchalnishant/k8s-dash",
+    "tags": [
+      "Go",
+      "React",
+      "Kubernetes"
+    ],
+    "thumbnail": ""
   }
 ]
