@@ -1,0 +1,30 @@
+---
+---
+
+<section id="about" class="py-20 max-w-4xl mx-auto px-4">
+  <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <h2 class="text-3xl font-bold mb-6 text-white">About Me</h2>
+      <p class="text-gray-400 mb-4 leading-relaxed">
+        I am an ML Engineer passionate about bridging the gap between data science and production. 
+        My expertise lies in building end-to-end Machine Learning pipelines, from model development 
+        to deployment and monitoring (MLOps).
+      </p>
+      <p class="text-gray-400 leading-relaxed">
+        I actively work on algorithmic trading systems, drift detection frameworks, and cloud-native AI solutions. 
+        Always learning and sharing knowledge through technical writing.
+      </p>
+    </div>
+    
+    <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800">
+      <h3 class="text-xl font-semibold mb-4 text-white">Tech Stack</h3>
+      <div class="flex flex-wrap gap-2">
+        {['Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'MLflow', 'Docker', 'Kubernetes', 'Azure', 'FastAPI', 'Streamlit', 'Git'].map((tech) => (
+          <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded-lg text-sm border border-gray-700">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

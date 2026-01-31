@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Portfolio Website",
+    "description": "This very website! Built with Astro and Tailwind CSS to showcase my work.",
+    "liveUrl": "#",
+    "repoUrl": "https://github.com/nishchalnishant/Nishchal",
+    "tags": ["Astro", "Tailwind CSS", "GitHub Pages"],
+    "thumbnail": "https://placehold.co/600x400/222/white?text=Portfolio"
+  },
+  {
+    "title": "Weather App",
+    "description": "A weather dashboard providing accurate predictions using custom ML models.",
+    "liveUrl": "#",
+    "repoUrl": "#",
+    "tags": ["Python", "ML", "Azure"],
+    "thumbnail": "https://placehold.co/600x400/2a9d8f/white?text=Weather+App"
+  },
+  {
+    "title": "Drift Detector",
+    "description": "Monitoring system to detect concept drift in machine learning models.",
+    "liveUrl": "#",
+    "repoUrl": "#",
+    "tags": ["Python", "Streamlit", "Scikit-Learn"],
+    "thumbnail": "https://placehold.co/600x400/e9c46a/333?text=Drift+Detector"
+  }
+]

@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Artificial Intelligence",
+        "description": "Comprehensive notes on AI concepts, ML algorithms, and Deep Learning.",
+        "url": "https://nishchalnishant.gitbook.io/artificial-intelligence/",
+        "tag": "AI & ML"
+    },
+    {
+        "title": "Trading Strategies",
+        "description": "Algorithmic trading strategies, technical analysis, and financial modeling.",
+        "url": "https://nishchalnishant.gitbook.io/trading/",
+        "tag": "Finance"
+    },
+    {
+        "title": "System Design",
+        "description": "Scalable system architecture, distributed systems, and design patterns.",
+        "url": "https://nishchalnishant.gitbook.io/system-design/",
+        "tag": "Architecture"
+    },
+    {
+        "title": "Coding & Algorithms",
+        "description": "Data Structures, Algorithms, and competitive programming solutions.",
+        "url": "https://nishchalnishant.gitbook.io/coding/",
+        "tag": "DSA"
+    },
+    {
+        "title": "Computer Networking",
+        "description": "Deep dive into protocols, layers, and network security.",
+        "url": "https://nishchalnishant.gitbook.io/computer-networking/",
+        "tag": "Networking"
+    },
+    {
+        "title": "Complete DevOps",
+        "description": "CI/CD, Docker, Kubernetes, and cloud infrastructure guides.",
+        "url": "https://nishchalnishant.gitbook.io/completedevops/",
+        "tag": "DevOps"
+    }
+]
