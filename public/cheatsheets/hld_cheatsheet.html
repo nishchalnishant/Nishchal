@@ -13,7 +13,7 @@
 <header class="topbar">
   <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
   <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
-  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html" aria-current="page">HLD</a><a href="lld_cheatsheet.html">LLD</a></nav>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html" aria-current="page">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a></nav>
   <div class="tb-right">
     <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
     <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
@@ -37,7 +37,7 @@
   <aside class="rail" aria-label="Contents">
     <h4>On this page</h4>
     <ol id="railList"></ol>
-    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html" aria-current="page">HLD</a><a href="lld_cheatsheet.html">LLD</a></div>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html" aria-current="page">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a></div>
     <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
   </aside>
   <div class="scrim"></div>
@@ -155,9 +155,7 @@
 <tr><td><abbr class="gl" data-tip="Reading a database's change log (for example with Debezium) to stream every insert, update and delete to other systems." data-tip-title="CDC: Change data capture">CDC</abbr></td><td>Debezium reads the DB log → Kafka → search, cache, warehouse</td></tr>
 <tr><td>File formats</td><td>Parquet/ORC columnar; Avro row-based with schema evolution</td></tr>
 </table></div></div>
-<div class="card o" data-skey="hld:building-blocks-catalogue/little-s-law-and-utilisation" id="little-s-law-and-utilisation"><h3 data-label="Little's law and utilisation">Little's law and utilisation<a aria-label="Link to this card" class="anchor" href="#little-s-law-and-utilisation">#</a></h3><div class="formula">L = λ × W
-in-flight requests = arrival rate × latency
-1,000 req/s × 0.2 s = 200 concurrent requests</div><ul>
+<div class="card o" data-skey="hld:building-blocks-catalogue/little-s-law-and-utilisation" id="little-s-law-and-utilisation"><h3 data-label="Little's law and utilisation">Little's law and utilisation<a aria-label="Link to this card" class="anchor" href="#little-s-law-and-utilisation">#</a></h3><div class="formula"><span class="fl">L = λ × W</span><span class="fl">in-flight requests = arrival rate × latency</span><span class="fl">1,000 req/s × 0.2 s = 200 concurrent requests</span></div><ul>
 <li>Queueing delay grows sharply past ~70–80% utilisation; plan headroom.</li>
 <li>Fan-out multiplies tail latency: 100 calls each with 1% slow → 63% of requests hit a slow one.</li>
 <li>Thread-pool size ≈ throughput × latency (per instance).</li>
@@ -280,10 +278,7 @@ in-flight requests = arrival rate × latency
   K -.-&gt; AN[("Analytics store")]</pre>
 <div class="wt-cols">
 <div><h4>Requirements</h4><ul><li>Shorten a URL to a 7-character code; redirect; optional custom alias and expiry; click analytics.</li><li>100M new URLs/day, 100:1 read:write, p99 redirect &lt; 50 ms, highly available.</li></ul>
-<h4>Back-of-envelope</h4><div class="formula">writes ≈ 100M / 86,400 ≈ 1.2K/s (peak ~3K)
-reads  ≈ 120K/s (peak ~350K)
-storage ≈ 500 B × 100M × 365 × 5 y ≈ 90 TB
-base62, 7 chars → 62⁷ ≈ 3.5 trillion codes</div></div>
+<h4>Back-of-envelope</h4><div class="formula"><span class="fl">writes ≈ 100M / 86,400 ≈ 1.2K/s (peak ~3K)</span><span class="fl">reads  ≈ 120K/s (peak ~350K)</span><span class="fl">storage ≈ 500 B × 100M × 365 × 5 y ≈ 90 TB</span><span class="fl">base62, 7 chars → 62⁷ ≈ 3.5 trillion codes</span></div></div>
 <div><h4>API and data model</h4><pre class="code" data-hl="api"><span class="k">POST</span> <span class="f">/v1/urls</span>  {long_url, alias?, ttl_days?}  <span class="o">→</span> <span class="n">201</span> {code}
 <span class="k">GET</span>  <span class="f">/{code}</span>   <span class="o">→</span> <span class="n">302</span> Location: long_url
 
@@ -308,10 +303,7 @@ click events <span class="o">→</span> Kafka <span class="o">→</span> analyti
   FS --&gt; RK["Ranker"]</pre>
 <div class="wt-cols">
 <div><h4>Requirements</h4><ul><li>Post text/media, follow users, see a ranked or chronological home feed with infinite scroll.</li><li>300M DAU, feed p99 &lt; 200 ms, eventual consistency acceptable.</li></ul>
-<h4>Back-of-envelope</h4><div class="formula">posts ≈ 300M × 2 / 86,400 ≈ 7K/s
-feed reads ≈ 300M × 10 / 86,400 ≈ 35K/s (peak ~100K)
-fan-out at ~200 followers ≈ 1.4M cache writes/s
-feed cache: 800 IDs × 8 B × 300M ≈ 2 TB</div></div>
+<h4>Back-of-envelope</h4><div class="formula"><span class="fl">posts ≈ 300M × 2 / 86,400 ≈ 7K/s</span><span class="fl">feed reads ≈ 300M × 10 / 86,400 ≈ 35K/s (peak ~100K)</span><span class="fl">fan-out at ~200 followers ≈ 1.4M cache writes/s</span><span class="fl">feed cache: 800 IDs × 8 B × 300M ≈ 2 TB</span></div></div>
 <div><h4>API and data model</h4><pre class="code" data-hl="api"><span class="k">POST</span> <span class="f">/v1/posts</span>            {text, media_ids[]}
 <span class="k">GET</span>  <span class="f">/v1/feed?cursor=…</span>    <span class="o">→</span> {items[], next_cursor}
 <span class="k">POST</span> <span class="f">/v1/follows</span>          {followee_id}
@@ -335,9 +327,7 @@ feed:{user_id} <span class="o">→</span> Redis list of recent post_ids</pre></d
   MS -.-&gt;|"recipient offline"| PN["Push notification"]</pre>
 <div class="wt-cols">
 <div><h4>Requirements</h4><ul><li>1:1 and group chat (≤ 500 members), sent/delivered/read receipts, presence, offline delivery, multi-device sync.</li><li>500M DAU × 40 messages/day; delivery &lt; 500 ms when online.</li></ul>
-<h4>Back-of-envelope</h4><div class="formula">messages ≈ 500M × 40 / 86,400 ≈ 230K/s (peak ~700K)
-storage ≈ 230K × 100 B × 86,400 ≈ 2 TB/day
-connections ~100M → ~1–2K gateways at 50–100K each</div></div>
+<h4>Back-of-envelope</h4><div class="formula"><span class="fl">messages ≈ 500M × 40 / 86,400 ≈ 230K/s (peak ~700K)</span><span class="fl">storage ≈ 230K × 100 B × 86,400 ≈ 2 TB/day</span><span class="fl">connections ~100M → ~1–2K gateways at 50–100K each</span></div></div>
 <div><h4>API and data model</h4><pre class="code" data-hl="api"><span class="k">WS</span>  send {conv_id, client_msg_id, body}
 <span class="k">WS</span>  ack  {conv_id, seq}           receipts flow back the same way
 <span class="k">GET</span> <span class="f">/v1/conversations/{id}/messages?before_seq=…</span>
@@ -362,9 +352,7 @@ presence:{user_id} <span class="o">→</span> gateway_id, last_seen (Redis, <spa
   API --&gt; Q[["Expiry and notification queue"]]</pre>
 <div class="wt-cols">
 <div><h4>Requirements</h4><ul><li>Browse events, view seat map, hold seats for 10 minutes, pay, get a confirmed ticket.</li><li>No double booking; survive 1M users arriving for 50K seats.</li></ul>
-<h4>Back-of-envelope</h4><div class="formula">normal: ~1K bookings/s
-flash sale: 1M waiting, admit ~2–5K users/s
-seat map reads ≫ writes → cache, short TTL</div></div>
+<h4>Back-of-envelope</h4><div class="formula"><span class="fl">normal: ~1K bookings/s</span><span class="fl">flash sale: 1M waiting, admit ~2–5K users/s</span><span class="fl">seat map reads ≫ writes → cache, short TTL</span></div></div>
 <div><h4>API and data model</h4><pre class="code" data-hl="api"><span class="k">GET</span>  <span class="f">/v1/events/{id}/seats</span>
 <span class="k">POST</span> <span class="f">/v1/holds</span>     {event_id, seat_ids[]} <span class="o">→</span> {hold_id, expires_at}
 <span class="k">POST</span> <span class="f">/v1/bookings</span>  {hold_id, payment_token}  <span class="t">Idempotency-Key:</span> …
@@ -389,9 +377,7 @@ seat map reads ≫ writes → cache, short TTL</div></div>
   K -.-&gt; ETA["ETA service"]</pre>
 <div class="wt-cols">
 <div><h4>Requirements</h4><ul><li>Request a ride, match a nearby driver within seconds, live tracking, fare estimate with surge, trip lifecycle.</li><li>5M active drivers; matching p99 &lt; 5 s.</li></ul>
-<h4>Back-of-envelope</h4><div class="formula">location updates ≈ 5M / 4 s ≈ 1.25M writes/s
-ride requests ≈ 1–5K/s
-latest location only: 5M × ~50 B ≈ 250 MB in memory</div></div>
+<h4>Back-of-envelope</h4><div class="formula"><span class="fl">location updates ≈ 5M / 4 s ≈ 1.25M writes/s</span><span class="fl">ride requests ≈ 1–5K/s</span><span class="fl">latest location only: 5M × ~50 B ≈ 250 MB in memory</span></div></div>
 <div><h4>API and data model</h4><pre class="code" data-hl="api"><span class="k">WS</span>   driver <span class="o">→</span> {lat, lng, heading, ts}
 <span class="k">POST</span> <span class="f">/v1/rides</span>   {pickup, dropoff} <span class="o">→</span> {ride_id, eta, fare}
 <span class="k">GET</span>  <span class="f">/v1/rides/{id}</span>  (<span class="b">SSE</span> or WS for live updates)
@@ -416,9 +402,7 @@ geo: cell_id <span class="o">→</span> <span class="t">set</span>(driver_id)   
   REC --&gt; PSP</pre>
 <div class="wt-cols">
 <div><h4>Requirements</h4><ul><li>Charge, refund and pay out; support retries safely; show payment status; never double-charge.</li><li>Thousands of payments per second at peak; strong consistency for balances; full audit trail.</li></ul>
-<h4>Payment state machine</h4><div class="formula">CREATED → AUTHORIZED → CAPTURED → SETTLED
-        ↘ FAILED      ↘ REFUNDED
-timeout from PSP = UNKNOWN → query PSP, never assume failure</div></div>
+<h4>Payment state machine</h4><div class="formula"><span class="fl">CREATED → AUTHORIZED → CAPTURED → SETTLED</span><span class="fl">        ↘ FAILED      ↘ REFUNDED</span><span class="fl">timeout from PSP = UNKNOWN → query PSP, never assume failure</span></div></div>
 <div><h4>API and data model</h4><pre class="code" data-hl="api"><span class="k">POST</span> <span class="f">/v1/payments</span>  <span class="t">Idempotency-Key:</span> …
      {order_id, amount_minor, currency, method_token}
 <span class="k">GET</span>  <span class="f">/v1/payments/{id}</span>
@@ -443,9 +427,7 @@ timeout from PSP = UNKNOWN → query PSP, never assume failure</div></div>
   V -.-&gt;|"watch events"| AN[["Analytics stream"]]</pre>
 <div class="wt-cols">
 <div><h4>Requirements</h4><ul><li>Upload large videos, watch with quick start and no buffering on varied networks, view counts, recommendations.</li><li>Upload is rare relative to viewing (1:1000+); global audience.</li></ul>
-<h4>Back-of-envelope</h4><div class="formula">1 hour at ~5 Mbps ≈ 2.25 GB per rendition
-bitrate ladder of ~6 renditions ≈ 2–3× raw storage
-egress dominates cost → CDN hit ratio is the key metric</div></div>
+<h4>Back-of-envelope</h4><div class="formula"><span class="fl">1 hour at ~5 Mbps ≈ 2.25 GB per rendition</span><span class="fl">bitrate ladder of ~6 renditions ≈ 2–3× raw storage</span><span class="fl">egress dominates cost → CDN hit ratio is the key metric</span></div></div>
 <div><h4>Pipeline</h4><ol class="steps"><li>Client uploads in chunks directly to object storage (resumable).</li><li>An event enqueues a transcode job; split the video into chunks to transcode in parallel.</li><li>Produce several resolutions and bitrates, segment into 2–6 s pieces, write <abbr class="gl" data-tip="Video split into short segments at several bitrates with a playlist, so players can switch quality as bandwidth changes." data-tip-title="HLS: HTTP Live Streaming">HLS</abbr>/DASH manifests.</li><li>Mark the video ready; thumbnails and captions run as separate jobs.</li></ol></div>
 <div><h4>Deep dives</h4><ul><li><b>Adaptive bitrate:</b> the player picks the rendition per segment from measured bandwidth.</li><li><b><abbr class="gl" data-tip="Servers close to users that cache static files and media, cutting latency and origin load." data-tip-title="CDN: Content delivery network">CDN</abbr>:</b> popular videos are pre-warmed; long-tail content is fetched from origin through a regional shield.</li><li><b>View counts:</b> stream events into aggregations; approximate counts in real time, exact counts in batch.</li><li><b>Access control:</b> short-lived signed URLs or tokens; DRM for premium content.</li></ul></div>
 </div></div><div class="card g full" data-new="4" data-skey="hld:worked-designs-five-full-walkthroughs/notification-system" id="notification-system"><h3 data-label="Notification system">Notification system <span class="badge-new">New</span><a aria-label="Link to this card" class="anchor" href="#notification-system">#</a></h3>

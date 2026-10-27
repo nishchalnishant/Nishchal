@@ -38,8 +38,10 @@ body.s-ml{--accent:#7a45d1}
 body.s-hld{--accent:#c45f12}
 body.s-lld{--accent:#0f7f86}
 body.s-sys{--accent:#1f7f52}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.s-dsa{--accent:#8ea2ff}:root:not([data-theme="light"]) body.s-ml{--accent:#b89aff}:root:not([data-theme="light"]) body.s-hld{--accent:#ffa45c}:root:not([data-theme="light"]) body.s-lld{--accent:#5fd0d4}:root:not([data-theme="light"]) body.s-sys{--accent:#6fd39c}}
-:root[data-theme="dark"] body.s-dsa{--accent:#8ea2ff}:root[data-theme="dark"] body.s-ml{--accent:#b89aff}:root[data-theme="dark"] body.s-hld{--accent:#ffa45c}:root[data-theme="dark"] body.s-lld{--accent:#5fd0d4}:root[data-theme="dark"] body.s-sys{--accent:#6fd39c}
+body.s-ta{--accent:#c0304f}
+body.s-fa{--accent:#8a6a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.s-dsa{--accent:#8ea2ff}:root:not([data-theme="light"]) body.s-ml{--accent:#b89aff}:root:not([data-theme="light"]) body.s-hld{--accent:#ffa45c}:root:not([data-theme="light"]) body.s-lld{--accent:#5fd0d4}:root:not([data-theme="light"]) body.s-sys{--accent:#6fd39c}:root:not([data-theme="light"]) body.s-ta{--accent:#ff8fa3}:root:not([data-theme="light"]) body.s-fa{--accent:#e8c25a}}
+:root[data-theme="dark"] body.s-dsa{--accent:#8ea2ff}:root[data-theme="dark"] body.s-ml{--accent:#b89aff}:root[data-theme="dark"] body.s-hld{--accent:#ffa45c}:root[data-theme="dark"] body.s-lld{--accent:#5fd0d4}:root[data-theme="dark"] body.s-sys{--accent:#6fd39c}:root[data-theme="dark"] body.s-ta{--accent:#ff8fa3}:root[data-theme="dark"] body.s-fa{--accent:#e8c25a}
 
 body{--accent-soft:color-mix(in srgb,var(--accent) 13%,var(--surface))}
 *{box-sizing:border-box}
@@ -138,6 +140,7 @@ main{min-width:0;padding:22px max(20px,env(safe-area-inset-right,0px)) 80px 28px
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0}
 .chips span{font-size:12px;border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:2px 9px;color:var(--fg-2)}
 .formula{font:12.5px/1.55 var(--mono);background:var(--code-bg);border:1px solid var(--line-2);border-radius:6px;padding:6px 9px;margin:6px 0;overflow-x:auto;white-space:pre}
+.formula .fl{display:block;white-space:pre-wrap;padding-left:2ch;text-indent:-2ch;overflow-wrap:anywhere}
 .steps{counter-reset:s;list-style:none;padding-left:0!important}
 .steps li{counter-increment:s;position:relative;padding-left:28px;margin:6px 0}
 .steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--h) 14%,transparent);color:var(--h);font:600 11px var(--mono)}
@@ -493,3 +496,7 @@ pre.code[data-hl="api"] .k{font-weight:600}
 .codewrap:hover::before,.codewrap:focus-within::before{opacity:0}
 @media (hover:none){.codewrap[data-hl]::before{display:none}}
 @media print{pre.code .c{font-style:normal}}
+/* seven sheet tabs: give them room on mid-size screens */
+@media (max-width:1240px){.search input{width:min(240px,24vw)}}
+@media (max-width:1100px){.tabs a{padding:6px 6px;font-size:12.5px}.search kbd{display:none}.search input{padding-right:10px}}
+@media (max-width:1040px){.search input{width:150px}}

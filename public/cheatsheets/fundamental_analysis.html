@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fundamental Analysis · Cheatsheets</title>
+<meta name="description" content="Financial statements, ratios and DuPont, valuation multiples and a full worked DCF with sensitivity and reverse DCF, margin of safety, moats and management, earnings-quality scores, earnings season, macro, sector metrics, investing styles and an India lens.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+</head>
+<body class="s-fa">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html" aria-current="page">Fundamental</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html" aria-current="page">Fundamental</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Markets · investing</div><h1>Fundamental Analysis</h1><p>Financial statements, ratios and DuPont, valuation multiples and a full worked DCF with sensitivity and reverse DCF, margin of safety, moats and management, earnings-quality scores, earnings season, macro, sector metrics, investing styles and an India lens.</p></div>
+      <div class="stats"><div><b>14</b>sections</div><div><b>90</b>cards</div><div><b>9</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec r" data-origin="fa" id="fatlas"><h2 data-label="Fundamental analysis atlas: topics and routes"><span class="n">00</span>Fundamental analysis atlas: topics and routes</h2>
+<p>The whole sheet on one screen. Select an area or topic to jump to it, and hover diagram boxes for explanations. This is an educational reference, not investment advice.</p>
+<div class="g2">
+<div class="card r full" data-skey="fa:fundamental-analysis-atlas-topics-and-routes/fundamental-analysis-topic-atlas" id="fundamental-analysis-topic-atlas"><h3 data-label="Fundamental analysis topic atlas">Fundamental analysis topic atlas<a aria-label="Link to this card" class="anchor" href="#fundamental-analysis-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>Fundamental Analysis</b><small>9 areas · 36 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#found" title="Go to: Foundations: value, price and investing styles"><span class="at-n">01</span><span class="at-bl">Foundations</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#investing-styles-compared" title="Go to: Investing styles compared">Value, growth and GARP</a><a class="at-chip" href="#graham-s-core-ideas" title="Go to: Graham's core ideas">Mr. Market and margin of safety</a><a class="at-chip" href="#where-to-find-the-numbers-india" title="Go to: Where to find the numbers (India)">Data sources</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#statements" title="Go to: Financial statements: reading the big three"><span class="at-n">02</span><span class="at-bl">Financial statements</span><span class="at-c">6</span></a><div class="at-leaves"><a class="at-chip" href="#income-statement" title="Go to: Income statement">Income statement</a><a class="at-chip" href="#balance-sheet" title="Go to: Balance sheet">Balance sheet</a><a class="at-chip" href="#cash-flow-statement" title="Go to: Cash flow statement">Cash flow statement</a><a class="at-chip" href="#how-the-three-statements-connect" title="Go to: How the three statements connect">Three-statement links</a><a class="at-chip" href="#working-capital-days" title="Go to: Working-capital days">Working-capital days</a><a class="at-chip" href="#ittelson-s-12-accounting-principles" title="Go to: Ittelson's 12 accounting principles">Accounting principles</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#ratios" title="Go to: Financial ratios: profitability, returns and leverage"><span class="at-n">03</span><span class="at-bl">Ratios</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#profitability-and-return-ratios" title="Go to: Profitability and return ratios">Profitability and margins</a><a class="at-chip" href="#dupont-decomposition" title="Go to: DuPont decomposition">DuPont and ROIC</a><a class="at-chip" href="#liquidity-and-leverage-ranges" title="Go to: Liquidity and leverage ranges">Liquidity and leverage</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#valuation" title="Go to: Valuation: multiples, DCF and other models"><span class="at-n">04</span><span class="at-bl">Valuation</span><span class="at-c">7</span></a><div class="at-leaves"><a class="at-chip" href="#valuation-multiples-what-when-and-typical-ranges" title="Go to: Valuation multiples: what, when and typical ranges">Multiples and when to use them</a><a class="at-chip" href="#justified-multiples-where-multiples-come-from" title="Go to: Justified multiples (where multiples come from)">Justified multiples</a><a class="at-chip" href="#worked-dcf-crore-illustrative" title="Go to: Worked DCF (₹ crore, illustrative)">DCF worked example</a><a class="at-chip" href="#sensitivity-value-per-share" title="Go to: Sensitivity: value per share (₹)">Sensitivity and reverse DCF</a><a class="at-chip" href="#wacc-and-capm" title="Go to: WACC and CAPM">WACC and CAPM</a><a class="at-chip" href="#other-intrinsic-models" title="Go to: Other intrinsic models">DDM, EPV and Graham</a><a class="at-chip" href="#relative-valuation-comps" title="Go to: Relative valuation: comps">Comps and transactions</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#mos" title="Go to: Margin of safety and value traps"><span class="at-n">05</span><span class="at-bl">Margin of safety</span><span class="at-c">2</span></a><div class="at-leaves"><a class="at-chip" href="#margin-of-safety" title="Go to: Margin of safety">Thresholds by quality</a><a class="at-chip" href="#value-trap-or-genuine-bargain" title="Go to: Value trap or genuine bargain?">Value traps</a></div></div><div class="at-row" style="--b:var(--c-r)"><a class="at-branch" href="#moat" title="Go to: Business quality: moats, industry and management"><span class="at-n">06</span><span class="at-bl">Business quality</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#five-sources-of-economic-moat" title="Go to: Five sources of economic moat">Economic moats</a><a class="at-chip" href="#porter-s-five-forces" title="Go to: Porter's five forces">Porter's five forces</a><a class="at-chip" href="#industry-life-cycle" title="Go to: Industry life cycle">Industry life cycle</a><a class="at-chip" href="#management-and-governance-scorecard" title="Go to: Management and governance scorecard">Management and governance</a><a class="at-chip" href="#fisher-s-15-points-common-stocks-and-uncommon-pr" title="Go to: Fisher's 15 points (Common Stocks and Uncommon Profits)">Fisher's 15 points</a></div></div><div class="at-row" style="--b:var(--c-y)"><a class="at-branch" href="#quality" title="Go to: Earnings quality and distress scores"><span class="at-n">07</span><span class="at-bl">Earnings</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#cash-conversion-and-accruals" title="Go to: Cash conversion and accruals">Earnings quality and accruals</a><a class="at-chip" href="#beneish-m-score-manipulation-screen" title="Go to: Beneish M-score (manipulation screen)">Beneish, Altman, Piotroski</a><a class="at-chip" href="#earnings" title="Go to: Earnings season playbook">Earnings season playbook</a></div></div><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#macro" title="Go to: Macro drivers and sector rotation"><span class="at-n">08</span><span class="at-bl">Macro and sectors</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#interest-rates" title="Go to: Interest rates">Rates, inflation and the cycle</a><a class="at-chip" href="#sector-rotation-cycle" title="Go to: Sector rotation cycle">Sector rotation</a><a class="at-chip" href="#what-to-look-at-by-sector" title="Go to: What to look at, by sector">Sector KPIs</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#styles" title="Go to: Investing styles and classic screens"><span class="at-n">09</span><span class="at-bl">Practice</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#styles" title="Go to: Investing styles and classic screens">Investing styles</a><a class="at-chip" href="#india" title="Go to: India lens: filings, governance and red flags">India lens</a><a class="at-chip" href="#one-page-investment-thesis" title="Go to: One-page investment thesis">Research workflow and sell rules</a><a class="at-chip" href="#the-dcf-in-python" title="Go to: The DCF in Python">DCF in Python</a></div></div></div></div></div>
+<div class="card b" data-skey="fa:fundamental-analysis-atlas-topics-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li><b>Learning:</b> statements first, then ratios, then valuation. Valuation without reading the statements is guesswork.</li>
+<li><b>Researching a stock:</b> follow the workflow below; use the ladders to pick a valuation method and to screen out value traps and weak earnings.</li>
+<li><b>Before buying:</b> run the last-minute checklist and write down your sell rules.</li>
+<li><b>Ongoing:</b> re-read the thesis every quarter when results come out.</li>
+</ol><div class="callout"><b>Educational, not investment advice.</b> Built from your notes for study; figures in examples are illustrative.</div></div>
+<div class="card t" data-skey="fa:fundamental-analysis-atlas-topics-and-routes/research-workflow" id="research-workflow"><h3 data-label="Research workflow">Research workflow<a aria-label="Link to this card" class="anchor" href="#research-workflow">#</a></h3><pre class="mermaid" data-h="544" data-key="3fb66402552b" data-w="222">flowchart TD
+  SCR["Screen for quality and value"] --&gt; BUS["Understand the business"]
+  BUS --&gt; FIN["Read 5–10 years of statements"]
+  FIN --&gt; QUAL["Moat, industry, management"]
+  QUAL --&gt; VAL["Value it: DCF and multiples"]
+  VAL --&gt; MOS["Compare price with value"]
+  MOS --&gt; BUY["Size the position and buy"]
+  BUY --&gt; MON["Monitor results, apply sell rules"]</pre><p>Each step can end the research. Most ideas should die at the business or statements step.</p></div>
+<div class="card o" data-skey="fa:fundamental-analysis-atlas-topics-and-routes/the-four-questions-behind-every-investment" id="the-four-questions-behind-every-investment"><h3 data-label="The four questions behind every investment">The four questions behind every investment<a aria-label="Link to this card" class="anchor" href="#the-four-questions-behind-every-investment">#</a></h3><div class="tw"><table>
+<tr><th>Question</th><th>Evidence</th><th>Where it's covered</th></tr>
+<tr><td>Is this a good business?</td><td><abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr> above <abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr> for years, stable margins, a nameable moat</td><td>Ratios, business quality</td></tr>
+<tr><td>Are the numbers real?</td><td>Cash flow tracks profit, clean balance sheet, sensible accounting</td><td>Statements, earnings quality</td></tr>
+<tr><td>Is management on my side?</td><td>Capital allocation record, ownership, governance, candour</td><td>Business quality, India lens</td></tr>
+<tr><td>Is the price right?</td><td>Intrinsic value well above price under conservative assumptions</td><td>Valuation, margin of safety</td></tr>
+</table></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#found"><span>Next</span>01 · Foundations: value, price and investing styles</a></nav></section>
+<section class="sec b" data-origin="fa" id="found"><h2 data-label="Foundations: value, price and investing styles"><span class="n">01</span>Foundations: value, price and investing styles</h2>
+<p class="src">TradingOverview/fundamental-analysis/summary · book-notes (The Intelligent Investor, Security Analysis, Common Stocks and Uncommon Profits)</p>
+<div class="g2">
+<div class="card b" data-skey="fa:foundations-value-price-and-investing-styles/what-fundamental-analysis-does" id="what-fundamental-analysis-does"><h3 data-label="What fundamental analysis does">What fundamental analysis does<a aria-label="Link to this card" class="anchor" href="#what-fundamental-analysis-does">#</a></h3><ul>
+<li>Estimates a business's <b>intrinsic value</b> from its cash flows, assets, growth and risk, then compares it with the market price.</li>
+<li>Price can stray from value for years; over long periods it tends to follow earnings and cash flow.</li>
+<li>Buy when price is well below value (margin of safety); avoid or sell when price is far above value or quality is deteriorating.</li>
+<li><b>Fundamentals decide what to own; technicals help decide when.</b></li>
+</ul></div>
+<div class="card p" data-skey="fa:foundations-value-price-and-investing-styles/graham-s-core-ideas" id="graham-s-core-ideas"><h3 data-label="Graham's core ideas">Graham's core ideas<a aria-label="Link to this card" class="anchor" href="#graham-s-core-ideas">#</a></h3><ul>
+<li><b>Mr. Market</b> offers you a price every day, sometimes euphoric, sometimes depressed. Use his moods; never take orders from them.</li>
+<li><b>Investment vs speculation:</b> an investment, on thorough analysis, promises safety of principal and an adequate return.</li>
+<li><b>Margin of safety:</b> the gap between value and price absorbs your mistakes and bad luck.</li>
+<li><b>Defensive investor:</b> diversified, high-quality, low-effort. <b>Enterprising investor:</b> more work for bargains and special situations.</li>
+<li>The investor's chief problem, and worst enemy, is likely to be himself.</li>
+</ul></div>
+<div class="card g full" data-skey="fa:foundations-value-price-and-investing-styles/investing-styles-compared" id="investing-styles-compared"><h3 data-label="Investing styles compared">Investing styles compared<a aria-label="Link to this card" class="anchor" href="#investing-styles-compared">#</a></h3><div class="tw"><table>
+<tr><th>Style</th><th>Looks for</th><th>Typical metrics</th><th>Main risk</th><th>Associated with</th></tr>
+<tr><td>Deep value</td><td>Assets or earnings far below price</td><td>Low <abbr class="gl" data-tip="Share price ÷ book value per share. The key multiple for banks and insurers; justified P/B = (ROE − g) ÷ (r − g)." data-tip-title="P/B: Price-to-book ratio">P/B</abbr>, <abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr>, <abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr>/EBIT; net-nets</td><td>Value traps</td><td>Graham</td></tr>
+<tr><td>Quality / compounders</td><td>High <abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr> with a long reinvestment runway</td><td>ROIC, <abbr class="gl" data-tip="Operating cash flow − capex. Cash left for dividends, buybacks, debt repayment or acquisitions." data-tip-title="FCF: Free cash flow">FCF</abbr> conversion, moat</td><td>Overpaying</td><td>Buffett, Munger, Terry Smith</td></tr>
+<tr><td>Growth</td><td>Fast, durable revenue and earnings growth</td><td>Revenue and <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> growth, <abbr class="gl" data-tip="The revenue available if a company won every possible customer in its market." data-tip-title="TAM: Total addressable market">TAM</abbr>, unit economics</td><td>Growth stalls; multiple collapse</td><td>Fisher, Lynch</td></tr>
+<tr><td><abbr class="gl" data-tip="Style blending growth and value: decent growth bought at a moderate multiple, often screened with PEG." data-tip-title="GARP: Growth at a reasonable price">GARP</abbr></td><td>Growth at a reasonable price</td><td><abbr class="gl" data-tip="P/E ÷ EPS growth rate in %. Around 1 is &quot;fair&quot; in Lynch's rule of thumb." data-tip-title="PEG: Price/earnings-to-growth ratio">PEG</abbr> around 1 or below</td><td>Mediocre at both</td><td>Lynch</td></tr>
+<tr><td>Dividend / income</td><td>Sustainable, growing payouts</td><td>Yield, FCF coverage, payout ratio</td><td>Dividend cuts</td><td>—</td></tr>
+<tr><td>Special situations</td><td>Event-driven mispricing</td><td>Spin-offs, mergers, restructurings</td><td>Deal or event risk</td><td>Greenblatt</td></tr>
+</table></div></div>
+<div class="card t" data-skey="fa:foundations-value-price-and-investing-styles/two-ways-to-value-anything-damodaran" id="two-ways-to-value-anything-damodaran"><h3 data-label="Two ways to value anything (Damodaran)">Two ways to value anything (Damodaran)<a aria-label="Link to this card" class="anchor" href="#two-ways-to-value-anything-damodaran">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Intrinsic</th><th>Relative</th></tr>
+<tr><td>Question</td><td>What are the cash flows worth?</td><td>What do similar assets sell for?</td></tr>
+<tr><td>Tools</td><td><abbr class="gl" data-tip="Valuation that discounts forecast free cash flows and a terminal value to today at the cost of capital." data-tip-title="DCF: Discounted cash flow">DCF</abbr>, <abbr class="gl" data-tip="Value = next year's dividend ÷ (cost of equity − growth). Suits stable payers and banks." data-tip-title="DDM: Dividend discount model">DDM</abbr>, <abbr class="gl" data-tip="Normalised after-tax operating profit ÷ WACC: value with zero growth. If price is below EPV, growth is free." data-tip-title="EPV: Earnings power value">EPV</abbr></td><td><abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr>, <abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr>/EBITDA, <abbr class="gl" data-tip="Share price ÷ book value per share. The key multiple for banks and insurers; justified P/B = (ROE − g) ÷ (r − g)." data-tip-title="P/B: Price-to-book ratio">P/B</abbr>, comps</td></tr>
+<tr><td>Strength</td><td>Forces you to state assumptions</td><td>Market-grounded, fast</td></tr>
+<tr><td>Weakness</td><td>Sensitive to inputs</td><td>Inherits market mispricing</td></tr>
+</table></div><p>Every valuation is biased (you choose the inputs), uncertain, and simpler is often better. Use both and look for agreement.</p></div>
+<div class="card y" data-skey="fa:foundations-value-price-and-investing-styles/where-to-find-the-numbers-india" id="where-to-find-the-numbers-india"><h3 data-label="Where to find the numbers (India)">Where to find the numbers (India)<a aria-label="Link to this card" class="anchor" href="#where-to-find-the-numbers-india">#</a></h3><ul>
+<li><b>Annual reports and quarterly results:</b> <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> and <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> corporate filings, company investor-relations pages.</li>
+<li><b>Ten-year financials and screens:</b> Screener.in (export to Excel), Tickertape, Trendlyne.</li>
+<li><b>Management commentary:</b> earnings-call transcripts and investor presentations.</li>
+<li><b>Shareholding, pledges, insider trades:</b> quarterly shareholding pattern and <abbr class="gl" data-tip="SEBI takeover code: disclosures when holdings cross thresholds and open offers above 25%." data-tip-title="SAST: Substantial Acquisition of Shares and Takeovers">SAST</abbr>/PIT disclosures on the exchanges.</li>
+<li><b>Credit ratings:</b> CRISIL, ICRA, CARE, India Ratings rationales explain debt risks plainly.</li>
+<li><b>Macro:</b> <abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr> (DBIE, policy statements), MoSPI (<abbr class="gl" data-tip="Retail inflation measure. RBI targets CPI inflation of 4% within a 2–6% band." data-tip-title="CPI: Consumer price index">CPI</abbr>, <abbr class="gl" data-tip="Monthly MoSPI index of output in mining, manufacturing and electricity." data-tip-title="IIP: Index of industrial production">IIP</abbr>, <abbr class="gl" data-tip="Total value of goods and services produced. Nominal GDP growth sets the ceiling for long-run earnings growth." data-tip-title="GDP: Gross domestic product">GDP</abbr>).</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#fatlas"><span>Previous</span>00 · Fundamental analysis atlas: topics and routes</a><a class="sn-next" href="#statements"><span>Next</span>02 · Financial statements: reading the big three</a></nav></section>
+<section class="sec g" data-origin="fa" id="statements"><h2 data-label="Financial statements: reading the big three"><span class="n">02</span>Financial statements: reading the big three</h2>
+<p class="src">TradingOverview/fundamental-analysis/handbook/01-financial-statements · book-notes/financial-statements-step-by-step-guide (Ittelson)</p>
+<div class="g2">
+<div class="card g full" data-skey="fa:financial-statements-reading-the-big-three/how-the-three-statements-connect" id="how-the-three-statements-connect"><h3 data-label="How the three statements connect">How the three statements connect<a aria-label="Link to this card" class="anchor" href="#how-the-three-statements-connect">#</a></h3><pre class="mermaid" data-h="311" data-key="c787a68430d6" data-w="1045">flowchart LR
+  IS["Income statement: net income"] --&gt; CFO["Cash flow: operating section starts from net income"]
+  IS --&gt; RE["Balance sheet: retained earnings grow by profit less dividends"]
+  WC["Balance sheet: change in receivables, inventory, payables"] --&gt; CFO
+  CFO --&gt; CASH["Balance sheet: ending cash"]
+  CAPEX["Cash flow: capex in investing"] --&gt; FA["Balance sheet: fixed assets"]
+  DEP["Income statement: depreciation"] --&gt; FA
+  FIN["Cash flow: debt and equity raised or repaid"] --&gt; DEBT["Balance sheet: debt and equity"]</pre></div>
+<div class="card b" data-skey="fa:financial-statements-reading-the-big-three/income-statement" id="income-statement"><h3 data-label="Income statement">Income statement<a aria-label="Link to this card" class="anchor" href="#income-statement">#</a></h3><pre class="code" data-hl="text" data-lang="text">Revenue (net sales)
+− Cost of goods sold
+= Gross profit                  <span class="o">→</span> gross margin
+− Operating expenses (SG&amp;A, R&amp;D, depreciation)
+= Operating income (EBIT)       <span class="o">→</span> operating margin
+± Interest and other income
+= Profit before tax
+− Tax
+= Net income                    <span class="o">→</span> net margin
+÷ Diluted shares
+= Diluted EPS</pre><ul>
+<li>Separate organic growth (volume, price) from acquisitions.</li>
+<li>Operating leverage: % change in <abbr class="gl" data-tip="Operating profit. Compares businesses regardless of how they are financed." data-tip-title="EBIT: Earnings before interest and tax">EBIT</abbr> ÷ % change in revenue.</li>
+<li>Strip one-offs to get normalised earnings; "recurring one-offs" are costs.</li>
+<li>India: watch "other income" (treasury gains) and exceptional items.</li>
+</ul></div>
+<div class="card p" data-skey="fa:financial-statements-reading-the-big-three/balance-sheet" id="balance-sheet"><h3 data-label="Balance sheet">Balance sheet<a aria-label="Link to this card" class="anchor" href="#balance-sheet">#</a></h3><div class="formula"><span class="fl">assets = liabilities + shareholders' equity</span></div><div class="tw"><table>
+<tr><th>Item</th><th>What to check</th></tr>
+<tr><td>Cash and investments</td><td>Real and available? Net cash vs debt</td></tr>
+<tr><td>Receivables</td><td>Growing faster than sales? <abbr class="gl" data-tip="Receivables ÷ revenue × 365. How long customers take to pay; a rising DSO is an early warning." data-tip-title="DSO: Days sales outstanding">DSO</abbr> trend</td></tr>
+<tr><td>Inventory</td><td>Growing faster than <abbr class="gl" data-tip="Direct cost of making or buying what was sold: materials, direct labour, production overheads." data-tip-title="COGS: Cost of goods sold">COGS</abbr>? <abbr class="gl" data-tip="Inventory ÷ COGS × 365. How long stock sits before it is sold." data-tip-title="DIO: Days inventory outstanding">DIO</abbr> trend, write-downs</td></tr>
+<tr><td>Fixed assets, <abbr class="gl" data-tip="Spending on projects not yet commissioned. CWIP that sits for years is a red flag." data-tip-title="CWIP: Capital work in progress">CWIP</abbr></td><td>Capital-work-in-progress that never gets commissioned</td></tr>
+<tr><td>Goodwill and intangibles</td><td>Above 30–40% of assets = acquisition risk</td></tr>
+<tr><td>Debt</td><td>Maturity schedule, fixed vs floating, covenants</td></tr>
+<tr><td>Deferred revenue</td><td>High-quality liability for subscription firms</td></tr>
+<tr><td>Contingent liabilities</td><td>Footnotes: guarantees, tax disputes, litigation</td></tr>
+</table></div><div class="formula"><span class="fl">net debt = total debt − cash and liquid investments</span><span class="fl">tangible book = equity − goodwill − intangibles</span></div></div>
+<div class="card o" data-skey="fa:financial-statements-reading-the-big-three/cash-flow-statement" id="cash-flow-statement"><h3 data-label="Cash flow statement">Cash flow statement<a aria-label="Link to this card" class="anchor" href="#cash-flow-statement">#</a></h3><div class="tw"><table>
+<tr><th>Section</th><th>Contains</th><th>Healthy pattern</th></tr>
+<tr><td>Operating (<abbr class="gl" data-tip="Cash generated by the core business. Should track or exceed net profit over several years." data-tip-title="CFO: Cash flow from operations">CFO</abbr>)</td><td>Net income + non-cash items ± working capital</td><td>Positive, tracking or above net income</td></tr>
+<tr><td>Investing (CFI)</td><td>Capex, acquisitions, investments</td><td>Negative for a growing firm</td></tr>
+<tr><td>Financing (CFF)</td><td>Debt, equity, dividends, buybacks</td><td>Negative for a mature cash generator</td></tr>
+</table></div><p>"Revenue is vanity, profit is sanity, cash is reality." The cash flow statement is the hardest to manipulate.</p></div>
+<div class="card t" data-skey="fa:financial-statements-reading-the-big-three/free-cash-flow-variants" id="free-cash-flow-variants"><h3 data-label="Free cash flow variants">Free cash flow variants<a aria-label="Link to this card" class="anchor" href="#free-cash-flow-variants">#</a></h3><div class="formula"><span class="fl">FCF  = CFO − capex</span><span class="fl">FCFF = EBIT × (1 − t) + D&amp;A − capex − ΔNWC</span><span class="fl">FCFE = net income + D&amp;A − capex − ΔNWC + net borrowing</span><span class="fl">FCF margin = FCF ÷ revenue        (above 10% = capital-efficient)</span><span class="fl">FCF yield  = FCF ÷ market cap     (above 5% = potentially attractive)</span><span class="fl">dividend cover = FCF ÷ dividends  (above 1.5× = sustainable)</span></div><p>For tech companies, also subtract stock-based compensation: it is a real cost paid in shares.</p></div>
+<div class="card y" data-skey="fa:financial-statements-reading-the-big-three/working-capital-days" id="working-capital-days"><h3 data-label="Working-capital days">Working-capital days<a aria-label="Link to this card" class="anchor" href="#working-capital-days">#</a></h3><div class="formula"><span class="fl">DSO = receivables ÷ revenue × 365</span><span class="fl">DIO = inventory ÷ COGS × 365</span><span class="fl">DPO = payables ÷ COGS × 365</span><span class="fl">cash conversion cycle = DSO + DIO − DPO</span></div><ul>
+<li>A shorter cycle frees cash; a negative cycle means suppliers fund the business (strong retailers, some FMCG).</li>
+<li>A rising <abbr class="gl" data-tip="Receivables ÷ revenue × 365. How long customers take to pay; a rising DSO is an early warning." data-tip-title="DSO: Days sales outstanding">DSO</abbr> is an early warning of aggressive revenue recognition or weak customers.</li>
+<li>A rise in receivables or inventory uses cash; a rise in payables or deferred revenue releases it.</li>
+</ul></div>
+<div class="card r" data-skey="fa:financial-statements-reading-the-big-three/capex-intensity-by-industry" id="capex-intensity-by-industry"><h3 data-label="Capex intensity by industry">Capex intensity by industry<a aria-label="Link to this card" class="anchor" href="#capex-intensity-by-industry">#</a></h3><div class="tw"><table>
+<tr><th>Industry</th><th>Capex / revenue</th></tr>
+<tr><td>Software, asset-light tech</td><td>2–5%</td></tr>
+<tr><td>Consumer staples</td><td>3–6%</td></tr>
+<tr><td>Healthcare, pharma</td><td>5–10%</td></tr>
+<tr><td>Manufacturing</td><td>5–12%</td></tr>
+<tr><td>Semiconductors</td><td>10–20%</td></tr>
+<tr><td>Telecom, cable</td><td>15–25%</td></tr>
+<tr><td>Airlines, rail</td><td>15–25%</td></tr>
+<tr><td>Oil and gas exploration</td><td>20–40%</td></tr>
+</table></div><p>Capex persistently below depreciation (without shrinking) usually means under-investment.</p></div>
+<div class="card b full" data-skey="fa:financial-statements-reading-the-big-three/statement-red-flags" id="statement-red-flags"><h3 data-label="Statement red flags">Statement red flags<a aria-label="Link to this card" class="anchor" href="#statement-red-flags">#</a></h3><div class="tw"><table>
+<tr><th>Statement</th><th>Red flag</th><th>Why it matters</th></tr>
+<tr><td>Income</td><td>Profit growing while <abbr class="gl" data-tip="Cash generated by the core business. Should track or exceed net profit over several years." data-tip-title="CFO: Cash flow from operations">CFO</abbr> is flat or falling</td><td>Accrual earnings; usually resolves against the stock</td></tr>
+<tr><td>Income</td><td>Big swings in gross margin quarter to quarter</td><td>Possible channel stuffing or one-off pricing</td></tr>
+<tr><td>Income</td><td>Profit driven by other income or asset sales</td><td>Weak core business hidden</td></tr>
+<tr><td>Income</td><td>Sudden fall in effective tax rate</td><td>Non-operational <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> boost</td></tr>
+<tr><td>Balance</td><td>Receivables or inventory growing faster than sales</td><td>Collection or demand problems</td></tr>
+<tr><td>Balance</td><td>Debt maturities bunched in 1–3 years</td><td>Refinancing risk</td></tr>
+<tr><td>Balance</td><td>Large loans or advances to related parties</td><td>Cash leaking to the promoter group</td></tr>
+<tr><td>Cash flow</td><td>Positive <abbr class="gl" data-tip="Operating cash flow − capex. Cash left for dividends, buybacks, debt repayment or acquisitions." data-tip-title="FCF: Free cash flow">FCF</abbr> only from squeezing working capital</td><td>Not repeatable</td></tr>
+<tr><td>Cash flow</td><td>Operations funded by repeated debt or equity raises</td><td>Cash burn; dilution</td></tr>
+<tr><td>Cash flow</td><td>Interest capitalised into assets</td><td>Understates the true cost of debt</td></tr>
+</table></div></div>
+<div class="card p" data-skey="fa:financial-statements-reading-the-big-three/ittelson-s-12-accounting-principles" id="ittelson-s-12-accounting-principles"><h3 data-label="Ittelson's 12 accounting principles">Ittelson's 12 accounting principles<a aria-label="Link to this card" class="anchor" href="#ittelson-s-12-accounting-principles">#</a></h3><ol class="steps">
+<li><b>Entity:</b> the company is separate from its owners.</li>
+<li><b>Going concern:</b> assumed to keep operating.</li>
+<li><b>Measurement:</b> only objective, verifiable data.</li>
+<li><b>Units of measure:</b> recorded in money.</li>
+<li><b>Historical cost:</b> assets at what was paid.</li>
+<li><b>Materiality:</b> report what would change a reader's decision.</li>
+<li><b>Estimates and judgements:</b> unavoidable, so read them critically.</li>
+<li><b>Consistency:</b> same methods year to year.</li>
+<li><b>Conservatism:</b> record losses when probable, gains when realised.</li>
+<li><b>Periodicity:</b> results cut into periods.</li>
+<li><b>Substance over form:</b> economics beat legal labels.</li>
+<li><b>Accrual basis:</b> revenue when earned, costs when incurred.</li>
+</ol></div>
+<div class="card g" data-skey="fa:financial-statements-reading-the-big-three/reading-an-annual-report-in-order" id="reading-an-annual-report-in-order"><h3 data-label="Reading an annual report in order">Reading an annual report in order<a aria-label="Link to this card" class="anchor" href="#reading-an-annual-report-in-order">#</a></h3><ol class="steps">
+<li><b>Chairman's / MD's letter:</b> strategy and tone; compare with last year's promises.</li>
+<li><b>Management discussion and analysis:</b> drivers, segments, risks.</li>
+<li><b>Cash flow statement</b> before the P&amp;L.</li>
+<li><b>Notes to accounts:</b> policies, contingent liabilities, related parties, debt terms.</li>
+<li><b>Auditor's report:</b> qualifications, emphasis of matter, key audit matters.</li>
+<li><b>Segment data and consolidated vs standalone</b> numbers.</li>
+<li><b>Corporate governance report:</b> board, pay, attendance, related-party policy.</li>
+</ol></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#found"><span>Previous</span>01 · Foundations: value, price and investing styles</a><a class="sn-next" href="#ratios"><span>Next</span>03 · Financial ratios: profitability, returns and leverage</a></nav></section>
+<section class="sec p" data-origin="fa" id="ratios"><h2 data-label="Financial ratios: profitability, returns and leverage"><span class="n">03</span>Financial ratios: profitability, returns and leverage</h2>
+<p class="src">TradingOverview/fundamental-analysis/handbook/02-financial-ratios</p>
+<div class="g2">
+<div class="card p" data-skey="fa:financial-ratios-profitability-returns-and-lever/profitability-and-return-ratios" id="profitability-and-return-ratios"><h3 data-label="Profitability and return ratios">Profitability and return ratios<a aria-label="Link to this card" class="anchor" href="#profitability-and-return-ratios">#</a></h3><div class="tw"><table>
+<tr><th>Ratio</th><th>Formula</th><th>Good sign</th></tr>
+<tr><td>Gross margin</td><td>(revenue − <abbr class="gl" data-tip="Direct cost of making or buying what was sold: materials, direct labour, production overheads." data-tip-title="COGS: Cost of goods sold">COGS</abbr>) ÷ revenue</td><td>Stable or rising: pricing power</td></tr>
+<tr><td>Operating (<abbr class="gl" data-tip="Operating profit. Compares businesses regardless of how they are financed." data-tip-title="EBIT: Earnings before interest and tax">EBIT</abbr>) margin</td><td>EBIT ÷ revenue</td><td>Expanding with scale</td></tr>
+<tr><td>Net margin</td><td>net income ÷ revenue</td><td>Sector dependent</td></tr>
+<tr><td><abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr></td><td>net income ÷ average equity</td><td>Above 15% consistently, without heavy debt</td></tr>
+<tr><td><abbr class="gl" data-tip="Net profit ÷ average total assets. Less distorted by leverage than ROE; banks typically earn 1–1.5%." data-tip-title="ROA: Return on assets">ROA</abbr></td><td>net income ÷ average assets</td><td>Above 5% good; banks 1–1.5%</td></tr>
+<tr><td><abbr class="gl" data-tip="EBIT ÷ (equity + debt). The common Indian quality metric; close to pre-tax ROIC." data-tip-title="ROCE: Return on capital employed">ROCE</abbr></td><td>EBIT ÷ (equity + debt)</td><td>Above cost of capital; popular in India</td></tr>
+<tr><td><abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr></td><td><abbr class="gl" data-tip="EBIT × (1 − tax rate). The profit an unlevered business would earn; the numerator of ROIC and the start of FCFF." data-tip-title="NOPAT: Net operating profit after tax">NOPAT</abbr> ÷ (equity + debt − cash)</td><td>Above 15% for years = likely moat</td></tr>
+<tr><td>Asset turnover</td><td>revenue ÷ assets</td><td>Rising = better capital use</td></tr>
+</table></div></div>
+<div class="card b" data-skey="fa:financial-ratios-profitability-returns-and-lever/dupont-decomposition" id="dupont-decomposition"><h3 data-label="DuPont decomposition">DuPont decomposition<a aria-label="Link to this card" class="anchor" href="#dupont-decomposition">#</a></h3><pre class="mermaid" data-h="200" data-key="d74f4bcff153" data-w="562">flowchart LR
+  ROE["ROE"] --&gt; NM["Net margin = net income / sales"]
+  ROE --&gt; AT["Asset turnover = sales / assets"]
+  ROE --&gt; EM["Equity multiplier = assets / equity"]
+  NM --&gt; TB["Tax burden = net income / PBT"]
+  NM --&gt; IB["Interest burden = PBT / EBIT"]
+  NM --&gt; OM["Operating margin = EBIT / sales"]</pre><div class="formula"><span class="fl">ROE = margin × turnover × leverage</span><span class="fl">5-factor ROE = tax burden × interest burden × operating margin</span><span class="fl">             × asset turnover × leverage</span></div></div>
+<div class="card g" data-skey="fa:financial-ratios-profitability-returns-and-lever/same-roe-different-quality" id="same-roe-different-quality"><h3 data-label="Same ROE, different quality">Same ROE, different quality<a aria-label="Link to this card" class="anchor" href="#same-roe-different-quality">#</a></h3><div class="tw"><table>
+<tr><th>Driver</th><th>Software firm</th><th>Retailer</th></tr>
+<tr><td>Net margin</td><td>25%</td><td>3%</td></tr>
+<tr><td>Asset turnover</td><td>0.8×</td><td>3.0×</td></tr>
+<tr><td>Equity multiplier</td><td>1.0×</td><td>2.2×</td></tr>
+<tr><td><b><abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr></b></td><td><b>20%</b></td><td><b>≈20%</b></td></tr>
+</table></div><p>The software firm earns its ROE from margins with no debt; the retailer needs turnover and leverage, so a small margin dip hurts far more. ROE built on leverage is fragile.</p></div>
+<div class="card o" data-skey="fa:financial-ratios-profitability-returns-and-lever/roic-vs-wacc-the-value-test" id="roic-vs-wacc-the-value-test"><h3 data-label="ROIC vs WACC: the value test">ROIC vs WACC: the value test<a aria-label="Link to this card" class="anchor" href="#roic-vs-wacc-the-value-test">#</a></h3><ul>
+<li><b><abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr> &gt; <abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr>:</b> every rupee reinvested creates value; growth is good.</li>
+<li><b>ROIC = WACC:</b> growth adds nothing.</li>
+<li><b>ROIC &lt; WACC:</b> growth destroys value; the faster it grows, the worse.</li>
+<li>Track <b>incremental ROIC</b> (ΔNOPAT ÷ Δinvested capital) to see whether new investment earns as much as the old.</li>
+</ul><div class="formula"><span class="fl">reinvestment rate = (capex − D&amp;A + ΔNWC) ÷ NOPAT</span><span class="fl">growth ≈ reinvestment rate × ROIC</span></div></div>
+<div class="card t full" data-skey="fa:financial-ratios-profitability-returns-and-lever/liquidity-and-leverage-ranges" id="liquidity-and-leverage-ranges"><h3 data-label="Liquidity and leverage ranges">Liquidity and leverage ranges<a aria-label="Link to this card" class="anchor" href="#liquidity-and-leverage-ranges">#</a></h3><div class="tw"><table>
+<tr><th>Ratio</th><th>Formula</th><th>Comfortable</th><th>Warning</th><th>Note</th></tr>
+<tr><td>Current ratio</td><td>current assets ÷ current liabilities</td><td>1.5–2.5×</td><td>Below 1×</td><td>Strong retailers run below 1 by design</td></tr>
+<tr><td>Quick ratio</td><td>(current assets − inventory − prepaid) ÷ current liabilities</td><td>Above 1×</td><td>Below 0.5×</td><td>Stricter test</td></tr>
+<tr><td>Cash ratio</td><td>cash ÷ current liabilities</td><td>Above 0.2×</td><td>—</td><td>Distress analysis</td></tr>
+<tr><td>Debt / equity</td><td>total debt ÷ equity</td><td>Below 1× (0–0.3× conservative)</td><td>Above 3×</td><td>Utilities and REITs run 2–4×</td></tr>
+<tr><td>Net debt / <abbr class="gl" data-tip="A rough proxy for operating cash flow. It ignores capex, so it flatters capital-intensive businesses." data-tip-title="EBITDA: Earnings before interest, tax, depreciation and amortisation">EBITDA</abbr></td><td>(debt − cash) ÷ EBITDA</td><td>Below 1.5–3×</td><td>Above 5×</td><td>Use EBITDA − capex for heavy-capex firms</td></tr>
+<tr><td>Interest coverage</td><td><abbr class="gl" data-tip="Operating profit. Compares businesses regardless of how they are financed." data-tip-title="EBIT: Earnings before interest and tax">EBIT</abbr> ÷ interest</td><td>Above 5×</td><td>Below 1.5–3×</td><td>Floating-rate debt rises with policy rates</td></tr>
+<tr><td>Debt / capital</td><td>debt ÷ (debt + equity)</td><td>20–50%</td><td>Above 60%</td><td>—</td></tr>
+</table></div></div>
+<div class="card y" data-skey="fa:financial-ratios-profitability-returns-and-lever/margins-by-industry" id="margins-by-industry"><h3 data-label="Margins by industry">Margins by industry<a aria-label="Link to this card" class="anchor" href="#margins-by-industry">#</a></h3><div class="tw"><table>
+<tr><th>Gross margin</th><th>Typical of</th></tr>
+<tr><td>Above 60%</td><td>Software, luxury, pharma</td></tr>
+<tr><td>40–60%</td><td>Branded consumer goods, services, devices</td></tr>
+<tr><td>20–40%</td><td>Manufacturing, specialty retail</td></tr>
+<tr><td>Below 20%</td><td>Distribution, commodities, grocery</td></tr>
+</table></div><div class="tw"><table>
+<tr><th>Net margin</th><th>Typical range</th></tr>
+<tr><td>Mature software</td><td>15–35%</td></tr>
+<tr><td>Pharma</td><td>15–25%</td></tr>
+<tr><td>Consumer staples</td><td>8–15%</td></tr>
+<tr><td>Industrials</td><td>5–10%</td></tr>
+<tr><td>Retail</td><td>2–6%</td></tr>
+<tr><td>Grocery, distribution</td><td>1–3%</td></tr>
+</table></div></div>
+<div class="card r" data-skey="fa:financial-ratios-profitability-returns-and-lever/ratio-habits" id="ratio-habits"><h3 data-label="Ratio habits">Ratio habits<a aria-label="Link to this card" class="anchor" href="#ratio-habits">#</a></h3><ul>
+<li>Compare with <b>peers</b> and with the company's <b>own 5–10 year history</b>, never in isolation.</li>
+<li>Use <b>averages</b> of opening and closing balances for return ratios.</li>
+<li>Use the <b>same data source</b> and definitions across companies.</li>
+<li>Look at the <b>trend</b>: a 12% <abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr> rising from 6% beats an 18% ROE falling from 30%.</li>
+<li>Banks and insurers need their own ratios (see sector KPIs).</li>
+<li>Negative equity from buybacks breaks D/E; use net debt / <abbr class="gl" data-tip="A rough proxy for operating cash flow. It ignores capex, so it flatters capital-intensive businesses." data-tip-title="EBITDA: Earnings before interest, tax, depreciation and amortisation">EBITDA</abbr> instead.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#statements"><span>Previous</span>02 · Financial statements: reading the big three</a><a class="sn-next" href="#valuation"><span>Next</span>04 · Valuation: multiples, DCF and other models</a></nav></section>
+<section class="sec o" data-origin="fa" id="valuation"><h2 data-label="Valuation: multiples, DCF and other models"><span class="n">04</span>Valuation: multiples, DCF and other models</h2>
+<p class="src">TradingOverview/fundamental-analysis/handbook/02-financial-ratios/valuation-ratios · 03-valuation · book-notes/the-little-book-of-valuation (Damodaran)</p>
+<div class="g2">
+<div class="card o full" data-skey="fa:valuation-multiples-dcf-and-other-models/valuation-multiples-what-when-and-typical-ranges" id="valuation-multiples-what-when-and-typical-ranges"><h3 data-label="Valuation multiples: what, when and typical ranges">Valuation multiples: what, when and typical ranges<a aria-label="Link to this card" class="anchor" href="#valuation-multiples-what-when-and-typical-ranges">#</a></h3><div class="tw"><table>
+<tr><th>Multiple</th><th>Formula</th><th>Best for</th><th>Avoid when</th><th>Rough read</th></tr>
+<tr><td><abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr></td><td>price ÷ <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr></td><td>Stable, profitable firms</td><td>Losses; cyclicals at peak earnings</td><td>10–15 mature; 15–25 quality or growth; 40+ speculative</td></tr>
+<tr><td>Forward P/E</td><td>price ÷ next-12-month EPS</td><td>Growing firms with visible earnings</td><td>Guidance unreliable</td><td>Compare with own history</td></tr>
+<tr><td><abbr class="gl" data-tip="Share price ÷ book value per share. The key multiple for banks and insurers; justified P/B = (ROE − g) ÷ (r − g)." data-tip-title="P/B: Price-to-book ratio">P/B</abbr></td><td>price ÷ book value per share</td><td>Banks, insurers, asset-heavy firms</td><td>Asset-light, brand or IP firms</td><td>Justified by <abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr> vs cost of equity</td></tr>
+<tr><td><abbr class="gl" data-tip="Market cap ÷ revenue. Used for loss-making growth firms; check what margin it implies at maturity." data-tip-title="P/S: Price-to-sales ratio">P/S</abbr></td><td>market cap ÷ revenue</td><td>Pre-profit growth, turnarounds</td><td>Margins vary widely</td><td>Check implied margin at maturity</td></tr>
+<tr><td><abbr class="gl" data-tip="Market cap ÷ free cash flow. Harder to manipulate than P/E because it includes real capex." data-tip-title="P/FCF: Price to free cash flow">P/FCF</abbr></td><td>market cap ÷ <abbr class="gl" data-tip="Operating cash flow − capex. Cash left for dividends, buybacks, debt repayment or acquisitions." data-tip-title="FCF: Free cash flow">FCF</abbr></td><td>Capital-light cash generators</td><td>Heavy growth-capex years</td><td>Below 15 cheap; 15–20 fair; 30+ needs growth</td></tr>
+<tr><td><abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr>/EBITDA</td><td>(market cap + debt − cash) ÷ <abbr class="gl" data-tip="A rough proxy for operating cash flow. It ignores capex, so it flatters capital-intensive businesses." data-tip-title="EBITDA: Earnings before interest, tax, depreciation and amortisation">EBITDA</abbr></td><td>Different capital structures, M&amp;A</td><td>Capex well above depreciation</td><td>Sector table below</td></tr>
+<tr><td>EV/EBIT</td><td>EV ÷ <abbr class="gl" data-tip="Operating profit. Compares businesses regardless of how they are financed." data-tip-title="EBIT: Earnings before interest and tax">EBIT</abbr></td><td>Capital-intensive firms</td><td>Pre-profit firms</td><td>Inverse is the earnings yield</td></tr>
+<tr><td>EV/Sales</td><td>EV ÷ revenue</td><td>Early-stage, SaaS</td><td>Low-margin commodities</td><td>—</td></tr>
+<tr><td><abbr class="gl" data-tip="P/E ÷ EPS growth rate in %. Around 1 is &quot;fair&quot; in Lynch's rule of thumb." data-tip-title="PEG: Price/earnings-to-growth ratio">PEG</abbr></td><td>P/E ÷ EPS growth %</td><td>Growth screening</td><td>Mature, no-growth firms</td><td>Below 1 cheap; 1 fair; above 1.5–2 expensive</td></tr>
+<tr><td>Dividend yield</td><td>DPS ÷ price</td><td>Mature payers, utilities</td><td>Payout not covered by FCF</td><td>Compare with bond yields</td></tr>
+</table></div></div>
+<div class="card b" data-skey="fa:valuation-multiples-dcf-and-other-models/ev-ebitda-by-sector-typical" id="ev-ebitda-by-sector-typical"><h3 data-label="EV/EBITDA by sector (typical)">EV/EBITDA by sector (typical)<a aria-label="Link to this card" class="anchor" href="#ev-ebitda-by-sector-typical">#</a></h3><div class="tw"><table>
+<tr><th>Sector</th><th>EV/EBITDA</th></tr>
+<tr><td>Software (SaaS)</td><td>15–40×</td></tr>
+<tr><td>Consumer staples</td><td>12–18×</td></tr>
+<tr><td>Healthcare services</td><td>10–16×</td></tr>
+<tr><td>Industrials</td><td>8–12×</td></tr>
+<tr><td>Telecom</td><td>6–10×</td></tr>
+<tr><td>Basic materials</td><td>5–8×</td></tr>
+<tr><td>Energy</td><td>4–7×</td></tr>
+</table></div><p>Global rules of thumb; Indian quality franchises (consumer, private banks, IT) have often traded at a premium to these ranges. Always compare within the local peer group.</p></div>
+<div class="card p" data-skey="fa:valuation-multiples-dcf-and-other-models/justified-multiples-where-multiples-come-from" id="justified-multiples-where-multiples-come-from"><h3 data-label="Justified multiples (where multiples come from)">Justified multiples (where multiples come from)<a aria-label="Link to this card" class="anchor" href="#justified-multiples-where-multiples-come-from">#</a></h3><div class="formula"><span class="fl">justified forward P/E = payout ÷ (r − g)</span><span class="fl">justified trailing P/E = payout × (1 + g) ÷ (r − g)</span><span class="fl">justified P/B = (ROE − g) ÷ (r − g)</span><span class="fl">payout = 1 − g ÷ ROE    (sustainable growth g = ROE × retention)</span></div><div class="tw"><table>
+<tr><th>Example</th><th>Inputs</th><th>Result</th></tr>
+<tr><td><abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr></td><td>payout 40%, g 8%, r 12%</td><td>forward 10.0×, trailing 10.8×</td></tr>
+<tr><td><abbr class="gl" data-tip="Share price ÷ book value per share. The key multiple for banks and insurers; justified P/B = (ROE − g) ÷ (r − g)." data-tip-title="P/B: Price-to-book ratio">P/B</abbr></td><td><abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr> 18%, g 8%, r 12%</td><td>2.5×</td></tr>
+<tr><td><abbr class="gl" data-tip="P/E ÷ EPS growth rate in %. Around 1 is &quot;fair&quot; in Lynch's rule of thumb." data-tip-title="PEG: Price/earnings-to-growth ratio">PEG</abbr></td><td>P/E 30, <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> growth 20%</td><td>1.5 (expensive for the growth)</td></tr>
+</table></div><p>A high multiple is justified only by high ROE, long growth or low risk. Ask which one the market is paying for.</p></div>
+<div class="card g" data-skey="fa:valuation-multiples-dcf-and-other-models/dcf-step-by-step" id="dcf-step-by-step"><h3 data-label="DCF step by step">DCF step by step<a aria-label="Link to this card" class="anchor" href="#dcf-step-by-step">#</a></h3><pre class="mermaid" data-h="615" data-key="8e11dd236ceb" data-w="343">flowchart TD
+  REV["Forecast revenue 5–10 years"] --&gt; EBIT["EBIT = revenue × margin"]
+  EBIT --&gt; NOPAT["NOPAT = EBIT × (1 − tax)"]
+  NOPAT --&gt; FCFF["FCFF = NOPAT + depreciation − capex − ΔNWC"]
+  FCFF --&gt; PV["Discount each year at WACC"]
+  PV --&gt; TV["Add terminal value: Gordon growth or exit multiple"]
+  TV --&gt; EV["Enterprise value"]
+  EV --&gt; EQ["Equity value = EV − net debt"]
+  EQ --&gt; PS["Per share = equity ÷ diluted shares"]</pre><div class="formula"><span class="fl">value = Σ FCFFₜ ÷ (1 + WACC)ᵗ + TV ÷ (1 + WACC)ⁿ</span><span class="fl">TV = FCFFₙ × (1 + g) ÷ (WACC − g)</span></div></div>
+<div class="card t full" data-skey="fa:valuation-multiples-dcf-and-other-models/worked-dcf-crore-illustrative" id="worked-dcf-crore-illustrative"><h3 data-label="Worked DCF (₹ crore, illustrative)">Worked DCF (₹ crore, illustrative)<a aria-label="Link to this card" class="anchor" href="#worked-dcf-crore-illustrative">#</a></h3><div class="tw"><table>
+<tr><th>Year</th><th>Revenue</th><th>EBIT margin</th><th>EBIT</th><th>NOPAT (25% tax)</th><th>+ D&amp;A (4%)</th><th>− Capex (6%)</th><th>− ΔNWC (10% of Δrev)</th><th>FCFF</th><th>Discount factor (11%)</th><th>PV</th></tr>
+<tr><td>0</td><td>1,000.0</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>1</td><td>1,120.0</td><td>18.0%</td><td>201.6</td><td>151.2</td><td>44.8</td><td>67.2</td><td>12.0</td><td>116.8</td><td>0.901</td><td>105.2</td></tr>
+<tr><td>2</td><td>1,243.2</td><td>18.5%</td><td>230.0</td><td>172.5</td><td>49.7</td><td>74.6</td><td>12.3</td><td>135.3</td><td>0.812</td><td>109.8</td></tr>
+<tr><td>3</td><td>1,367.5</td><td>19.0%</td><td>259.8</td><td>194.9</td><td>54.7</td><td>82.1</td><td>12.4</td><td>155.1</td><td>0.731</td><td>113.4</td></tr>
+<tr><td>4</td><td>1,490.6</td><td>19.5%</td><td>290.7</td><td>218.0</td><td>59.6</td><td>89.4</td><td>12.3</td><td>175.9</td><td>0.659</td><td>115.9</td></tr>
+<tr><td>5</td><td>1,609.8</td><td>20.0%</td><td>322.0</td><td>241.5</td><td>64.4</td><td>96.6</td><td>11.9</td><td>197.4</td><td>0.593</td><td>117.1</td></tr>
+</table></div><div class="tw"><table>
+<tr><th>Step</th><th>Value</th></tr>
+<tr><td>PV of 5 years of <abbr class="gl" data-tip="NOPAT + depreciation − capex − change in working capital. Discount at WACC to get enterprise value." data-tip-title="FCFF: Free cash flow to the firm">FCFF</abbr></td><td>561.4</td></tr>
+<tr><td>Terminal value at year 5 (g = 5%): 197.4 × 1.05 ÷ (0.11 − 0.05)</td><td>3,453.7</td></tr>
+<tr><td>PV of terminal value (× 0.593)</td><td>2,049.6 (<b>78.5% of <abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr></b>)</td></tr>
+<tr><td>Enterprise value</td><td>2,611.0</td></tr>
+<tr><td>Less net debt</td><td>300.0</td></tr>
+<tr><td>Equity value</td><td>2,311.0</td></tr>
+<tr><td>÷ 50 crore shares</td><td><b>₹46.2 per share</b></td></tr>
+</table></div><p>Revenue growth 12, 11, 10, 9, 8%; margin rising 18 → 20%. Note how most of the value sits in the terminal value: the long-run assumptions matter more than the five-year forecast.</p></div>
+<div class="card y" data-skey="fa:valuation-multiples-dcf-and-other-models/sensitivity-value-per-share" id="sensitivity-value-per-share"><h3 data-label="Sensitivity: value per share (₹)">Sensitivity: value per share (₹)<a aria-label="Link to this card" class="anchor" href="#sensitivity-value-per-share">#</a></h3><div class="tw"><table>
+<tr><th>WACC ↓ / g →</th><th>4.0%</th><th>4.5%</th><th>5.0%</th><th>5.5%</th><th>6.0%</th></tr>
+<tr><td>10.0%</td><td>48</td><td>52</td><td>57</td><td>63</td><td>70</td></tr>
+<tr><td>10.5%</td><td>44</td><td>47</td><td>51</td><td>56</td><td>62</td></tr>
+<tr><td>11.0%</td><td>40</td><td>43</td><td><b>46</b></td><td>50</td><td>55</td></tr>
+<tr><td>11.5%</td><td>37</td><td>39</td><td>42</td><td>45</td><td>49</td></tr>
+<tr><td>12.0%</td><td>34</td><td>36</td><td>39</td><td>41</td><td>44</td></tr>
+<tr><td>13.0%</td><td>29</td><td>31</td><td>33</td><td>35</td><td>37</td></tr>
+</table></div><p>One point of <abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr> moves value by roughly 15–25%. If the stock looks cheap across most of the grid, it is robustly cheap; if only in one corner, it is not.</p></div>
+<div class="card r" data-skey="fa:valuation-multiples-dcf-and-other-models/reverse-dcf-and-scenarios" id="reverse-dcf-and-scenarios"><h3 data-label="Reverse DCF and scenarios">Reverse DCF and scenarios<a aria-label="Link to this card" class="anchor" href="#reverse-dcf-and-scenarios">#</a></h3><div class="tw"><table>
+<tr><th>Market price</th><th>Implied 5-year revenue growth</th><th>Read</th></tr>
+<tr><td>₹35</td><td>3.6% a year</td><td>Market expects little; <abbr class="gl" data-tip="(Intrinsic value − price) ÷ intrinsic value. The cushion against valuation errors." data-tip-title="MOS: Margin of safety">MOS</abbr> vs base value = 24%</td></tr>
+<tr><td>₹46</td><td>10.3% a year</td><td>Roughly the base case</td></tr>
+<tr><td>₹60</td><td>17.3% a year</td><td>Needs much faster growth than history</td></tr>
+</table></div><div class="tw"><table>
+<tr><th>Scenario</th><th>Assumptions</th><th>Value</th><th>Weight</th></tr>
+<tr><td>Bull</td><td>15% growth, margin to 22%, <abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr> 10.5%</td><td>₹69.4</td><td>25%</td></tr>
+<tr><td>Base</td><td>As above</td><td>₹46.2</td><td>50%</td></tr>
+<tr><td>Bear</td><td>6% growth, 16% margin, WACC 12%, g 4%</td><td>₹20.6</td><td>25%</td></tr>
+<tr><td colspan="2"><b>Probability-weighted</b></td><td><b>₹45.6</b></td><td></td></tr>
+</table></div><p>Reverse <abbr class="gl" data-tip="Valuation that discounts forecast free cash flows and a terminal value to today at the cost of capital." data-tip-title="DCF: Discounted cash flow">DCF</abbr> asks "what must I believe to pay this price?", which is often easier to judge than a forecast.</p></div>
+<div class="card b" data-skey="fa:valuation-multiples-dcf-and-other-models/wacc-and-capm" id="wacc-and-capm"><h3 data-label="WACC and CAPM">WACC and CAPM<a aria-label="Link to this card" class="anchor" href="#wacc-and-capm">#</a></h3><div class="formula"><span class="fl">cost of equity Re = Rf + β × ERP</span><span class="fl">WACC = E/V × Re + D/V × Rd × (1 − t)</span></div><div class="tw"><table>
+<tr><th>Input (illustrative, India)</th><th>Value</th></tr>
+<tr><td>Risk-free rate (10-year G-sec)</td><td>7.0%</td></tr>
+<tr><td>Beta</td><td>1.1</td></tr>
+<tr><td>Equity risk premium</td><td>6.0%</td></tr>
+<tr><td>Cost of equity</td><td>7 + 1.1 × 6 = <b>13.6%</b></td></tr>
+<tr><td>Pre-tax cost of debt / tax</td><td>9% / 25% → 6.75% after tax</td></tr>
+<tr><td>Weights E / D</td><td>80% / 20%</td></tr>
+<tr><td><b><abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr></b></td><td>0.8 × 13.6 + 0.2 × 6.75 = <b>12.2%</b></td></tr>
+</table></div><p>Use market-value or target weights. Add a premium for small, illiquid companies. Keep terminal g below the risk-free rate and nominal <abbr class="gl" data-tip="Total value of goods and services produced. Nominal GDP growth sets the ceiling for long-run earnings growth." data-tip-title="GDP: Gross domestic product">GDP</abbr> growth.</p></div>
+<div class="card p" data-skey="fa:valuation-multiples-dcf-and-other-models/dcf-mistakes" id="dcf-mistakes"><h3 data-label="DCF mistakes">DCF mistakes<a aria-label="Link to this card" class="anchor" href="#dcf-mistakes">#</a></h3><ul>
+<li>High growth forever; every business fades towards <abbr class="gl" data-tip="Total value of goods and services produced. Nominal GDP growth sets the ceiling for long-run earnings growth." data-tip-title="GDP: Gross domestic product">GDP</abbr> growth.</li>
+<li>Assuming today's peak margins persist; high returns attract competition.</li>
+<li><abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr> too low, inflating value. Treat WACC as a range.</li>
+<li>Ignoring dilution from stock options and future equity raises.</li>
+<li>Exit multiple taken from a market peak.</li>
+<li>Terminal value above 80% of the total: a faith-based model.</li>
+<li>Growth without reinvestment: growth must be paid for (growth ≈ reinvestment rate × <abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr>).</li>
+<li>No sensitivity or scenario analysis.</li>
+</ul></div>
+<div class="card o" data-skey="fa:valuation-multiples-dcf-and-other-models/which-valuation-method" id="which-valuation-method"><h3 data-label="Which valuation method?">Which valuation method?<a aria-label="Link to this card" class="anchor" href="#which-valuation-method">#</a></h3><div class="ladder"><div class="l-start">Company to value</div><div class="l-step"><div class="l-q" data-tip="For lenders debt is raw material, so EV and FCFF do not work. Value the equity directly." tabindex="0"><span class="l-n">1</span><span>Bank, NBFC or insurer?</span></div><div class="l-as"><div class="l-a" data-tip="Justified P/B = (ROE − g) ÷ (cost of equity − g). Cross-check with a dividend or excess-return model." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>P/B against ROE</b><span>justified P/B, excess-return model, DDM</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Mature businesses with steady margins and reinvestment are ideal for DCF." tabindex="0"><span class="l-n">2</span><span>Stable, predictable cash flows?</span></div><div class="l-as"><div class="l-a" data-tip="Forecast free cash flow, discount at WACC, add a terminal value, and cross-check with P/E and EV/EBITDA." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>DCF on FCFF</b><span>cross-check P/E and EV/EBITDA</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Current earnings say little; value comes from revenue growth and margins at maturity." tabindex="0"><span class="l-n">3</span><span>Young or loss-making but growing fast?</span></div><div class="l-as"><div class="l-a" data-tip="EV/Sales against peers, plus bull, base and bear DCFs with explicit paths to profitability." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Revenue multiples plus scenario DCF</b><span>EV/Sales against margin at maturity</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Earnings swing with the cycle, so current multiples mislead. Use mid-cycle numbers." tabindex="0"><span class="l-n">4</span><span>Cyclical at a peak or trough?</span></div><div class="l-as"><div class="l-a" data-tip="Use average margins over a full cycle; low P/E at the peak and high P/E at the trough are traps." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Normalised earnings</b><span>mid-cycle margins, EV/EBIT, P/B at troughs</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Different segments deserve different multiples; holdings have market values." tabindex="0"><span class="l-n">5</span><span>Several distinct businesses or big listed holdings?</span></div><div class="l-as"><div class="l-a" data-tip="Value each segment with its own method, add listed stakes at market value, subtract a holding-company discount." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Sum of the parts</b><span>value each piece, apply a holding-company discount</span></div></div><div class="l-a" data-tip="When methods agree, confidence rises; when they diverge, find out which assumption causes it." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Comps and DCF together</b><span>trust the overlap</span></div></div></div></div></div></div>
+<div class="card t" data-skey="fa:valuation-multiples-dcf-and-other-models/other-intrinsic-models" id="other-intrinsic-models"><h3 data-label="Other intrinsic models">Other intrinsic models<a aria-label="Link to this card" class="anchor" href="#other-intrinsic-models">#</a></h3><div class="tw"><table>
+<tr><th>Model</th><th>Formula</th><th>Example</th></tr>
+<tr><td>Gordon dividend discount</td><td>P = D₁ ÷ (r − g)</td><td>D₀ ₹10, g 6%, r 12% → ₹176.7</td></tr>
+<tr><td>Earnings power value</td><td><abbr class="gl" data-tip="Normalised after-tax operating profit ÷ WACC: value with zero growth. If price is below EPV, growth is free." data-tip-title="EPV: Earnings power value">EPV</abbr> = normalised <abbr class="gl" data-tip="Operating profit. Compares businesses regardless of how they are financed." data-tip-title="EBIT: Earnings before interest and tax">EBIT</abbr> × (1 − t) ÷ <abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr></td><td>EBIT 200, t 25%, WACC 12% → 1,250</td></tr>
+<tr><td>Value driver (McKinsey)</td><td>V = <abbr class="gl" data-tip="EBIT × (1 − tax rate). The profit an unlevered business would earn; the numerator of ROIC and the start of FCFF." data-tip-title="NOPAT: Net operating profit after tax">NOPAT</abbr> × (1 − g ÷ <abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr>) ÷ (WACC − g)</td><td>NOPAT 100, g 5%, WACC 10%: ROIC 20% → 1,500; 10% → 1,000; 8% → 750</td></tr>
+<tr><td>Graham number</td><td>√(22.5 × <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> × BVPS)</td><td>EPS 40, BVPS 250 → ₹474</td></tr>
+<tr><td>Graham growth formula</td><td>V = EPS × (8.5 + 2g)</td><td>EPS 40, g 10 → ₹1,140 (optimistic; revised version scales by 4.4 ÷ AAA yield)</td></tr>
+<tr><td>Net-net (<abbr class="gl" data-tip="Current assets − all liabilities. Graham's net-nets traded below two-thirds of it." data-tip-title="NCAV: Net current asset value">NCAV</abbr>)</td><td>current assets − all liabilities</td><td>Graham bought below ⅔ of NCAV</td></tr>
+</table></div><p>EPV assumes no growth: if price is below EPV, you get growth for free. The value-driver line shows growth only adds value when ROIC exceeds WACC.</p></div>
+<div class="card g" data-skey="fa:valuation-multiples-dcf-and-other-models/relative-valuation-comps" id="relative-valuation-comps"><h3 data-label="Relative valuation: comps">Relative valuation: comps<a aria-label="Link to this card" class="anchor" href="#relative-valuation-comps">#</a></h3><ol class="steps">
+<li><b>Peer set:</b> 4–8 tight peers with the same end market, business model, size (0.3–3× market cap), growth and margins.</li>
+<li><b>Spread multiples:</b> <abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr>/Sales, EV/EBITDA, <abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr>, <abbr class="gl" data-tip="Market cap ÷ free cash flow. Harder to manipulate than P/E because it includes real capex." data-tip-title="P/FCF: Price to free cash flow">P/FCF</abbr> on trailing and forward numbers.</li>
+<li><b>Statistics:</b> median and quartiles (the median resists outliers).</li>
+<li><b>Position the company:</b> premium for better growth, returns or moat; discount for leverage, governance or concentration.</li>
+<li><b>Football field:</b> plot ranges from each method; the overlap is the estimate.</li>
+</ol><p><b>Precedent transactions</b> run 15–40% above trading comps because acquirers pay a control premium (typically 20–40%) and synergies.</p></div>
+<div class="card y" data-skey="fa:valuation-multiples-dcf-and-other-models/damodaran-value-through-the-life-cycle" id="damodaran-value-through-the-life-cycle"><h3 data-label="Damodaran: value through the life cycle">Damodaran: value through the life cycle<a aria-label="Link to this card" class="anchor" href="#damodaran-value-through-the-life-cycle">#</a></h3><div class="tw"><table>
+<tr><th>Stage</th><th>Value drivers</th><th>Method</th><th>Trap</th></tr>
+<tr><td>Young growth</td><td>Market size, path to margins, survival</td><td>Scenario <abbr class="gl" data-tip="Valuation that discounts forecast free cash flows and a terminal value to today at the cost of capital." data-tip-title="DCF: Discounted cash flow">DCF</abbr>, revenue multiples</td><td>Story with no numbers</td></tr>
+<tr><td>High growth</td><td>Growth efficiency, reinvestment</td><td>DCF with changing margins</td><td>Overpaying for growth</td></tr>
+<tr><td>Mature</td><td>Margins, capital return, restructuring</td><td>DCF, <abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr>, <abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr>/EBITDA, <abbr class="gl" data-tip="Value = next year's dividend ÷ (cost of equity − growth). Suits stable payers and banks." data-tip-title="DDM: Dividend discount model">DDM</abbr></td><td>Ignoring complacency</td></tr>
+<tr><td>Decline</td><td>Cash harvested, asset sales</td><td>Liquidation value, <abbr class="gl" data-tip="Normalised after-tax operating profit ÷ WACC: value with zero growth. If price is below EPV, growth is free." data-tip-title="EPV: Earnings power value">EPV</abbr></td><td>Value traps, distress</td></tr>
+<tr><td>Financial firms</td><td><abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr> vs cost of equity</td><td><abbr class="gl" data-tip="Share price ÷ book value per share. The key multiple for banks and insurers; justified P/B = (ROE − g) ÷ (r − g)." data-tip-title="P/B: Price-to-book ratio">P/B</abbr>, excess return, DDM</td><td>Hidden asset-quality problems</td></tr>
+<tr><td>Cyclicals</td><td>Mid-cycle earnings</td><td>Normalised DCF or multiples</td><td>Low P/E at the peak</td></tr>
+</table></div><p>Four keys for any multiple: consistency (numerator and denominator), distribution, determinants (growth, risk, cash flow), comparison.</p></div>
+<div class="card b full" data-skey="fa:valuation-multiples-dcf-and-other-models/the-dcf-in-python" id="the-dcf-in-python"><h3 data-label="The DCF in Python">The DCF in Python<a aria-label="Link to this card" class="anchor" href="#the-dcf-in-python">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">def</span> <span class="f">dcf</span>(rev0, growth, margins, tax<span class="o">=</span><span class="n">0.25</span>, da_pct<span class="o">=</span><span class="n">0.04</span>, capex_pct<span class="o">=</span><span class="n">0.06</span>, nwc_pct<span class="o">=</span><span class="n">0.10</span>,
+        wacc<span class="o">=</span><span class="n">0.11</span>, g<span class="o">=</span><span class="n">0.05</span>, net_debt<span class="o">=</span><span class="n">300</span>, shares<span class="o">=</span><span class="n">50</span>):
+    <span class="s">"""Unlevered DCF in ₹ crore. Returns (value per share, details)."""</span>
+    rev, pv, rows <span class="o">=</span> rev0, <span class="n">0.0</span>, []
+    <span class="k">for</span> t, (gr, m) <span class="k">in</span> <span class="bi">enumerate</span>(<span class="bi">zip</span>(growth, margins), start<span class="o">=</span><span class="n">1</span>):
+        new_rev <span class="o">=</span> rev <span class="o">*</span> (<span class="n">1</span> <span class="o">+</span> gr)
+        ebit <span class="o">=</span> new_rev <span class="o">*</span> m
+        nopat <span class="o">=</span> ebit <span class="o">*</span> (<span class="n">1</span> <span class="o">-</span> tax)
+        fcff <span class="o">=</span> nopat <span class="o">+</span> da_pct <span class="o">*</span> new_rev <span class="o">-</span> capex_pct <span class="o">*</span> new_rev <span class="o">-</span> nwc_pct <span class="o">*</span> (new_rev <span class="o">-</span> rev)
+        pv <span class="o">+=</span> fcff <span class="o">/</span> (<span class="n">1</span> <span class="o">+</span> wacc) <span class="o">**</span> t
+        rows<span class="o">.</span><span class="f">append</span>((t, new_rev, ebit, nopat, fcff))
+        rev <span class="o">=</span> new_rev
+    tv <span class="o">=</span> rows[<span class="o">-</span><span class="n">1</span>][<span class="n">4</span>] <span class="o">*</span> (<span class="n">1</span> <span class="o">+</span> g) <span class="o">/</span> (wacc <span class="o">-</span> g)          <span class="c"># Gordon growth on final-year FCFF</span>
+    pv_tv <span class="o">=</span> tv <span class="o">/</span> (<span class="n">1</span> <span class="o">+</span> wacc) <span class="o">**</span> <span class="bi">len</span>(rows)
+    ev <span class="o">=</span> pv <span class="o">+</span> pv_tv
+    equity <span class="o">=</span> ev <span class="o">-</span> net_debt
+    <span class="k">return</span> equity <span class="o">/</span> shares, <span class="bi">dict</span>(rows<span class="o">=</span>rows, pv_fcff<span class="o">=</span>pv, tv<span class="o">=</span>tv, pv_tv<span class="o">=</span>pv_tv, ev<span class="o">=</span>ev, equity<span class="o">=</span>equity)
+
+value, d <span class="o">=</span> <span class="f">dcf</span>(<span class="n">1000</span>, [<span class="n">0.12</span>, <span class="n">0.11</span>, <span class="n">0.10</span>, <span class="n">0.09</span>, <span class="n">0.08</span>], [<span class="n">0.18</span>, <span class="n">0.185</span>, <span class="n">0.19</span>, <span class="n">0.195</span>, <span class="n">0.20</span>])
+<span class="bi">print</span>(<span class="bi">round</span>(value, <span class="n">1</span>))                                <span class="c"># 46.2</span>
+
+<span class="k">def</span> <span class="f">implied_growth</span>(price, margins, lo<span class="o">=-</span><span class="n">0.2</span>, hi<span class="o">=</span><span class="n">0.6</span>):   <span class="c"># reverse DCF by bisection</span>
+    <span class="k">for</span> _ <span class="k">in</span> <span class="bi">range</span>(<span class="n">80</span>):
+        mid <span class="o">=</span> (lo <span class="o">+</span> hi) <span class="o">/</span> <span class="n">2</span>
+        <span class="k">if</span> <span class="f">dcf</span>(<span class="n">1000</span>, [mid] <span class="o">*</span> <span class="n">5</span>, margins)[<span class="n">0</span>] <span class="o">&lt;</span> price:
+            lo <span class="o">=</span> mid
+        <span class="k">else</span>:
+            hi <span class="o">=</span> mid
+    <span class="k">return</span> mid</pre><p>This is the exact code behind the worked example, sensitivity grid and reverse <abbr class="gl" data-tip="Valuation that discounts forecast free cash flows and a terminal value to today at the cost of capital." data-tip-title="DCF: Discounted cash flow">DCF</abbr> on this page.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ratios"><span>Previous</span>03 · Financial ratios: profitability, returns and leverage</a><a class="sn-next" href="#mos"><span>Next</span>05 · Margin of safety and value traps</a></nav></section>
+<section class="sec y" data-origin="fa" id="mos"><h2 data-label="Margin of safety and value traps"><span class="n">05</span>Margin of safety and value traps</h2>
+<p class="src">TradingOverview/fundamental-analysis/handbook/03-valuation/margin-of-safety</p>
+<div class="g2">
+<div class="card y" data-skey="fa:margin-of-safety-and-value-traps/margin-of-safety" id="margin-of-safety"><h3 data-label="Margin of safety">Margin of safety<a aria-label="Link to this card" class="anchor" href="#margin-of-safety">#</a></h3><div class="formula"><span class="fl">MOS = (intrinsic value − price) ÷ intrinsic value</span><span class="fl">upside to value = intrinsic value ÷ price − 1</span></div><div class="tw"><table>
+<tr><th>Business quality</th><th>Required MOS</th></tr>
+<tr><td>Wide moat, predictable earnings</td><td>20–25%</td></tr>
+<tr><td>Average quality</td><td>30–40%</td></tr>
+<tr><td>Low quality, cyclical or distressed</td><td>40–50%+</td></tr>
+<tr><td>Deep value, special situations</td><td>50%+</td></tr>
+</table></div><p>Example: value ₹100, price ₹65 → <abbr class="gl" data-tip="(Intrinsic value − price) ÷ intrinsic value. The cushion against valuation errors." data-tip-title="MOS: Margin of safety">MOS</abbr> 35%, upside 54%. In the <abbr class="gl" data-tip="Valuation that discounts forecast free cash flows and a terminal value to today at the cost of capital." data-tip-title="DCF: Discounted cash flow">DCF</abbr> example, a price of ₹35 against ₹46.2 is a 24% MOS.</p></div>
+<div class="card g" data-skey="fa:margin-of-safety-and-value-traps/price-vs-quality-matrix" id="price-vs-quality-matrix"><h3 data-label="Price vs quality matrix">Price vs quality matrix<a aria-label="Link to this card" class="anchor" href="#price-vs-quality-matrix">#</a></h3><div class="tw"><table>
+<tr><th></th><th>High-quality business</th><th>Low-quality business</th></tr>
+<tr><td>Price far below value</td><td>Ideal: buy, size up</td><td>Possible, with a strict <abbr class="gl" data-tip="(Intrinsic value − price) ÷ intrinsic value. The cushion against valuation errors." data-tip-title="MOS: Margin of safety">MOS</abbr> and catalyst</td></tr>
+<tr><td>Price near value</td><td>Acceptable for compounders; hold</td><td>Avoid</td></tr>
+<tr><td>Price above value</td><td>Only if growth far exceeds your case</td><td>Definitely avoid</td></tr>
+</table></div><p>Buffett's evolution of Graham: "a wonderful company at a fair price" beats "a fair company at a wonderful price".</p></div>
+<div class="card r full" data-skey="fa:margin-of-safety-and-value-traps/value-trap-or-genuine-bargain" id="value-trap-or-genuine-bargain"><h3 data-label="Value trap or genuine bargain?">Value trap or genuine bargain?<a aria-label="Link to this card" class="anchor" href="#value-trap-or-genuine-bargain">#</a></h3><div class="tw"><table>
+<tr><th>Value trap signs</th><th>Genuine undervaluation signs</th></tr>
+<tr><td>Revenue falling for several years in a row</td><td>Earnings temporarily depressed at a cyclical trough</td></tr>
+<tr><td>Gross margins eroding year after year</td><td>Market overreacting to one bad quarter</td></tr>
+<tr><td>Industry being disrupted</td><td>Sector-wide sell-off dragging good companies down</td></tr>
+<tr><td>Management repeatedly missing guidance</td><td>Hidden assets (land, stakes, patents) not in earnings</td></tr>
+<tr><td>Peers growing while it shrinks</td><td>Management buying back stock or insiders buying</td></tr>
+<tr><td>Cheap only because of heavy debt</td><td>Strong <abbr class="gl" data-tip="Operating cash flow − capex. Cash left for dividends, buybacks, debt repayment or acquisitions." data-tip-title="FCF: Free cash flow">FCF</abbr> despite weak reported profit (non-cash charges)</td></tr>
+<tr><td>"Cheap on book" with a low <abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr> and no catalyst</td><td>Clear catalyst: new product, restructuring, demerger</td></tr>
+</table></div></div>
+<div class="card b" data-skey="fa:margin-of-safety-and-value-traps/is-this-cheap-stock-a-trap" id="is-this-cheap-stock-a-trap"><h3 data-label="Is this cheap stock a trap?">Is this cheap stock a trap?<a aria-label="Link to this card" class="anchor" href="#is-this-cheap-stock-a-trap">#</a></h3><div class="ladder"><div class="l-start">Stock looks cheap on multiples</div><div class="l-step"><div class="l-q" data-tip="Multi-year revenue decline usually means a structural problem, not a cycle." tabindex="0"><span class="l-n">1</span><span>Revenue falling for several years?</span></div><div class="l-as"><div class="l-a" data-tip="Cheapness reflects real deterioration. Without a clear catalyst, the stock can stay cheap or get cheaper." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Likely trap</b><span>structural decline: needs a catalyst or pass</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Company-specific erosion points to a weakening competitive position." tabindex="0"><span class="l-n">2</span><span>Margins and ROE falling while peers hold up?</span></div><div class="l-as"><div class="l-a" data-tip="Cheapness reflects real deterioration. Without a clear catalyst, the stock can stay cheap or get cheaper." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Likely trap</b><span>competitive position eroding</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Leverage can turn a cheap stock into a zero through refinancing or a dilutive equity raise." tabindex="0"><span class="l-n">3</span><span>Debt heavy relative to cash flow?</span></div><div class="l-as"><div class="l-a" data-tip="Equity holders are last in line. Check maturities, covenants and interest cover before anything else." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Risky</b><span>refinancing or dilution can wipe out equity</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="One bad quarter, a sector sell-off or a cyclical trough can create real bargains." tabindex="0"><span class="l-n">4</span><span>Cheap because of a temporary or cyclical problem?</span></div><div class="l-as"><div class="l-a" data-tip="Value it on normalised earnings and buy only with a margin of safety that fits its quality." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Possible bargain</b><span>value on normalised earnings with a margin of safety</span></div></div><div class="l-a" data-tip="If none of the usual reasons explains the discount, find what the market sees before acting." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Investigate</b><span>find out why the market disagrees before buying</span></div></div></div></div></div></div>
+<div class="card p" data-skey="fa:margin-of-safety-and-value-traps/using-the-margin-of-safety" id="using-the-margin-of-safety"><h3 data-label="Using the margin of safety">Using the margin of safety<a aria-label="Link to this card" class="anchor" href="#using-the-margin-of-safety">#</a></h3><ul>
+<li><b>Value first, price second:</b> estimate value before looking at the quote to avoid anchoring.</li>
+<li><b>Conservative inputs:</b> build value from the bear-to-base case, not the bull case.</li>
+<li><b>Size with the margin:</b> a wide margin and a confident estimate justify a bigger position.</li>
+<li><b>Dynamic:</b> crashes offer wide margins; in bull markets don't lower the bar just to be invested.</li>
+<li><b>Not a stop-loss:</b> a falling price with stable value widens the margin; a falling value is the real warning.</li>
+<li><b>Options angle:</b> selling a put at your target buy price is one way to be paid while waiting.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#valuation"><span>Previous</span>04 · Valuation: multiples, DCF and other models</a><a class="sn-next" href="#moat"><span>Next</span>06 · Business quality: moats, industry and management</a></nav></section>
+<section class="sec t" data-origin="fa" id="moat"><h2 data-label="Business quality: moats, industry and management"><span class="n">06</span>Business quality: moats, industry and management</h2>
+<p class="src">TradingOverview/fundamental-analysis/handbook/04-competitive-analysis · book-notes/common-stock-uncommon-profits (Fisher)</p>
+<div class="g2">
+<div class="card t full" data-skey="fa:business-quality-moats-industry-and-management/five-sources-of-economic-moat" id="five-sources-of-economic-moat"><h3 data-label="Five sources of economic moat">Five sources of economic moat<a aria-label="Link to this card" class="anchor" href="#five-sources-of-economic-moat">#</a></h3><div class="tw"><table>
+<tr><th>Source</th><th>How it protects profits</th><th>Evidence in the numbers</th><th>How it erodes</th><th>Examples</th></tr>
+<tr><td>Brand / intangibles</td><td>Customers pay a premium for trust or status</td><td>Gross margin above peers; price rises without volume loss</td><td>Quality failures, cultural shifts</td><td>Apple, Coca-Cola, luxury houses</td></tr>
+<tr><td>Cost advantage</td><td>Scale, process or location gives the lowest unit cost</td><td>Margins at the top of the industry while pricing low</td><td>A rival reaches the same scale or new technology</td><td>Costco, Nucor</td></tr>
+<tr><td>Network effects</td><td>Each user makes the product more valuable for others</td><td>Falling churn, rising engagement, failed challengers</td><td>Platform shifts, regulation</td><td>Visa, Mastercard, exchanges</td></tr>
+<tr><td>Switching costs</td><td>Leaving costs money, time or risk</td><td>Retention above 90%, net revenue retention above 100%</td><td>Easier migration tools, open standards</td><td><abbr class="gl" data-tip="Extra return investors demand to hold equities instead of government bonds; typically 5–8% depending on the market." data-tip-title="ERP: Equity risk premium">ERP</abbr> and core banking software</td></tr>
+<tr><td>Efficient scale / licences</td><td>A market that fits only one or two players, or regulated entry</td><td>Stable local dominance, high returns without new entrants</td><td>Deregulation, patent expiry</td><td>Airports, pipelines, rating agencies</td></tr>
+</table></div></div>
+<div class="card g" data-skey="fa:business-quality-moats-industry-and-management/testing-a-moat" id="testing-a-moat"><h3 data-label="Testing a moat">Testing a moat<a aria-label="Link to this card" class="anchor" href="#testing-a-moat">#</a></h3><ul>
+<li><b>Numbers:</b> <abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr> above <abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr> (15%+) for 10+ years, stable gross margins through downturns, pricing power in inflation.</li>
+<li><b>One sentence:</b> can you say why customers pay this company and not a rival? If not, there may be no moat.</li>
+<li><b>The ₹-crore test:</b> if a well-funded rival spent heavily to take share, would it fail (wide), dent (narrow) or win (none)?</li>
+<li><b>Direction:</b> is the moat widening or narrowing?</li>
+<li><b>Wide moat:</b> lasts 20+ years. <b>Narrow:</b> 10–20 years. <b>None:</b> returns fall to the cost of capital within a few years.</li>
+</ul></div>
+<div class="card b" data-skey="fa:business-quality-moats-industry-and-management/porter-s-five-forces" id="porter-s-five-forces"><h3 data-label="Porter's five forces">Porter's five forces<a aria-label="Link to this card" class="anchor" href="#porter-s-five-forces">#</a></h3><div class="tw"><table>
+<tr><th>Force</th><th>Hurts profits when</th></tr>
+<tr><td>Threat of new entrants</td><td>Low capital needs, no scale, licences or brand barriers</td></tr>
+<tr><td>Supplier power</td><td>Few critical suppliers; input is a large share of cost</td></tr>
+<tr><td>Buyer power</td><td>Few large buyers, commodity product, low switching costs</td></tr>
+<tr><td>Substitutes</td><td>Another product meets the need at a better price-performance</td></tr>
+<tr><td>Rivalry</td><td>Many similar rivals, slow growth, high fixed costs, price wars</td></tr>
+</table></div><p>Best industries: all five favourable (payment networks, exchanges, rating agencies). Worst: airlines, where all five are adverse.</p></div>
+<div class="card y" data-skey="fa:business-quality-moats-industry-and-management/industry-life-cycle" id="industry-life-cycle"><h3 data-label="Industry life cycle">Industry life cycle<a aria-label="Link to this card" class="anchor" href="#industry-life-cycle">#</a></h3><div class="tw"><table>
+<tr><th>Stage</th><th>Looks like</th><th>Investor focus</th></tr>
+<tr><td>Introduction</td><td>Unproven technology, losses, competing standards</td><td>Venture-like risk; most fail</td></tr>
+<tr><td>Growth</td><td>Revenue +20–50%, margins building, shake-out begins</td><td>Who wins the consolidation; unit economics</td></tr>
+<tr><td>Maturity</td><td>GDP-like growth, a few leaders, high returns for leaders</td><td>Moat durability, dividends, buybacks</td></tr>
+<tr><td>Decline</td><td>Structural shrinkage, exits</td><td>Cash harvest only; avoid debt-laden players</td></tr>
+</table></div></div>
+<div class="card p" data-skey="fa:business-quality-moats-industry-and-management/capital-allocation-the-ceo-s-real-job" id="capital-allocation-the-ceo-s-real-job"><h3 data-label="Capital allocation: the CEO's real job">Capital allocation: the CEO's real job<a aria-label="Link to this card" class="anchor" href="#capital-allocation-the-ceo-s-real-job">#</a></h3><div class="tw"><table>
+<tr><th>Use of cash</th><th>Creates value when</th><th>Destroys value when</th></tr>
+<tr><td>Reinvest organically</td><td>Incremental <abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr> above <abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr></td><td>Years of capex with flat ROIC</td></tr>
+<tr><td>Acquisitions</td><td>Fair price, clear fit, integration record</td><td>Empire building at peak prices; impairments later (50–70% of deals fail to add value)</td></tr>
+<tr><td>Dividends</td><td>No high-return reinvestment left</td><td>Funded by debt while the business weakens</td></tr>
+<tr><td>Buybacks</td><td>Price below intrinsic value</td><td>At peak prices, debt-funded, or only offsetting option dilution</td></tr>
+<tr><td>Debt paydown</td><td>Leverage high or rates rising</td><td>—</td></tr>
+</table></div></div>
+<div class="card o" data-skey="fa:business-quality-moats-industry-and-management/management-and-governance-scorecard" id="management-and-governance-scorecard"><h3 data-label="Management and governance scorecard">Management and governance scorecard<a aria-label="Link to this card" class="anchor" href="#management-and-governance-scorecard">#</a></h3><div class="tw"><table>
+<tr><th>Dimension (score 1–5)</th><th>Questions</th></tr>
+<tr><td>Capital allocation</td><td><abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr> trend, M&amp;A returns, buyback timing</td></tr>
+<tr><td>Communication</td><td>Candid about problems? Specific guidance? Admits mistakes?</td></tr>
+<tr><td>Alignment</td><td>Promoter or insider ownership; pay tied to ROIC, not just <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr></td></tr>
+<tr><td>Governance</td><td>Independent board and audit committee; related-party discipline</td></tr>
+<tr><td>Execution</td><td>Delivered against guidance over 5+ years?</td></tr>
+<tr><td>Long-term orientation</td><td>Consistent strategy; not managed quarter to quarter</td></tr>
+</table></div></div>
+<div class="card r" data-skey="fa:business-quality-moats-industry-and-management/governance-red-flags" id="governance-red-flags"><h3 data-label="Governance red flags">Governance red flags<a aria-label="Link to this card" class="anchor" href="#governance-red-flags">#</a></h3><ul>
+<li>Goodwill rising with no improvement in <abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr> (empire building).</li>
+<li><abbr class="gl" data-tip="Cash generated by the core business. Should track or exceed net profit over several years." data-tip-title="CFO: Cash flow from operations">CFO</abbr> or auditor changes without explanation.</li>
+<li>Large related-party transactions or loans to group companies.</li>
+<li>Insiders selling heavily while talking up the stock.</li>
+<li>"Non-recurring" charges every year; results that always beat by a whisker.</li>
+<li>Earnings calls: blaming macro when peers don't, new "key metrics", vague answers, abandoned strategies.</li>
+<li>Pay that rises while returns fall; repriced options.</li>
+</ul></div>
+<div class="card g full" data-skey="fa:business-quality-moats-industry-and-management/fisher-s-15-points-common-stocks-and-uncommon-pr" id="fisher-s-15-points-common-stocks-and-uncommon-pr"><h3 data-label="Fisher's 15 points (Common Stocks and Uncommon Profits)">Fisher's 15 points (Common Stocks and Uncommon Profits)<a aria-label="Link to this card" class="anchor" href="#fisher-s-15-points-common-stocks-and-uncommon-pr">#</a></h3><div class="tw"><table>
+<tr><th>#</th><th>Question</th><th>#</th><th>Question</th></tr>
+<tr><td>1</td><td>Products with market potential for sizeable sales growth for years?</td><td>9</td><td>Depth of management?</td></tr>
+<tr><td>2</td><td>Management determined to develop new products as current ones mature?</td><td>10</td><td>Good cost analysis and accounting controls?</td></tr>
+<tr><td>3</td><td>Effective R&amp;D for its size?</td><td>11</td><td>Industry-specific advantages over competitors?</td></tr>
+<tr><td>4</td><td>Above-average sales organisation?</td><td>12</td><td>Long-range rather than short-range outlook on profits?</td></tr>
+<tr><td>5</td><td>Worthwhile profit margin?</td><td>13</td><td>Will growth need equity financing that dilutes holders?</td></tr>
+<tr><td>6</td><td>Doing something to maintain or improve margins?</td><td>14</td><td>Does management talk freely in bad times, not only good?</td></tr>
+<tr><td>7</td><td>Outstanding labour and personnel relations?</td><td>15</td><td>Management of unquestionable integrity?</td></tr>
+<tr><td>8</td><td>Outstanding executive relations?</td><td></td><td></td></tr>
+</table></div><p><b>Scuttlebutt:</b> talk to customers, suppliers, competitors and ex-employees. <b>Fisher's three reasons to sell:</b> the original purchase was a mistake; the company no longer meets the 15 points; a much better opportunity exists (rarely). Never sell just because the market might fall.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#mos"><span>Previous</span>05 · Margin of safety and value traps</a><a class="sn-next" href="#quality"><span>Next</span>07 · Earnings quality and distress scores</a></nav></section>
+<section class="sec r" data-origin="fa" id="quality"><h2 data-label="Earnings quality and distress scores"><span class="n">07</span>Earnings quality and distress scores</h2>
+<p class="src">TradingOverview/fundamental-analysis/handbook/06-earnings-analysis/earnings-quality · 02-financial-ratios/liquidity-leverage-ratios</p>
+<div class="g2">
+<div class="card r" data-skey="fa:earnings-quality-and-distress-scores/cash-conversion-and-accruals" id="cash-conversion-and-accruals"><h3 data-label="Cash conversion and accruals">Cash conversion and accruals<a aria-label="Link to this card" class="anchor" href="#cash-conversion-and-accruals">#</a></h3><div class="formula"><span class="fl">cash conversion = CFO ÷ net income</span><span class="fl">accruals ratio = (net income − CFO) ÷ average total assets</span></div><div class="tw"><table>
+<tr><th>CFO / net income</th><th>Read</th></tr>
+<tr><td>Above 1.2</td><td>High quality (conservative accounting, big non-cash charges)</td></tr>
+<tr><td>0.9–1.2</td><td>Normal</td></tr>
+<tr><td>0.6–0.9</td><td>Investigate why cash lags</td></tr>
+<tr><td>Below 0.6</td><td>Serious concern, especially 3+ years running</td></tr>
+</table></div><p>Accruals ratio above 5–10% is a red flag. Sloan (1996): high-accrual firms underperform low-accrual firms.</p></div>
+<div class="card o" data-skey="fa:earnings-quality-and-distress-scores/revenue-and-expense-tricks" id="revenue-and-expense-tricks"><h3 data-label="Revenue and expense tricks">Revenue and expense tricks<a aria-label="Link to this card" class="anchor" href="#revenue-and-expense-tricks">#</a></h3><div class="tw"><table>
+<tr><th>Trick</th><th>How to spot it</th></tr>
+<tr><td>Channel stuffing</td><td>Receivables and <abbr class="gl" data-tip="Receivables ÷ revenue × 365. How long customers take to pay; a rising DSO is an early warning." data-tip-title="DSO: Days sales outstanding">DSO</abbr> up faster than sales; returns next quarter</td></tr>
+<tr><td>Bill-and-hold</td><td>Quarter-end revenue spikes; <abbr class="gl" data-tip="Money customers owe for goods already delivered." data-tip-title="AR: Accounts receivable">AR</abbr> up without inventory falling</td></tr>
+<tr><td>Aggressive % of completion</td><td>Late cost overruns; prior estimates revised</td></tr>
+<tr><td>Front-loaded subscriptions</td><td>Deferred revenue or billings growing slower than revenue</td></tr>
+<tr><td>Capitalising operating costs</td><td>Intangibles or capitalised software growing faster than sales; capex above peers</td></tr>
+<tr><td>Cookie-jar reserves</td><td>Reserve releases that rescue a weak quarter</td></tr>
+<tr><td>Recurring "one-offs"</td><td>Restructuring charges every year</td></tr>
+</table></div></div>
+<div class="card b full" data-skey="fa:earnings-quality-and-distress-scores/beneish-m-score-manipulation-screen" id="beneish-m-score-manipulation-screen"><h3 data-label="Beneish M-score (manipulation screen)">Beneish M-score (manipulation screen)<a aria-label="Link to this card" class="anchor" href="#beneish-m-score-manipulation-screen">#</a></h3><div class="formula"><span class="fl">M = −4.84 + 0.920·DSRI + 0.528·GMI + 0.404·AQI + 0.892·SGI + 0.115·DEPI − 0.172·SGAI + 4.679·TATA − 0.327·LVGI</span></div><div class="tw"><table>
+<tr><th>Variable</th><th>Formula</th><th>Warning when</th></tr>
+<tr><td>DSRI</td><td>(<abbr class="gl" data-tip="Money customers owe for goods already delivered." data-tip-title="AR: Accounts receivable">AR</abbr>/Sales)ₜ ÷ (AR/Sales)ₜ₋₁</td><td>Above 1: receivables outpacing sales</td></tr>
+<tr><td>GMI</td><td>gross marginₜ₋₁ ÷ gross marginₜ</td><td>Above 1: margins deteriorating</td></tr>
+<tr><td>AQI</td><td>[1 − (CA + PPE)/TA]ₜ ÷ same ₜ₋₁</td><td>Above 1: more costs capitalised</td></tr>
+<tr><td>SGI</td><td>salesₜ ÷ salesₜ₋₁</td><td>High growth = more pressure to manage numbers</td></tr>
+<tr><td>DEPI</td><td>depreciation rateₜ₋₁ ÷ rateₜ</td><td>Above 1: depreciation slowed</td></tr>
+<tr><td>SGAI</td><td>(<abbr class="gl" data-tip="Overheads not tied to production: salaries, marketing, rent, head office." data-tip-title="SG&amp;A: Selling, general and administrative expenses">SG&amp;A</abbr>/Sales)ₜ ÷ (SG&amp;A/Sales)ₜ₋₁</td><td>Above 1 (negative weight)</td></tr>
+<tr><td>TATA</td><td>(net income − <abbr class="gl" data-tip="Cash generated by the core business. Should track or exceed net profit over several years." data-tip-title="CFO: Cash flow from operations">CFO</abbr>) ÷ total assets</td><td>High positive accruals</td></tr>
+<tr><td>LVGI</td><td>leverageₜ ÷ leverageₜ₋₁</td><td>Above 1 (negative weight)</td></tr>
+</table></div><p><b>M above −1.78:</b> likely manipulator. <b>−2.22 to −1.78:</b> grey zone. <b>Below −2.22:</b> unlikely. It flagged Enron before the collapse; it is a screen, not proof.</p></div>
+<div class="card p" data-skey="fa:earnings-quality-and-distress-scores/altman-z-scores-distress" id="altman-z-scores-distress"><h3 data-label="Altman Z-scores (distress)">Altman Z-scores (distress)<a aria-label="Link to this card" class="anchor" href="#altman-z-scores-distress">#</a></h3><div class="formula"><span class="fl">Z  = 1.2·X1 + 1.4·X2 + 3.3·X3 + 0.6·X4 + 1.0·X5</span><span class="fl">Z″ = 6.56·X1 + 3.26·X2 + 6.72·X3 + 1.05·X4′</span></div><div class="tw"><table>
+<tr><th>Ratio</th><th>Definition</th></tr>
+<tr><td>X1</td><td>working capital ÷ total assets</td></tr>
+<tr><td>X2</td><td>retained earnings ÷ total assets</td></tr>
+<tr><td>X3</td><td><abbr class="gl" data-tip="Operating profit. Compares businesses regardless of how they are financed." data-tip-title="EBIT: Earnings before interest and tax">EBIT</abbr> ÷ total assets</td></tr>
+<tr><td>X4 / X4′</td><td>market value (Z) or book value (Z″) of equity ÷ total liabilities</td></tr>
+<tr><td>X5</td><td>sales ÷ total assets</td></tr>
+</table></div><div class="tw"><table>
+<tr><th>Zone</th><th>Z (manufacturers)</th><th>Z″ (non-manufacturers, emerging markets)</th></tr>
+<tr><td>Safe</td><td>Above 2.99</td><td>Above 2.60</td></tr>
+<tr><td>Grey</td><td>1.81–2.99</td><td>1.10–2.60</td></tr>
+<tr><td>Distress</td><td>Below 1.81</td><td>Below 1.10</td></tr>
+</table></div></div>
+<div class="card g" data-skey="fa:earnings-quality-and-distress-scores/piotroski-f-score-0-9" id="piotroski-f-score-0-9"><h3 data-label="Piotroski F-score (0–9)">Piotroski F-score (0–9)<a aria-label="Link to this card" class="anchor" href="#piotroski-f-score-0-9">#</a></h3><div class="tw"><table>
+<tr><th>Group</th><th>One point each if…</th></tr>
+<tr><td>Profitability</td><td><abbr class="gl" data-tip="Net profit ÷ average total assets. Less distorted by leverage than ROE; banks typically earn 1–1.5%." data-tip-title="ROA: Return on assets">ROA</abbr> &gt; 0; <abbr class="gl" data-tip="Cash generated by the core business. Should track or exceed net profit over several years." data-tip-title="CFO: Cash flow from operations">CFO</abbr> &gt; 0; ROA up vs last year; CFO &gt; net income</td></tr>
+<tr><td>Leverage and liquidity</td><td>Long-term debt ratio down; current ratio up; no new shares issued</td></tr>
+<tr><td>Efficiency</td><td>Gross margin up; asset turnover up</td></tr>
+</table></div><p>8–9 = strong and improving; 0–2 = weak. Piotroski used it to separate winners from losers among cheap, high book-to-market stocks.</p></div>
+<div class="card t" data-skey="fa:earnings-quality-and-distress-scores/can-i-trust-these-earnings" id="can-i-trust-these-earnings"><h3 data-label="Can I trust these earnings?">Can I trust these earnings?<a aria-label="Link to this card" class="anchor" href="#can-i-trust-these-earnings">#</a></h3><div class="ladder"><div class="l-start">Reported profits look strong</div><div class="l-step"><div class="l-q" data-tip="Persistent gaps between profit and operating cash flow are the most reliable warning of weak earnings." tabindex="0"><span class="l-n">1</span><span>CFO under 0.8 of net income for two years or more?</span></div><div class="l-as"><div class="l-a" data-tip="Do not rely on reported EPS. Value the business on cash flow and dig into the notes." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Red flag</b><span>profits are not turning into cash</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Working capital growing faster than revenue suggests stuffing, slow collections or weak demand." tabindex="0"><span class="l-n">2</span><span>Receivables or inventory growing faster than sales?</span></div><div class="l-as"><div class="l-a" data-tip="Do not rely on reported EPS. Value the business on cash flow and dig into the notes." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Red flag</b><span>possible channel stuffing or aggressive recognition</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="The eight-variable Beneish model flags profiles similar to known manipulators." tabindex="0"><span class="l-n">3</span><span>Beneish M-score above −1.78?</span></div><div class="l-as"><div class="l-a" data-tip="If none of the usual reasons explains the discount, find what the market sees before acting." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Investigate</b><span>manipulation profile: read the notes closely</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip='"Exceptional" items that recur, or profit propped up by non-operating income, distort earnings power.' tabindex="0"><span class="l-n">4</span><span>Recurring one-off charges or large other income?</span></div><div class="l-as"><div class="l-a" data-tip="Treat recurring charges as costs and remove non-operating income before applying any multiple." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Normalise</b><span>treat charges as costs, strip non-operating income</span></div></div><div class="l-a" data-tip="Numbers look consistent; still check the audit report, related parties and promoter pledges." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Probably clean</b><span>still check the auditor, related parties and pledges</span></div></div></div></div></div></div>
+<div class="card y" data-skey="fa:earnings-quality-and-distress-scores/normalised-eps" id="normalised-eps"><h3 data-label="Normalised EPS">Normalised EPS<a aria-label="Link to this card" class="anchor" href="#normalised-eps">#</a></h3><ul>
+<li><b>Add back</b> genuine one-offs: restructuring, impairments, deal costs, litigation settlements.</li>
+<li><b>Remove</b> one-off gains: asset sales, tax windfalls, treasury gains.</li>
+<li><b>Average</b> "one-time" charges that recur over 3–5 years and treat them as costs.</li>
+<li><b>Keep stock-based compensation as a cost</b> even when management's adjusted <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> excludes it.</li>
+<li><b>Cyclicals:</b> use mid-cycle margins, not peak or trough.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#moat"><span>Previous</span>06 · Business quality: moats, industry and management</a><a class="sn-next" href="#earnings"><span>Next</span>08 · Earnings season playbook</a></nav></section>
+<section class="sec b" data-origin="fa" id="earnings"><h2 data-label="Earnings season playbook"><span class="n">08</span>Earnings season playbook</h2>
+<p class="src">TradingOverview/fundamental-analysis/handbook/06-earnings-analysis/earnings-season-playbook</p>
+<div class="g2">
+<div class="card b" data-skey="fa:earnings-season-playbook/calendar" id="calendar"><h3 data-label="Calendar">Calendar<a aria-label="Link to this card" class="anchor" href="#calendar">#</a></h3><div class="tw"><table>
+<tr><th>Market</th><th>Rule</th><th>Season</th></tr>
+<tr><td>India (<abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> <abbr class="gl" data-tip="SEBI rules for listed companies: result timelines, governance, related-party approvals, disclosures." data-tip-title="LODR: Listing Obligations and Disclosure Requirements">LODR</abbr>)</td><td>Quarterly results within 45 days of quarter end; annual audited results within 60 days of year end</td><td>Jul–Aug, Oct–Nov, Jan–Feb, Apr–May (FY runs April–March)</td></tr>
+<tr><td>US</td><td>10-Q within 40–45 days; large caps report 2–4 weeks after quarter end</td><td>Apr–May, Jul–Aug, Oct–Nov, Jan–Feb</td></tr>
+</table></div><p>Results come with a press release and investor presentation; the earnings call follows. Read the transcript, not just the headlines.</p></div>
+<div class="card g" data-skey="fa:earnings-season-playbook/before-the-report" id="before-the-report"><h3 data-label="Before the report">Before the report<a aria-label="Link to this card" class="anchor" href="#before-the-report">#</a></h3><ol class="steps">
+<li><b>Consensus:</b> revenue, <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr>, margins and the range, not only the mean.</li>
+<li><b>Whisper:</b> estimate revisions in the last 2–4 weeks and the usual beat size show what is really priced in.</li>
+<li><b>Key metric:</b> the number the market cares about (<abbr class="gl" data-tip="(Interest earned − interest paid) ÷ average earning assets. The core profitability measure for lenders." data-tip-title="NIM: Net interest margin">NIM</abbr> and asset quality for banks, constant-currency growth and deal wins for IT, volumes for FMCG).</li>
+<li><b>Last four calls:</b> what problems were flagged and whether they were fixed.</li>
+<li><b>Setup:</b> a stock up 30% into results has a high bar; one down 30% has a low bar.</li>
+<li><b>Implied move:</b> from the options market.</li>
+</ol><div class="formula"><span class="fl">implied move ≈ ATM straddle price ÷ stock price</span><span class="fl">₹1,000 stock, straddle ₹60 → about ±6%</span></div></div>
+<div class="card o" data-skey="fa:earnings-season-playbook/results-guidance-typical-reaction" id="results-guidance-typical-reaction"><h3 data-label="Results × guidance: typical reaction">Results × guidance: typical reaction<a aria-label="Link to this card" class="anchor" href="#results-guidance-typical-reaction">#</a></h3><div class="tw"><table>
+<tr><th>Quarter</th><th>Guidance raised</th><th>Maintained</th><th>Lowered</th></tr>
+<tr><td>Beat</td><td><b>Strongest</b> (beat-and-raise)</td><td>Mixed; hoped for a raise</td><td>Falls; future matters more</td></tr>
+<tr><td>In line</td><td>Positive if the raise is meaningful</td><td>Muted</td><td>Negative</td></tr>
+<tr><td>Miss</td><td>Can recover if the raise is credible</td><td>Negative</td><td><b>Worst</b> (miss-and-lower)</td></tr>
+</table></div><p>A revenue beat is worth more than an <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> beat from buybacks or tax. "Sell the news" hits stocks that ran up into results.</p></div>
+<div class="card p" data-skey="fa:earnings-season-playbook/reading-the-call" id="reading-the-call"><h3 data-label="Reading the call">Reading the call<a aria-label="Link to this card" class="anchor" href="#reading-the-call">#</a></h3><div class="tw"><table>
+<tr><th>Positive tells</th><th>Negative tells</th></tr>
+<tr><td>Specific, quantified demand commentary</td><td>"Cautiously optimistic" and other vague phrases</td></tr>
+<tr><td>Guidance raised by more than the beat</td><td>Raise exactly equal to the beat</td></tr>
+<tr><td>Volunteering good news</td><td>Problems buried in prepared remarks</td></tr>
+<tr><td>Insider buying or buybacks at current prices</td><td>Insider selling before the report</td></tr>
+<tr><td>New products or customers with numbers</td><td>"Strategic review" announcements</td></tr>
+</table></div><p>Analysts asking the same worry several ways means a known problem.</p></div>
+<div class="card t" data-skey="fa:earnings-season-playbook/post-earnings-drift-and-options" id="post-earnings-drift-and-options"><h3 data-label="Post-earnings drift and options">Post-earnings drift and options<a aria-label="Link to this card" class="anchor" href="#post-earnings-drift-and-options">#</a></h3><ul>
+<li><b><abbr class="gl" data-tip="Tendency of prices to keep moving in the direction of an earnings surprise for weeks after the report." data-tip-title="PEAD: Post-earnings announcement drift">PEAD</abbr>:</b> after big surprises, prices keep drifting in the surprise direction for 30–90 days as estimates are revised (Ball and Brown, 1968). Weaker in large, well-covered stocks; holds only about 60–65% of the time.</li>
+<li><b><abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr> crush:</b> implied volatility collapses after results, so option buyers can be right on direction and still lose.</li>
+<li><b>Manage it:</b> use spreads instead of naked options; compare the implied move with the stock's historical results-day moves; sell premium only with defined risk.</li>
+<li>Long-term investors: a good company oversold on a small, explainable miss can be an opportunity.</li>
+</ul></div>
+<div class="card y" data-skey="fa:earnings-season-playbook/after-the-report" id="after-the-report"><h3 data-label="After the report">After the report<a aria-label="Link to this card" class="anchor" href="#after-the-report">#</a></h3><ul>
+<li>Compare revenue, <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> and margins with consensus, then guidance.</li>
+<li>Check the cash flow and balance sheet (often in the presentation or the half-yearly filing in India).</li>
+<li>Is the market's first reaction consistent with the fundamentals?</li>
+<li>Over the next 30 days: direction of estimate revisions.</li>
+<li>Update the thesis: what did you learn that you didn't know?</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#quality"><span>Previous</span>07 · Earnings quality and distress scores</a><a class="sn-next" href="#macro"><span>Next</span>09 · Macro drivers and sector rotation</a></nav></section>
+<section class="sec g" data-origin="fa" id="macro"><h2 data-label="Macro drivers and sector rotation"><span class="n">09</span>Macro drivers and sector rotation</h2>
+<p class="src">TradingOverview/fundamental-analysis/handbook/05-macro-and-sector</p>
+<div class="g2">
+<div class="card g" data-skey="fa:macro-drivers-and-sector-rotation/interest-rates" id="interest-rates"><h3 data-label="Interest rates">Interest rates<a aria-label="Link to this card" class="anchor" href="#interest-rates">#</a></h3><ul>
+<li>Rates set the risk-free rate in <abbr class="gl" data-tip="E/V × cost of equity + D/V × after-tax cost of debt. The discount rate for FCFF and the hurdle for ROIC." data-tip-title="WACC: Weighted average cost of capital">WACC</abbr>: higher rates lower every valuation, most of all for long-duration growth stocks.</li>
+<li>They also hit business economics: interest costs, consumer credit, housing, currency.</li>
+<li><b>Real rate</b> = nominal − inflation; high real rates are the restrictive ones.</li>
+<li><b>Yield curve</b> inversion has preceded recessions by 6–18 months.</li>
+<li><b>Credit spreads</b> widening is an early stress signal.</li>
+</ul><div class="tw"><table>
+<tr><th>Sector</th><th>Rates rising</th><th>Rates falling</th></tr>
+<tr><td>Banks</td><td>Often positive (<abbr class="gl" data-tip="(Interest earned − interest paid) ÷ average earning assets. The core profitability measure for lenders." data-tip-title="NIM: Net interest margin">NIM</abbr> widens)</td><td>Negative</td></tr>
+<tr><td>Insurers</td><td>Positive (investment income)</td><td>Negative</td></tr>
+<tr><td>Utilities, REITs</td><td>Negative (bond proxies, debt)</td><td>Positive</td></tr>
+<tr><td>High-multiple tech</td><td>Negative (long duration)</td><td>Positive</td></tr>
+<tr><td>Real estate, autos, discretionary</td><td>Negative (credit-financed demand)</td><td>Positive</td></tr>
+</table></div></div>
+<div class="card o" data-skey="fa:macro-drivers-and-sector-rotation/inflation-and-the-economic-cycle" id="inflation-and-the-economic-cycle"><h3 data-label="Inflation and the economic cycle">Inflation and the economic cycle<a aria-label="Link to this card" class="anchor" href="#inflation-and-the-economic-cycle">#</a></h3><div class="tw"><table>
+<tr><th>Inflation regime</th><th>Equity implication</th></tr>
+<tr><td>Low and stable (1–3%)</td><td>Supports high multiples</td></tr>
+<tr><td>Rising (3–5%)</td><td>Pricing-power companies win</td></tr>
+<tr><td>High (above 5–6%)</td><td>Rate hikes, multiple compression; value over growth</td></tr>
+<tr><td>Deflation</td><td>Real debt burden rises; revenues fall</td></tr>
+</table></div><div class="tw"><table>
+<tr><th>Phase</th><th>Economy</th><th>Leaders</th></tr>
+<tr><td>Early (recovery)</td><td>Rates cut, credit eases</td><td>Financials, discretionary, tech</td></tr>
+<tr><td>Mid (expansion)</td><td>Steady growth</td><td>Tech, industrials, materials</td></tr>
+<tr><td>Late (peak)</td><td>Inflation up, tightening</td><td>Energy, materials</td></tr>
+<tr><td>Recession</td><td>Earnings fall</td><td>Staples, healthcare, utilities</td></tr>
+</table></div><p>Inflation is the stress test for moats: only real pricing power keeps margins.</p></div>
+<div class="card p" data-skey="fa:macro-drivers-and-sector-rotation/sector-rotation-cycle" id="sector-rotation-cycle"><h3 data-label="Sector rotation cycle">Sector rotation cycle<a aria-label="Link to this card" class="anchor" href="#sector-rotation-cycle">#</a></h3><pre class="mermaid" data-h="260" data-key="953224c13321" data-w="319">flowchart TD
+  E["Early cycle: financials, discretionary"] --&gt; M["Mid cycle: technology, industrials"]
+  M --&gt; L["Late cycle: energy, materials"]
+  L --&gt; R["Recession: staples, healthcare, utilities"]
+  R --&gt; E</pre><p>Popularised by Sam Stovall; the pattern is real but loose. Use it to set tilts, not to make all-or-nothing switches, and never drop company quality for a macro theme.</p></div>
+<div class="card b" data-skey="fa:macro-drivers-and-sector-rotation/top-down-process" id="top-down-process"><h3 data-label="Top-down process">Top-down process<a aria-label="Link to this card" class="anchor" href="#top-down-process">#</a></h3><ol class="steps">
+<li><b>Regime:</b> growth, inflation, policy direction, yield curve, credit spreads.</li>
+<li><b>Sectors:</b> which have tailwinds in this regime?</li>
+<li><b>Industries:</b> best structures within them (five forces).</li>
+<li><b>Stocks:</b> best moats, management and valuations.</li>
+<li><b>Monitor:</b> <abbr class="gl" data-tip="Monthly survey of business activity. Above 50 = expansion; below 50 = contraction." data-tip-title="PMI: Purchasing managers' index">PMI</abbr> turns, policy language, curve shape, spreads.</li>
+</ol><p>Sector relative strength (sector index ÷ Nifty or S&amp;P 500) shows rotation as it happens.</p></div>
+<div class="card t full" data-skey="fa:macro-drivers-and-sector-rotation/india-macro-dashboard" id="india-macro-dashboard"><h3 data-label="India macro dashboard">India macro dashboard<a aria-label="Link to this card" class="anchor" href="#india-macro-dashboard">#</a></h3><div class="tw"><table>
+<tr><th>Indicator</th><th>Source</th><th>Why it matters</th></tr>
+<tr><td>Repo rate and <abbr class="gl" data-tip="RBI's six-member committee that sets the repo rate, meeting six times a year." data-tip-title="MPC: Monetary Policy Committee">MPC</abbr> stance</td><td><abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr> (six policy meetings a year)</td><td>Cost of capital, bank NIMs, rate-sensitive sectors</td></tr>
+<tr><td><abbr class="gl" data-tip="Retail inflation measure. RBI targets CPI inflation of 4% within a 2–6% band." data-tip-title="CPI: Consumer price index">CPI</abbr> inflation</td><td>MoSPI, monthly</td><td>RBI targets 4% within a 2–6% band</td></tr>
+<tr><td><abbr class="gl" data-tip="Total value of goods and services produced. Nominal GDP growth sets the ceiling for long-run earnings growth." data-tip-title="GDP: Gross domestic product">GDP</abbr> growth</td><td>MoSPI, quarterly</td><td>Earnings backdrop; nominal GDP sets long-run growth</td></tr>
+<tr><td><abbr class="gl" data-tip="Monthly MoSPI index of output in mining, manufacturing and electricity." data-tip-title="IIP: Index of industrial production">IIP</abbr> (industrial production)</td><td>MoSPI, monthly</td><td>Manufacturing momentum</td></tr>
+<tr><td><abbr class="gl" data-tip="India's indirect tax; monthly collections are a quick read on consumption." data-tip-title="GST: Goods and services tax">GST</abbr> collections</td><td>Finance Ministry, monthly</td><td>Real-time consumption proxy</td></tr>
+<tr><td><abbr class="gl" data-tip="Monthly survey of business activity. Above 50 = expansion; below 50 = contraction." data-tip-title="PMI: Purchasing managers' index">PMI</abbr> (manufacturing, services)</td><td>HSBC / S&amp;P Global, monthly</td><td>Above 50 = expansion</td></tr>
+<tr><td>Bank credit growth</td><td>RBI, fortnightly</td><td>Lending cycle and bank earnings</td></tr>
+<tr><td>Monsoon</td><td>IMD</td><td>Rural demand, food inflation, tractors, FMCG</td></tr>
+<tr><td>Crude oil, USD/INR</td><td>Markets</td><td>India imports most of its oil: inflation, current account, <abbr class="gl" data-tip="Indian fuel retailers (IOC, BPCL, HPCL) whose margins depend on crude prices and pricing policy." data-tip-title="OMC: Oil marketing company">OMC</abbr> margins</td></tr>
+<tr><td>10-year G-sec yield</td><td>RBI / markets</td><td>Risk-free rate for valuations</td></tr>
+<tr><td><abbr class="gl" data-tip="Overseas investors in Indian listed securities (formerly called FII). Their flows move large caps and the rupee." data-tip-title="FPI: Foreign portfolio investor">FPI</abbr> / <abbr class="gl" data-tip="Indian mutual funds, insurers, banks and pension funds. SIP inflows have made them a steady buyer." data-tip-title="DII: Domestic institutional investor">DII</abbr> flows</td><td>NSDL, <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr></td><td>Market liquidity and sentiment</td></tr>
+<tr><td>Union Budget (1 Feb)</td><td>Government</td><td>Fiscal deficit, capex, taxes, sector policy</td></tr>
+</table></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#earnings"><span>Previous</span>08 · Earnings season playbook</a><a class="sn-next" href="#sectors"><span>Next</span>10 · Sector-specific metrics</a></nav></section>
+<section class="sec o" data-origin="fa" id="sectors"><h2 data-label="Sector-specific metrics"><span class="n">10</span>Sector-specific metrics</h2>
+<p class="src">TradingOverview/fundamental-analysis/handbook (sector sections) · standard industry practice</p>
+<div class="g2">
+<div class="card o full" data-skey="fa:sector-specific-metrics/what-to-look-at-by-sector" id="what-to-look-at-by-sector"><h3 data-label="What to look at, by sector">What to look at, by sector<a aria-label="Link to this card" class="anchor" href="#what-to-look-at-by-sector">#</a></h3><div class="tw"><table>
+<tr><th>Sector</th><th>Key metrics</th><th>Good signs</th><th>Valuation anchor</th></tr>
+<tr><td>Banks</td><td><abbr class="gl" data-tip="(Interest earned − interest paid) ÷ average earning assets. The core profitability measure for lenders." data-tip-title="NIM: Net interest margin">NIM</abbr>, <abbr class="gl" data-tip="Loans overdue 90+ days as a share of gross advances, before provisions." data-tip-title="GNPA: Gross non-performing assets">GNPA</abbr> / <abbr class="gl" data-tip="Bad loans after provisions, as a share of net advances." data-tip-title="NNPA: Net non-performing assets">NNPA</abbr>, provision coverage, <abbr class="gl" data-tip="Low-cost deposits as a share of total deposits. A high CASA ratio lowers a bank's cost of funds." data-tip-title="CASA: Current and savings account deposits">CASA</abbr> ratio, credit cost, capital adequacy, <abbr class="gl" data-tip="Net profit ÷ average total assets. Less distorted by leverage than ROE; banks typically earn 1–1.5%." data-tip-title="ROA: Return on assets">ROA</abbr></td><td>Stable NIM, falling NPAs, <abbr class="gl" data-tip="For banks: provisions ÷ gross NPAs (above 70% is comfortable). In options: put open interest ÷ call open interest, read as a sentiment gauge." data-tip-title="PCR: Provision coverage ratio / put-call ratio">PCR</abbr> above 70%, high CASA, ROA above 1%</td><td><abbr class="gl" data-tip="Share price ÷ book value per share. The key multiple for banks and insurers; justified P/B = (ROE − g) ÷ (r − g)." data-tip-title="P/B: Price-to-book ratio">P/B</abbr> (or P/ABV) against <abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr></td></tr>
+<tr><td>NBFCs</td><td><abbr class="gl" data-tip="Loan book of a lender or money managed by a fund house." data-tip-title="AUM: Assets under management">AUM</abbr> growth, spread, cost of funds, Stage 3 assets, <abbr class="gl" data-tip="Matching the maturities of loans and borrowings. A mismatch causes liquidity crises, as in 2018 for some NBFCs." data-tip-title="ALM: Asset-liability management">ALM</abbr> mismatch, leverage</td><td>Growth without asset-quality slippage; diversified funding</td><td>P/B against ROE</td></tr>
+<tr><td>Life insurance</td><td><abbr class="gl" data-tip="Present value of future profits from policies sold in a period; the VNB margin is VNB ÷ APE." data-tip-title="VNB: Value of new business">VNB</abbr> margin, <abbr class="gl" data-tip="Regular premiums plus 10% of single premiums. The standard measure of life-insurance sales." data-tip-title="APE: Annualised premium equivalent">APE</abbr> growth, persistency (13th and 61st month), embedded value</td><td>Rising margins and persistency</td><td>P/EV</td></tr>
+<tr><td>General insurance</td><td>Combined ratio, loss ratio, solvency ratio, float</td><td>Combined ratio below 100%</td><td>P/B, <abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr></td></tr>
+<tr><td>IT services</td><td>Constant-currency growth, deal wins (<abbr class="gl" data-tip="Full value of deals signed, across all years. IT services firms report large-deal TCV each quarter." data-tip-title="TCV: Total contract value">TCV</abbr>), <abbr class="gl" data-tip="Operating profit. Compares businesses regardless of how they are financed." data-tip-title="EBIT: Earnings before interest and tax">EBIT</abbr> margin, attrition, utilisation, client concentration</td><td>Large-deal momentum, stable margins</td><td>P/E, <abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr>/EBIT</td></tr>
+<tr><td>SaaS</td><td><abbr class="gl" data-tip="Annualised value of subscription contracts in force." data-tip-title="ARR: Annual recurring revenue">ARR</abbr>, net revenue retention, gross margin, rule of 40, <abbr class="gl" data-tip="Sales and marketing spend ÷ new customers (or new ARR) won." data-tip-title="CAC: Customer acquisition cost">CAC</abbr> payback, churn</td><td><abbr class="gl" data-tip="Revenue this year from last year's customers ÷ their revenue last year. Above 100% means expansion beats churn." data-tip-title="NRR: Net revenue retention">NRR</abbr> above 110%, growth % + <abbr class="gl" data-tip="Operating cash flow − capex. Cash left for dividends, buybacks, debt repayment or acquisitions." data-tip-title="FCF: Free cash flow">FCF</abbr> margin % above 40</td><td>EV/Sales against growth, EV/FCF</td></tr>
+<tr><td>FMCG / consumer</td><td>Volume vs price growth, gross margin vs input costs, ad spend, distribution reach, rural vs urban</td><td>Volume-led growth, steady margins</td><td>P/E, EV/EBITDA</td></tr>
+<tr><td>Retail</td><td>Same-store sales growth, revenue per sq ft, store additions, inventory days</td><td>Positive <abbr class="gl" data-tip="Sales growth from stores open at least a year. Strips out growth from new stores." data-tip-title="SSSG: Same-store sales growth">SSSG</abbr>; new stores breaking even fast</td><td>EV/EBITDA (post-lease), EV/Sales</td></tr>
+<tr><td>Autos</td><td>Volumes, market share, realisation and <abbr class="gl" data-tip="A rough proxy for operating cash flow. It ignores capex, so it flatters capital-intensive businesses." data-tip-title="EBITDA: Earnings before interest, tax, depreciation and amortisation">EBITDA</abbr> per vehicle, dealer inventory, EV mix</td><td>Share gains, pricing power</td><td>P/E, EV/EBITDA (cyclical)</td></tr>
+<tr><td>Cement</td><td>Capacity utilisation, EBITDA per tonne, realisation, power and fuel cost per tonne</td><td>Utilisation above 75%, cost leadership</td><td>EV/tonne of capacity, EV/EBITDA</td></tr>
+<tr><td>Metals</td><td>Spreads, EBITDA per tonne, net debt / EBITDA, global prices</td><td>Low cost position, low leverage at the peak</td><td>EV/EBITDA, P/B (cyclical)</td></tr>
+<tr><td>Pharma</td><td>US generic price erosion, <abbr class="gl" data-tip="US FDA filing to sell a generic drug. A pharma company's ANDA pipeline shows future US launches." data-tip-title="ANDA: Abbreviated new drug application">ANDA</abbr> pipeline, <abbr class="gl" data-tip="Its plant inspections and warning letters can stop Indian pharma exports to the US." data-tip-title="USFDA: US Food and Drug Administration">USFDA</abbr> inspection outcomes, domestic formulation growth, R&amp;D %</td><td>Clean plants, specialty and complex pipeline</td><td>P/E, EV/EBITDA</td></tr>
+<tr><td>Telecom</td><td>ARPU, subscriber adds, churn, data per user, capex intensity, net debt / EBITDA</td><td>Rising ARPU with stable churn</td><td>EV/EBITDA</td></tr>
+<tr><td>Real estate</td><td>Pre-sales, collections, launches, net debt, land bank</td><td>Collections above pre-sales; falling debt</td><td><abbr class="gl" data-tip="Market value of assets minus liabilities, per share or unit. The anchor for real estate, REITs and holding companies." data-tip-title="NAV: Net asset value">NAV</abbr></td></tr>
+<tr><td>REITs / InvITs</td><td>Occupancy, <abbr class="gl" data-tip="Rental income minus property operating costs, before interest and tax. The key REIT earnings line." data-tip-title="NOI: Net operating income">NOI</abbr>, distribution yield, <abbr class="gl" data-tip="Average remaining lease term weighted by rent. A long WALE means stable REIT income." data-tip-title="WALE: Weighted average lease expiry">WALE</abbr>, rent reversion</td><td>High occupancy, positive reversions</td><td>Price / NAV, yield spread over G-sec</td></tr>
+<tr><td>Power / utilities</td><td>Plant load factor, regulated ROE, receivables from discoms, capacity pipeline</td><td>Timely collections</td><td>P/B, <abbr class="gl" data-tip="Valuation that discounts forecast free cash flows and a terminal value to today at the cost of capital." data-tip-title="DCF: Discounted cash flow">DCF</abbr>, dividend yield</td></tr>
+<tr><td>Oil and gas</td><td>Refining margins (<abbr class="gl" data-tip="Value of refined products minus the cost of crude, per barrel. Drives refiner earnings." data-tip-title="GRM: Gross refining margin">GRM</abbr>), marketing margins, production, realisations</td><td>Margins above cycle average</td><td>EV/EBITDA, P/B</td></tr>
+</table></div></div>
+<div class="card b" data-skey="fa:sector-specific-metrics/bank-metrics-decoded" id="bank-metrics-decoded"><h3 data-label="Bank metrics decoded">Bank metrics decoded<a aria-label="Link to this card" class="anchor" href="#bank-metrics-decoded">#</a></h3><div class="formula"><span class="fl">NIM = (interest earned − interest paid) ÷ average earning assets</span><span class="fl">GNPA ratio = gross NPAs ÷ gross advances</span><span class="fl">PCR = provisions ÷ gross NPAs</span><span class="fl">CASA = (current + savings deposits) ÷ total deposits</span><span class="fl">credit cost = provisions ÷ average advances</span><span class="fl">justified P/B = (ROE − g) ÷ (Ke − g)</span></div><p>For lenders, ignore <abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr>/EBITDA and debt/equity: debt is the raw material. Asset quality is everything, and it shows up late.</p></div>
+<div class="card g" data-skey="fa:sector-specific-metrics/saas-and-subscription-metrics" id="saas-and-subscription-metrics"><h3 data-label="SaaS and subscription metrics">SaaS and subscription metrics<a aria-label="Link to this card" class="anchor" href="#saas-and-subscription-metrics">#</a></h3><div class="formula"><span class="fl">rule of 40 = revenue growth % + FCF margin %  ≥ 40</span><span class="fl">NRR = (start ARR + expansion − contraction − churn) ÷ start ARR</span><span class="fl">CAC payback (months) = 12 × CAC ÷ (new ARR × gross margin)</span><span class="fl">LTV / CAC above 3 is healthy</span></div><p>Watch billings and deferred revenue against reported revenue to catch front-loaded recognition.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#macro"><span>Previous</span>09 · Macro drivers and sector rotation</a><a class="sn-next" href="#styles"><span>Next</span>11 · Investing styles and classic screens</a></nav></section>
+<section class="sec y" data-origin="fa" id="styles"><h2 data-label="Investing styles and classic screens"><span class="n">11</span>Investing styles and classic screens</h2>
+<p class="src">TradingOverview/fundamental-analysis/book-notes (Graham, Fisher, Damodaran) · reading list (Buffett and Clark, Lynch, Greenblatt, Dorsey)</p>
+<div class="g2">
+<div class="card y" data-skey="fa:investing-styles-and-classic-screens/graham-s-defensive-investor-criteria" id="graham-s-defensive-investor-criteria"><h3 data-label="Graham's defensive-investor criteria">Graham's defensive-investor criteria<a aria-label="Link to this card" class="anchor" href="#graham-s-defensive-investor-criteria">#</a></h3><div class="tw"><table>
+<tr><th>#</th><th>Criterion</th></tr>
+<tr><td>1</td><td>Adequate size (avoid small, obscure companies)</td></tr>
+<tr><td>2</td><td>Strong finances: current ratio ≥ 2; long-term debt ≤ net current assets</td></tr>
+<tr><td>3</td><td>Earnings stability: positive earnings in each of the last 10 years</td></tr>
+<tr><td>4</td><td>Dividend record: uninterrupted for at least 20 years</td></tr>
+<tr><td>5</td><td>Earnings growth: at least one-third over 10 years (3-year averages at each end)</td></tr>
+<tr><td>6</td><td>Moderate <abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr>: at most 15 × average earnings of the last 3 years</td></tr>
+<tr><td>7</td><td>Moderate <abbr class="gl" data-tip="Share price ÷ book value per share. The key multiple for banks and insurers; justified P/B = (ROE − g) ÷ (r − g)." data-tip-title="P/B: Price-to-book ratio">P/B</abbr>: at most 1.5, or P/E × P/B ≤ 22.5</td></tr>
+</table></div><p>Criterion 7 is where the Graham number comes from: √(22.5 × <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> × BVPS).</p></div>
+<div class="card b" data-skey="fa:investing-styles-and-classic-screens/buffett-clark-statement-rules-of-thumb" id="buffett-clark-statement-rules-of-thumb"><h3 data-label="Buffett–Clark statement rules of thumb">Buffett–Clark statement rules of thumb<a aria-label="Link to this card" class="anchor" href="#buffett-clark-statement-rules-of-thumb">#</a></h3><div class="tw"><table>
+<tr><th>Line</th><th>Durable advantage shows as</th></tr>
+<tr><td>Gross margin</td><td>Consistently 40%+</td></tr>
+<tr><td><abbr class="gl" data-tip="Overheads not tied to production: salaries, marketing, rent, head office." data-tip-title="SG&amp;A: Selling, general and administrative expenses">SG&amp;A</abbr></td><td>Below about 30% of gross profit, and steady</td></tr>
+<tr><td>R&amp;D</td><td>Low; heavy R&amp;D means the moat needs constant rebuilding</td></tr>
+<tr><td>Depreciation</td><td>Below about 10% of gross profit</td></tr>
+<tr><td>Interest</td><td>Below 15% of operating income</td></tr>
+<tr><td>Net margin</td><td>Consistently 20%+</td></tr>
+<tr><td><abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr></td><td>Rising steadily over 10 years</td></tr>
+<tr><td>Debt</td><td>Long-term debt repayable from 3–4 years of profit</td></tr>
+<tr><td><abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr></td><td>High without leverage</td></tr>
+<tr><td>Capex</td><td>Below 50% of net profit (below 25% is excellent)</td></tr>
+<tr><td>Retained earnings</td><td>Growing; buybacks reduce the share count</td></tr>
+</table></div></div>
+<div class="card g" data-skey="fa:investing-styles-and-classic-screens/peter-lynch-s-six-categories" id="peter-lynch-s-six-categories"><h3 data-label="Peter Lynch's six categories">Peter Lynch's six categories<a aria-label="Link to this card" class="anchor" href="#peter-lynch-s-six-categories">#</a></h3><div class="tw"><table>
+<tr><th>Category</th><th>Profile</th><th>Play</th></tr>
+<tr><td>Slow growers</td><td>2–4% growth, mature</td><td>Dividends; little upside</td></tr>
+<tr><td>Stalwarts</td><td>10–12% growth, large</td><td>Recession protection; take 30–50% gains</td></tr>
+<tr><td>Fast growers</td><td>20–25%+ growth</td><td>Biggest winners; sell when growth stalls</td></tr>
+<tr><td>Cyclicals</td><td>Earnings swing with the economy</td><td>Low <abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr> often marks the peak</td></tr>
+<tr><td>Turnarounds</td><td>Recovering from trouble</td><td>Balance sheet must survive</td></tr>
+<tr><td>Asset plays</td><td>Hidden assets the market ignores</td><td>Patience for a catalyst</td></tr>
+</table></div><p>"Two-minute drill": explain why you own it, what has to happen, and the risks, in two minutes.</p></div>
+<div class="card p" data-skey="fa:investing-styles-and-classic-screens/greenblatt-and-dorsey" id="greenblatt-and-dorsey"><h3 data-label="Greenblatt and Dorsey">Greenblatt and Dorsey<a aria-label="Link to this card" class="anchor" href="#greenblatt-and-dorsey">#</a></h3><ul>
+<li><b>Magic formula:</b> rank stocks by earnings yield (<abbr class="gl" data-tip="Operating profit. Compares businesses regardless of how they are financed." data-tip-title="EBIT: Earnings before interest and tax">EBIT</abbr> ÷ <abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr>) and return on capital (EBIT ÷ (net working capital + net fixed assets)); buy the top 20–30 combined ranks, hold about a year, rebalance.</li>
+<li><b>Special situations</b> (You Can Be a Stock Market Genius): spin-offs, restructurings, merger securities, rights offerings, bankruptcies. Forced, non-economic selling creates bargains.</li>
+<li><b>Dorsey's five rules:</b> do your homework; find economic moats; insist on a margin of safety; hold for the long term; know when to sell.</li>
+</ul></div>
+<div class="card t full" data-skey="fa:investing-styles-and-classic-screens/building-a-screen" id="building-a-screen"><h3 data-label="Building a screen">Building a screen<a aria-label="Link to this card" class="anchor" href="#building-a-screen">#</a></h3><div class="tw"><table>
+<tr><th>Screen</th><th>Example filters</th><th>Watch out for</th></tr>
+<tr><td>Quality compounder</td><td><abbr class="gl" data-tip="EBIT ÷ (equity + debt). The common Indian quality metric; close to pre-tax ROIC." data-tip-title="ROCE: Return on capital employed">ROCE</abbr> &gt; 18% for 5 years, sales growth &gt; 12%, debt/equity &lt; 0.5, <abbr class="gl" data-tip="Cash generated by the core business. Should track or exceed net profit over several years." data-tip-title="CFO: Cash flow from operations">CFO</abbr>/PAT &gt; 0.8</td><td>Price paid; rich valuations</td></tr>
+<tr><td>Value</td><td><abbr class="gl" data-tip="Market cap + debt − cash (+ minority interest). What it would cost to buy the whole business; pair it with EBITDA, EBIT or sales." data-tip-title="EV: Enterprise value">EV</abbr>/EBIT in the bottom quartile, <abbr class="gl" data-tip="Operating cash flow − capex. Cash left for dividends, buybacks, debt repayment or acquisitions." data-tip-title="FCF: Free cash flow">FCF</abbr> yield &gt; 6%, Piotroski ≥ 7</td><td>Value traps; cyclicals at peak</td></tr>
+<tr><td><abbr class="gl" data-tip="Style blending growth and value: decent growth bought at a moderate multiple, often screened with PEG." data-tip-title="GARP: Growth at a reasonable price">GARP</abbr></td><td><abbr class="gl" data-tip="P/E ÷ EPS growth rate in %. Around 1 is &quot;fair&quot; in Lynch's rule of thumb." data-tip-title="PEG: Price/earnings-to-growth ratio">PEG</abbr> &lt; 1.2, <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> growth 15–30%, <abbr class="gl" data-tip="Net profit ÷ average shareholders' equity. Above 15% consistently is strong, but leverage can inflate it; use DuPont to see why." data-tip-title="ROE: Return on equity">ROE</abbr> &gt; 15%</td><td>One-year growth spikes</td></tr>
+<tr><td>Dividend</td><td>Yield above the 10-year G-sec, payout &lt; 70%, FCF cover &gt; 1.3×</td><td>Shrinking businesses paying out capital</td></tr>
+<tr><td>Turnaround</td><td>Margin and ROCE rising from a low base, debt falling, promoter buying</td><td>False dawns</td></tr>
+</table></div><p>Combine quality, value and growth filters; a single-metric screen mostly finds problems. A screen gives a reading list, not a buy list.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#sectors"><span>Previous</span>10 · Sector-specific metrics</a><a class="sn-next" href="#india"><span>Next</span>12 · India lens: filings, governance and red flags</a></nav></section>
+<section class="sec t" data-origin="fa" id="india"><h2 data-label="India lens: filings, governance and red flags"><span class="n">12</span>India lens: filings, governance and red flags</h2>
+<p class="src">TradingOverview/fundamental-analysis (applied to Indian markets) · SEBI and exchange disclosure practice</p>
+<div class="g2">
+<div class="card t" data-skey="fa:india-lens-filings-governance-and-red-flags/disclosures-worth-reading" id="disclosures-worth-reading"><h3 data-label="Disclosures worth reading">Disclosures worth reading<a aria-label="Link to this card" class="anchor" href="#disclosures-worth-reading">#</a></h3><div class="tw"><table>
+<tr><th>Document</th><th>Frequency</th><th>Look for</th></tr>
+<tr><td>Financial results</td><td>Quarterly (45 days); annual audited (60 days)</td><td>Segment data, consolidated vs standalone, exceptional items</td></tr>
+<tr><td>Shareholding pattern</td><td>Quarterly</td><td>Promoter, <abbr class="gl" data-tip="Older name for foreign portfolio investors; still used in daily NSE flow data." data-tip-title="FII: Foreign institutional investor">FII</abbr>, <abbr class="gl" data-tip="Indian mutual funds, insurers, banks and pension funds. SIP inflows have made them a steady buyer." data-tip-title="DII: Domestic institutional investor">DII</abbr> and retail trends; pledged shares</td></tr>
+<tr><td>Annual report</td><td>Yearly</td><td>Related-party note, contingent liabilities, auditor's report, <abbr class="gl" data-tip="Spending on projects not yet commissioned. CWIP that sits for years is a red flag." data-tip-title="CWIP: Capital work in progress">CWIP</abbr></td></tr>
+<tr><td>Investor presentation and call transcript</td><td>Quarterly</td><td>Guidance, capex plans, demand commentary</td></tr>
+<tr><td>Credit rating rationale</td><td>On rating action</td><td>Liquidity, debt structure, group support</td></tr>
+<tr><td>Insider trading (PIT) and <abbr class="gl" data-tip="SEBI takeover code: disclosures when holdings cross thresholds and open offers above 25%." data-tip-title="SAST: Substantial Acquisition of Shares and Takeovers">SAST</abbr> filings</td><td>Event-based</td><td>Promoter buying or selling, creeping acquisitions</td></tr>
+</table></div></div>
+<div class="card r" data-skey="fa:india-lens-filings-governance-and-red-flags/indian-market-red-flags" id="indian-market-red-flags"><h3 data-label="Indian-market red flags">Indian-market red flags<a aria-label="Link to this card" class="anchor" href="#indian-market-red-flags">#</a></h3><ul>
+<li><b>Promoter pledge</b> rising, or pledged shares a large share of the promoter stake: forced selling risk.</li>
+<li><b>Promoter holding falling</b> steadily without a clear reason.</li>
+<li><b>Related-party transactions</b> large relative to profit; loans or advances to group firms.</li>
+<li><b>Auditor resignation mid-term</b> (reasons must be disclosed) or a tiny auditor for a large group.</li>
+<li><b>Qualified opinion</b> or "emphasis of matter" in the audit report.</li>
+<li><b><abbr class="gl" data-tip="Spending on projects not yet commissioned. CWIP that sits for years is a red flag." data-tip-title="CWIP: Capital work in progress">CWIP</abbr> piling up</b> for years; <b>interest capitalised</b> into projects.</li>
+<li><b>Other income</b> a large share of profit; tax rate far below peers.</li>
+<li><b>Frequent dilution:</b> QIPs, preferential allotments, warrants to promoters at low prices.</li>
+<li><b>Large contingent liabilities</b>, especially tax demands and guarantees for group companies.</li>
+<li><b>Subsidiaries</b> carrying the debt or losses: always check consolidated numbers.</li>
+</ul></div>
+<div class="card b" data-skey="fa:india-lens-filings-governance-and-red-flags/accounting-notes-for-indian-companies" id="accounting-notes-for-indian-companies"><h3 data-label="Accounting notes for Indian companies">Accounting notes for Indian companies<a aria-label="Link to this card" class="anchor" href="#accounting-notes-for-indian-companies">#</a></h3><ul>
+<li><b>Ind AS</b> is converged with <abbr class="gl" data-tip="Global accounting standards; India's Ind AS is converged with them." data-tip-title="IFRS: International Financial Reporting Standards">IFRS</abbr>: leases on the balance sheet (Ind AS 116), five-step revenue recognition (Ind AS 115), fair-value items through OCI.</li>
+<li><b>Standalone vs consolidated:</b> valuations should use consolidated figures unless the parent is the whole business.</li>
+<li><b><abbr class="gl" data-tip="EBIT ÷ (equity + debt). The common Indian quality metric; close to pre-tax ROIC." data-tip-title="ROCE: Return on capital employed">ROCE</abbr></b> (<abbr class="gl" data-tip="Operating profit. Compares businesses regardless of how they are financed." data-tip-title="EBIT: Earnings before interest and tax">EBIT</abbr> ÷ capital employed) is the common Indian quality metric; it is close to pre-tax <abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr>.</li>
+<li><b>Holding companies</b> usually trade at a discount to the value of their listed stakes; value them with sum of the parts.</li>
+<li><b>PSUs:</b> government ownership brings dividend payouts and policy risk; minority interests can come second.</li>
+<li><b>Tax rules</b> for dividends and capital gains change in budgets; check the current rates.</li>
+</ul></div>
+<div class="card g" data-skey="fa:india-lens-filings-governance-and-red-flags/valuing-the-indian-market" id="valuing-the-indian-market"><h3 data-label="Valuing the Indian market">Valuing the Indian market<a aria-label="Link to this card" class="anchor" href="#valuing-the-indian-market">#</a></h3><ul>
+<li><b>Earnings yield vs bonds:</b> compare Nifty earnings yield (1 ÷ <abbr class="gl" data-tip="Share price ÷ EPS. What the market pays for each rupee of profit; meaningless for loss-makers and misleading for cyclicals at peak earnings." data-tip-title="P/E: Price-to-earnings ratio">P/E</abbr>) with the 10-year G-sec yield; a wide gap in favour of bonds signals expensive equities.</li>
+<li><b>Market cap to <abbr class="gl" data-tip="Total value of goods and services produced. Nominal GDP growth sets the ceiling for long-run earnings growth." data-tip-title="GDP: Gross domestic product">GDP</abbr>:</b> a rough, slow gauge of overall valuation.</li>
+<li><b>Own history:</b> compare index P/E and <abbr class="gl" data-tip="Share price ÷ book value per share. The key multiple for banks and insurers; justified P/B = (ROE − g) ÷ (r − g)." data-tip-title="P/B: Price-to-book ratio">P/B</abbr> with their long-run ranges, not with other countries.</li>
+<li><b>Higher nominal growth</b> (real growth plus inflation) supports higher multiples and higher terminal growth in rupee DCFs than in US-dollar DCFs, but so does a higher risk-free rate.</li>
+<li><b>Flows:</b> <abbr class="gl" data-tip="Overseas investors in Indian listed securities (formerly called FII). Their flows move large caps and the rupee." data-tip-title="FPI: Foreign portfolio investor">FPI</abbr> selling with steady domestic <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr> inflows has become a recurring tug of war.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#styles"><span>Previous</span>11 · Investing styles and classic screens</a><a class="sn-next" href="#last"><span>Next</span>13 · Research workflow, sell rules and checklists</a></nav></section>
+<section class="sec r" data-origin="fa" id="last"><h2 data-label="Research workflow, sell rules and checklists"><span class="n">13</span>Research workflow, sell rules and checklists</h2>
+<p>Run these before buying and every time results come out.</p>
+<div class="g2">
+<div class="card r" data-skey="fa:research-workflow-sell-rules-and-checklists/one-page-investment-thesis" id="one-page-investment-thesis"><h3 data-label="One-page investment thesis">One-page investment thesis<a aria-label="Link to this card" class="anchor" href="#one-page-investment-thesis">#</a></h3><ol class="steps">
+<li><b>Business:</b> what it sells, to whom, how it makes money, in two sentences.</li>
+<li><b>Why it wins:</b> the moat in one sentence, with the numbers that prove it.</li>
+<li><b>What the market misses:</b> your variant view.</li>
+<li><b>Value:</b> base, bull and bear values; the margin of safety at today's price.</li>
+<li><b>Catalysts:</b> what will make the price converge with value, and when.</li>
+<li><b>Risks:</b> the three things most likely to break the thesis.</li>
+<li><b>Sell triggers:</b> written now, while calm.</li>
+</ol></div>
+<div class="card b" data-skey="fa:research-workflow-sell-rules-and-checklists/pre-buy-checklist" id="pre-buy-checklist"><h3 data-label="Pre-buy checklist">Pre-buy checklist<a aria-label="Link to this card" class="anchor" href="#pre-buy-checklist">#</a></h3><ul>
+<li>Read 5–10 years of statements; <abbr class="gl" data-tip="Cash generated by the core business. Should track or exceed net profit over several years." data-tip-title="CFO: Cash flow from operations">CFO</abbr> tracks profit.</li>
+<li><abbr class="gl" data-tip="NOPAT ÷ (equity + debt − cash). If it stays above WACC, growth creates value." data-tip-title="ROIC: Return on invested capital">ROIC</abbr> or <abbr class="gl" data-tip="EBIT ÷ (equity + debt). The common Indian quality metric; close to pre-tax ROIC." data-tip-title="ROCE: Return on capital employed">ROCE</abbr> above the cost of capital for most years.</li>
+<li>Debt manageable: net debt / <abbr class="gl" data-tip="A rough proxy for operating cash flow. It ignores capex, so it flatters capital-intensive businesses." data-tip-title="EBITDA: Earnings before interest, tax, depreciation and amortisation">EBITDA</abbr> below 2–3×, coverage above 5×.</li>
+<li>Moat identified and not shrinking.</li>
+<li>Management: capital allocation, candour, ownership, no governance flags.</li>
+<li>Earnings quality: no Beneish, Altman or working-capital warnings.</li>
+<li>Valuation from <abbr class="gl" data-tip="Valuation that discounts forecast free cash flows and a terminal value to today at the cost of capital." data-tip-title="DCF: Discounted cash flow">DCF</abbr> and multiples agree; margin of safety fits the quality.</li>
+<li>Position size decided; it would not ruin you if wrong.</li>
+</ul></div>
+<div class="card g" data-skey="fa:research-workflow-sell-rules-and-checklists/sell-rules" id="sell-rules"><h3 data-label="Sell rules">Sell rules<a aria-label="Link to this card" class="anchor" href="#sell-rules">#</a></h3><div class="tw"><table>
+<tr><th>Sell when</th><th>Not when</th></tr>
+<tr><td>The thesis was wrong (facts misread)</td><td>The price fell but value is intact</td></tr>
+<tr><td>The business has deteriorated (moat, management, governance)</td><td>A macro scare hits the whole market</td></tr>
+<tr><td>Price far exceeds a conservative value</td><td>It is merely "up a lot"</td></tr>
+<tr><td>A clearly better opportunity needs the capital</td><td>You are bored or impatient</td></tr>
+<tr><td>Position has grown far beyond your size limit</td><td>One weak quarter with a clear explanation</td></tr>
+</table></div></div>
+<div class="card p" data-skey="fa:research-workflow-sell-rules-and-checklists/portfolio-construction" id="portfolio-construction"><h3 data-label="Portfolio construction">Portfolio construction<a aria-label="Link to this card" class="anchor" href="#portfolio-construction">#</a></h3><ul>
+<li>10–25 holdings for most individual investors: concentrated enough to matter, diversified enough to survive mistakes.</li>
+<li>Size by conviction and margin of safety; cap any single stock at about 5–10% of the portfolio at cost.</li>
+<li>Cap sector exposure and watch hidden correlation (rate-sensitive, export-dependent, same promoter group).</li>
+<li>Keep some cash for market dislocations.</li>
+<li>Review each holding when results come out; re-underwrite yearly.</li>
+</ul></div>
+<div class="card y" data-skey="fa:research-workflow-sell-rules-and-checklists/quarterly-monitoring" id="quarterly-monitoring"><h3 data-label="Quarterly monitoring">Quarterly monitoring<a aria-label="Link to this card" class="anchor" href="#quarterly-monitoring">#</a></h3><ul>
+<li>Revenue, margins and <abbr class="gl" data-tip="Net profit ÷ diluted shares outstanding. Use diluted EPS and strip one-offs for normalised EPS." data-tip-title="EPS: Earnings per share">EPS</abbr> against your model, not just consensus.</li>
+<li><abbr class="gl" data-tip="Cash generated by the core business. Should track or exceed net profit over several years." data-tip-title="CFO: Cash flow from operations">CFO</abbr>, working capital days and debt trend.</li>
+<li>Management commentary vs last quarter's promises.</li>
+<li>Shareholding: promoter stake, pledges, institutional flows.</li>
+<li>Thesis status: intact, strengthened, weakened or broken?</li>
+</ul><div class="formula"><span class="fl">MOS = (value − price) ÷ value</span><span class="fl">FCF yield = FCF ÷ market cap</span><span class="fl">ROIC = EBIT × (1 − t) ÷ invested capital</span><span class="fl">cash conversion = CFO ÷ PAT</span></div></div>
+<div class="card o" data-skey="fa:research-workflow-sell-rules-and-checklists/combining-with-technicals" id="combining-with-technicals"><h3 data-label="Combining with technicals">Combining with technicals<a aria-label="Link to this card" class="anchor" href="#combining-with-technicals">#</a></h3><ul>
+<li><b>Fundamentals pick what to own:</b> a watchlist of quality businesses with a valuation range.</li>
+<li><b>Technicals help with when:</b> buy in tranches near support or on a breakout from a base; avoid catching a stock in a stage-4 decline.</li>
+<li><b>Risk control for traders:</b> a chart-based stop protects against thesis errors you have not spotted yet.</li>
+<li>See the <a href="technical_analysis.html">Technical analysis sheet</a> for price action, patterns and position sizing.</li>
+</ul></div>
+<div class="card p full" data-skey="fa:research-workflow-sell-rules-and-checklists/educational-note" id="educational-note"><h3 data-label="Educational note">Educational note<a aria-label="Link to this card" class="anchor" href="#educational-note">#</a></h3><div class="callout"><b>Not investment advice.</b> This sheet is a study reference built from your TradingOverview notes and standard texts. Example companies are illustrations, not recommendations, and example figures are made up for teaching. Check current <abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr>, <abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr> and tax rules, and consider a SEBI-registered adviser for personal decisions.</div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#india"><span>Previous</span>12 · India lens: filings, governance and red flags</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"3fb66402552b": {"SCR": "Start with filters such as ROCE, growth, debt and valuation to build a reading list, not a buy list.", "BUS": "What does it sell, to whom, and why do customers choose it? If you cannot explain it simply, stop here.", "FIN": "Ten years of income statement, balance sheet and cash flow. Check that cash flow tracks profit.", "QUAL": "Moat, industry structure (five forces) and management's capital-allocation record.", "VAL": "Estimate intrinsic value with a DCF and cross-check with multiples against peers and history.", "MOS": "Buy only when price is well below value; the margin required grows as quality falls.", "BUY": "Size by conviction and margin of safety; consider buying in tranches.", "MON": "Check every quarter whether the thesis holds; sell on a broken thesis, not on a price dip."}, "c787a68430d6": {"IS": "Revenue minus all expenses gives net income for the period.", "CFO": "Operating cash flow starts with net income, adds back non-cash charges and adjusts for working capital.", "RE": "Net income less dividends is added to retained earnings, so the balance sheet grows with profit.", "WC": "Higher receivables or inventory use cash; higher payables release cash. These changes reconcile profit to cash.", "CASH": "Opening cash plus operating, investing and financing cash flows equals the closing cash on the balance sheet.", "CAPEX": "Spending on long-term assets appears in investing cash flow, not as an expense.", "FA": "Fixed assets rise with capex and fall with depreciation.", "DEP": "Depreciation spreads the cost of assets over their lives: an expense on the income statement, but not a cash outflow.", "FIN": "Borrowing, repayments, share issues, buybacks and dividends sit in financing cash flow.", "DEBT": "These financing flows change debt and equity on the balance sheet."}, "d74f4bcff153": {"ROE": "Return on equity = net income ÷ equity, split into three drivers to see where it comes from.", "NM": "Profitability: how much of each rupee of sales becomes profit.", "AT": "Efficiency: how many rupees of sales each rupee of assets produces.", "EM": "Leverage: assets ÷ equity. ROE built on this driver is the most fragile.", "TB": "Share of pre-tax profit kept after tax.", "IB": "Share of operating profit left after interest. Low values mean heavy debt.", "OM": "Operating profit per rupee of sales, before financing and tax."}, "8e11dd236ceb": {"REV": "Forecast revenue from market size, share, pricing and history. The most important and most uncertain input.", "EBIT": "Apply an operating margin that converges to a sustainable level; do not extrapolate peak margins.", "NOPAT": "Tax the operating profit at a normal rate. This is profit as if the firm had no debt.", "FCFF": "Add back depreciation, subtract capex and the cash tied up in working capital. Growth must be paid for.", "PV": "Divide each year's cash flow by (1 + WACC)^t. Money later is worth less, and risk raises the rate.", "TV": "Value of all years after the forecast: FCFF × (1 + g) ÷ (WACC − g), or an exit multiple. Usually 60–80% of the total.", "EV": "Sum of the discounted cash flows and the discounted terminal value: the value of the whole business.", "EQ": "Subtract debt net of cash (and minority interests); add non-operating assets such as investments.", "PS": "Divide by diluted shares, then compare with the price to get the margin of safety."}, "953224c13321": {"E": "Rates have been cut and credit is easing: lenders and consumer-discretionary stocks usually lead the recovery.", "M": "Steady growth: technology and industrials benefit from rising capex and earnings.", "L": "Inflation and rates rising, demand at its peak: commodities (energy, materials) often lead.", "R": "Earnings falling: defensive sectors with steady demand (staples, healthcare, utilities) hold up best."}}</script>
+</body></html>
