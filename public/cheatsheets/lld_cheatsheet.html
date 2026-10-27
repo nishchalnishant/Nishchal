@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Low-Level Design · Cheatsheets</title>
+<meta name="description" content="OOP and SOLID, all 23 design patterns, 23 classic problems with entities and APIs, 3 full worked designs, concurrency and the machine-coding round.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+</head>
+<body class="s-lld">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html" aria-current="page">LLD</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html" aria-current="page">LLD</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Object design</div><h1>Low-Level Design</h1><p>OOP and SOLID, all 23 design patterns, 23 classic problems with entities and APIs, 3 full worked designs, concurrency and the machine-coding round.</p></div>
+      <div class="stats"><div><b>11</b>sections</div><div><b>55</b>cards</div><div><b>10</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec p" data-new="3" data-origin="lld" data-round="3" id="latlas"><h2 data-label="LLD atlas: topics and routes"><span class="n">00</span>LLD atlas: topics and routes</h2>
+<p>The whole sheet on one screen. Select an area or topic to jump to it; hover the boxes in any diagram below for explanations.</p>
+<div class="g2">
+<div class="card p full" data-skey="lld:lld-atlas-topics-and-routes/lld-topic-atlas" id="lld-topic-atlas"><h3 data-label="LLD topic atlas">LLD topic atlas<a aria-label="Link to this card" class="anchor" href="#lld-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>LLD</b><small>6 areas · 35 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#intro" title="Go to: LLD: model behavior, state, and boundaries"><span class="at-n">01</span><span class="at-bl">Interview method</span><span class="at-c">6</span></a><div class="at-leaves"><a class="at-chip" href="#60-minute-interview-route" title="Go to: 60-minute interview route">60-minute route</a><a class="at-chip" href="#object-design-flow" title="Go to: Object design flow">Object design flow</a><a class="at-chip" href="#responsibility-guide" title="Go to: Responsibility guide">Entities, values, services</a><a class="at-chip" href="#time-plan-90-min" title="Go to: Time plan (90 min)">Machine-coding time plan</a><a class="at-chip" href="#package-layout" title="Go to: Package layout">Package layout</a><a class="at-chip" href="#evaluation-rubric" title="Go to: Evaluation rubric">Evaluation rubric</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#oop" title="Go to: Object-oriented foundations"><span class="at-n">02</span><span class="at-bl">OOP foundations</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#four-pillars-of-oop" title="Go to: Four pillars of OOP">Four pillars</a><a class="at-chip" href="#uml-class-relationships" title="Go to: UML class relationships">UML relationships</a><a class="at-chip" href="#solid-with-the-smell-and-the-fix" title="Go to: SOLID with the smell and the fix">SOLID</a><a class="at-chip" href="#design-principles-beyond-solid" title="Go to: Design principles beyond SOLID">Design principles</a><a class="at-chip" href="#grasp-who-should-own-this-responsibility" title="Go to: GRASP: who should own this responsibility?">GRASP responsibilities</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#gof" title="Go to: Design patterns catalogue"><span class="at-n">03</span><span class="at-bl">Design patterns</span><span class="at-c">7</span></a><div class="at-leaves"><a class="at-chip" href="#creational-5" title="Go to: Creational (5)">Creational</a><a class="at-chip" href="#structural-7" title="Go to: Structural (7)">Structural</a><a class="at-chip" href="#behavioral-11" title="Go to: Behavioral (11)">Behavioral</a><a class="at-chip" href="#modern-and-enterprise-patterns" title="Go to: Modern and enterprise patterns">Modern and enterprise</a><a class="at-chip" href="#patterns-people-confuse" title="Go to: Patterns people confuse">Patterns people confuse</a><a class="at-chip" href="#which-pattern-a-quick-picker" title="Go to: Which pattern? A quick picker">Pattern picker</a><a class="at-chip" href="#strategy-factory-java" title="Go to: Strategy + Factory (Java)">Strategy, State, Observer, Singleton code</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#lldprob" title="Go to: LLD problems: entities, APIs and the core move"><span class="at-n">04</span><span class="at-bl">Classic problems</span><span class="at-c">8</span></a><div class="at-leaves"><a class="at-chip" href="#problem-playbook" title="Go to: Problem playbook">Problem playbook</a><a class="at-chip" href="#lld-problems-pattern-the-gotcha" title="Go to: LLD problems: pattern + the gotcha">Patterns and gotchas</a><a class="at-chip" href="#parking-lot-class-sketch-java" title="Go to: Parking lot class sketch (Java)">Parking lot</a><a class="at-chip" href="#lru-cache-o-1-python" title="Go to: LRU cache, O(1) (Python)">LRU cache</a><a class="at-chip" href="#token-bucket-rate-limiter-java-thread-safe" title="Go to: Token-bucket rate limiter (Java, thread-safe)">Rate limiter</a><a class="at-chip" href="#elevator-system" title="Go to: Elevator system">Elevator</a><a class="at-chip" href="#movie-ticket-booking-bookmyshow" title="Go to: Movie ticket booking (BookMyShow)">Movie booking</a><a class="at-chip" href="#splitwise-expense-sharing" title="Go to: Splitwise (expense sharing)">Splitwise</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#conc2" title="Go to: Concurrency toolkit"><span class="at-n">05</span><span class="at-bl">Concurrency</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#primitives-java-and-python" title="Go to: Primitives: Java and Python">Primitives</a><a class="at-chip" href="#hazards-and-how-to-prevent-them" title="Go to: Hazards and how to prevent them">Hazards</a><a class="at-chip" href="#correctness-boundary" title="Go to: Correctness boundary">Atomicity and correctness</a><a class="at-chip" href="#classic-concurrency-exercises" title="Go to: Classic concurrency exercises">Classic exercises</a><a class="at-chip" href="#producer-consumer-with-a-bounded-queue" title="Go to: Producer–consumer with a bounded queue">Producer and consumer</a></div></div><div class="at-row" style="--b:var(--c-r)"><a class="at-branch" href="#machine" title="Go to: Machine-coding round: structure, APIs, errors, tests"><span class="at-n">06</span><span class="at-bl">Code quality</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#api-and-method-design" title="Go to: API and method design">API and method design</a><a class="at-chip" href="#errors-and-edge-cases" title="Go to: Errors and edge cases">Errors and edge cases</a><a class="at-chip" href="#testing-the-design" title="Go to: Testing the design">Testing the design</a><a class="at-chip" href="#review-questions" title="Go to: Review questions">Review questions</a></div></div></div></div></div>
+<div class="card b" data-skey="lld:lld-atlas-topics-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li><b>Learning:</b> <abbr class="gl" data-tip="Organising code into objects that bundle state with the behaviour that changes it." data-tip-title="OOP: Object-oriented programming">OOP</abbr> foundations, then the pattern catalogue; learn when each pattern applies, not just what it is.</li>
+<li><b>Practising:</b> take a problem from the playbook, set a 90-minute timer, and build a runnable solution with a demo driver.</li>
+<li><b>Before a machine-coding round:</b> re-read the time plan, package layout and rubric, then one worked design.</li>
+<li><b>Interview tomorrow:</b> pattern trigger phrases, the problem playbook table, concurrency hazards, then the last-minute checklist.</li>
+</ol></div>
+<div class="card t" data-skey="lld:lld-atlas-topics-and-routes/what-interviewers-score" id="what-interviewers-score"><h3 data-label="What interviewers score">What interviewers score<a aria-label="Link to this card" class="anchor" href="#what-interviewers-score">#</a></h3><div class="tw"><table>
+<tr><th>Signal</th><th>Where it's covered</th></tr>
+<tr><td>Clear entities and ownership</td><td><a href="#responsibility-guide">Responsibility guide</a> · <a href="#grasp-who-should-own-this-responsibility">GRASP</a></td></tr>
+<tr><td>Extensible without edits</td><td><a href="#solid-with-the-smell-and-the-fix">SOLID</a> · <a href="#trigger-phrase-pattern">Pattern triggers</a></td></tr>
+<tr><td>Working code early</td><td><a href="#time-plan-90-min">Time plan</a> · <a href="#package-layout">Package layout</a></td></tr>
+<tr><td>Thread-safety stated</td><td><a href="#hazards-and-how-to-prevent-them">Hazards</a> · <a href="#primitives-java-and-python">Primitives</a></td></tr>
+<tr><td>Edge cases and tests</td><td><a href="#errors-and-edge-cases">Errors</a> · <a href="#testing-the-design">Testing</a></td></tr>
+</table></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#intro"><span>Next</span>01 · LLD: model behavior, state, and boundaries</a></nav></section>
+<section class="sec p" data-origin="lld" id="intro"><h2 data-label="LLD: model behavior, state, and boundaries"><span class="n">01</span>LLD: model behavior, state, and boundaries</h2><div class="g2"><div class="card p" data-skey="lld:lld-model-behavior-state-and-boundaries/60-minute-interview-route" id="60-minute-interview-route"><h3 data-label="60-minute interview route">60-minute interview route<a aria-label="Link to this card" class="anchor" href="#60-minute-interview-route">#</a></h3><div class="tw"><table><tr><th>Time</th><th>Focus</th></tr><tr><td>0–6</td><td>Use cases, constraints, edge cases</td></tr><tr><td>6–12</td><td>Entities, value objects, invariants</td></tr><tr><td>12–18</td><td>Public method signatures and ownership</td></tr><tr><td>18–24</td><td>Relationships and state transitions</td></tr><tr><td>24–44</td><td>Implement core path; extend only as needed</td></tr><tr><td>44–50</td><td>Concurrency and atomicity</td></tr><tr><td>50–60</td><td>Errors, races, tests, extension points</td></tr></table></div>
+<h4>What interviewers score</h4>
+<ul>
+<li>Entities with one job each, and invariants enforced inside them rather than by callers.</li>
+<li>Patterns used for a real variation point, and named only after the code needs them.</li>
+<li>A working core path early, then extensions.</li>
+<li>Thread safety reasoned out loud: what is shared, and what guards it.</li>
+<li>Testability: injected clock and ID generator, small interfaces, edge cases named.</li>
+<li>Readable names, small methods, and no dead abstractions.</li>
+</ul>
+</div><div class="card b" data-skey="lld:lld-model-behavior-state-and-boundaries/object-design-flow" id="object-design-flow"><h3 data-label="Object design flow">Object design flow<a aria-label="Link to this card" class="anchor" href="#object-design-flow">#</a></h3><pre class="mermaid" data-h="544" data-key="45126ace7a41" data-w="262">flowchart TD
+ U[Use cases + edge cases] --&gt; I[Invariants and state ownership]
+ I --&gt; M[Entities + immutable values]
+ M --&gt; A[Small public interfaces]
+ A --&gt; S[Services orchestrate behavior]
+ S --&gt; P[Pattern for real variation]
+ P --&gt; C[Concurrency / transaction boundaries]
+ C --&gt; T[Test transitions, races, failures]</pre></div><div class="card g full" data-skey="lld:lld-model-behavior-state-and-boundaries/responsibility-guide" id="responsibility-guide"><h3 data-label="Responsibility guide">Responsibility guide<a aria-label="Link to this card" class="anchor" href="#responsibility-guide">#</a></h3><div class="tw"><table><tr><th>Building block</th><th>Owns</th><th>Design cue</th></tr><tr><td>Entity</td><td>Identity and lifecycle state</td><td>Keep invariant-preserving operations near state.</td></tr><tr><td>Value object</td><td>Immutable values such as Money or Address</td><td>Validate once; compare by value.</td></tr><tr><td>Service</td><td>Use-case orchestration</td><td>Coordinate collaborators; avoid god classes.</td></tr><tr><td>Repository / gateway</td><td>Persistence or external boundary</td><td>Depend on an interface for testability.</td></tr><tr><td>Strategy / state</td><td>Replaceable rule or legal transitions</td><td>Use when the variation is visible.</td></tr></table></div></div></div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#latlas"><span>Previous</span>00 · LLD atlas: topics and routes</a><a class="sn-next" href="#oop"><span>Next</span>02 · Object-oriented foundations</a></nav></section>
+<section class="sec b" data-new="1" data-origin="lld" id="oop"><h2 data-label="Object-oriented foundations"><span class="n">02</span>Object-oriented foundations</h2>
+<p>The vocabulary interviewers expect you to use while modeling. Name the principle when you apply it.</p>
+<div class="g2">
+<div class="card b" data-skey="lld:object-oriented-foundations/four-pillars-of-oop" id="four-pillars-of-oop"><h3 data-label="Four pillars of OOP">Four pillars of OOP<a aria-label="Link to this card" class="anchor" href="#four-pillars-of-oop">#</a></h3><div class="tw"><table>
+<tr><th>Pillar</th><th>What it means</th><th>Interview cue</th></tr>
+<tr><td>Encapsulation</td><td>State is private; change it only through methods that keep invariants</td><td>No public setters on <code>balance</code>; expose <code>deposit()</code> / <code>withdraw()</code></td></tr>
+<tr><td>Abstraction</td><td>Callers depend on what an object does, not how</td><td><code>PaymentGateway</code> interface hides Stripe/Razorpay details</td></tr>
+<tr><td>Inheritance</td><td>"is-a" reuse of type and behaviour</td><td>Use for true subtypes only; prefer composition for reuse</td></tr>
+<tr><td>Polymorphism</td><td>One call, many implementations (runtime dispatch / overloading)</td><td>Replace <code>if type == …</code> chains with subclasses or strategies</td></tr>
+</table></div></div>
+<div class="card b" data-skey="lld:object-oriented-foundations/uml-class-relationships" id="uml-class-relationships"><h3 data-label="UML class relationships">UML class relationships<a aria-label="Link to this card" class="anchor" href="#uml-class-relationships">#</a></h3><div class="tw"><table>
+<tr><th>Relation</th><th>Notation</th><th>Lifetime</th><th>Code shape</th></tr>
+<tr><td>Dependency</td><td>dashed arrow</td><td>temporary use</td><td>parameter or local variable</td></tr>
+<tr><td>Association</td><td>solid line</td><td>independent</td><td>field holding a reference</td></tr>
+<tr><td>Aggregation</td><td>hollow diamond</td><td>part outlives whole</td><td><code>Team</code> has <code>Players</code> passed in</td></tr>
+<tr><td>Composition</td><td>filled diamond</td><td>part dies with whole</td><td><code>Order</code> creates its <code>OrderLines</code></td></tr>
+<tr><td>Inheritance</td><td>hollow triangle, solid</td><td>—</td><td><code>class Car extends Vehicle</code></td></tr>
+<tr><td>Realization</td><td>hollow triangle, dashed</td><td>—</td><td><code>class Card implements Payment</code></td></tr>
+</table></div><div class="callout"><b>Multiplicity:</b> write 1, 0..1, 1..*, * on both ends. It drives collection types and null checks.</div></div>
+<div class="card g full" data-skey="lld:object-oriented-foundations/solid-with-the-smell-and-the-fix" id="solid-with-the-smell-and-the-fix"><h3 data-label="SOLID with the smell and the fix">SOLID with the smell and the fix<a aria-label="Link to this card" class="anchor" href="#solid-with-the-smell-and-the-fix">#</a></h3><div class="tw"><table>
+<tr><th>Principle</th><th>Rule</th><th>Smell you'll see</th><th>Fix</th><th>LLD example</th></tr>
+<tr><td>S · Single responsibility</td><td>One reason to change</td><td><code>Invoice</code> computes, prints and saves itself</td><td>Split into calculator, printer, repository</td><td>ParkingLot doesn't compute fees; <code>FeeCalculator</code> does</td></tr>
+<tr><td>O · Open/closed</td><td>Extend without editing</td><td>Growing <code>switch(paymentType)</code></td><td>Interface + new class per variant</td><td>Add <code>UpiPayment</code> without touching checkout</td></tr>
+<tr><td>L · Liskov substitution</td><td>Subtypes honour the parent's contract</td><td><code>Square extends Rectangle</code> breaks <code>setWidth</code>; <code>Penguin.fly()</code> throws</td><td>Re-model the hierarchy; split capabilities</td><td><code>Flyable</code> as a separate interface</td></tr>
+<tr><td>I · Interface segregation</td><td>Small, client-specific interfaces</td><td>Classes implementing methods with <code>throw UnsupportedOperation</code></td><td>Split fat interface into roles</td><td><code>Printer</code>, <code>Scanner</code>, <code>Fax</code> instead of <code>Machine</code></td></tr>
+<tr><td>D · Dependency inversion</td><td>Depend on abstractions; inject them</td><td><code>new MySqlRepo()</code> inside a service</td><td>Constructor injection of an interface</td><td>Swap in-memory repo for tests</td></tr>
+</table></div></div>
+<div class="card t" data-skey="lld:object-oriented-foundations/design-principles-beyond-solid" id="design-principles-beyond-solid"><h3 data-label="Design principles beyond SOLID">Design principles beyond SOLID<a aria-label="Link to this card" class="anchor" href="#design-principles-beyond-solid">#</a></h3><ul>
+<li><b>Composition over inheritance</b>: assemble behaviour from parts; avoids fragile base classes.</li>
+<li><b>Tell, don't ask</b>: <code>account.withdraw(x)</code> rather than reading balance and deciding outside.</li>
+<li><b>Law of Demeter</b>: talk to direct collaborators only; avoid <code>a.getB().getC().do()</code>.</li>
+<li><b><abbr class="gl" data-tip="Each piece of knowledge should have a single representation in the code." data-tip-title="DRY: Don't repeat yourself">DRY</abbr> · <abbr class="gl" data-tip="Prefer the simplest design that meets the requirements." data-tip-title="KISS: Keep it simple">KISS</abbr> · <abbr class="gl" data-tip="Don't build features or abstractions until they are actually needed." data-tip-title="YAGNI: You aren't gonna need it">YAGNI</abbr></b>: no duplicated knowledge, simplest design that works, no speculative features.</li>
+<li><b>High cohesion, low coupling</b>: related behaviour together; few, narrow dependencies.</li>
+<li><b>Program to interfaces</b>; keep the domain free of framework and I/O code.</li>
+<li><b>Immutability</b> for value objects and anything shared across threads.</li>
+<li><b>Fail fast</b>: validate at construction; make illegal states unrepresentable (enums, types).</li>
+</ul></div>
+<div class="card t" data-skey="lld:object-oriented-foundations/grasp-who-should-own-this-responsibility" id="grasp-who-should-own-this-responsibility"><h3 data-label="GRASP: who should own this responsibility?">GRASP: who should own this responsibility?<a aria-label="Link to this card" class="anchor" href="#grasp-who-should-own-this-responsibility">#</a></h3><div class="tw"><table>
+<tr><th>Principle</th><th>Assign the responsibility to…</th></tr>
+<tr><td>Information expert</td><td>the class that has the data needed</td></tr>
+<tr><td>Creator</td><td>the class that contains or aggregates the created object</td></tr>
+<tr><td>Controller</td><td>a use-case/facade object, not the UI</td></tr>
+<tr><td>Polymorphism</td><td>the types that vary, not a conditional</td></tr>
+<tr><td>Pure fabrication</td><td>a made-up service class when no domain object fits (repository, notifier)</td></tr>
+<tr><td>Indirection</td><td>an intermediary that decouples two classes</td></tr>
+<tr><td>Protected variations</td><td>an interface wrapped around whatever is likely to change</td></tr>
+</table></div></div>
+<div class="card b full" data-new="4" data-skey="lld:object-oriented-foundations/language-essentials-for-lld-java-and-python" id="language-essentials-for-lld-java-and-python"><h3 data-label="Language essentials for LLD: Java and Python">Language essentials for LLD: Java and Python <span class="badge-new">New</span><a aria-label="Link to this card" class="anchor" href="#language-essentials-for-lld-java-and-python">#</a></h3><div class="tw"><table>
+<tr><th>Topic</th><th>Java</th><th>Python</th><th>Interview cue</th></tr>
+<tr><td>Interface vs abstract class</td><td>Interface: a contract, multiple inheritance, default methods. Abstract class: shared state and code, single inheritance</td><td><code>abc.ABC</code> with <code>@abstractmethod</code>; <code>typing.Protocol</code> for structural typing</td><td>Interface for a capability or strategy; abstract class when subclasses share real state</td></tr>
+<tr><td>Immutability</td><td><code>final</code> fields, no setters, defensive copies; <code>record</code> for value objects</td><td><code>@dataclass(frozen=True)</code>, tuples</td><td>Value objects (Money, Address) and anything shared across threads</td></tr>
+<tr><td>Equality and hashing</td><td>Override <code>equals</code> and <code>hashCode</code> together; equal objects must have equal hashes</td><td><code>__eq__</code> and <code>__hash__</code>; frozen dataclasses generate both</td><td>Mutating a field used in the hash after inserting into a HashMap/set loses the entry</td></tr>
+<tr><td>Enums</td><td>Enums can hold fields and per-constant behaviour</td><td><code>enum.Enum</code>; add methods on the class</td><td>Model statuses and types as enums, not strings</td></tr>
+<tr><td>Generics</td><td>Bounded types; <abbr class="gl" data-tip="Java generics rule: read from a List&lt;? extends T&gt;, write into a List&lt;? super T&gt;." data-tip-title="PECS: Producer extends, consumer super">PECS</abbr> rule: producer extends, consumer super</td><td><code>TypeVar</code>, <code>Generic[T]</code> (hints only)</td><td>Repository&lt;T, ID&gt;, Cache&lt;K, V&gt;</td></tr>
+<tr><td>Exceptions</td><td>Checked (recoverable, declared) vs unchecked (programming errors); custom domain exceptions</td><td>All unchecked; subclass <code>Exception</code> per domain error</td><td><code>SeatUnavailableException</code> beats returning null or -1</td></tr>
+<tr><td>Visibility and encapsulation</td><td><code>private</code> by default; package-private for tests</td><td>Leading underscore by convention; <code>@property</code> for computed or read-only attributes</td><td>No public mutable fields on entities</td></tr>
+<tr><td>Composition helpers</td><td>Constructor injection; <code>Optional</code> for absent values</td><td>Pass collaborators to <code>__init__</code>; <code>None</code> checks or <code>Optional[T]</code></td><td>Makes swapping and testing collaborators trivial</td></tr>
+</table></div></div></div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#intro"><span>Previous</span>01 · LLD: model behavior, state, and boundaries</a><a class="sn-next" href="#gof"><span>Next</span>03 · Design patterns catalogue</a></nav></section>
+<section class="sec p" data-new="1" data-origin="lld" id="gof"><h2 data-label="Design patterns catalogue"><span class="n">03</span>Design patterns catalogue</h2>
+<p>All 23 Gang of Four patterns plus the modern ones that show up in machine-coding rounds. In an interview, use one or two that the requirements actually call for, and say why.</p>
+<div class="g3">
+<div class="card o" data-skey="lld:design-patterns-catalogue/creational-5" id="creational-5"><h3 data-label="Creational (5)">Creational (5)<a aria-label="Link to this card" class="anchor" href="#creational-5">#</a></h3><div class="tw"><table>
+<tr><th>Pattern</th><th>Intent</th><th>Use when</th></tr>
+<tr><td>Singleton</td><td>One shared instance</td><td>Config, registry, ID generator; make it thread-safe and injectable</td></tr>
+<tr><td>Factory Method</td><td>Subclass decides which product to create</td><td>Create <code>Vehicle</code> by type; hide <code>new</code></td></tr>
+<tr><td>Abstract Factory</td><td>Families of related products</td><td>UI themes, DB driver families (connection + command)</td></tr>
+<tr><td>Builder</td><td>Step-by-step construction</td><td>Many optional params; immutable result (<code>Pizza</code>, HTTP request)</td></tr>
+<tr><td>Prototype</td><td>Clone an existing object</td><td>Expensive setup; templates (documents, game units)</td></tr>
+</table></div></div>
+<div class="card b" data-skey="lld:design-patterns-catalogue/structural-7" id="structural-7"><h3 data-label="Structural (7)">Structural (7)<a aria-label="Link to this card" class="anchor" href="#structural-7">#</a></h3><div class="tw"><table>
+<tr><th>Pattern</th><th>Intent</th><th>Use when</th></tr>
+<tr><td>Adapter</td><td>Convert one interface to another</td><td>Wrap a third-party payment SDK</td></tr>
+<tr><td>Bridge</td><td>Split abstraction from implementation</td><td>Shape × renderer, Remote × device</td></tr>
+<tr><td>Composite</td><td>Tree of parts treated uniformly</td><td>File system, nested comments, menu</td></tr>
+<tr><td>Decorator</td><td>Add behaviour by wrapping</td><td>Pizza toppings, stream compression, logging</td></tr>
+<tr><td>Facade</td><td>Simple front for a subsystem</td><td><code>BookingService</code> over seats, payments, notifications</td></tr>
+<tr><td>Flyweight</td><td>Share intrinsic state</td><td>Chess piece types, text glyphs, map tiles</td></tr>
+<tr><td>Proxy</td><td>Stand-in that controls access</td><td>Lazy loading, caching, auth, remote stub</td></tr>
+</table></div></div>
+<div class="card g" data-skey="lld:design-patterns-catalogue/behavioral-11" id="behavioral-11"><h3 data-label="Behavioral (11)">Behavioral (11)<a aria-label="Link to this card" class="anchor" href="#behavioral-11">#</a></h3><div class="tw"><table>
+<tr><th>Pattern</th><th>Intent</th><th>Use when</th></tr>
+<tr><td>Strategy</td><td>Swap algorithms</td><td>Pricing, matching, split types, eviction</td></tr>
+<tr><td>State</td><td>Behaviour changes with state</td><td>Vending machine, ATM, order lifecycle</td></tr>
+<tr><td>Observer</td><td>Notify subscribers of change</td><td>Stock alerts, order status, UI events</td></tr>
+<tr><td>Command</td><td>Request as an object</td><td>Undo/redo, job queues, macro recording</td></tr>
+<tr><td>Chain of Responsibility</td><td>Pass along handlers</td><td>Log levels, approval flows, middleware, ATM notes</td></tr>
+<tr><td>Template Method</td><td>Fixed skeleton, overridable steps</td><td>Game turn, report generation, data import</td></tr>
+<tr><td>Iterator</td><td>Traverse without exposing internals</td><td>Custom collections, paginated results</td></tr>
+<tr><td>Mediator</td><td>Central hub for interactions</td><td>Chat room, air-traffic control, UI dialogs</td></tr>
+<tr><td>Memento</td><td>Snapshot and restore state</td><td>Editor undo, game save points</td></tr>
+<tr><td>Visitor</td><td>New operations over a fixed structure</td><td>AST evaluation, tax/export over shapes</td></tr>
+<tr><td>Interpreter</td><td>Grammar evaluation</td><td>Rule engines, simple expression parsers</td></tr>
+</table></div></div>
+<div class="card t" data-skey="lld:design-patterns-catalogue/modern-and-enterprise-patterns" id="modern-and-enterprise-patterns"><h3 data-label="Modern and enterprise patterns">Modern and enterprise patterns<a aria-label="Link to this card" class="anchor" href="#modern-and-enterprise-patterns">#</a></h3><div class="tw"><table>
+<tr><th>Pattern</th><th>Use when</th></tr>
+<tr><td>Dependency injection</td><td>Always: pass collaborators in; enables tests and swaps</td></tr>
+<tr><td>Repository</td><td>Hide storage behind a collection-like interface</td></tr>
+<tr><td>Unit of Work</td><td>Commit several changes atomically</td></tr>
+<tr><td>Specification</td><td>Composable business rules (eligibility, filters)</td></tr>
+<tr><td>Null Object</td><td>Avoid null checks (<code>NoDiscount</code>)</td></tr>
+<tr><td>Object Pool</td><td>Reuse expensive objects (connections, threads)</td></tr>
+<tr><td>Producer–Consumer</td><td>Decouple work creation from execution</td></tr>
+<tr><td>Event bus / Pub-Sub</td><td>Many-to-many async notifications</td></tr>
+<tr><td>Circuit breaker</td><td>Stop calling a failing dependency</td></tr>
+<tr><td>Rule engine</td><td>Coupons, fraud rules, pricing stored as data</td></tr>
+</table></div></div>
+<div class="card r" data-skey="lld:design-patterns-catalogue/patterns-people-confuse" id="patterns-people-confuse"><h3 data-label="Patterns people confuse">Patterns people confuse<a aria-label="Link to this card" class="anchor" href="#patterns-people-confuse">#</a></h3><div class="tw"><table>
+<tr><th>Pair</th><th>Difference</th></tr>
+<tr><td>Strategy vs State</td><td>Client picks the strategy; a state object switches itself to the next state</td></tr>
+<tr><td>Decorator vs Proxy</td><td>Decorator adds behaviour and stacks; proxy controls access to the same interface</td></tr>
+<tr><td>Adapter vs Facade</td><td>Adapter converts one interface; facade simplifies many</td></tr>
+<tr><td>Factory Method vs Abstract Factory</td><td>One product via inheritance vs a family via composition</td></tr>
+<tr><td>Builder vs Factory</td><td>Builder assembles step by step; factory picks a type in one call</td></tr>
+<tr><td>Observer vs Pub-Sub</td><td>Observer: subject knows observers. Pub-sub: broker in between, often async</td></tr>
+<tr><td>Template vs Strategy</td><td>Inheritance fills steps vs composition swaps the whole algorithm</td></tr>
+<tr><td>Composite vs Decorator</td><td>Both wrap the same interface; composite has many children, decorator one</td></tr>
+<tr><td>Mediator vs Observer</td><td>Mediator coordinates two-way logic; observer only broadcasts</td></tr>
+
+<tr><td>Bridge vs Adapter</td><td>Bridge is designed up front so abstraction and implementation vary independently; adapter retrofits a mismatch</td></tr>
+<tr><td>Command vs Strategy</td><td>Command is a request object you can queue, log or undo; strategy is an interchangeable algorithm</td></tr>
+<tr><td>Flyweight vs Singleton</td><td>Flyweight shares many immutable instances by key; singleton has exactly one instance</td></tr>
+<tr><td>Chain of Responsibility vs Decorator</td><td>A chain link may stop the request; a decorator always delegates and adds behaviour</td></tr>
+</table></div></div>
+<div class="card y" data-skey="lld:design-patterns-catalogue/trigger-phrase-pattern" id="trigger-phrase-pattern"><h3 data-label="Trigger phrase → pattern">Trigger phrase → pattern<a aria-label="Link to this card" class="anchor" href="#trigger-phrase-pattern">#</a></h3><div class="tw"><table>
+<tr><th>Requirement says…</th><th>Reach for</th></tr>
+<tr><td>"support multiple … types, add more later"</td><td>Strategy + Factory</td></tr>
+<tr><td>"behaves differently when idle / running / out of stock"</td><td>State</td></tr>
+<tr><td>"notify users when…"</td><td>Observer</td></tr>
+<tr><td>"undo", "replay", "queue requests"</td><td>Command (+ Memento)</td></tr>
+<tr><td>"escalate", "levels", "fall through"</td><td>Chain of Responsibility</td></tr>
+<tr><td>"folders contain files and folders"</td><td>Composite</td></tr>
+<tr><td>"add-ons", "toppings", "wrap with logging"</td><td>Decorator</td></tr>
+<tr><td>"integrate legacy / external API"</td><td>Adapter</td></tr>
+<tr><td>"exactly one …"</td><td>Singleton, but prefer DI</td></tr>
+<tr><td>"object with many optional fields"</td><td>Builder</td></tr>
+</table></div></div>
+<div class="card g" data-new="1" data-skey="lld:design-patterns-catalogue/which-pattern-a-quick-picker" id="which-pattern-a-quick-picker"><h3 data-label="Which pattern? A quick picker">Which pattern? A quick picker<a aria-label="Link to this card" class="anchor" href="#which-pattern-a-quick-picker">#</a></h3><div class="ladder"><div class="l-start">What varies in the requirements?</div><div class="l-step"><div class="l-q" data-tip="Several interchangeable ways of computing something (pricing, matching, routing)." tabindex="0"><span class="l-n">1</span><span>An algorithm or rule?</span></div><div class="l-as"><div class="l-a" data-tip="Put each algorithm behind a common interface and inject the one you need; new variants are new classes." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Strategy</b></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="The same action does different things depending on the object's current state." tabindex="0"><span class="l-n">2</span><span>Behaviour depends on state?</span></div><div class="l-as"><div class="l-a" data-tip="Each state is a class implementing the actions; transitions swap the current state object, replacing if/else on a status field." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>State</b></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Other components must be told when something happens." tabindex="0"><span class="l-n">3</span><span>Others react to changes?</span></div><div class="l-as"><div class="l-a" data-tip="Subscribers register with a subject and are notified on change, so the subject doesn't depend on them." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Observer</b></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Which concrete class to create is decided at runtime by a type or configuration." tabindex="0"><span class="l-n">4</span><span>Create objects by type?</span></div><div class="l-as"><div class="l-a" data-tip="Centralise object creation behind a method that returns the interface type, hiding constructors from callers." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Factory</b></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Optional features combine freely (toppings, compression plus encryption)." tabindex="0"><span class="l-n">5</span><span>Add features by wrapping?</span></div><div class="l-as"><div class="l-a" data-tip="Wrap an object in another with the same interface that adds behaviour; wrappers stack in any order." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Decorator</b></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Actions must be stored, queued, logged or undone." tabindex="0"><span class="l-n">6</span><span>Undo or queue requests?</span></div><div class="l-as"><div class="l-a" data-tip="Turn each request into an object with execute (and undo) so it can be queued, logged, retried or reversed." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Command</b></div></div><div class="l-a" data-tip="Don't force a pattern. Simple, well-named classes with clear ownership score better than misapplied patterns." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Plain classes, no pattern</b></div></div></div></div></div></div><div class="card p full" data-new="1" data-skey="lld:design-patterns-catalogue/vending-machine-state-diagram" id="vending-machine-state-diagram"><h3 data-label="Vending machine state diagram">Vending machine state diagram<a aria-label="Link to this card" class="anchor" href="#vending-machine-state-diagram">#</a></h3><pre class="mermaid" data-h="162" data-key="6eb79d1758e7" data-w="706">stateDiagram-v2
+  direction LR
+  [*] --&gt; Idle
+  Idle --&gt; HasMoney: insertCoin
+  HasMoney --&gt; HasMoney: insertCoin
+  HasMoney --&gt; Dispensing: select, stock and funds ok
+  HasMoney --&gt; Idle: refund
+  Dispensing --&gt; Idle: dispense and return change</pre></div><div class="card r full" data-new="4" data-skey="lld:design-patterns-catalogue/code-smells-and-the-refactoring-that-fixes-them" id="code-smells-and-the-refactoring-that-fixes-them"><h3 data-label="Code smells and the refactoring that fixes them">Code smells and the refactoring that fixes them <span class="badge-new">New</span><a aria-label="Link to this card" class="anchor" href="#code-smells-and-the-refactoring-that-fixes-them">#</a></h3><div class="tw"><table>
+<tr><th>Smell</th><th>Looks like</th><th>Refactoring</th></tr>
+<tr><td>God class</td><td>One class with dozens of methods and fields across concerns</td><td>Extract class by responsibility; introduce a facade that delegates</td></tr>
+<tr><td>Long method</td><td>A method that needs comments to explain its sections</td><td>Extract method per step; name the steps</td></tr>
+<tr><td>Switch on type</td><td><code>if type == CAR … elif type == BIKE …</code> repeated in several places</td><td>Replace conditional with polymorphism (Strategy or subclasses)</td></tr>
+<tr><td>Primitive obsession</td><td>Money as <code>double</code>, IDs as raw strings, status as int</td><td>Introduce value objects and enums</td></tr>
+<tr><td>Feature envy</td><td>A method mostly reads another object's data</td><td>Move the method to the class that owns the data</td></tr>
+<tr><td>Data clumps / long parameter lists</td><td>The same 4–5 arguments passed together everywhere</td><td>Introduce a parameter object or builder</td></tr>
+<tr><td>Shotgun surgery</td><td>One change requires edits in many classes</td><td>Move related behaviour together; one place per decision</td></tr>
+<tr><td>Anemic domain model</td><td>Entities are bags of getters/setters; all logic in services</td><td>Move invariant-protecting behaviour into the entity</td></tr>
+<tr><td>Hidden dependencies</td><td><code>new</code> or singletons called deep inside methods</td><td>Constructor injection behind interfaces</td></tr>
+<tr><td>Speculative generality</td><td>Abstract layers and patterns with a single implementation</td><td>Inline them until a second variation appears (<abbr class="gl" data-tip="Don't build features or abstractions until they are actually needed." data-tip-title="YAGNI: You aren't gonna need it">YAGNI</abbr>)</td></tr>
+</table></div></div></div>
+<div class="g2">
+<div class="card p" data-skey="lld:design-patterns-catalogue/strategy-factory-java" id="strategy-factory-java"><h3 data-label="Strategy + Factory (Java)">Strategy + Factory (Java)<a aria-label="Link to this card" class="anchor" href="#strategy-factory-java">#</a></h3><pre class="code" data-hl="java"><span class="k">interface</span> <span class="t">PricingStrategy</span> { <span class="t">Money</span> <span class="f">price</span>(<span class="t">Ride</span> r); }
+<span class="k">class</span> <span class="t">StandardPricing</span> <span class="k">implements</span> <span class="t">PricingStrategy</span> { <span class="k">public</span> <span class="t">Money</span> <span class="f">price</span>(<span class="t">Ride</span> r){ <span class="k">return</span> r.<span class="f">km</span>().<span class="f">times</span>(<span class="n">12</span>); } }
+<span class="k">class</span> <span class="t">SurgePricing</span>    <span class="k">implements</span> <span class="t">PricingStrategy</span> {
+    <span class="k">private</span> <span class="k">final</span> <span class="t">double</span> mult; <span class="t">SurgePricing</span>(<span class="t">double</span> m){ mult <span class="o">=</span> m; }
+    <span class="k">public</span> <span class="t">Money</span> <span class="f">price</span>(<span class="t">Ride</span> r){ <span class="k">return</span> r.<span class="f">km</span>().<span class="f">times</span>(<span class="n">12</span> <span class="o">*</span> mult); }
+}
+<span class="k">final</span> <span class="k">class</span> <span class="t">PricingFactory</span> {
+    <span class="k">static</span> <span class="t">PricingStrategy</span> <span class="f">forDemand</span>(<span class="t">double</span> ratio){
+        <span class="k">return</span> ratio <span class="o">&gt;</span> <span class="n">1.5</span> <span class="o">?</span> <span class="k">new</span> <span class="t">SurgePricing</span>(ratio) : <span class="k">new</span> <span class="t">StandardPricing</span>();
+    }
+}
+<span class="o">//</span> <span class="t">RideService</span> depends on <span class="t">PricingStrategy</span> <span class="f">only</span> (<span class="b">DIP</span>); <span class="k">new</span> rule <span class="o">=</span> <span class="k">new</span> <span class="k">class</span> (<span class="t">OCP</span>)</pre></div>
+<div class="card p" data-skey="lld:design-patterns-catalogue/state-machine-vending-machine" id="state-machine-vending-machine"><h3 data-label="State machine (vending machine)">State machine (vending machine)<a aria-label="Link to this card" class="anchor" href="#state-machine-vending-machine">#</a></h3><pre class="code" data-hl="java"><span class="k">interface</span> <span class="t">State</span> {
+    <span class="k">default</span> <span class="t">void</span> <span class="f">insertCoin</span>(<span class="t">Machine</span> m, <span class="t">int</span> c){ <span class="k">throw</span> <span class="k">new</span> <span class="t">IllegalStateException</span>(); }
+    <span class="k">default</span> <span class="t">void</span> <span class="f">select</span>(<span class="t">Machine</span> m, <span class="t">String</span> code){ <span class="k">throw</span> <span class="k">new</span> <span class="t">IllegalStateException</span>(); }
+    <span class="k">default</span> <span class="t">void</span> <span class="f">dispense</span>(<span class="t">Machine</span> m){ <span class="k">throw</span> <span class="k">new</span> <span class="t">IllegalStateException</span>(); }
+}
+<span class="k">class</span> <span class="t">Idle</span> <span class="k">implements</span> <span class="t">State</span> {
+    <span class="k">public</span> <span class="t">void</span> <span class="f">insertCoin</span>(<span class="t">Machine</span> m, <span class="t">int</span> c){ m.<span class="f">addBalance</span>(c); m.<span class="f">setState</span>(<span class="k">new</span> <span class="t">HasMoney</span>()); }
+}
+<span class="k">class</span> <span class="t">HasMoney</span> <span class="k">implements</span> <span class="t">State</span> {
+    <span class="k">public</span> <span class="t">void</span> <span class="f">insertCoin</span>(<span class="t">Machine</span> m, <span class="t">int</span> c){ m.<span class="f">addBalance</span>(c); }
+    <span class="k">public</span> <span class="t">void</span> <span class="f">select</span>(<span class="t">Machine</span> m, <span class="t">String</span> code){
+        <span class="k">if</span> (<span class="o">!</span>m.<span class="f">inventory</span>().<span class="f">available</span>(code)) <span class="k">throw</span> <span class="k">new</span> <span class="t">OutOfStock</span>(code);
+        <span class="k">if</span> (m.<span class="f">balance</span>() <span class="o">&lt;</span> m.<span class="f">price</span>(code)) <span class="k">throw</span> <span class="k">new</span> <span class="t">InsufficientFunds</span>();
+        m.<span class="f">setSelection</span>(code); m.<span class="f">setState</span>(<span class="k">new</span> <span class="t">Dispensing</span>());
+    }
+}
+<span class="k">class</span> <span class="t">Dispensing</span> <span class="k">implements</span> <span class="t">State</span> {
+    <span class="k">public</span> <span class="t">void</span> <span class="f">dispense</span>(<span class="t">Machine</span> m){ m.<span class="f">release</span>(); m.<span class="f">returnChange</span>(); m.<span class="f">setState</span>(<span class="k">new</span> <span class="t">Idle</span>()); }
+}
+<span class="o">//</span> <span class="t">Illegal</span> transitions fail loudly; no <span class="k">if</span><span class="o">/</span><span class="k">else</span> on a status <span class="k">enum</span></pre></div>
+<div class="card p" data-skey="lld:design-patterns-catalogue/observer" id="observer"><h3 data-label="Observer">Observer<a aria-label="Link to this card" class="anchor" href="#observer">#</a></h3><pre class="code" data-hl="java"><span class="k">interface</span> <span class="t">Subscriber</span> { <span class="t">void</span> <span class="f">onEvent</span>(<span class="t">OrderEvent</span> e); }
+<span class="k">class</span> <span class="t">OrderPublisher</span> {
+    <span class="k">private</span> <span class="k">final</span> <span class="t">List</span><span class="o">&lt;</span><span class="t">Subscriber</span><span class="o">&gt;</span> subs <span class="o">=</span> <span class="k">new</span> <span class="t">CopyOnWriteArrayList</span><span class="o">&lt;&gt;</span>();
+    <span class="t">void</span> <span class="f">subscribe</span>(<span class="t">Subscriber</span> s){ subs.<span class="f">add</span>(s); }
+    <span class="t">void</span> <span class="f">publish</span>(<span class="t">OrderEvent</span> e){ <span class="k">for</span> (<span class="t">Subscriber</span> s : subs) s.<span class="f">onEvent</span>(e); }
+}
+<span class="c">// CopyOnWriteArrayList: safe iteration while others subscribe.</span>
+<span class="o">//</span> <span class="t">Async</span> delivery<span class="o">?</span> hand events <span class="k">to</span> an <span class="t">ExecutorService</span> or a <span class="t">BlockingQueue</span>.</pre></div>
+<div class="card p" data-skey="lld:design-patterns-catalogue/thread-safe-singleton" id="thread-safe-singleton"><h3 data-label="Thread-safe Singleton">Thread-safe Singleton<a aria-label="Link to this card" class="anchor" href="#thread-safe-singleton">#</a></h3><pre class="code" data-hl="java"><span class="c">// 1) Holder idiom: lazy, thread-safe, no locks</span>
+<span class="k">final</span> <span class="k">class</span> <span class="t">IdGenerator</span> {
+    <span class="k">private</span> <span class="f">IdGenerator</span>() {}
+    <span class="k">private</span> <span class="k">static</span> <span class="k">class</span> <span class="t">Holder</span> { <span class="k">static</span> <span class="k">final</span> <span class="t">IdGenerator</span> I <span class="o">=</span> <span class="k">new</span> <span class="t">IdGenerator</span>(); }
+    <span class="k">static</span> <span class="t">IdGenerator</span> <span class="f">get</span>(){ <span class="k">return</span> <span class="t">Holder</span>.I; }
+}
+<span class="c">// 2) Enum singleton: also safe against reflection/serialization</span>
+<span class="k">enum</span> <span class="t">Registry</span> { <span class="b">INSTANCE</span>; }
+<span class="c">// 3) Double-checked locking needs a volatile field</span>
+<span class="o">//</span> <span class="t">Python</span>: a <span class="k">module</span>-<span class="t">level</span> instance is already a singleton.</pre></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#oop"><span>Previous</span>02 · Object-oriented foundations</a><a class="sn-next" href="#patterns"><span>Next</span>04 · LLD problem breakdowns &amp; patterns</a></nav></section>
+<section class="sec g" data-origin="lld" id="patterns"><h2 data-label="LLD problem breakdowns &amp; patterns"><span class="n">04</span>LLD problem breakdowns &amp; patterns</h2><p class="src">SystemDesign/06-lld/06-problems/* (Key takeaways), LLD_Interview_Cheatsheet.md, 03-design-patterns</p><div class="g2"><div class="card g" data-skey="lld:lld-problem-breakdowns-patterns/lld-problems-pattern-the-gotcha" id="lld-problems-pattern-the-gotcha"><h3 data-label="LLD problems: pattern + the gotcha">LLD problems: pattern + the gotcha<a aria-label="Link to this card" class="anchor" href="#lld-problems-pattern-the-gotcha">#</a></h3><div class="tw"><table class=""><tr><th>Problem</th><th>Patterns</th><th>Gotcha / key insight</th></tr><tr><td>Parking lot</td><td>Strategy (spot allocation), Factory, Singleton</td><td>ParkingLot → ParkingFloor → ParkingSpot; delegate, don't god-class</td></tr><tr><td>Rate limiter</td><td>Strategy</td><td>token bucket w/ lazy refill; ConcurrentHashMap per user</td></tr><tr><td>Tic-tac-toe</td><td>—</td><td>O(1) win check with row/col/diag counters</td></tr><tr><td>Vending machine</td><td><b>State</b></td><td>no if-else state; polymorphic states</td></tr><tr><td>Splitwise</td><td>Strategy (split types)</td><td>+ minimise cash flow greedy on net balances</td></tr><tr><td>BookMyShow</td><td>Strategy, Observer</td><td>Seat vs ShowSeat; lock ShowSeat with <abbr class="gl" data-tip="How long a cached item, DNS record or lock stays valid before it expires automatically." data-tip-title="TTL: Time to live">TTL</abbr></td></tr><tr><td>Chess</td><td>Template, Factory</td><td>pieces validate geometry; Board validates path/check</td></tr><tr><td>Snake &amp; ladder</td><td>—</td><td>single Jumper(start→end) class</td></tr><tr><td>Elevator</td><td>Strategy, State</td><td>SCAN/LOOK sweep with sorted sets, not FIFO</td></tr><tr><td>Comment system</td><td>Composite</td><td>materialised path for O(1) thread fetch</td></tr><tr><td>Hotel management</td><td>Strategy (pricing)</td><td>date-range overlap in availability</td></tr><tr><td>ATM</td><td>State, Chain (cash dispenser)</td><td>external BankService does atomic debit</td></tr><tr><td><abbr class="gl" data-tip="Eviction policy that removes the item not accessed for the longest time. Hash map + doubly linked list gives O(1) operations." data-tip-title="LRU: Least recently used">LRU</abbr> cache</td><td>—</td><td>HashMap + DLL with dummy head/tail; know the wiring cold</td></tr><tr><td>Food delivery</td><td>Strategy (dispatch), Observer (status)</td><td>focus on core models</td></tr><tr><td>Locker</td><td>Strategy</td><td>size ordering: S fits S/M/L/XL, L fits L/XL</td></tr><tr><td>Notification</td><td>Strategy, Observer, Factory</td><td>add WhatsAppStrategy without touching core</td></tr><tr><td>Coupon system</td><td>Strategy / Rule engine</td><td>coupons as DB rows → strategy, never hardcode</td></tr><tr><td>Logger</td><td>Chain of Responsibility, Strategy, Producer-Consumer</td><td>BlockingQueue for async</td></tr><tr><td>Library</td><td>—</td><td>Book vs BookItem (copies)</td></tr><tr><td>Order management</td><td>Saga / Command</td><td>OrderOrchestrator with compensating steps</td></tr><tr><td>Ride sharing</td><td>Strategy (match, price), State (ride)</td><td>black-box LocationService</td></tr><tr><td>Pub-sub</td><td>Observer</td><td>BlockingQueue per topic + worker</td></tr><tr><td>Inventory</td><td>—</td><td>available vs reserved vs purchased quantity</td></tr></table></div></div><div><div class="card o" data-skey="lld:lld-problem-breakdowns-patterns/pattern-trigger-map-use-at-most-2" id="pattern-trigger-map-use-at-most-2"><h3 data-label="Pattern trigger map (use at most 2)">Pattern trigger map (use at most 2)<a aria-label="Link to this card" class="anchor" href="#pattern-trigger-map-use-at-most-2">#</a></h3><div class="tw"><table class=""><tr><th>Trigger phrase</th><th>Pattern</th></tr><tr><td>multiple algorithms / pricing / payment types</td><td>Strategy</td></tr><tr><td>create objects by type</td><td>Factory</td></tr><tr><td>notify on change / subscribe</td><td>Observer</td></tr><tr><td>single shared instance (config, registry)</td><td>Singleton (thread-safe)</td></tr><tr><td>many optional params</td><td>Builder</td></tr><tr><td>add behaviour dynamically (toppings, filters)</td><td>Decorator</td></tr><tr><td>behaviour depends on state (vending, ATM, order)</td><td>State</td></tr><tr><td>undo / queue requests</td><td>Command</td></tr><tr><td>pass through handlers (log levels, approvals)</td><td>Chain of Responsibility</td></tr><tr><td>tree of parts (folders, comments)</td><td>Composite</td></tr></table></div></div><div class="card t" data-skey="lld:lld-problem-breakdowns-patterns/solid-scoring-signals" id="solid-scoring-signals"><h3 data-label="SOLID + scoring signals">SOLID + scoring signals<a aria-label="Link to this card" class="anchor" href="#solid-scoring-signals">#</a></h3><ul><li><b><abbr class="gl" data-tip="A class should have one reason to change." data-tip-title="SRP: Single responsibility principle">SRP</abbr></b> one reason to change · <b><abbr class="gl" data-tip="Extend behaviour by adding code (new classes), not by editing existing code." data-tip-title="OCP: Open/closed principle">OCP</abbr></b> extend via new class · <b><abbr class="gl" data-tip="A subclass must work anywhere its parent is expected without breaking the caller's assumptions." data-tip-title="LSP: Liskov substitution principle">LSP</abbr></b> subtypes substitutable · <b>ISP</b> small interfaces · <b><abbr class="gl" data-tip="High-level code depends on abstractions (interfaces), and concrete implementations are injected." data-tip-title="DIP: Dependency inversion principle">DIP</abbr></b> depend on abstractions</li><li>Composition over inheritance; facade service as the entry point</li><li>Value objects immutable (Money, Address); enums for statuses</li><li>Thread-safety stated explicitly; no global mutable state</li><li>Recovery line: "Let me simplify — I'll get the core flow working, then extend.</li></ul></div><div class="card b" data-skey="lld:lld-problem-breakdowns-patterns/class-sketch-parking-lot" id="class-sketch-parking-lot"><h3 data-label="Class sketch: parking lot">Class sketch: parking lot<a aria-label="Link to this card" class="anchor" href="#class-sketch-parking-lot">#</a></h3><pre class="mermaid" data-h="336" data-key="3017d06bda09" data-w="440">classDiagram
+  class ParkingLot{+park(v) Ticket +unpark(t) Fee}
+  class ParkingFloor{+findSpot(type) Spot}
+  class ParkingSpot{+type +isFree()}
+  class Ticket{+id +entryTime}
+  class PricingStrategy{+fee(t)}
+  ParkingLot "1" --&gt; "*" ParkingFloor
+  ParkingFloor "1" --&gt; "*" ParkingSpot
+  ParkingLot --&gt; PricingStrategy
+  ParkingLot --&gt; Ticket</pre></div></div></div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#gof"><span>Previous</span>03 · Design patterns catalogue</a><a class="sn-next" href="#lldprob"><span>Next</span>05 · LLD problems: entities, APIs and the core move</a></nav></section>
+<section class="sec o" data-new="1" data-origin="lld" id="lldprob"><h2 data-label="LLD problems: entities, APIs and the core move"><span class="n">05</span>LLD problems: entities, APIs and the core move</h2>
+<p>For each classic problem: the classes to draw first, the methods to write first, and the part interviewers probe.</p>
+<div class="grid">
+<div class="card o full" data-skey="lld:lld-problems-entities-apis-and-the-core-move/problem-playbook" id="problem-playbook"><h3 data-label="Problem playbook">Problem playbook<a aria-label="Link to this card" class="anchor" href="#problem-playbook">#</a></h3><div class="tw"><table>
+<tr><th>Problem</th><th>Core entities</th><th>Key methods</th><th>Patterns</th><th>What they probe</th></tr>
+<tr><td>Parking lot</td><td>ParkingLot, Floor, Spot(type), Vehicle, Ticket, FeeCalculator, Gate</td><td><code>park(vehicle) → Ticket</code>, <code>unpark(ticket) → Receipt</code></td><td>Strategy (allocation, fees), Factory, Singleton</td><td>Concurrent spot allocation; per-type free lists</td></tr>
+<tr><td>Elevator</td><td>ElevatorSystem, Elevator, Request, Direction, Dispatcher, Door</td><td><code>request(floor, dir)</code>, <code>step()</code></td><td>Strategy (dispatch), State (moving/idle/maintenance)</td><td>SCAN/LOOK scheduling, choosing the nearest same-direction car</td></tr>
+<tr><td>BookMyShow / movie booking</td><td>Movie, Theatre, Screen, Show, Seat, ShowSeat, Booking, Payment</td><td><code>holdSeats(show, seats)</code>, <code>confirm(bookingId)</code></td><td>Strategy (pricing), Observer</td><td>Seat hold with <abbr class="gl" data-tip="How long a cached item, DNS record or lock stays valid before it expires automatically." data-tip-title="TTL: Time to live">TTL</abbr>; no double booking</td></tr>
+<tr><td>Splitwise</td><td>User, Group, Expense, Split (Equal/Exact/Percent), BalanceSheet</td><td><code>addExpense()</code>, <code>balances(user)</code>, <code>settle()</code></td><td>Strategy, Factory</td><td>Validate splits sum; simplify debts with heaps on net balance</td></tr>
+<tr><td>Vending machine</td><td>Machine, State, Inventory, Product, Coin</td><td><code>insertCoin()</code>, <code>select()</code>, <code>dispense()</code>, <code>refund()</code></td><td>State</td><td>Illegal transitions; change-making</td></tr>
+<tr><td>ATM</td><td>ATM, Card, Account, Transaction, CashDispenser, BankService</td><td><code>authenticate()</code>, <code>withdraw(amount)</code></td><td>State, Chain (note denominations)</td><td>Atomic debit + dispense; reversal on failure</td></tr>
+<tr><td>Library management</td><td>Book, BookItem(copy), Member, Loan, Reservation, Fine</td><td><code>checkout()</code>, <code>return()</code>, <code>reserve()</code></td><td>Observer (availability), Strategy (fines)</td><td>Book vs BookItem; limits per member</td></tr>
+<tr><td>Chess</td><td>Game, Board, Cell, Piece(subtypes), Move, Player</td><td><code>makeMove(from, to)</code>, <code>isCheckmate()</code></td><td>Template, Factory, Command (undo)</td><td>Piece validates shape; board validates path and check</td></tr>
+<tr><td>Tic-tac-toe (n×n)</td><td>Game, Board, Player, Move</td><td><code>move(r, c)</code> → result</td><td>—</td><td>O(1) win check using row/col/diagonal counters</td></tr>
+<tr><td>Snake &amp; ladder</td><td>Game, Board, Jumper(start→end), Player, Dice</td><td><code>playTurn()</code></td><td>Strategy (dice)</td><td>One Jumper class covers snakes and ladders</td></tr>
+<tr><td><abbr class="gl" data-tip="Eviction policy that removes the item not accessed for the longest time. Hash map + doubly linked list gives O(1) operations." data-tip-title="LRU: Least recently used">LRU</abbr> / <abbr class="gl" data-tip="Eviction policy that removes the item with the fewest accesses, breaking ties by recency." data-tip-title="LFU: Least frequently used">LFU</abbr> cache</td><td>Cache, Node, DoublyLinkedList, (freq buckets)</td><td><code>get(k)</code>, <code>put(k, v)</code> in O(1)</td><td>Strategy (eviction)</td><td>Map + DLL wiring; LFU min-freq tracking; thread safety</td></tr>
+<tr><td>Rate limiter</td><td>RateLimiter, Bucket, Rule, Clock</td><td><code>allow(clientId) → bool</code></td><td>Strategy (algorithm)</td><td>Lazy refill; per-key locking; injectable clock</td></tr>
+<tr><td>Logger</td><td>Logger, Level, Appender(console/file), Formatter</td><td><code>log(level, msg)</code></td><td>Chain, Strategy, Singleton, Producer-Consumer</td><td>Async appender with bounded queue; level filtering</td></tr>
+<tr><td>Pub-sub / message queue</td><td>Broker, Topic, Partition, Message, Publisher, Subscriber, Offset</td><td><code>publish(topic, msg)</code>, <code>subscribe(topic, s)</code></td><td>Observer</td><td>Per-subscriber offsets; ordering; back-pressure</td></tr>
+<tr><td>Hotel booking</td><td>Hotel, Room(type), Booking, Guest, DateRange, Invoice</td><td><code>search(range, type)</code>, <code>book()</code>, <code>cancel()</code></td><td>Strategy (pricing)</td><td>Date-range overlap check; holds</td></tr>
+<tr><td>Ride sharing</td><td>Rider, Driver, Trip(state), Location, Matcher, Pricing</td><td><code>requestRide()</code>, <code>accept()</code>, <code>complete()</code></td><td>Strategy, State, Observer</td><td>Matching nearest available driver atomically</td></tr>
+<tr><td>Food delivery</td><td>Restaurant, Menu, Order(state), Cart, DeliveryAgent, Dispatcher</td><td><code>placeOrder()</code>, <code>assignAgent()</code>, <code>track()</code></td><td>State, Strategy, Observer</td><td>Order lifecycle; reassignment on reject</td></tr>
+<tr><td>File system</td><td>Entry (File / Directory), Path, Permissions</td><td><code>mkdir</code>, <code>ls</code>, <code>find(filter)</code></td><td>Composite, Specification</td><td>Recursive size; search filters composed with AND/OR</td></tr>
+<tr><td>Task scheduler</td><td>Task, Trigger(once/cron), Scheduler, Worker, DelayQueue</td><td><code>schedule(task, at)</code>, <code>cancel(id)</code></td><td>Command, Strategy</td><td>Min-heap by next run time; worker pool; retries</td></tr>
+<tr><td>Shopping cart / inventory</td><td>Product, Cart, CartItem, Inventory, Order, Coupon</td><td><code>add()</code>, <code>checkout()</code>, <code>applyCoupon()</code></td><td>Strategy, Specification</td><td>Reserve vs purchased stock; coupon stacking rules</td></tr>
+<tr><td>Notification service</td><td>Notification, Channel(Email/SMS/Push), Template, Preference</td><td><code>send(userId, event)</code></td><td>Strategy, Factory, Observer</td><td>Add a channel without touching core; retries, dedup</td></tr>
+<tr><td>Stack Overflow</td><td>User, Question, Answer, Comment, Vote, Tag, Reputation</td><td><code>post()</code>, <code>vote()</code>, <code>accept()</code></td><td>Observer, Composite</td><td>One vote per user; reputation updates</td></tr>
+<tr><td>Cricket scoreboard</td><td>Match, Innings, Over, Ball, Player, Scorecard</td><td><code>recordBall(event)</code></td><td>Observer, Command</td><td>Extras, wickets and strike rotation rules</td></tr>
+</table></div></div>
+<div class="card t" data-skey="lld:lld-problems-entities-apis-and-the-core-move/lru-cache-o-1-python" id="lru-cache-o-1-python"><h3 data-label="LRU cache, O(1) (Python)">LRU cache, O(1) (Python)<a aria-label="Link to this card" class="anchor" href="#lru-cache-o-1-python">#</a></h3><pre class="code" data-hl="py"><span class="k">class</span> <span class="t">Node</span>:
+    __slots__ <span class="o">=</span> (<span class="s">"k"</span>, <span class="s">"v"</span>, <span class="s">"prev"</span>, <span class="s">"next"</span>)
+    <span class="k">def</span> <span class="f">__init__</span>(<span class="b">self</span>, k<span class="o">=</span><span class="n">0</span>, v<span class="o">=</span><span class="n">0</span>): <span class="b">self</span><span class="o">.</span>k, <span class="b">self</span><span class="o">.</span>v, <span class="b">self</span><span class="o">.</span>prev, <span class="b">self</span><span class="o">.</span>next <span class="o">=</span> k, v, <span class="b">None</span>, <span class="b">None</span>
+
+<span class="k">class</span> <span class="t">LRUCache</span>:
+    <span class="k">def</span> <span class="f">__init__</span>(<span class="b">self</span>, cap):
+        <span class="b">self</span><span class="o">.</span>cap, <span class="b">self</span><span class="o">.</span>map <span class="o">=</span> cap, {}
+        <span class="b">self</span><span class="o">.</span>head, <span class="b">self</span><span class="o">.</span>tail <span class="o">=</span> <span class="t">Node</span>(), <span class="t">Node</span>()          <span class="c"># sentinels</span>
+        <span class="b">self</span><span class="o">.</span>head<span class="o">.</span>next, <span class="b">self</span><span class="o">.</span>tail<span class="o">.</span>prev <span class="o">=</span> <span class="b">self</span><span class="o">.</span>tail, <span class="b">self</span><span class="o">.</span>head
+    <span class="k">def</span> <span class="f">_remove</span>(<span class="b">self</span>, n): n<span class="o">.</span>prev<span class="o">.</span>next, n<span class="o">.</span>next<span class="o">.</span>prev <span class="o">=</span> n<span class="o">.</span>next, n<span class="o">.</span>prev
+    <span class="k">def</span> <span class="f">_add_front</span>(<span class="b">self</span>, n):
+        n<span class="o">.</span>next, n<span class="o">.</span>prev <span class="o">=</span> <span class="b">self</span><span class="o">.</span>head<span class="o">.</span>next, <span class="b">self</span><span class="o">.</span>head
+        <span class="b">self</span><span class="o">.</span>head<span class="o">.</span>next<span class="o">.</span>prev <span class="o">=</span> n; <span class="b">self</span><span class="o">.</span>head<span class="o">.</span>next <span class="o">=</span> n
+    <span class="k">def</span> <span class="f">get</span>(<span class="b">self</span>, k):
+        <span class="k">if</span> k <span class="k">not</span> <span class="k">in</span> <span class="b">self</span><span class="o">.</span>map: <span class="k">return</span> <span class="o">-</span><span class="n">1</span>
+        n <span class="o">=</span> <span class="b">self</span><span class="o">.</span>map[k]; <span class="b">self</span><span class="o">.</span><span class="f">_remove</span>(n); <span class="b">self</span><span class="o">.</span><span class="f">_add_front</span>(n); <span class="k">return</span> n<span class="o">.</span>v
+    <span class="k">def</span> <span class="f">put</span>(<span class="b">self</span>, k, v):
+        <span class="k">if</span> k <span class="k">in</span> <span class="b">self</span><span class="o">.</span>map: <span class="b">self</span><span class="o">.</span><span class="f">_remove</span>(<span class="b">self</span><span class="o">.</span>map[k])
+        n <span class="o">=</span> <span class="b">self</span><span class="o">.</span>map[k] <span class="o">=</span> <span class="t">Node</span>(k, v); <span class="b">self</span><span class="o">.</span><span class="f">_add_front</span>(n)
+        <span class="k">if</span> <span class="bi">len</span>(<span class="b">self</span><span class="o">.</span>map) <span class="o">&gt;</span> <span class="b">self</span><span class="o">.</span>cap:
+            lru <span class="o">=</span> <span class="b">self</span><span class="o">.</span>tail<span class="o">.</span>prev; <span class="b">self</span><span class="o">.</span><span class="f">_remove</span>(lru); <span class="k">del</span> <span class="b">self</span><span class="o">.</span>map[lru<span class="o">.</span>k]
+<span class="c"># Thread-safe: guard get/put with one lock (or striped locks per shard)</span></pre></div>
+<div class="card t" data-skey="lld:lld-problems-entities-apis-and-the-core-move/token-bucket-rate-limiter-java-thread-safe" id="token-bucket-rate-limiter-java-thread-safe"><h3 data-label="Token-bucket rate limiter (Java, thread-safe)">Token-bucket rate limiter (Java, thread-safe)<a aria-label="Link to this card" class="anchor" href="#token-bucket-rate-limiter-java-thread-safe">#</a></h3><pre class="code" data-hl="java"><span class="k">final</span> <span class="k">class</span> <span class="t">TokenBucket</span> {
+    <span class="k">private</span> <span class="k">final</span> <span class="t">long</span> capacity; <span class="k">private</span> <span class="k">final</span> <span class="t">double</span> refillPerNano;
+    <span class="k">private</span> <span class="t">double</span> tokens; <span class="k">private</span> <span class="t">long</span> last;
+    <span class="k">private</span> <span class="k">final</span> <span class="t">Clock</span> clock;                       <span class="c">// injectable for tests</span>
+    <span class="t">TokenBucket</span>(<span class="t">long</span> cap, <span class="t">double</span> perSec, <span class="t">Clock</span> c){
+        capacity <span class="o">=</span> cap; refillPerNano <span class="o">=</span> perSec <span class="o">/</span> <span class="n">1e9</span>; tokens <span class="o">=</span> cap; clock <span class="o">=</span> c; last <span class="o">=</span> c.<span class="f">nanos</span>();
+    }
+    <span class="k">synchronized</span> <span class="t">boolean</span> <span class="f">tryAcquire</span>(){
+        <span class="t">long</span> now <span class="o">=</span> clock.<span class="f">nanos</span>();
+        tokens <span class="o">=</span> <span class="t">Math</span>.<span class="f">min</span>(capacity, tokens <span class="o">+</span> (now <span class="o">-</span> last) <span class="o">*</span> refillPerNano);  <span class="c">// lazy refill</span>
+        last <span class="o">=</span> now;
+        <span class="k">if</span> (tokens <span class="o">&lt;</span> <span class="n">1</span>) <span class="k">return</span> <span class="b">false</span>;
+        tokens <span class="o">-=</span> <span class="n">1</span>; <span class="k">return</span> <span class="b">true</span>;
+    }
+}
+<span class="k">class</span> <span class="t">RateLimiter</span> {
+    <span class="k">private</span> <span class="k">final</span> <span class="t">ConcurrentHashMap</span><span class="o">&lt;</span><span class="t">String</span>, <span class="t">TokenBucket</span><span class="o">&gt;</span> buckets <span class="o">=</span> <span class="k">new</span> <span class="t">ConcurrentHashMap</span><span class="o">&lt;&gt;</span>();
+    <span class="t">boolean</span> <span class="f">allow</span>(<span class="t">String</span> client){
+        <span class="k">return</span> buckets.<span class="f">computeIfAbsent</span>(client, k <span class="o">-&gt;</span> <span class="k">new</span> <span class="t">TokenBucket</span>(<span class="n">10</span>, <span class="n">5</span>, <span class="t">Clock</span>.<span class="b">SYSTEM</span>)).<span class="f">tryAcquire</span>();
+    }
+}</pre>
+<h4>Variants and follow-ups</h4>
+<ul>
+<li><b>Leaky bucket</b> smooths output to a fixed rate; <b>fixed window</b> is simple but bursts at window edges.</li>
+<li><b>Sliding log</b> is exact but stores every timestamp; <b>sliding window counter</b> approximates it with two counters.</li>
+<li><b>Distributed:</b> keep the bucket in Redis and refill-and-take in one Lua script so it stays atomic.</li>
+<li><b>Memory:</b> per-client buckets need eviction (expire idle keys).</li>
+<li><b>Response:</b> return 429 with <code>Retry-After</code> computed from the token deficit.</li>
+</ul>
+</div>
+<div class="card y" data-skey="lld:lld-problems-entities-apis-and-the-core-move/parking-lot-class-sketch-java" id="parking-lot-class-sketch-java"><h3 data-label="Parking lot class sketch (Java)">Parking lot class sketch (Java)<a aria-label="Link to this card" class="anchor" href="#parking-lot-class-sketch-java">#</a></h3><pre class="code" data-hl="java"><span class="k">enum</span> <span class="t">SpotType</span> { <span class="b">MOTORBIKE</span>, <span class="b">COMPACT</span>, <span class="b">LARGE</span> }
+<span class="k">enum</span> <span class="t">VehicleType</span> { <span class="b">BIKE</span>, <span class="b">CAR</span>, <span class="b">TRUCK</span> }
+<span class="k">record</span> <span class="t">Ticket</span>(<span class="t">String</span> id, <span class="t">String</span> spotId, <span class="t">VehicleType</span> type, <span class="t">Instant</span> in) {}
+
+<span class="k">interface</span> <span class="t">SpotAllocator</span> { <span class="t">Optional</span><span class="o">&lt;</span><span class="t">Spot</span><span class="o">&gt;</span> <span class="f">allocate</span>(<span class="t">VehicleType</span> t); <span class="t">void</span> <span class="f">release</span>(<span class="t">Spot</span> s); }
+<span class="k">interface</span> <span class="t">FeePolicy</span> { <span class="t">Money</span> <span class="f">fee</span>(<span class="t">Ticket</span> t, <span class="t">Instant</span> out); }
+
+<span class="k">final</span> <span class="k">class</span> <span class="t">ParkingLot</span> {                       <span class="c">// facade</span>
+    <span class="k">private</span> <span class="k">final</span> <span class="t">SpotAllocator</span> allocator; <span class="k">private</span> <span class="k">final</span> <span class="t">FeePolicy</span> fees;
+    <span class="k">private</span> <span class="k">final</span> <span class="t">Map</span><span class="o">&lt;</span><span class="t">String</span>, <span class="t">Ticket</span><span class="o">&gt;</span> active <span class="o">=</span> <span class="k">new</span> <span class="t">ConcurrentHashMap</span><span class="o">&lt;&gt;</span>();
+    <span class="t">Ticket</span> <span class="f">park</span>(<span class="t">Vehicle</span> v){
+        <span class="t">Spot</span> s <span class="o">=</span> allocator.<span class="f">allocate</span>(v.<span class="f">type</span>()).<span class="f">orElseThrow</span>(<span class="t">LotFull</span>::<span class="k">new</span>);   <span class="c">// atomic inside</span>
+        <span class="t">Ticket</span> t <span class="o">=</span> <span class="k">new</span> <span class="t">Ticket</span>(<span class="b">UUID</span>.<span class="f">randomUUID</span>().<span class="f">toString</span>(), s.<span class="f">id</span>(), v.<span class="f">type</span>(), <span class="t">Instant</span>.<span class="f">now</span>());
+        active.<span class="f">put</span>(t.<span class="f">id</span>(), t); <span class="k">return</span> t;
+    }
+    <span class="t">Receipt</span> <span class="f">unpark</span>(<span class="t">String</span> ticketId){
+        <span class="t">Ticket</span> t <span class="o">=</span> <span class="t">Optional</span>.<span class="f">ofNullable</span>(active.<span class="f">remove</span>(ticketId)).<span class="f">orElseThrow</span>(<span class="t">InvalidTicket</span>::<span class="k">new</span>);
+        allocator.<span class="f">release</span>(<span class="f">spotOf</span>(t)); <span class="k">return</span> <span class="k">new</span> <span class="t">Receipt</span>(t, fees.<span class="f">fee</span>(t, <span class="t">Instant</span>.<span class="f">now</span>()));
+    }
+}</pre></div>
+<div class="card o" data-new="4" data-skey="lld:lld-problems-entities-apis-and-the-core-move/tic-tac-toe-with-o-1-win-check-java" id="tic-tac-toe-with-o-1-win-check-java"><h3 data-label="Tic-tac-toe with O(1) win check (Java)">Tic-tac-toe with O(1) win check (Java) <span class="badge-new">New</span><a aria-label="Link to this card" class="anchor" href="#tic-tac-toe-with-o-1-win-check-java">#</a></h3><pre class="code" data-hl="java"><span class="k">final</span> <span class="k">class</span> <span class="t">TicTacToe</span> {
+    <span class="k">private</span> <span class="k">final</span> <span class="t">int</span> n;
+    <span class="k">private</span> <span class="k">final</span> <span class="t">int</span><span class="o">[]</span> rows, cols;
+    <span class="k">private</span> <span class="t">int</span> diag, anti;
+    <span class="t">TicTacToe</span>(<span class="t">int</span> n) { <span class="k">this</span>.n <span class="o">=</span> n; rows <span class="o">=</span> <span class="k">new</span> <span class="t">int</span><span class="o">[</span>n<span class="o">]</span>; cols <span class="o">=</span> <span class="k">new</span> <span class="t">int</span><span class="o">[</span>n<span class="o">]</span>; }
+
+    <span class="c">/** player 1 or 2; returns the winner or 0. */</span>
+    <span class="t">int</span> <span class="f">move</span>(<span class="t">int</span> r, <span class="t">int</span> c, <span class="t">int</span> player) {
+        <span class="t">int</span> d <span class="o">=</span> player <span class="o">==</span> <span class="n">1</span> <span class="o">?</span> <span class="n">1</span> : <span class="o">-</span><span class="n">1</span>;
+        rows<span class="o">[</span>r<span class="o">]</span> <span class="o">+=</span> d; cols<span class="o">[</span>c<span class="o">]</span> <span class="o">+=</span> d;
+        <span class="k">if</span> (r <span class="o">==</span> c) diag <span class="o">+=</span> d;
+        <span class="k">if</span> (r <span class="o">+</span> c <span class="o">==</span> n <span class="o">-</span> <span class="n">1</span>) anti <span class="o">+=</span> d;
+        <span class="t">int</span> target <span class="o">=</span> d <span class="o">*</span> n;
+        <span class="k">return</span> (rows<span class="o">[</span>r<span class="o">]</span> <span class="o">==</span> target <span class="o">||</span> cols<span class="o">[</span>c<span class="o">]</span> <span class="o">==</span> target <span class="o">||</span> diag <span class="o">==</span> target <span class="o">||</span> anti <span class="o">==</span> target) <span class="o">?</span> player : <span class="n">0</span>;
+    }
+}
+<span class="o">//</span> <span class="t">Validation</span> (occupied cell, wrong turn, game over) lives in a <span class="t">Game</span> <span class="k">class</span> <span class="t">around</span> <span class="k">this</span>.</pre></div><div class="card o" data-new="4" data-skey="lld:lld-problems-entities-apis-and-the-core-move/logger-with-chain-of-responsibility-java" id="logger-with-chain-of-responsibility-java"><h3 data-label="Logger with chain of responsibility (Java)">Logger with chain of responsibility (Java) <span class="badge-new">New</span><a aria-label="Link to this card" class="anchor" href="#logger-with-chain-of-responsibility-java">#</a></h3><pre class="code" data-hl="java"><span class="k">enum</span> <span class="t">Level</span> { <span class="b">DEBUG</span>, <span class="b">INFO</span>, <span class="b">WARN</span>, <span class="b">ERROR</span> }
+
+<span class="k">abstract</span> <span class="k">class</span> <span class="t">Handler</span> {
+    <span class="k">private</span> <span class="t">Handler</span> next;
+    <span class="t">Handler</span> <span class="f">then</span>(<span class="t">Handler</span> n) { <span class="k">this</span>.next <span class="o">=</span> n; <span class="k">return</span> n; }
+    <span class="t">void</span> <span class="f">handle</span>(<span class="t">Level</span> lvl, <span class="t">String</span> msg) {
+        <span class="k">if</span> (<span class="f">accepts</span>(lvl)) <span class="f">write</span>(lvl, msg);
+        <span class="k">if</span> (next <span class="o">!=</span> <span class="b">null</span>) next.<span class="f">handle</span>(lvl, msg);
+    }
+    <span class="k">abstract</span> <span class="t">boolean</span> <span class="f">accepts</span>(<span class="t">Level</span> lvl);
+    <span class="k">abstract</span> <span class="t">void</span> <span class="f">write</span>(<span class="t">Level</span> lvl, <span class="t">String</span> msg);
+}
+<span class="k">final</span> <span class="k">class</span> <span class="t">ConsoleHandler</span> <span class="k">extends</span> <span class="t">Handler</span> {
+    <span class="t">boolean</span> <span class="f">accepts</span>(<span class="t">Level</span> l) { <span class="k">return</span> l.<span class="f">compareTo</span>(<span class="t">Level</span>.<span class="b">INFO</span>) <span class="o">&gt;=</span> <span class="n">0</span>; }
+    <span class="t">void</span> <span class="f">write</span>(<span class="t">Level</span> l, <span class="t">String</span> m) { <span class="t">System</span>.out.<span class="f">println</span>(l <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> m); }
+}
+<span class="k">final</span> <span class="k">class</span> <span class="t">AlertHandler</span> <span class="k">extends</span> <span class="t">Handler</span> {
+    <span class="t">boolean</span> <span class="f">accepts</span>(<span class="t">Level</span> l) { <span class="k">return</span> l <span class="o">==</span> <span class="t">Level</span>.<span class="b">ERROR</span>; }
+    <span class="t">void</span> <span class="f">write</span>(<span class="t">Level</span> l, <span class="t">String</span> m) { <span class="c">/* page on-call */</span> }
+}
+<span class="c">// chain: Handler root = new ConsoleHandler(); root.then(new AlertHandler());</span>
+<span class="o">//</span> <span class="t">For</span> throughput, put a <span class="t">BlockingQueue</span> <span class="o">+</span> writer thread in <span class="f">front</span> (async appender).</pre>
+<h4>Follow-ups</h4>
+<ul>
+<li><b>Async appender:</b> a bounded queue plus one writer thread; decide whether to block or drop when it is full.</li>
+<li><b>Configuration:</b> levels per package, changeable at runtime without a restart.</li>
+<li><b>Formatting</b> is a Strategy; extra sinks (file, network) are more handlers in the chain.</li>
+<li><b>Thread safety:</b> a single writer thread, or synchronise each sink's write.</li>
+</ul>
+</div><div class="card t full" data-new="4" data-skey="lld:lld-problems-entities-apis-and-the-core-move/in-memory-pub-sub-with-per-subscriber-offsets-ja" id="in-memory-pub-sub-with-per-subscriber-offsets-ja"><h3 data-label="In-memory pub-sub with per-subscriber offsets (Java)">In-memory pub-sub with per-subscriber offsets (Java) <span class="badge-new">New</span><a aria-label="Link to this card" class="anchor" href="#in-memory-pub-sub-with-per-subscriber-offsets-ja">#</a></h3><pre class="code" data-hl="java"><span class="k">final</span> <span class="k">class</span> <span class="t">Topic</span> {
+    <span class="k">private</span> <span class="k">final</span> <span class="t">List</span><span class="o">&lt;</span><span class="t">String</span><span class="o">&gt;</span> log <span class="o">=</span> <span class="k">new</span> <span class="t">CopyOnWriteArrayList</span><span class="o">&lt;&gt;</span>();      <span class="c">// append-only</span>
+    <span class="t">void</span> <span class="f">publish</span>(<span class="t">String</span> msg) { log.<span class="f">add</span>(msg); }
+    <span class="t">String</span> <span class="f">read</span>(<span class="t">int</span> offset) { <span class="k">return</span> offset <span class="o">&lt;</span> log.<span class="f">size</span>() <span class="o">?</span> log.<span class="f">get</span>(offset) : <span class="b">null</span>; }
+}
+
+<span class="k">final</span> <span class="k">class</span> <span class="t">Subscriber</span> <span class="k">implements</span> <span class="t">Runnable</span> {
+    <span class="k">private</span> <span class="k">final</span> <span class="t">Topic</span> topic; <span class="k">private</span> <span class="k">final</span> <span class="t">Consumer</span><span class="o">&lt;</span><span class="t">String</span><span class="o">&gt;</span> handler;
+    <span class="k">private</span> <span class="k">final</span> <span class="t">AtomicInteger</span> offset <span class="o">=</span> <span class="k">new</span> <span class="t">AtomicInteger</span>();             <span class="c">// own position</span>
+    <span class="k">private</span> <span class="k">volatile</span> <span class="t">boolean</span> running <span class="o">=</span> <span class="b">true</span>;
+    <span class="t">Subscriber</span>(<span class="t">Topic</span> t, <span class="t">Consumer</span><span class="o">&lt;</span><span class="t">String</span><span class="o">&gt;</span> h) { topic <span class="o">=</span> t; handler <span class="o">=</span> h; }
+    <span class="k">public</span> <span class="t">void</span> <span class="f">run</span>() {
+        <span class="k">while</span> (running) {
+            <span class="t">String</span> m <span class="o">=</span> topic.<span class="f">read</span>(offset.<span class="f">get</span>());
+            <span class="k">if</span> (m <span class="o">==</span> <span class="b">null</span>) { <span class="t">LockSupport</span>.<span class="f">parkNanos</span>(<span class="n">1_000_000</span>); <span class="k">continue</span>; }    <span class="c">// or wait/notify</span>
+            handler.<span class="f">accept</span>(m);
+            offset.<span class="f">incrementAndGet</span>();                                    <span class="c">// commit after handling</span>
+        }
+    }
+    <span class="t">void</span> <span class="f">resetOffset</span>(<span class="t">int</span> o) { offset.<span class="f">set</span>(o); }                           <span class="c">// replay</span>
+    <span class="t">void</span> <span class="f">stop</span>() { running <span class="o">=</span> <span class="b">false</span>; }
+}
+<span class="o">//</span> <span class="t">Each</span> subscriber has its own offset, so slow ones don't block fast ones and can replay.</pre></div></div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#patterns"><span>Previous</span>04 · LLD problem breakdowns &amp; patterns</a><a class="sn-next" href="#lldworked"><span>Next</span>06 · Worked LLD designs: three walkthroughs and a booking flow</a></nav></section>
+<section class="sec g" data-new="2" data-origin="lld" data-round="2" id="lldworked"><h2 data-label="Worked LLD designs: three walkthroughs and a booking flow"><span class="n">06</span>Worked LLD designs: three walkthroughs and a booking flow</h2>
+<p>Requirements, class diagram, the code that interviewers actually probe, and the extensions to mention. Java, since most machine-coding rounds expect it.</p>
+<div class="grid">
+<div class="card g full" data-skey="lld:worked-lld-designs-three-full-walkthroughs/elevator-system" id="elevator-system"><h3 data-label="Elevator system">Elevator system<a aria-label="Link to this card" class="anchor" href="#elevator-system">#</a></h3>
+<p class="lede">The core is a per-car scheduler (LOOK: keep going in one direction while stops remain) and a dispatcher that picks the cheapest car.</p>
+<pre class="mermaid" data-h="611" data-key="49a2713f49db" data-w="400">classDiagram
+  class ElevatorSystem {
+    +requestPickup(floor, dir)
+    +requestStop(carId, floor)
+    +tick()
+  }
+  class Dispatcher {
+    &lt;&lt;interface&gt;&gt;
+    +choose(cars, floor, dir) Elevator
+  }
+  class LeastCostDispatcher
+  class Elevator {
+    -int floor
+    -Direction dir
+    -TreeSet up
+    -TreeSet down
+    +addStop(floor)
+    +step()
+    +cost(floor, dir) int
+  }
+  class Direction {
+    &lt;&lt;enumeration&gt;&gt;
+    UP
+    DOWN
+    IDLE
+  }
+  ElevatorSystem "1" --&gt; "*" Elevator
+  ElevatorSystem --&gt; Dispatcher
+  Dispatcher &lt;|.. LeastCostDispatcher
+  Elevator --&gt; Direction</pre>
+<div class="wt-cols">
+<div><h4>Requirements to confirm</h4><ul><li>N cars, M floors; hall calls (floor + direction) and car calls (destination).</li><li>Minimise wait time; no starvation; doors, capacity and maintenance mode as extensions.</li><li>Single controller process; simulation driven by <code>tick()</code>.</li></ul>
+<h4>Key decisions</h4><ul><li>Two sorted sets per car (stops above, stops below) give O(log n) next-stop lookup.</li><li>Dispatcher is a Strategy: nearest car, least cost, zoning.</li><li>Car state (moving, doors open, maintenance) can become a State pattern.</li></ul>
+<h4>Edge cases to test</h4>
+<ul>
+<li>A call for the current floor while the doors are open.</li>
+<li>An opposite-direction hall call on the car's path: serve it only after the car turns.</li>
+<li>Every car busy or in maintenance: queue the call, never drop it.</li>
+<li>Repeated presses of the same button are idempotent.</li>
+<li>Emergency stop or overweight: hold the car and re-dispatch its hall calls.</li>
+</ul>
+
+<h4>Follow-ups to expect</h4>
+<ul>
+<li>100 floors and 8 cars: zone the building or add express cars.</li>
+<li>Testing the scheduler: drive it with a fake clock and <code>tick()</code> so runs are deterministic.</li>
+<li>Destination dispatch: riders enter the floor in the lobby, so you can group them by destination.</li>
+</ul>
+</div>
+<div><h4>Elevator scheduling (LOOK)</h4><pre class="code" data-hl="java"><span class="k">enum</span> <span class="t">Direction</span> { <span class="b">UP</span>, <span class="b">DOWN</span>, <span class="b">IDLE</span> }
+
+<span class="k">final</span> <span class="k">class</span> <span class="t">Elevator</span> {
+    <span class="k">private</span> <span class="t">int</span> floor <span class="o">=</span> <span class="n">0</span>;
+    <span class="k">private</span> <span class="t">Direction</span> dir <span class="o">=</span> <span class="t">Direction</span>.<span class="b">IDLE</span>;
+    <span class="k">private</span> <span class="k">final</span> <span class="t">TreeSet</span><span class="o">&lt;</span><span class="t">Integer</span><span class="o">&gt;</span> up <span class="o">=</span> <span class="k">new</span> <span class="t">TreeSet</span><span class="o">&lt;&gt;</span>(), down <span class="o">=</span> <span class="k">new</span> <span class="t">TreeSet</span><span class="o">&lt;&gt;</span>();
+
+    <span class="k">synchronized</span> <span class="t">void</span> <span class="f">addStop</span>(<span class="t">int</span> f) {
+        <span class="k">if</span> (f <span class="o">&gt;</span> floor) up.<span class="f">add</span>(f); <span class="k">else</span> <span class="k">if</span> (f <span class="o">&lt;</span> floor) down.<span class="f">add</span>(f);
+        <span class="k">if</span> (dir <span class="o">==</span> <span class="t">Direction</span>.<span class="b">IDLE</span> <span class="o">&amp;&amp;</span> f <span class="o">!=</span> floor) dir <span class="o">=</span> f <span class="o">&gt;</span> floor <span class="o">?</span> <span class="t">Direction</span>.<span class="b">UP</span> : <span class="t">Direction</span>.<span class="b">DOWN</span>;
+    }
+    <span class="k">synchronized</span> <span class="t">void</span> <span class="f">step</span>() {                  <span class="c">// one tick = one floor</span>
+        <span class="k">if</span> (dir <span class="o">==</span> <span class="t">Direction</span>.<span class="b">UP</span>) {
+            <span class="k">if</span> (up.<span class="f">isEmpty</span>()) { dir <span class="o">=</span> down.<span class="f">isEmpty</span>() <span class="o">?</span> <span class="t">Direction</span>.<span class="b">IDLE</span> : <span class="t">Direction</span>.<span class="b">DOWN</span>; <span class="k">return</span>; }
+            floor<span class="o">++</span>;
+            <span class="k">if</span> (up.<span class="f">remove</span>(floor)) <span class="f">openDoors</span>();
+        } <span class="k">else</span> <span class="k">if</span> (dir <span class="o">==</span> <span class="t">Direction</span>.<span class="b">DOWN</span>) {
+            <span class="k">if</span> (down.<span class="f">isEmpty</span>()) { dir <span class="o">=</span> up.<span class="f">isEmpty</span>() <span class="o">?</span> <span class="t">Direction</span>.<span class="b">IDLE</span> : <span class="t">Direction</span>.<span class="b">UP</span>; <span class="k">return</span>; }
+            floor<span class="o">--</span>;
+            <span class="k">if</span> (down.<span class="f">remove</span>(floor)) <span class="f">openDoors</span>();
+        }
+    }
+    <span class="k">synchronized</span> <span class="t">int</span> <span class="f">cost</span>(<span class="t">int</span> f, <span class="t">Direction</span> d) {   <span class="c">// lower is better</span>
+        <span class="t">int</span> dist <span class="o">=</span> <span class="t">Math</span>.<span class="f">abs</span>(floor <span class="o">-</span> f);
+        <span class="k">if</span> (dir <span class="o">==</span> <span class="t">Direction</span>.<span class="b">IDLE</span>) <span class="k">return</span> dist;
+        <span class="t">boolean</span> onTheWay <span class="o">=</span> (dir <span class="o">==</span> <span class="t">Direction</span>.<span class="b">UP</span> <span class="o">&amp;&amp;</span> d <span class="o">==</span> <span class="t">Direction</span>.<span class="b">UP</span> <span class="o">&amp;&amp;</span> f <span class="o">&gt;=</span> floor)
+                        <span class="o">||</span> (dir <span class="o">==</span> <span class="t">Direction</span>.<span class="b">DOWN</span> <span class="o">&amp;&amp;</span> d <span class="o">==</span> <span class="t">Direction</span>.<span class="b">DOWN</span> <span class="o">&amp;&amp;</span> f <span class="o">&lt;=</span> floor);
+        <span class="k">return</span> onTheWay <span class="o">?</span> dist : dist <span class="o">+</span> <span class="n">100</span>;      <span class="c">// penalise turning around</span>
+    }
+    <span class="k">private</span> <span class="t">void</span> <span class="f">openDoors</span>() { <span class="c">/* notify observers, start door timer */</span> }
+}</pre></div>
+<div><h4>Dispatcher</h4><pre class="code" data-hl="java"><span class="k">interface</span> <span class="t">Dispatcher</span> { <span class="t">Elevator</span> <span class="f">choose</span>(<span class="t">List</span><span class="o">&lt;</span><span class="t">Elevator</span><span class="o">&gt;</span> cars, <span class="t">int</span> floor, <span class="t">Direction</span> d); }
+
+<span class="k">final</span> <span class="k">class</span> <span class="t">LeastCostDispatcher</span> <span class="k">implements</span> <span class="t">Dispatcher</span> {
+    <span class="k">public</span> <span class="t">Elevator</span> <span class="f">choose</span>(<span class="t">List</span><span class="o">&lt;</span><span class="t">Elevator</span><span class="o">&gt;</span> cars, <span class="t">int</span> floor, <span class="t">Direction</span> d) {
+        <span class="k">return</span> cars.<span class="f">stream</span>().<span class="f">min</span>(<span class="t">Comparator</span>.<span class="f">comparingInt</span>(c <span class="o">-&gt;</span> c.<span class="f">cost</span>(floor, d))).<span class="f">orElseThrow</span>();
+    }
+}</pre>
+<h4>Extensions to mention</h4><ul><li>Capacity: skip hall calls when the car is full.</li><li>Peak modes: park idle cars at the lobby in the morning.</li><li>Fairness: age requests so far floors aren't starved.</li><li>Concurrency: requests arrive on many threads; each car's state is guarded by its own lock.</li></ul></div>
+</div></div>
+<div class="card o full" data-skey="lld:worked-lld-designs-three-full-walkthroughs/movie-ticket-booking-bookmyshow" id="movie-ticket-booking-bookmyshow"><h3 data-label="Movie ticket booking (BookMyShow)">Movie ticket booking (BookMyShow)<a aria-label="Link to this card" class="anchor" href="#movie-ticket-booking-bookmyshow">#</a></h3>
+<p class="lede">Model a seat per show separately from the physical seat, and make "hold these seats" all-or-nothing with an expiry.</p>
+<pre class="mermaid" data-h="631" data-key="7ad5d65016c0" data-w="577">classDiagram
+  class Show {
+    +String id
+    +Movie movie
+    +Screen screen
+    +Instant start
+  }
+  class Seat {
+    +String id
+    +SeatType type
+  }
+  class ShowSeat {
+    +Seat seat
+    +SeatStatus status
+    +Money price
+  }
+  class Booking {
+    +String id
+    +String userId
+    +List seats
+    +BookingStatus status
+  }
+  class BookingService {
+    +hold(showId, seatIds, userId) Hold
+    +confirm(holdId, payment) Booking
+  }
+  class SeatLockProvider {
+    &lt;&lt;interface&gt;&gt;
+    +lock(showId, seatIds, userId) bool
+    +unlock(showId, seatIds, userId)
+  }
+  Show "1" --&gt; "*" ShowSeat
+  ShowSeat --&gt; Seat
+  BookingService --&gt; SeatLockProvider
+  BookingService --&gt; Booking
+  Booking --&gt; ShowSeat</pre>
+<div class="wt-cols">
+<div><h4>Requirements to confirm</h4><ul><li>Search shows by city/movie; view seat layout; select up to N seats; hold for 10 minutes; pay; confirm or release.</li><li>No double booking under concurrent requests; price by seat type and show.</li></ul>
+<h4>Key decisions</h4><ul><li><b>Seat vs ShowSeat:</b> the physical seat is shared across shows; status lives on ShowSeat.</li><li>Locking behind an interface: in-memory for the interview, Redis or DB in production.</li><li>Pricing as a Strategy (weekday, premium, surge); notifications via Observer.</li><li>Money as integer minor units, never <code>double</code>.</li></ul></div>
+<div><h4>All-or-nothing seat lock with expiry</h4><pre class="code" data-hl="java"><span class="k">final</span> <span class="k">class</span> <span class="t">InMemorySeatLock</span> <span class="k">implements</span> <span class="t">SeatLockProvider</span> {
+    <span class="k">private</span> <span class="k">record</span> <span class="t">Lock</span>(<span class="t">String</span> user, <span class="t">Instant</span> expiry) {}
+    <span class="k">private</span> <span class="k">final</span> <span class="t">Map</span><span class="o">&lt;</span><span class="t">String</span>, <span class="t">Map</span><span class="o">&lt;</span><span class="t">String</span>, <span class="t">Lock</span><span class="o">&gt;&gt;</span> locks <span class="o">=</span> <span class="k">new</span> <span class="t">ConcurrentHashMap</span><span class="o">&lt;&gt;</span>();
+    <span class="k">private</span> <span class="k">final</span> <span class="t">Duration</span> ttl; <span class="k">private</span> <span class="k">final</span> <span class="t">Clock</span> clock;
+    <span class="t">InMemorySeatLock</span>(<span class="t">Duration</span> ttl, <span class="t">Clock</span> clock) { <span class="k">this</span>.ttl <span class="o">=</span> ttl; <span class="k">this</span>.clock <span class="o">=</span> clock; }
+
+    <span class="k">public</span> <span class="t">boolean</span> <span class="f">lock</span>(<span class="t">String</span> show, <span class="t">List</span><span class="o">&lt;</span><span class="t">String</span><span class="o">&gt;</span> seats, <span class="t">String</span> user) {
+        <span class="t">Map</span><span class="o">&lt;</span><span class="t">String</span>, <span class="t">Lock</span><span class="o">&gt;</span> m <span class="o">=</span> locks.<span class="f">computeIfAbsent</span>(show, k <span class="o">-&gt;</span> <span class="k">new</span> <span class="t">HashMap</span><span class="o">&lt;&gt;</span>());
+        <span class="k">synchronized</span> (m) {                         <span class="c">// serialise per show only</span>
+            <span class="t">Instant</span> now <span class="o">=</span> clock.<span class="f">instant</span>();
+            <span class="k">for</span> (<span class="t">String</span> s : seats) {
+                <span class="t">Lock</span> l <span class="o">=</span> m.<span class="f">get</span>(s);
+                <span class="k">if</span> (l <span class="o">!=</span> <span class="b">null</span> <span class="o">&amp;&amp;</span> l.<span class="f">expiry</span>().<span class="f">isAfter</span>(now) <span class="o">&amp;&amp;</span> <span class="o">!</span>l.<span class="f">user</span>().<span class="f">equals</span>(user)) <span class="k">return</span> <span class="b">false</span>;
+            }
+            <span class="k">for</span> (<span class="t">String</span> s : seats) m.<span class="f">put</span>(s, <span class="k">new</span> <span class="t">Lock</span>(user, now.<span class="f">plus</span>(ttl)));
+            <span class="k">return</span> <span class="b">true</span>;
+        }
+    }
+    <span class="k">public</span> <span class="t">void</span> <span class="f">unlock</span>(<span class="t">String</span> show, <span class="t">List</span><span class="o">&lt;</span><span class="t">String</span><span class="o">&gt;</span> seats, <span class="t">String</span> user) {
+        <span class="t">Map</span><span class="o">&lt;</span><span class="t">String</span>, <span class="t">Lock</span><span class="o">&gt;</span> m <span class="o">=</span> locks.<span class="f">get</span>(show); <span class="k">if</span> (m <span class="o">==</span> <span class="b">null</span>) <span class="k">return</span>;
+        <span class="k">synchronized</span> (m) { seats.<span class="f">forEach</span>(s <span class="o">-&gt;</span> m.<span class="f">computeIfPresent</span>(s, (k, l) <span class="o">-&gt;</span> l.<span class="f">user</span>().<span class="f">equals</span>(user) <span class="o">?</span> <span class="b">null</span> : l)); }
+    }
+}</pre></div>
+<div><h4>Confirm flow</h4><ol class="steps"><li>Check every seat is still locked by this user (not expired).</li><li>Charge with an idempotency key.</li><li>Mark ShowSeats BOOKED and save the booking in one transaction.</li><li>Unlock; publish a BookingConfirmed event.</li><li>On payment failure or timeout, release the lock and mark the booking FAILED.</li></ol>
+<h4>Extensions to mention</h4><ul><li>Distributed lock: Redis <code>SET key NX PX</code> per seat, with the DB unique constraint as a safety net.</li><li>Waitlist via Observer when seats free up.</li><li>Coupons as a rule engine.</li></ul></div>
+</div></div>
+<div class="card p full" data-skey="lld:worked-lld-designs-three-full-walkthroughs/splitwise-expense-sharing" id="splitwise-expense-sharing"><h3 data-label="Splitwise (expense sharing)">Splitwise (expense sharing)<a aria-label="Link to this card" class="anchor" href="#splitwise-expense-sharing">#</a></h3>
+<p class="lede">Different split types are a Strategy with validation, balances are a ledger, and "settle up" is a greedy matching of debtors and creditors.</p>
+<pre class="mermaid" data-h="436" data-key="dadeb66a6670" data-w="634">classDiagram
+  class ExpenseService {
+    +addExpense(groupId, paidBy, amount, splitType, details)
+    +balances(userId) Map
+    +settlePlan(groupId) List
+  }
+  class Expense {
+    +String id
+    +String paidBy
+    +long amountCents
+    +List splits
+  }
+  class Split {
+    &lt;&lt;abstract&gt;&gt;
+    +String userId
+    +long amountCents
+  }
+  class SplitStrategy {
+    &lt;&lt;interface&gt;&gt;
+    +compute(amount, users, details) List
+  }
+  class EqualSplit
+  class ExactSplit
+  class PercentSplit
+  class BalanceSheet {
+    +apply(Expense)
+    +net(userId) long
+  }
+  ExpenseService --&gt; SplitStrategy
+  ExpenseService --&gt; BalanceSheet
+  Expense "1" --&gt; "*" Split
+  SplitStrategy &lt;|.. EqualSplit
+  SplitStrategy &lt;|.. ExactSplit
+  SplitStrategy &lt;|.. PercentSplit</pre>
+<div class="wt-cols">
+<div><h4>Requirements to confirm</h4><ul><li>Users, groups, expenses paid by one user split equally, by exact amounts or by percentages.</li><li>Show who owes whom; simplify debts to few transfers; record settlements.</li></ul>
+<h4>Key decisions</h4><ul><li>Store money as <code>long</code> cents; give rounding remainders to the first participants deterministically.</li><li>Each strategy validates its input (exact amounts sum to the total; percentages sum to 100).</li><li>Balances as net amount per user per group: positive is owed money, negative owes.</li><li>Expenses are immutable; edits are reversal plus a new expense (audit trail).</li></ul></div>
+<div><h4>Equal split with fair rounding</h4><pre class="code" data-hl="java"><span class="k">final</span> <span class="k">class</span> <span class="t">EqualSplit</span> <span class="k">implements</span> <span class="t">SplitStrategy</span> {
+    <span class="k">public</span> <span class="t">List</span><span class="o">&lt;</span><span class="t">Split</span><span class="o">&gt;</span> <span class="f">compute</span>(<span class="t">long</span> amount, <span class="t">List</span><span class="o">&lt;</span><span class="t">String</span><span class="o">&gt;</span> users, <span class="t">Map</span><span class="o">&lt;</span><span class="t">String</span>, <span class="t">Long</span><span class="o">&gt;</span> ignored) {
+        <span class="t">long</span> base <span class="o">=</span> amount <span class="o">/</span> users.<span class="f">size</span>(), rem <span class="o">=</span> amount <span class="o">%</span> users.<span class="f">size</span>();
+        <span class="t">List</span><span class="o">&lt;</span><span class="t">Split</span><span class="o">&gt;</span> out <span class="o">=</span> <span class="k">new</span> <span class="t">ArrayList</span><span class="o">&lt;&gt;</span>();
+        <span class="k">for</span> (<span class="t">int</span> i <span class="o">=</span> <span class="n">0</span>; i <span class="o">&lt;</span> users.<span class="f">size</span>(); i<span class="o">++</span>)
+            out.<span class="f">add</span>(<span class="k">new</span> <span class="t">Split</span>(users.<span class="f">get</span>(i), base <span class="o">+</span> (i <span class="o">&lt;</span> rem <span class="o">?</span> <span class="n">1</span> : <span class="n">0</span>)));
+        <span class="k">return</span> out;                               <span class="c">// sums exactly to amount</span>
+    }
+}</pre></div>
+<div><h4>Simplify debts</h4><pre class="code" data-hl="java"><span class="k">record</span> <span class="t">Transfer</span>(<span class="t">String</span> from, <span class="t">String</span> <span class="k">to</span>, <span class="t">long</span> cents) {}
+
+<span class="k">static</span> <span class="t">List</span><span class="o">&lt;</span><span class="t">Transfer</span><span class="o">&gt;</span> <span class="f">simplify</span>(<span class="t">Map</span><span class="o">&lt;</span><span class="t">String</span>, <span class="t">Long</span><span class="o">&gt;</span> net) {   <span class="c">// + owed, − owes</span>
+    <span class="t">PriorityQueue</span><span class="o">&lt;</span><span class="t">long</span><span class="o">[]&gt;</span> cred <span class="o">=</span> <span class="k">new</span> <span class="t">PriorityQueue</span><span class="o">&lt;&gt;</span>((a, b) <span class="o">-&gt;</span> <span class="t">Long</span>.<span class="f">compare</span>(b<span class="o">[</span><span class="n">1</span><span class="o">]</span>, a<span class="o">[</span><span class="n">1</span><span class="o">]</span>));
+    <span class="t">PriorityQueue</span><span class="o">&lt;</span><span class="t">long</span><span class="o">[]&gt;</span> debt <span class="o">=</span> <span class="k">new</span> <span class="t">PriorityQueue</span><span class="o">&lt;&gt;</span>((a, b) <span class="o">-&gt;</span> <span class="t">Long</span>.<span class="f">compare</span>(b<span class="o">[</span><span class="n">1</span><span class="o">]</span>, a<span class="o">[</span><span class="n">1</span><span class="o">]</span>));
+    <span class="t">List</span><span class="o">&lt;</span><span class="t">String</span><span class="o">&gt;</span> ids <span class="o">=</span> <span class="k">new</span> <span class="t">ArrayList</span><span class="o">&lt;&gt;</span>(net.<span class="f">keySet</span>());
+    <span class="k">for</span> (<span class="t">int</span> i <span class="o">=</span> <span class="n">0</span>; i <span class="o">&lt;</span> ids.<span class="f">size</span>(); i<span class="o">++</span>) {
+        <span class="t">long</span> v <span class="o">=</span> net.<span class="f">get</span>(ids.<span class="f">get</span>(i));
+        <span class="k">if</span> (v <span class="o">&gt;</span> <span class="n">0</span>) cred.<span class="f">add</span>(<span class="k">new</span> <span class="t">long</span><span class="o">[]</span>{i, v}); <span class="k">else</span> <span class="k">if</span> (v <span class="o">&lt;</span> <span class="n">0</span>) debt.<span class="f">add</span>(<span class="k">new</span> <span class="t">long</span><span class="o">[]</span>{i, <span class="o">-</span>v});
+    }
+    <span class="t">List</span><span class="o">&lt;</span><span class="t">Transfer</span><span class="o">&gt;</span> out <span class="o">=</span> <span class="k">new</span> <span class="t">ArrayList</span><span class="o">&lt;&gt;</span>();
+    <span class="k">while</span> (<span class="o">!</span>cred.<span class="f">isEmpty</span>() <span class="o">&amp;&amp;</span> <span class="o">!</span>debt.<span class="f">isEmpty</span>()) {
+        <span class="t">long</span><span class="o">[]</span> c <span class="o">=</span> cred.<span class="f">poll</span>(), d <span class="o">=</span> debt.<span class="f">poll</span>();
+        <span class="t">long</span> amt <span class="o">=</span> <span class="t">Math</span>.<span class="f">min</span>(c<span class="o">[</span><span class="n">1</span><span class="o">]</span>, d<span class="o">[</span><span class="n">1</span><span class="o">]</span>);
+        out.<span class="f">add</span>(<span class="k">new</span> <span class="t">Transfer</span>(ids.<span class="f">get</span>((<span class="t">int</span>) d<span class="o">[</span><span class="n">0</span><span class="o">]</span>), ids.<span class="f">get</span>((<span class="t">int</span>) c<span class="o">[</span><span class="n">0</span><span class="o">]</span>), amt));
+        <span class="k">if</span> (c<span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">&gt;</span> amt) cred.<span class="f">add</span>(<span class="k">new</span> <span class="t">long</span><span class="o">[]</span>{c<span class="o">[</span><span class="n">0</span><span class="o">]</span>, c<span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">-</span> amt});
+        <span class="k">if</span> (d<span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">&gt;</span> amt) debt.<span class="f">add</span>(<span class="k">new</span> <span class="t">long</span><span class="o">[]</span>{d<span class="o">[</span><span class="n">0</span><span class="o">]</span>, d<span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">-</span> amt});
+    }
+    <span class="k">return</span> out;   <span class="c">// at most n − 1 transfers; the true minimum is NP-hard</span>
+}</pre></div>
+</div></div>
+<div class="card p full" data-new="4" data-skey="lld:worked-lld-designs-three-full-walkthroughs/booking-flow-as-a-sequence-diagram" id="booking-flow-as-a-sequence-diagram"><h3 data-label="Booking flow as a sequence diagram">Booking flow as a sequence diagram <span class="badge-new">New</span><a aria-label="Link to this card" class="anchor" href="#booking-flow-as-a-sequence-diagram">#</a></h3><pre class="mermaid" data-h="613" data-key="450cacbe67a8" data-w="1179">sequenceDiagram
+  participant U as User
+  participant BS as BookingService
+  participant L as SeatLockProvider
+  participant P as PaymentGateway
+  participant R as BookingRepository
+  U-&gt;&gt;BS: hold(showId, seats)
+  BS-&gt;&gt;L: lock(showId, seats, userId)
+  L--&gt;&gt;BS: locked until T + 10 min
+  BS--&gt;&gt;U: holdId
+  U-&gt;&gt;BS: confirm(holdId, paymentToken)
+  BS-&gt;&gt;L: still locked by this user?
+  BS-&gt;&gt;P: charge(amount, idempotencyKey)
+  P--&gt;&gt;BS: success
+  BS-&gt;&gt;R: save booking and mark seats BOOKED
+  BS-&gt;&gt;L: unlock(showId, seats)
+  BS--&gt;&gt;U: booking confirmed</pre><p>Draw this after the class diagram: it proves the classes can actually carry out the use case and shows where the concurrency risk sits (between lock and confirm).</p></div></div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#lldprob"><span>Previous</span>05 · LLD problems: entities, APIs and the core move</a><a class="sn-next" href="#concurrency"><span>Next</span>07 · Concurrency, atomicity &amp; error paths</a></nav></section>
+<section class="sec t" data-origin="lld" id="concurrency"><h2 data-label="Concurrency, atomicity &amp; error paths"><span class="n">07</span>Concurrency, atomicity &amp; error paths</h2><div class="g2"><div class="card t" data-skey="lld:concurrency-atomicity-error-paths/correctness-boundary" id="correctness-boundary"><h3 data-label="Correctness boundary">Correctness boundary<a aria-label="Link to this card" class="anchor" href="#correctness-boundary">#</a></h3><div class="tw"><table><tr><th>Problem</th><th>Mechanism</th><th>Invariant</th></tr><tr><td>Concurrent map update</td><td>Atomic map op / lock</td><td>Check-and-set is one operation.</td></tr><tr><td>Shared counter</td><td>Atomic integer / synchronized allocator</td><td>No lost or duplicate increments.</td></tr><tr><td>Multi-field transition</td><td>Lock or database transaction</td><td>No partial state visible.</td></tr><tr><td>Work queue</td><td>BlockingQueue / bounded channel</td><td>Backpressure and shutdown are defined.</td></tr><tr><td>Retryable command</td><td>Idempotency key + stored result</td><td>Retry returns same logical outcome.</td></tr><tr><td>External side effect</td><td>Outbox / saga boundary</td><td>Failure can be retried or compensated.</td></tr></table></div></div><div class="card o" data-skey="lld:concurrency-atomicity-error-paths/review-questions" id="review-questions"><h3 data-label="Review questions">Review questions<a aria-label="Link to this card" class="anchor" href="#review-questions">#</a></h3><ul><li>Who owns each mutable field?</li><li>Can two requests race on the same object?</li><li>What makes each method atomic?</li><li>Can a retry duplicate an operation?</li><li>Are terminal and invalid states explicit?</li><li>Can dependencies be replaced in a unit test?</li></ul></div><div class="card g" data-new="4" data-skey="lld:concurrency-atomicity-error-paths/optimistic-vs-pessimistic-locking-in-code" id="optimistic-vs-pessimistic-locking-in-code"><h3 data-label="Optimistic vs pessimistic locking in code">Optimistic vs pessimistic locking in code <span class="badge-new">New</span><a aria-label="Link to this card" class="anchor" href="#optimistic-vs-pessimistic-locking-in-code">#</a></h3><pre class="code" data-hl="java"><span class="c">// Pessimistic: hold a lock for the whole read-modify-write</span>
+<span class="k">synchronized</span> (account) { account.<span class="f">debit</span>(amount); }
+
+<span class="c">// Optimistic in memory: compare-and-swap loop</span>
+<span class="t">AtomicReference</span><span class="o">&lt;</span><span class="t">Balance</span><span class="o">&gt;</span> ref <span class="o">=</span> <span class="k">new</span> <span class="t">AtomicReference</span><span class="o">&lt;&gt;</span>(start);
+<span class="k">while</span> (<span class="b">true</span>) {
+    <span class="t">Balance</span> cur <span class="o">=</span> ref.<span class="f">get</span>();
+    <span class="t">Balance</span> next <span class="o">=</span> cur.<span class="f">minus</span>(amount);           <span class="c">// immutable value</span>
+    <span class="k">if</span> (ref.<span class="f">compareAndSet</span>(cur, next)) <span class="k">break</span>;    <span class="c">// retry if someone else won</span>
+}
+
+<span class="c">// Optimistic in the database: version column</span>
+<span class="c">// UPDATE accounts SET balance = ?, version = version + 1</span>
+<span class="o">//</span>  <span class="b">WHERE</span> id <span class="o">=</span> <span class="o">?</span> <span class="b">AND</span> version <span class="o">=</span> <span class="o">?</span>   <span class="o">--</span> <span class="n">0</span> rows updated means retry</pre><ul><li>Optimistic wins when conflicts are rare; pessimistic when contention is high or retries are expensive.</li>
+<li>Avoid deadlock under pessimistic locking: acquire locks in a global order (for example by account ID) or use <code>tryLock</code> with a timeout.</li>
+<li><abbr class="gl" data-tip="Atomic CPU instruction: update a value only if it still equals the expected old value. The basis of lock-free code." data-tip-title="CAS: Compare-and-swap">CAS</abbr> can suffer the ABA problem; use a versioned reference such as <code>AtomicStampedReference</code>.</li>
+</ul></div></div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#lldworked"><span>Previous</span>06 · Worked LLD designs: three walkthroughs and a booking flow</a><a class="sn-next" href="#conc2"><span>Next</span>08 · Concurrency toolkit</a></nav></section>
+<section class="sec t" data-new="1" data-origin="lld" id="conc2"><h2 data-label="Concurrency toolkit"><span class="n">08</span>Concurrency toolkit</h2>
+<p>Machine-coding rounds increasingly ask "make it thread-safe". Know the primitive, the hazard it prevents, and the classic exercises.</p>
+<div class="g2">
+<div class="card t" data-skey="lld:concurrency-toolkit/primitives-java-and-python" id="primitives-java-and-python"><h3 data-label="Primitives: Java and Python">Primitives: Java and Python<a aria-label="Link to this card" class="anchor" href="#primitives-java-and-python">#</a></h3><div class="tw"><table>
+<tr><th>Need</th><th>Java</th><th>Python</th></tr>
+<tr><td>Mutual exclusion</td><td><code>synchronized</code>, <code>ReentrantLock</code> (tryLock, fairness)</td><td><code>threading.Lock</code> / <code>RLock</code></td></tr>
+<tr><td>Many readers, one writer</td><td><code>ReentrantReadWriteLock</code>, <code>StampedLock</code></td><td>Lock + Condition (no built-in RW lock)</td></tr>
+<tr><td>Limit concurrent access</td><td><code>Semaphore</code></td><td><code>threading.Semaphore</code></td></tr>
+<tr><td>Wait for a condition</td><td><code>Condition.await/signal</code>, <code>wait/notifyAll</code></td><td><code>threading.Condition</code>, <code>Event</code></td></tr>
+<tr><td>Lock-free counter</td><td><code>AtomicInteger</code>, <code>LongAdder</code> (<abbr class="gl" data-tip="Atomic CPU instruction: update a value only if it still equals the expected old value. The basis of lock-free code." data-tip-title="CAS: Compare-and-swap">CAS</abbr>)</td><td>Lock (<abbr class="gl" data-tip="CPython lock that lets only one thread execute Python bytecode at a time, so threads help I/O-bound work, not CPU-bound work." data-tip-title="GIL: Global interpreter lock">GIL</abbr> doesn't make <code>+=</code> atomic)</td></tr>
+<tr><td>Visibility</td><td><code>volatile</code>, happens-before</td><td>—</td></tr>
+<tr><td>Concurrent map</td><td><code>ConcurrentHashMap.compute/merge</code></td><td>dict + Lock</td></tr>
+<tr><td>Hand-off queue</td><td><code>BlockingQueue</code> (Array/Linked), <code>DelayQueue</code></td><td><code>queue.Queue</code>, <code>PriorityQueue</code></td></tr>
+<tr><td>Wait for N tasks</td><td><code>CountDownLatch</code>, <code>CyclicBarrier</code>, <code>Phaser</code></td><td><code>Barrier</code>, <code>concurrent.futures.wait</code></td></tr>
+<tr><td>Thread pool</td><td><code>ExecutorService</code>, <code>CompletableFuture</code>, virtual threads (21+)</td><td><code>ThreadPoolExecutor</code>, <code>ProcessPoolExecutor</code>, <code>asyncio</code></td></tr>
+</table></div><div class="callout"><b>Python GIL:</b> threads help I/O-bound work; use processes for CPU-bound work. Free-threaded builds exist from 3.13 but are optional.</div></div>
+<div class="card r" data-skey="lld:concurrency-toolkit/hazards-and-how-to-prevent-them" id="hazards-and-how-to-prevent-them"><h3 data-label="Hazards and how to prevent them">Hazards and how to prevent them<a aria-label="Link to this card" class="anchor" href="#hazards-and-how-to-prevent-them">#</a></h3><div class="tw"><table>
+<tr><th>Hazard</th><th>Looks like</th><th>Prevention</th></tr>
+<tr><td>Race condition</td><td>check-then-act, read-modify-write</td><td>Atomic op (<abbr class="gl" data-tip="Atomic CPU instruction: update a value only if it still equals the expected old value. The basis of lock-free code." data-tip-title="CAS: Compare-and-swap">CAS</abbr>, <code>computeIfAbsent</code>) or one lock around both steps</td></tr>
+<tr><td>Deadlock</td><td>Two threads hold locks the other needs</td><td>Global lock ordering, <code>tryLock</code> with timeout, fewer locks</td></tr>
+<tr><td>Livelock</td><td>Threads keep yielding to each other</td><td>Randomised back-off</td></tr>
+<tr><td>Starvation</td><td>A thread never gets the lock</td><td>Fair locks, bounded priorities</td></tr>
+<tr><td>Visibility bug</td><td>Thread never sees a flag change</td><td><code>volatile</code>, locks, atomics</td></tr>
+<tr><td>Lost update</td><td>Two writers overwrite each other</td><td>Optimistic version check or row lock</td></tr>
+<tr><td>ABA</td><td>CAS succeeds on a recycled value</td><td>Versioned/stamped references</td></tr>
+<tr><td>Priority inversion</td><td>Low-priority holder blocks high priority</td><td>Priority inheritance, short critical sections</td></tr>
+</table></div><div class="callout"><b>Coffman conditions for deadlock:</b> mutual exclusion, hold-and-wait, no preemption, circular wait. Break any one, usually circular wait via ordering.</div></div>
+<div class="card b" data-skey="lld:concurrency-toolkit/classic-concurrency-exercises" id="classic-concurrency-exercises"><h3 data-label="Classic concurrency exercises">Classic concurrency exercises<a aria-label="Link to this card" class="anchor" href="#classic-concurrency-exercises">#</a></h3><div class="tw"><table>
+<tr><th>Problem</th><th>Core idea</th></tr>
+<tr><td>Producer–consumer / bounded blocking queue</td><td>Lock + two conditions (<code>notFull</code>, <code>notEmpty</code>); loop on the predicate</td></tr>
+<tr><td>Readers–writers</td><td>RW lock; decide reader vs writer preference</td></tr>
+<tr><td>Dining philosophers</td><td>Order the forks or limit diners with a semaphore of N−1</td></tr>
+<tr><td>Print in order / FooBar / ZeroEvenOdd</td><td>Semaphores or condition hand-off between threads</td></tr>
+<tr><td>Building H₂O</td><td>Semaphores (2 H, 1 O) + barrier</td></tr>
+<tr><td>Multithreaded web crawler</td><td>Concurrent visited set + work queue + pool; stop when queue empty and no task in flight</td></tr>
+<tr><td>Thread-safe <abbr class="gl" data-tip="Eviction policy that removes the item not accessed for the longest time. Hash map + doubly linked list gives O(1) operations." data-tip-title="LRU: Least recently used">LRU</abbr> cache</td><td>One lock, or segment the key space into shards</td></tr>
+<tr><td>Delayed task scheduler</td><td>Priority queue + condition wait until the earliest deadline</td></tr>
+</table></div></div>
+<div class="card b" data-skey="lld:concurrency-toolkit/bounded-blocking-queue-python" id="bounded-blocking-queue-python"><h3 data-label="Bounded blocking queue (Python)">Bounded blocking queue (Python)<a aria-label="Link to this card" class="anchor" href="#bounded-blocking-queue-python">#</a></h3><pre class="code" data-hl="py"><span class="k">import</span> threading
+<span class="k">from</span> collections <span class="k">import</span> deque
+
+<span class="k">class</span> <span class="t">BoundedBlockingQueue</span>:
+    <span class="k">def</span> <span class="f">__init__</span>(<span class="b">self</span>, capacity):
+        <span class="b">self</span><span class="o">.</span>q, <span class="b">self</span><span class="o">.</span>cap <span class="o">=</span> <span class="f">deque</span>(), capacity
+        <span class="b">self</span><span class="o">.</span>lock <span class="o">=</span> threading<span class="o">.</span><span class="t">Lock</span>()
+        <span class="b">self</span><span class="o">.</span>not_full <span class="o">=</span> threading<span class="o">.</span><span class="t">Condition</span>(<span class="b">self</span><span class="o">.</span>lock)
+        <span class="b">self</span><span class="o">.</span>not_empty <span class="o">=</span> threading<span class="o">.</span><span class="t">Condition</span>(<span class="b">self</span><span class="o">.</span>lock)
+    <span class="k">def</span> <span class="f">enqueue</span>(<span class="b">self</span>, x):
+        <span class="k">with</span> <span class="b">self</span><span class="o">.</span>not_full:
+            <span class="k">while</span> <span class="bi">len</span>(<span class="b">self</span><span class="o">.</span>q) <span class="o">==</span> <span class="b">self</span><span class="o">.</span>cap:      <span class="c"># while, not if: spurious wake-ups</span>
+                <span class="b">self</span><span class="o">.</span>not_full<span class="o">.</span><span class="f">wait</span>()
+            <span class="b">self</span><span class="o">.</span>q<span class="o">.</span><span class="f">append</span>(x)
+            <span class="b">self</span><span class="o">.</span>not_empty<span class="o">.</span><span class="f">notify</span>()
+    <span class="k">def</span> <span class="f">dequeue</span>(<span class="b">self</span>):
+        <span class="k">with</span> <span class="b">self</span><span class="o">.</span>not_empty:
+            <span class="k">while</span> <span class="k">not</span> <span class="b">self</span><span class="o">.</span>q:
+                <span class="b">self</span><span class="o">.</span>not_empty<span class="o">.</span><span class="f">wait</span>()
+            x <span class="o">=</span> <span class="b">self</span><span class="o">.</span>q<span class="o">.</span><span class="f">popleft</span>()
+            <span class="b">self</span><span class="o">.</span>not_full<span class="o">.</span><span class="f">notify</span>()
+            <span class="k">return</span> x</pre></div>
+<div class="card t" data-new="1" data-skey="lld:concurrency-toolkit/producer-consumer-with-a-bounded-queue" id="producer-consumer-with-a-bounded-queue"><h3 data-label="Producer–consumer with a bounded queue">Producer–consumer with a bounded queue<a aria-label="Link to this card" class="anchor" href="#producer-consumer-with-a-bounded-queue">#</a></h3><pre class="mermaid" data-h="252" data-key="463911b7142c" data-w="293">flowchart TD
+  P1["Producer 1"] --&gt; Q[["Bounded blocking queue&lt;br/&gt;capacity N"]]
+  P2["Producer 2"] --&gt; Q
+  Q --&gt; W1["Consumer 1"]
+  Q --&gt; W2["Consumer 2"]
+  Q -.-&gt;|"full: producers block"| P1
+  W1 -.-&gt;|"empty: consumers wait"| Q</pre><p>The bound gives back-pressure; a poison pill or shutdown flag stops consumers cleanly.</p></div></div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#concurrency"><span>Previous</span>07 · Concurrency, atomicity &amp; error paths</a><a class="sn-next" href="#machine"><span>Next</span>09 · Machine-coding round: structure, APIs, errors, tests</a></nav></section>
+<section class="sec y" data-new="1" data-origin="lld" id="machine"><h2 data-label="Machine-coding round: structure, APIs, errors, tests"><span class="n">09</span>Machine-coding round: structure, APIs, errors, tests</h2>
+<p>Machine-coding rounds (90–120 minutes, runnable code) reward a clean package layout, a working demo and easy extension more than clever algorithms.</p>
+<div class="g3">
+<div class="card y" data-skey="lld:machine-coding-round-structure-apis-errors-tests/time-plan-90-min" id="time-plan-90-min"><h3 data-label="Time plan (90 min)">Time plan (90 min)<a aria-label="Link to this card" class="anchor" href="#time-plan-90-min">#</a></h3><div class="tw"><table>
+<tr><th>Min</th><th>Do</th></tr>
+<tr><td>0–10</td><td>Clarify scope; write the 4–6 must-have commands</td></tr>
+<tr><td>10–20</td><td>Models (enums, value objects, entities) and interfaces</td></tr>
+<tr><td>20–65</td><td>Services for the happy path; in-memory repositories</td></tr>
+<tr><td>65–80</td><td>Driver/demo with the sample input; validation and exceptions</td></tr>
+<tr><td>80–90</td><td>Extension point demo, concurrency note, cleanup</td></tr>
+</table></div></div>
+<div class="card y" data-skey="lld:machine-coding-round-structure-apis-errors-tests/package-layout" id="package-layout"><h3 data-label="Package layout">Package layout<a aria-label="Link to this card" class="anchor" href="#package-layout">#</a></h3><pre class="code" data-hl="text"><span class="f">app/</span>
+  <span class="f">model/</span>        <span class="c"># entities, value objects, enums</span>
+  <span class="f">repository/</span>   <span class="c"># interfaces + in-memory impls</span>
+  <span class="f">service/</span>      <span class="c"># use cases (facade per aggregate)</span>
+  <span class="f">strategy/</span>     <span class="c"># pluggable rules (pricing, matching)</span>
+  <span class="f">exception/</span>    <span class="c"># domain exceptions</span>
+  Main          <span class="c"># driver: parses commands, prints output</span></pre><ul><li>Keep I/O in the driver only; services return values.</li><li>One public method per use case.</li></ul></div>
+<div class="card y" data-skey="lld:machine-coding-round-structure-apis-errors-tests/evaluation-rubric" id="evaluation-rubric"><h3 data-label="Evaluation rubric">Evaluation rubric<a aria-label="Link to this card" class="anchor" href="#evaluation-rubric">#</a></h3><ul>
+<li>Runs end-to-end on the sample input</li>
+<li>Separation of concerns; no god class</li>
+<li>Extensible: a new type means a new class</li>
+<li>Meaningful names, small methods, no dead code</li>
+<li>Edge cases and errors handled explicitly</li>
+<li>Thread-safety called out where state is shared</li>
+<li>Tests or a demo that proves behaviour</li>
+</ul></div>
+<div class="card g" data-skey="lld:machine-coding-round-structure-apis-errors-tests/api-and-method-design" id="api-and-method-design"><h3 data-label="API and method design">API and method design<a aria-label="Link to this card" class="anchor" href="#api-and-method-design">#</a></h3><ul>
+<li>Methods are verbs in domain language: <code>reserve()</code>, <code>settle()</code>.</li>
+<li>Return domain objects or results, never raw maps.</li>
+<li>Validate inputs at the boundary; constructors enforce invariants.</li>
+<li>Prefer immutable inputs and outputs (records, frozen dataclasses).</li>
+<li>Idempotent where retries are possible: pass a request ID.</li>
+<li>Pagination and filtering for list methods.</li>
+</ul></div>
+<div class="card r" data-skey="lld:machine-coding-round-structure-apis-errors-tests/errors-and-edge-cases" id="errors-and-edge-cases"><h3 data-label="Errors and edge cases">Errors and edge cases<a aria-label="Link to this card" class="anchor" href="#errors-and-edge-cases">#</a></h3><ul>
+<li>Domain exceptions (<code>SeatUnavailable</code>, <code>InsufficientFunds</code>) over generic ones.</li>
+<li>Decide: exception, <code>Optional</code>, or result type. Be consistent.</li>
+<li>Check: empty input, duplicates, not found, capacity full, invalid transition, concurrent conflict, partial failure.</li>
+<li>Roll back or compensate on partial failure; never leave half-updated state.</li>
+</ul></div>
+<div class="card b" data-skey="lld:machine-coding-round-structure-apis-errors-tests/testing-the-design" id="testing-the-design"><h3 data-label="Testing the design">Testing the design<a aria-label="Link to this card" class="anchor" href="#testing-the-design">#</a></h3><ul>
+<li><abbr class="gl" data-tip="High-level code depends on abstractions (interfaces), and concrete implementations are injected." data-tip-title="DIP: Dependency inversion principle">DIP</abbr> pays off here: inject fakes for clock, repository, payment gateway.</li>
+<li>Unit-test each strategy and each state transition.</li>
+<li>Table-driven tests for rules (fees, splits, discounts).</li>
+<li>Concurrency test: N threads booking one seat → exactly one succeeds.</li>
+<li>Say which tests you would write even if time runs out.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#conc2"><span>Previous</span>08 · Concurrency toolkit</a><a class="sn-next" href="#last"><span>Next</span>10 · LLD last-minute checklist</a></nav></section>
+<section class="sec r" data-origin="lld" id="last"><h2 data-label="LLD last-minute checklist"><span class="n">10</span>LLD last-minute checklist</h2><div class="card r last" data-skey="lld:lld-last-minute-checklist/lld-last-minute-checklist" id="lld-last-minute-checklist"><h3 data-label="LLD last-minute checklist">LLD last-minute checklist<a aria-label="Link to this card" class="anchor" href="#lld-last-minute-checklist">#</a></h3><ul><li>Confirm use cases before drawing classes.</li><li>State invariants and who owns each piece of state.</li><li>Separate entities, immutable values, services, and gateways.</li><li>Define method signatures before implementation details.</li><li>Use composition; choose at most two useful patterns.</li><li>Make state transitions and invalid transitions explicit.</li><li>State thread-safety and transaction boundaries.</li><li>Dry-run normal, duplicate, invalid, concurrent, and failure cases.</li></ul></div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#machine"><span>Previous</span>09 · Machine-coding round: structure, APIs, errors, tests</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"45126ace7a41": {"U": "Agree on the use cases and edge cases first; they decide which classes are needed.", "I": "State the invariants (balance never negative, a seat booked once) and which object owns each piece of state.", "M": "Model entities (with identity and lifecycle) and immutable value objects (Money, Address).", "A": "Design small public methods named in domain language; callers depend on these, not on internals.", "S": "Services coordinate entities for a use case without becoming god classes.", "P": "Introduce a design pattern only where something genuinely varies (pricing rules, states).", "C": "Decide what must be atomic and how concurrent calls stay correct: locks, atomic operations or transactions.", "T": "Test state transitions, concurrent access and failure paths, not just the happy path."}, "6eb79d1758e7": {"Idle": "Waiting for money. Only insertCoin is valid; select and dispense throw.", "HasMoney": "Balance is positive. More coins add to it, refund returns it, and select checks stock and price before moving on.", "Dispensing": "Releases the product and returns change, then goes back to Idle. Each state is a class, so illegal actions fail loudly instead of hiding in if/else."}, "3017d06bda09": {"ParkingLot": "Facade and entry point: park() returns a ticket, unpark() computes the fee. Delegates the details to floors and strategies.", "ParkingFloor": "Owns its spots and finds a free one of the right type.", "ParkingSpot": "A spot with a type (compact, large, motorbike) and occupancy. Allocation must be atomic so two cars can't take the same spot.", "Ticket": "Immutable record of entry: ID, spot, vehicle and entry time.", "PricingStrategy": "Interface for fee rules (hourly, flat, weekend), so new pricing needs a new class rather than edits."}, "49a2713f49db": {"ElevatorSystem": "Accepts hall and car requests and advances the simulation with tick(); delegates car choice to the dispatcher.", "Dispatcher": "Strategy interface: given all cars and a request, choose which car should serve it.", "LeastCostDispatcher": "Picks the car with the lowest cost: distance, with a penalty if it would have to turn around.", "Elevator": "One car: current floor, direction and two sorted sets of stops above and below. step() moves one floor using the LOOK algorithm.", "Direction": "UP, DOWN or IDLE. Using an enum makes invalid directions impossible."}, "7ad5d65016c0": {"Show": "A movie playing on one screen at one time.", "Seat": "A physical seat in a screen, shared by every show on that screen.", "ShowSeat": "The seat for a particular show, carrying its status (available, held, booked) and price. Status lives here, not on Seat.", "Booking": "A confirmed purchase linking a user to show seats and a payment.", "BookingService": "Use-case entry point: hold seats, then confirm with payment.", "SeatLockProvider": "Interface for all-or-nothing seat locks with expiry; in-memory for the interview, Redis or the database in production."}, "dadeb66a6670": {"ExpenseService": "Entry point for adding expenses, showing balances and producing a settle-up plan.", "Expense": "Immutable record: who paid, the total in integer cents, and the splits.", "Split": "One participant's share of an expense.", "SplitStrategy": "Interface that turns a total and inputs into validated splits; adding a new split type means a new class.", "EqualSplit": "Divides the total evenly and hands out leftover cents deterministically, so the shares always sum to the total.", "ExactSplit": "Uses given amounts and checks they add up to the total.", "PercentSplit": "Uses percentages, checks they sum to 100, and converts to cents with careful rounding.", "BalanceSheet": "Net amount per user: positive means they are owed, negative means they owe."}, "450cacbe67a8": {"p:User": "The customer picking seats and paying.", "p:BookingService": "Application service that orchestrates the use case. It owns the workflow, not the data rules.", "p:SeatLockProvider": "Holds temporary seat locks with a TTL (in-memory map or Redis SET NX PX). Expired holds free the seats automatically.", "p:PaymentGateway": "Interface over the external payment provider, so it can be mocked in tests or swapped.", "p:BookingRepository": "Persists bookings and seat status. In a real DB the final write is a transaction with a check that seats are still free.", "m:hold(showId, seats)": "User selects seats. Nothing is booked yet; we only try to reserve them for a short window.", "m:lock(showId, seats, userId)": "Atomically lock all requested seats or none. If any seat is held by someone else, fail fast.", "m:locked until T + 10 min": "The TTL bounds how long abandoned carts block seats from other users.", "m:holdId": "Returned to the client and used to confirm; ties the payment to this specific hold.", "m:confirm(holdId, paymentToken)": "User pays. This may arrive after the hold expired, so it must be validated.", "m:still locked by this user?": "Re-check ownership: the lock may have expired and been taken by someone else during payment.", "m:charge(amount, idempotencyKey)": "The idempotency key means a retried confirm never charges the card twice.", "m:success": "On failure, release the locks and return an error instead of saving the booking.", "m:save booking and mark seats BOOKED": "The durable state change. Use one transaction with a version or status check.", "m:unlock(showId, seats)": "Locks are no longer needed once the seats are permanently BOOKED.", "m:booking confirmed": "Return the booking ID; send tickets asynchronously."}, "463911b7142c": {"P1": "Producers create work items and put them on the queue, blocking when it is full.", "Q": "The bounded queue decouples producers from consumers; its capacity provides back-pressure so memory can't grow without limit.", "P2": "Several producers can share one queue safely because it is thread-safe.", "W1": "Consumers take items and process them, waiting when the queue is empty.", "W2": "Adding consumers raises throughput until the downstream resource saturates."}}</script>
+</body></html>
