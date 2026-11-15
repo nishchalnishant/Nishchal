@@ -230,3 +230,136 @@
     show();
   }
 })();
+
+/* ---------- recall quiz: spaced repetition over each card's "Check yourself" questions ---------- */
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const KEY = 'cs.srs.v1', DAY = 864e5, NEW_PER_SESSION = 20;
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } };
+  const save = d => { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {} };
+  const pref = (k, v) => { try { if (v === undefined) return localStorage.getItem('cs.' + k); localStorage.setItem('cs.' + k, v); } catch (e) { return null; } };
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  let R = load(), Q = null, items = [];
+
+  function collect() {
+    return $$('main .card li[data-rq]').map(li => {
+      const card = li.closest('.card'), h3 = card && $('h3', card), sec = li.closest('section.sec');
+      const k = card && $('.rc-k', card);
+      return { id: li.dataset.rq, li, card, sec: sec ? sec.id : '', q: $('.rc-q', li).innerHTML, a: $('.rc-a p', li).innerHTML,
+        k: k ? k.innerHTML.replace(/<b>Takeaway<\/b>\s*/, '') : '', ctx: h3 ? (h3.dataset.label || h3.textContent) : '' };
+    });
+  }
+  const isDue = (it, now) => R[it.id] && R[it.id].d <= now;
+  const dueCount = () => { const now = Date.now(); return items.filter(it => isDue(it, now)).length; };
+  function badge() {
+    const n = dueCount(), el = $('#stDue'); if (el) el.textContent = n ? String(n) : '';
+    const b = $('#stQuiz'); if (b) b.title = n ? `${n} question${n > 1 ? 's' : ''} due for review` : 'No reviews due; the quiz adds new questions';
+  }
+  function sched(id, g) { // g: 1 again, 2 hard, 3 good, 4 easy (SM-2 style, days)
+    const r = R[id] || { n: 0, i: 0, e: 2.5 };
+    if (g === 1) { r.n = 0; r.i = 0; r.e = Math.max(1.3, r.e - 0.2); }
+    else {
+      let i = r.n === 0 ? 1 : r.n === 1 ? 3 : Math.round(r.i * r.e);
+      if (g === 2) { i = Math.max(1, Math.round((r.i || 1) * 1.2)); r.e = Math.max(1.3, r.e - 0.15); }
+      if (g === 4) { i = Math.round(i * 1.3) + 1; r.e = Math.min(3, r.e + 0.15); }
+      r.n++; r.i = i;
+    }
+    r.d = Date.now() + (g === 1 ? 10 * 60e3 : r.i * DAY);
+    R[id] = r; save(R);
+    return r;
+  }
+  const nextLabel = (id, g) => { const r = Object.assign({ n: 0, i: 0, e: 2.5 }, R[id]); if (g === 1) return '10 min';
+    let i = r.n === 0 ? 1 : r.n === 1 ? 3 : Math.round(r.i * r.e); if (g === 2) i = Math.max(1, Math.round((r.i || 1) * 1.2)); if (g === 4) i = Math.round(i * 1.3) + 1;
+    return i >= 30 ? Math.round(i / 30) + ' mo' : i + ' d'; };
+
+  function decks() {
+    const now = Date.now(), out = [];
+    const due = items.filter(it => isDue(it, now)).sort((a, b) => R[a.id].d - R[b.id].d);
+    const fresh = items.filter(it => !R[it.id]).slice(0, NEW_PER_SESSION);
+    out.push({ id: 'due', name: `Due now ${due.length} + new ${fresh.length}`, items: due.concat(fresh), srs: true });
+    out.push({ id: 'all', name: `Whole sheet (${items.length})`, items, shuffle: true });
+    let S = {}; try { S = JSON.parse(localStorage.getItem('cs.study.v1') || '{}'); } catch (e) {}
+    const rv = items.filter(it => it.card && S[it.card.dataset.skey] === 'r');
+    if (rv.length) out.push({ id: 'review', name: `Cards marked Review (${rv.length})`, items: rv, shuffle: true });
+    $$('main section.sec').forEach(s => { const its = items.filter(it => it.sec === s.id); const h = $('h2', s);
+      if (its.length >= 3) out.push({ id: 'sec:' + s.id, name: 'Section: ' + (h ? (h.dataset.label || h.textContent) : s.id) + ` (${its.length})`, items: its, shuffle: true }); });
+    return out;
+  }
+
+  function open() {
+    let m = $('#rquiz');
+    if (!m) {
+      m = document.createElement('div'); m.id = 'rquiz'; m.className = 'drill-like'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-label', 'Recall quiz');
+      m.innerHTML = `<div class="dr-box">
+        <div class="dr-top"><select id="rqDeck" aria-label="Deck"></select><span class="dr-prog" id="rqProg"></span><button type="button" class="iconbtn" id="rqClose">Close</button></div>
+        <div class="dr-bar"><i id="rqBar"></i></div>
+        <div class="dr-card" id="rqCard"></div>
+        <div class="dr-actions" id="rqActions"></div>
+        <div class="dr-keys">Space: show answer · 1 again · 2 hard · 3 good · 4 easy · Esc: close</div></div>`;
+      document.body.appendChild(m);
+      $('#rqClose').addEventListener('click', close);
+      m.addEventListener('click', e => { if (e.target === m) close(); });
+      $('#rqDeck').addEventListener('change', e => start(e.target.value));
+      document.addEventListener('keydown', e => {
+        if (!m.classList.contains('open') || e.target.tagName === 'SELECT') return;
+        if (e.key === 'Escape') close();
+        else if ((e.key === ' ' || e.key === 'Enter') && Q && !Q.shown) { e.preventDefault(); reveal(); }
+        else if (Q && Q.shown && /^[1-4]$/.test(e.key)) grade(+e.key);
+      });
+    }
+    m._decks = decks();
+    $('#rqDeck').innerHTML = m._decks.map(d => `<option value="${esc(d.id)}">${esc(d.name)}</option>`).join('');
+    const last = pref('quizDeck'); const pick = m._decks.find(d => d.id === last && d.items.length) ? last : m._decks[0].id;
+    $('#rqDeck').value = pick;
+    m.classList.add('open'); document.documentElement.classList.add('viewer-open');
+    start(pick);
+  }
+  function close() { const m = $('#rquiz'); if (m) m.classList.remove('open'); document.documentElement.classList.remove('viewer-open'); badge(); }
+  function start(id) {
+    pref('quizDeck', id);
+    const d = $('#rquiz')._decks.find(x => x.id === id); const q = d.items.slice();
+    if (d.shuffle) for (let i = q.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [q[i], q[j]] = [q[j], q[i]]; }
+    Q = { q, total: q.length, done: 0, again: 0, shown: false, srs: !!d.srs };
+    show();
+  }
+  function show() {
+    const card = $('#rqCard'), act = $('#rqActions');
+    $('#rqProg').textContent = `${Q.done} / ${Q.total}`;
+    $('#rqBar').style.width = (Q.total ? Q.done * 100 / Q.total : 100) + '%';
+    if (!Q.q.length) {
+      const nd = items.filter(it => R[it.id]).map(it => R[it.id].d).filter(d => d > Date.now()).sort((a, b) => a - b)[0];
+      const when = nd ? new Date(nd).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) : '';
+      card.innerHTML = `<div class="dr-end"><b>${Q.total ? 'Session complete' : 'Nothing due right now'}</b><span>${Q.total ? `${Q.total} questions · ${Q.again} repeated` : 'Pick another deck to practise anyway'}${when ? ` · next review ${esc(when)}` : ''}</span></div>`;
+      act.innerHTML = ''; badge(); return;
+    }
+    const it = Q.q[0]; Q.shown = false;
+    card.innerHTML = `<div class="dr-ctx">${esc(it.ctx)}${R[it.id] ? '' : ' · <b>new</b>'}</div><div class="dr-q">${it.q}</div>
+      <div class="dr-ans" hidden>${it.a}${it.k ? `<div class="rc-k" style="margin-top:8px"><b>Takeaway</b> ${it.k}</div>` : ''}${it.card ? `<div style="margin-top:8px"><a href="#${esc(it.card.id)}" class="rq-go">Open the card</a></div>` : ''}</div>`;
+    const go = $('.rq-go', card); if (go) go.addEventListener('click', () => close());
+    act.innerHTML = '<button type="button" class="dr-btn primary" id="rqShow">Show answer</button>';
+    $('#rqShow').addEventListener('click', reveal); $('#rqShow').focus();
+  }
+  function reveal() {
+    Q.shown = true; $('.dr-ans', $('#rqCard')).hidden = false;
+    const id = Q.q[0].id, L = ['Again', 'Hard', 'Good', 'Easy'];
+    $('#rqActions').innerHTML = `<div class="dr-grade">${L.map((l, i) => `<button type="button" class="dr-btn${i === 2 ? ' primary' : ''}" data-g="${i + 1}">${l}<small>${nextLabel(id, i + 1)}</small></button>`).join('')}</div>`;
+    $$('#rqActions [data-g]').forEach(b => b.addEventListener('click', () => grade(+b.dataset.g)));
+    $('#rqActions [data-g="3"]').focus();
+  }
+  function grade(g) {
+    const it = Q.q.shift(); sched(it.id, g);
+    if (g === 1) { Q.again++; Q.q.splice(Math.min(Q.q.length, 3 + Math.floor(Math.random() * 3)), 0, it); } else Q.done++;
+    show();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    items = collect();
+    const btn = $('#stQuiz'); if (!btn || !items.length) return;
+    btn.hidden = false;
+    const fl = $('#stDrill'); if (fl) { fl.classList.remove('sp-primary'); fl.classList.add('sp-ghost'); }
+    btn.addEventListener('click', () => { const p = $('#studyPanel'); if (p) p.hidden = true; open(); });
+    badge();
+    window.addEventListener('storage', e => { if (e.key === KEY) { R = load(); badge(); } });
+  });
+})();

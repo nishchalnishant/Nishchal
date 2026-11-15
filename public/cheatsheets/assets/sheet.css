@@ -327,8 +327,8 @@ html:not([data-lang="java"]) .code-pair [data-lang="java"],html[data-lang="java"
 .card .lede{color:var(--fg-2);margin:0 0 6px;font-size:13.5px}
 
 /* ---------- flashcards ---------- */
-#drill{position:fixed;inset:0;z-index:110;display:none;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(10,12,18,.45);backdrop-filter:blur(4px)}
-#drill.open{display:flex}
+#drill,#rquiz{position:fixed;inset:0;z-index:110;display:none;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(10,12,18,.45);backdrop-filter:blur(4px)}
+#drill.open,#rquiz.open{display:flex}
 .dr-box{width:min(720px,100%);max-height:100%;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:16px;display:grid;gap:12px}
 .dr-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .dr-top select{flex:1;min-width:0;height:34px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--fg);font:13px var(--font);padding:0 8px}
@@ -349,7 +349,7 @@ html:not([data-lang="java"]) .code-pair [data-lang="java"],html[data-lang="java"
 .dr-end{display:grid;gap:4px;place-items:center;padding:40px 0;text-align:center}
 .dr-end b{font-size:20px}
 .dr-end span{color:var(--muted)}
-@media print{.st-ctl,.study-wrap,.st-note,.lang-tabs,#drill{display:none!important}html:not([data-lang="java"]) .code-pair [data-lang="java"]{display:block}}
+@media print{.st-ctl,.study-wrap,.st-note,.lang-tabs,#drill,#rquiz{display:none!important}html:not([data-lang="java"]) .code-pair [data-lang="java"]{display:block}}
 .rail > ol > li > a > span:nth-child(2){flex:1 1 0;min-width:0}
 .st-bar.zero{display:none}
 
@@ -591,3 +591,33 @@ body.buddy-open .totop{display:none}
 .rail-sheets h4{margin:14px 0 4px}
 .rail-sheets h4:first-child{margin-top:0}
 .mk-note a{color:var(--accent)}
+/* ---------- recall: "Check yourself" fold on each card ---------- */
+.recall{margin:10px 0 0;border-top:1px dashed var(--line-2);padding-top:6px;font-size:.95em}
+.recall>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-weight:600;font-size:.9em;padding:2px 0;user-select:none}
+.recall>summary::-webkit-details-marker{display:none}
+.recall>summary::before{content:"";width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(-45deg);transition:transform .15s;margin-right:2px}
+.recall[open]>summary::before{transform:rotate(45deg)}
+.recall>summary span{font-weight:400;opacity:.8}
+.recall>summary:hover,.recall[open]>summary{color:var(--h,var(--accent))}
+.rc-list{margin:6px 0 4px;padding-left:20px}
+.rc-list li{margin:6px 0}
+.rc-q{margin:0;color:var(--fg)}
+.rc-a>summary{cursor:pointer;color:var(--muted);font-size:.88em;margin-top:2px;width:max-content}
+.rc-a>summary:hover{color:var(--h,var(--accent))}
+.rc-a p{margin:3px 0 0;padding:6px 9px;border-radius:6px;background:color-mix(in srgb,var(--h,var(--accent)) 7%,var(--surface));color:var(--fg-2)}
+.rc-k{margin:6px 0 2px;color:var(--fg-2)}
+.rc-k b{display:inline-block;margin-right:6px;font-size:.78em;text-transform:uppercase;letter-spacing:.05em;color:var(--h,var(--accent))}
+@media print{.recall{display:none}}
+/* SRS quiz extras inside the flashcard dialog */
+.dr-due{font-size:.85em;color:var(--muted);margin-left:auto}
+.dr-grade{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.dr-grade .dr-btn small{display:block;font-size:.72em;opacity:.7;font-weight:400}
+.dr-q{font-size:1.15em;line-height:1.45}
+.dr-ans{margin-top:12px;padding:10px 12px;border-radius:8px;background:var(--sunk);color:var(--fg)}
+.st-due{display:inline-block;min-width:1.4em;padding:0 5px;border-radius:9px;background:var(--accent);color:var(--accent-fg);font-size:.75em;margin-left:4px;text-align:center}
+.st-due:empty{display:none}
+.rc-a{border:0;background:none;margin:2px 0 0;padding:0}
+.rc-a[open]{padding-bottom:0}
+.rc-a>summary{padding:2px 0;font-weight:400}
+.rc-a>:not(summary){margin-left:0;margin-right:0}
+.recall .rc-list{margin-left:0}

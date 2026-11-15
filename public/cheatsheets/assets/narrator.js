@@ -10,7 +10,11 @@
   const LS = (k, v) => { try { if (v === undefined) return JSON.parse(localStorage.getItem('cs.narr.' + k) || 'null'); localStorage.setItem('cs.narr.' + k, JSON.stringify(v)); } catch (e) { return null; } };
 
   /* ---------- speech text: spoken forms for symbols and abbreviations (captions keep the original) ---------- */
+  const inr = n => { const v = +n.replace(/,/g, ''); const f = x => String(+x.toFixed(2)); return v >= 1e7 ? f(v / 1e7) + ' crore' : f(v / 1e5) + ' lakh'; };
   const SAY = [
+    [/\b\d{1,2}(?:,\d{2})+,\d{3}(?:\.\d+)?\b(?!\s?(?:crore|lakh))/g, m => inr(m.replace(/\.\d+$/, ''))],
+    [/\b([01]\d|2[0-3]):([0-5]\d)\b/g, (m, h, mi) => { h = +h; const ap = h >= 12 ? 'pm' : 'am'; const hh = h % 12 || 12; return mi === '00' ? `${hh} ${ap}` : `${hh}:${mi} ${ap}`; }],
+    [/\bPEG\b/g, 'P E G'], [/\bAIS\b/g, 'A I S'], [/\bSTT\b/g, 'S T T'], [/\bMTM\b/g, 'mark to market'],
     [/₹\s?(\d[\d,.]*\d|\d)(\s(?:crore|lakh))?/g, (m, n, u) => n + (u || '') + ' rupees'],
     [/\$([\d,.]+)/g, '$1 dollars'],
     [/\bO\(([^)]*)\)/g, (m, x) => 'O of ' + x.replace(/\^2|²/g, ' squared').replace(/\*/g, ' times ').replace(/\blog\b/g, 'log')],
@@ -31,6 +35,7 @@
     [/\bIDs\b/g, 'I Ds'], [/\bID\b/g, 'I D'], [/\bInd AS\b/g, 'Ind A S'],
     [/(\d)%/g, '$1 percent'], [/&/g, ' and '], [/\s\/\s/g, ' or '], [/[`*_#]/g, ''], [/\s+/g, ' ']
   ];
+  const PAUSE = '⏸';
   const speakable = t => SAY.reduce((s, [a, b]) => s.replace(a, b), t).trim();
   const SPLIT = /(?<=[.!?])\s+(?=["“(A-Z0-9])/;
   // long sentences are cut at ; : or commas so no single utterance runs much past ~15 seconds (some voices stop there)
@@ -187,7 +192,8 @@
     const sg = e.segs[pos.g];
     $('.bd-where', P).textContent = e.title;
     const cd = $('.bd-card', P); cd.textContent = sg && sg.label ? sg.label : (pos.g === 0 ? 'Introduction' : 'Wrap-up');
-    $('.bd-cap', P).textContent = sg ? sg.sents[pos.t] || '' : '';
+    const cur = sg ? sg.sents[pos.t] || '' : '';
+    $('.bd-cap', P).textContent = cur === PAUSE ? 'Your turn: answer out loud, then listen…' : cur;
     renderScript(); updProg();
   }
   let scriptFor = -1;
@@ -196,7 +202,7 @@
     const e = PL[pos.s]; if (!e) return;
     if (scriptFor !== pos.s) {
       scriptFor = pos.s;
-      box.innerHTML = e.segs.map((sg, g) => `<div class="bd-sg">${sg.label ? `<b>${esc(sg.label)}</b>` : ''}<p>${sg.sents.map((t, i) => `<span data-g="${g}" data-t="${i}">${esc(t)}</span>`).join(' ')}</p></div>`).join('');
+      box.innerHTML = e.segs.map((sg, g) => `<div class="bd-sg">${sg.label ? `<b>${esc(sg.label)}</b>` : ''}<p>${sg.sents.map((t, i) => `<span data-g="${g}" data-t="${i}">${t === PAUSE ? '…' : esc(t)}</span>`).join(' ')}</p></div>`).join('');
     }
     $$('span.on', box).forEach(x => x.classList.remove('on'));
     const cur = box.querySelector(`span[data-g="${pos.g}"][data-t="${pos.t}"]`);
@@ -239,6 +245,7 @@
     show(); focusCurrent(false); save();
     const text = PL[pos.s].segs[pos.g].sents[pos.t];
     const my = ++gen;
+    if (text === PAUSE) { timer = setTimeout(() => { if (my === gen && playing) advance(); }, 4500 / rate); return; }
     if (readMode) { timer = setTimeout(() => { if (my === gen && playing) advance(); }, Math.max(1800, text.split(' ').length * 380 / rate)); return; }
     const u = new SpeechSynthesisUtterance(speakable(text));
     u.rate = rate; if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = 'en-US';
