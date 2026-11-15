@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AmiBroker AFL · Cheatsheets</title>
+<meta name="description" content="AmiBroker Formula Language from arrays and Plot to parameters, shapes, GFX, explorations and scanners, Buy/Sell/Short/Cover, ExRem and no repainting, ApplyStop, sizing, backtest reports, optimisation, five strategies, multi-timeframe, alerts and OpenAlgo orders.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+
+</head>
+<body class="s-ovafl" data-hue="o">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><a href="index.html#ov" class="on" title="OpenAlgo Open Varsity course sheets">Open Varsity</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><h4>Open Varsity</h4><a href="ov_stock_market_basics.html">Stock basics</a><a href="ov_technical_analysis.html">OV technicals</a><a href="ov_python_for_traders.html">Python for traders</a><a href="ov_futures_trading.html">Futures</a><a href="ov_options_basics.html">Options basics</a><a href="ov_options_strategies.html">Options strategies</a><a href="ov_algo_trading_python.html">Algo trading</a><a href="ov_quantitative_trading.html">Quant trading</a><a href="ov_statistical_arbitrage.html">Stat arb</a><a href="ov_amibroker_afl.html" aria-current="page">AmiBroker AFL</a><a href="ov_taxation.html">Taxation</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Open Varsity · Beginner</div><h1>AmiBroker AFL</h1><p>AmiBroker Formula Language from arrays and Plot to parameters, shapes, GFX, explorations and scanners, Buy/Sell/Short/Cover, ExRem and no repainting, ApplyStop, sizing, backtest reports, optimisation, five strategies, multi-timeframe, alerts and OpenAlgo orders.</p></div>
+      <div class="stats"><div><b>9</b>sections</div><div><b>41</b>cards</div><div><b>3</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec o" data-origin="ovafl" data-sid="ovaflatlas" id="ovaflatlas"><h2 data-label="AmiBroker AFL: atlas and routes"><span class="n">00</span>AmiBroker AFL: atlas and routes</h2>
+<p>The AmiBroker Formula Language from a first plotted line to scanners, trading systems, honest backtests, optimisation, a five-strategy playbook, alerts and order automation through OpenAlgo. Condensed from OpenAlgo's free Open Varsity course. Educational, not investment advice.</p>
+<div class="g2">
+<div class="card o full" data-ck="amibroker-afl-topic-atlas" data-skey="ovafl:amibroker-afl-atlas-and-routes/amibroker-afl-topic-atlas" id="amibroker-afl-topic-atlas"><h3 data-label="AmiBroker AFL topic atlas">AmiBroker AFL topic atlas<a aria-label="Link to this card" class="anchor" href="#amibroker-afl-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>AmiBroker AFL</b><small>7 areas · 34 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#lang" title="Go to: The AFL language: arrays, functions, logic and time"><span class="at-n">01</span><span class="at-bl">The language</span><span class="at-c">8</span></a><div class="at-leaves"><a class="at-chip" href="#think-in-arrays" title="Go to: Think in arrays">Arrays and bars</a><a class="at-chip" href="#price-arrays-variables-and-operators" title="Go to: Price arrays, variables and operators">Price arrays and operators</a><a class="at-chip" href="#built-in-functions-arguments-in-array-out" title="Go to: Built-in functions: arguments in, array out">Built-in functions</a><a class="at-chip" href="#conditions-and-or-and-iif" title="Go to: Conditions, AND/OR and IIf">Conditions and IIf</a><a class="at-chip" href="#looking-back-ref-cross-barssince" title="Go to: Looking back: Ref, Cross, BarsSince">Ref, Cross and BarsSince</a><a class="at-chip" href="#dates-times-and-the-session" title="Go to: Dates, times and the session">Dates and sessions</a><a class="at-chip" href="#loops-only-when-arrays-can-t" title="Go to: Loops: only when arrays can't">Loops</a><a class="at-chip" href="#functions-procedures-and-include" title="Go to: Functions, procedures and #include">Functions and include</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#chart" title="Go to: Charting and visualisation"><span class="at-n">02</span><span class="at-bl">Charting</span><span class="at-c">7</span></a><div class="at-leaves"><a class="at-chip" href="#the-editor-and-plot" title="Go to: The editor and Plot">Plot and styles</a><a class="at-chip" href="#parameters-tune-without-editing" title="Go to: Parameters: tune without editing">Parameters</a><a class="at-chip" href="#arrows-shapes-and-text" title="Go to: Arrows, shapes and text">Shapes and text</a><a class="at-chip" href="#colours-ribbons-and-candles" title="Go to: Colours, ribbons and candles">Colours and ribbons</a><a class="at-chip" href="#title-and-strformat" title="Go to: Title and StrFormat">Title and StrFormat</a><a class="at-chip" href="#panes-and-other-symbols" title="Go to: Panes and other symbols">Panes and Foreign</a><a class="at-chip" href="#gfx-dashboards" title="Go to: GFX dashboards">GFX dashboards</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#scan" title="Go to: Exploration and scanning"><span class="at-n">03</span><span class="at-bl">Scanning</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#exploration-filter-and-columns" title="Go to: Exploration: Filter and columns">Exploration</a><a class="at-chip" href="#a-signal-scanner" title="Go to: A signal scanner">Signal scanner</a><a class="at-chip" href="#filter-sort-colour-and-rank" title="Go to: Filter, sort, colour and rank">Sorting and ranking</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#sys" title="Go to: Building trading systems"><span class="at-n">04</span><span class="at-bl">Trading systems</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#buy-sell-short-and-cover" title="Go to: Buy, Sell, Short and Cover">Buy, Sell, Short, Cover</a><a class="at-chip" href="#clean-signals-and-no-repainting" title="Go to: Clean signals and no repainting">ExRem and no repainting</a><a class="at-chip" href="#stops-and-targets-with-applystop" title="Go to: Stops and targets with ApplyStop">ApplyStop</a><a class="at-chip" href="#position-sizing-costs-and-delays" title="Go to: Position sizing, costs and delays">Sizing and delays</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#bt" title="Go to: Backtesting and optimisation"><span class="at-n">05</span><span class="at-bl">Backtesting</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#your-first-backtest" title="Go to: Your first backtest">First backtest</a><a class="at-chip" href="#reading-the-report" title="Go to: Reading the report">Reading the report</a><a class="at-chip" href="#optimisation-and-robustness" title="Go to: Optimisation and robustness">Optimisation</a></div></div><div class="at-row" style="--b:var(--c-r)"><a class="at-branch" href="#play" title="Go to: Strategy playbook"><span class="at-n">06</span><span class="at-bl">Strategy playbook</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#five-systems-at-a-glance" title="Go to: Five systems at a glance">EMA crossover</a><a class="at-chip" href="#supertrend-needs-a-loop" title="Go to: Supertrend needs a loop">Supertrend</a><a class="at-chip" href="#session-anchored-vwap-and-opening-range" title="Go to: Session-anchored VWAP and opening range">VWAP intraday</a><a class="at-chip" href="#session-anchored-vwap-and-opening-range" title="Go to: Session-anchored VWAP and opening range">Breakouts</a><a class="at-chip" href="#rsi-pullback-inside-a-trend" title="Go to: RSI pullback inside a trend">RSI pullback</a></div></div><div class="at-row" style="--b:var(--c-y)"><a class="at-branch" href="#live" title="Go to: Real-time, alerts and automation"><span class="at-n">07</span><span class="at-bl">Live</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#multiple-time-frames" title="Go to: Multiple time frames">Multiple time frames</a><a class="at-chip" href="#alerts-log-voice-telegram" title="Go to: Alerts: log, voice, Telegram">Alerts</a><a class="at-chip" href="#automating-orders-through-openalgo" title="Go to: Automating orders through OpenAlgo">OpenAlgo automation</a><a class="at-chip" href="#where-to-go-next" title="Go to: Where to go next">Next steps</a></div></div></div></div></div>
+<div class="card b" data-ck="how-to-use-this-sheet" data-skey="ovafl:amibroker-afl-atlas-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li><b>New to AFL:</b> "think in arrays" first; everything else is built on columns of values.</li>
+<li><b>Building a system:</b> trading systems → the non-repainting recipe → backtesting → the playbook.</li>
+<li><b>Going live:</b> alerts, OpenAlgo automation, and the system skeleton at the end. Rehearse in OpenAlgo's analyzer (sandbox) mode first.</li>
+</ol><div class="callout"><b>Educational, not investment advice.</b> Condensed in our own words from <a href="https://www.openalgo.in/amibroker">OpenAlgo Open Varsity: AmiBroker AFL</a>. Code here is short illustrative AFL; check function details in the AmiBroker guide (amibroker.com/guide).</div></div>
+<div class="card t" data-ck="one-formula-four-jobs" data-skey="ovafl:amibroker-afl-atlas-and-routes/one-formula-four-jobs" id="one-formula-four-jobs"><h3 data-label="One formula, four jobs">One formula, four jobs<a aria-label="Link to this card" class="anchor" href="#one-formula-four-jobs">#</a></h3><div class="tw"><table>
+<tr><th>Run it as</th><th>From</th><th>You get</th></tr>
+<tr><td>Indicator</td><td>Formula Editor → Apply</td><td>Lines and shapes on a chart pane</td></tr>
+<tr><td>Exploration</td><td>Analysis → Explore</td><td>A table: one row per symbol or bar</td></tr>
+<tr><td>Scan</td><td>Analysis → Scan</td><td>Buy/Sell/Short/Cover hits across symbols, with alerts</td></tr>
+<tr><td>Backtest</td><td>Analysis → Backtest</td><td>Simulated trades and a full report</td></tr>
+</table></div><p>The code doesn't change between modes; the button you press decides the job. Data is separate from logic, so one formula runs on any symbol and timeframe. AmiBroker dates from 1995, AFL from 1999; save every formula as a named <code>.afl</code> file (e.g. <code>ch02-rsi.afl</code>).</p></div>
+<div class="card g" data-ck="the-non-repainting-recipe" data-skey="ovafl:amibroker-afl-atlas-and-routes/the-non-repainting-recipe" id="the-non-repainting-recipe"><h3 data-label="The non-repainting recipe">The non-repainting recipe<a aria-label="Link to this card" class="anchor" href="#the-non-repainting-recipe">#</a></h3><pre class="mermaid" data-h="331" data-key="428654ee6cbd" data-w="381">flowchart TD
+  R["Raw signal: Buy = Cross(fast, slow)"] --&gt; D["Delay one bar: Buy = Ref(Buy, -1)"]
+  D --&gt; X["Clean: Buy = ExRem(Buy, Sell) and the matching Sell line"]
+  X --&gt; P["Price: BuyPrice = ValueWhen(Buy, Open)"]
+  P --&gt; Z["SetTradeDelays(0, 0, 0, 0): one delay mechanism only"]</pre><p>The alternative is to keep signals on the cross bar and use <code>SetTradeDelays(1,1,1,1)</code>. Doing both lags fills two bars.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#lang"><span>Next</span>01 · The AFL language: arrays, functions, logic and time</a></nav></section>
+<section class="sec b" data-origin="ovafl" data-sid="lang" id="lang"><h2 data-label="The AFL language: arrays, functions, logic and time"><span class="n">01</span>The AFL language: arrays, functions, logic and time</h2>
+<p class="src">OpenAlgo Open Varsity · AmiBroker AFL · chapters 1–4 and 7–12 (<a href="https://www.openalgo.in/amibroker/what-is-amibroker">what is AmiBroker</a>, <a href="https://www.openalgo.in/amibroker/how-afl-thinks">how AFL thinks</a>, <a href="https://www.openalgo.in/amibroker/price-and-variables">price arrays</a>, <a href="https://www.openalgo.in/amibroker/built-in-functions">built-in functions</a>, <a href="https://www.openalgo.in/amibroker/conditions-and-logic">conditions</a>, <a href="https://www.openalgo.in/amibroker/referencing-bars">Ref, Cross, BarsSince</a>, <a href="https://www.openalgo.in/amibroker/dates-and-sessions">dates and sessions</a>, <a href="https://www.openalgo.in/amibroker/arrays-and-loops">loops</a>, <a href="https://www.openalgo.in/amibroker/custom-functions">functions</a>)</p>
+<div class="g2">
+<div class="card b" data-ck="think-in-arrays" data-skey="ovafl:the-afl-language-arrays-functions-logic-and-time/think-in-arrays" id="think-in-arrays"><h3 data-label="Think in arrays">Think in arrays<a aria-label="Link to this card" class="anchor" href="#think-in-arrays">#</a></h3><ul>
+<li>Every AFL variable is a column with one value per bar. Write the calculation once; AFL fills every bar (vectorised).</li>
+<li>Comparisons give 1/0 columns: <code>Close &gt; MA(Close, 20)</code> is true or false on each bar, the seed of every signal. Colours and shapes are just named numbers too (<code>shapeNone</code> = 0).</li>
+<li>Text is the exception: strings are produced per bar for display (Title, exploration), not stored as arrays.</li>
+<li>The Title shows the last bar, or the clicked bar, but the variable is still the whole column. Debug by sketching a small table: one row per bar, one column per variable.</li>
+<li>AFL is case-insensitive; statements end with <code>;</code>; comments are <code>//</code> and <code>/* */</code>.</li>
+</ul></div>
+<div class="card y" data-ck="price-arrays-variables-and-operators" data-skey="ovafl:the-afl-language-arrays-functions-logic-and-time/price-arrays-variables-and-operators" id="price-arrays-variables-and-operators"><h3 data-label="Price arrays, variables and operators">Price arrays, variables and operators<a aria-label="Link to this card" class="anchor" href="#price-arrays-variables-and-operators">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="c">// O H L C V and OpenInt are loaded for you</span>
+range    = <span class="b">High</span> - <span class="b">Low</span>;
+body     = <span class="f">abs</span>(<span class="b">Close</span> - <span class="b">Open</span>);
+typical  = (<span class="b">High</span> + <span class="b">Low</span> + <span class="b">Close</span>) / <span class="n">3</span>;   <span class="c">// brackets matter</span>
+chg      = (<span class="b">Close</span> - <span class="b">Open</span>) / <span class="b">Open</span> * <span class="n">100</span>;
+<span class="f">Plot</span>(typical, <span class="s">"Typical"</span>, <span class="b">colorYellow</span>, <span class="b">styleLine</span> | <span class="b">styleThick</span>);</pre><ul>
+<li><code>(H+L+C)/3</code> and <code>H+L+C/3</code> differ: precedence is brackets, then * /, then + −. Add brackets whenever unsure.</li>
+<li><code>%</code> gives a remainder (every-Nth-bar logic). Name variables for what they hold, and plot a variable temporarily to inspect it by hovering.</li>
+<li><code>OpenInt</code> matters for <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> data such as NIFTY futures.</li>
+</ul></div>
+<div class="card t full" data-ck="built-in-functions-arguments-in-array-out" data-skey="ovafl:the-afl-language-arrays-functions-logic-and-time/built-in-functions-arguments-in-array-out" id="built-in-functions-arguments-in-array-out"><h3 data-label="Built-in functions: arguments in, array out">Built-in functions: arguments in, array out<a aria-label="Link to this card" class="anchor" href="#built-in-functions-arguments-in-array-out">#</a></h3><div class="tw"><table>
+<tr><th>Family</th><th>Functions</th><th>Notes</th></tr>
+<tr><td>Averages</td><td><code>MA(arr, n)</code>, <code>EMA(arr, n)</code>, <code>WMA(arr, n)</code></td><td>Any array works: <code>EMA(Volume, 20)</code></td></tr>
+<tr><td>Momentum</td><td><code>RSI(14)</code>, <code>MACD(12, 26)</code>, <code>Signal(12, 26, 9)</code></td><td><code>bullish = MACD(12,26) &gt; Signal(12,26,9);</code></td></tr>
+<tr><td>Volatility, bands</td><td><code>ATR(n)</code>, <code>BBandTop(arr, 20, 2)</code>, <code>BBandBot(arr, 20, 2)</code></td><td><abbr class="gl" data-tip="Average size of each bar including gaps, usually over 14 bars with Wilder smoothing. Used for stop distance and position size, not direction." data-tip-title="ATR: Average true range">ATR</abbr> is in price units, not %</td></tr>
+<tr><td>Windows</td><td><code>Sum(arr, n)</code>, <code>HHV(arr, n)</code>, <code>LLV(arr, n)</code></td><td>Rolling n bars; Donchian = HHV/LLV</td></tr>
+<tr><td>All history so far</td><td><code>Highest(arr)</code>, <code>Lowest(arr)</code></td><td>Cumulative, not a window</td></tr>
+</table></div><p>Nest freely (<code>EMA(RSI(14), 5)</code> evaluates inside out), but split long nests into named steps. Windows need time to fill: <code>MA(Close, 3)</code> is blank on the first two bars. Check argument order and defaults in the reference: array first, period second; <code>RSI()</code> equals <code>RSI(14)</code>.</p></div>
+<div class="card g" data-ck="conditions-and-or-and-iif" data-skey="ovafl:the-afl-language-arrays-functions-logic-and-time/conditions-and-or-and-iif" id="conditions-and-or-and-iif"><h3 data-label="Conditions, AND/OR and IIf">Conditions, AND/OR and IIf<a aria-label="Link to this card" class="anchor" href="#conditions-and-or-and-iif">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">upTrend = <span class="b">Close</span> &gt; <span class="f">EMA</span>(<span class="b">Close</span>, <span class="n">50</span>);
+longOK  = upTrend <span class="k">AND</span> (<span class="f">RSI</span>(<span class="n">14</span>) &gt; <span class="n">50</span>)
+          <span class="k">AND</span> (<span class="b">Volume</span> &gt; <span class="f">MA</span>(<span class="b">Volume</span>, <span class="n">20</span>));
+upDays  = <span class="f">Sum</span>(<span class="b">Close</span> &gt; <span class="f">Ref</span>(<span class="b">Close</span>, -<span class="n">1</span>), <span class="n">20</span>);  <span class="c">// true counts as 1</span>
+barCol  = <span class="f">IIf</span>(upTrend, <span class="b">colorGreen</span>, <span class="b">colorRed</span>);
+zone    = <span class="f">IIf</span>(<span class="f">RSI</span>(<span class="n">14</span>) &gt; <span class="n">70</span>, <span class="b">colorRed</span>,
+          <span class="f">IIf</span>(<span class="f">RSI</span>(<span class="n">14</span>) &lt; <span class="n">30</span>, <span class="b">colorGreen</span>, <span class="b">colorYellow</span>));</pre><ul>
+<li>Comparisons: <code>&gt; &lt; &gt;= &lt;= == !=</code>; logic <code>AND OR NOT</code> (or <code>&amp;&amp; || !</code>), all bar by bar.</li>
+<li><code>IIf(cond, a, b)</code> picks per bar and returns an array (numbers, colours, levels). Nested IIf: first true branch wins; keep it to 3–4 levels.</li>
+<li><code>=</code> assigns, <code>==</code> compares: <code>IIf(trend = 1, …)</code> silently sets trend. Bracket each condition; check both sides share a scale (<code>Close &gt; 50</code> on a ₹2,400 stock is always true).</li>
+</ul></div>
+<div class="card r" data-ck="looking-back-ref-cross-barssince" data-skey="ovafl:the-afl-language-arrays-functions-logic-and-time/looking-back-ref-cross-barssince" id="looking-back-ref-cross-barssince"><h3 data-label="Looking back: Ref, Cross, BarsSince">Looking back: Ref, Cross, BarsSince<a aria-label="Link to this card" class="anchor" href="#looking-back-ref-cross-barssince">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Means</th></tr>
+<tr><td><code>Ref(C, -1)</code></td><td>Previous bar (negative = past)</td></tr>
+<tr><td><code>Ref(C, +n)</code></td><td>Future data: never in Buy/Sell/Short/Cover</td></tr>
+<tr><td><code>Cross(a, b)</code></td><td>True only on the bar a rises through b</td></tr>
+<tr><td><code>BarsSince(cond)</code></td><td>0 on the event bar, then +1 a bar</td></tr>
+<tr><td><code>HHV/LLV(arr, n)</code>, <code>HHVBars</code></td><td>Window extreme, and bars since it</td></tr>
+<tr><td><code>ValueWhen(cond, arr)</code></td><td>arr at the last true cond</td></tr>
+</table></div><ul>
+<li>Use <code>Cross</code> for entries; a plain <code>&gt;</code> fires on every bar of a trend.</li>
+<li>Shift channels back a bar: <code>Close &gt; Ref(HHV(High, 20), -1)</code>, or the current bar sets its own level and a breakout can never happen.</li>
+<li>BarsSince counts from bar 1 before the first event: guard early bars.</li>
+</ul></div>
+<div class="card p" data-ck="dates-times-and-the-session" data-skey="ovafl:the-afl-language-arrays-functions-logic-and-time/dates-times-and-the-session" id="dates-times-and-the-session"><h3 data-label="Dates, times and the session">Dates, times and the session<a aria-label="Link to this card" class="anchor" href="#dates-times-and-the-session">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">newDay   = <span class="f">DateNum</span>() != <span class="f">Ref</span>(<span class="f">DateNum</span>(), -<span class="n">1</span>);   <span class="c">// safer than Day()</span>
+barNum   = <span class="n">1</span> + <span class="f">BarsSince</span>(newDay);
+dayOpen  = <span class="f">ValueWhen</span>(newDay, <span class="b">Open</span>);
+dayHigh  = <span class="f">HighestSince</span>(newDay, <span class="b">High</span>);
+tn       = <span class="f">TimeNum</span>();                          <span class="c">// 09:15 = 91500</span>
+inWindow = tn &gt;= <span class="n">93000</span> <span class="k">AND</span> tn &lt; <span class="n">143000</span>;
+squareOff = tn &gt;= <span class="n">151500</span>;</pre><ul>
+<li><code>Day()</code> 1–31, <code>Month()</code>, <code>Year()</code>, <code>DayOfWeek()</code> (0 Sun … 6 Sat; <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> trades 1–5), <code>DateNum()</code> = (year − 1900)·10000 + month·100 + day (26 Jun 2026 = 1260626), <code>Interval()</code> in seconds (300 = 5-minute).</li>
+<li>Clock functions only mean something on intraday data. Write <code>91500</code>, not <code>091500</code>. Never find the session's last bar with <code>Ref(…, 1)</code> (future data); use the clock.</li>
+<li><code>newDay</code> underpins <abbr class="gl" data-tip="Average price paid since the session open, weighted by volume. Institutions benchmark executions against it; price above VWAP shows buyers in control intraday." data-tip-title="VWAP: Volume-weighted average price">VWAP</abbr>, opening ranges and day highs/lows; <code>TimeFrameGetPrice("O", inDaily)</code> fetches the daily open directly.</li>
+</ul></div>
+<div class="card o" data-ck="loops-only-when-arrays-can-t" data-skey="ovafl:the-afl-language-arrays-functions-logic-and-time/loops-only-when-arrays-can-t" id="loops-only-when-arrays-can-t"><h3 data-label="Loops: only when arrays can't">Loops: only when arrays can't<a aria-label="Link to this card" class="anchor" href="#loops-only-when-arrays-can-t">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">out = <span class="k">Null</span>;                       <span class="c">// initialise first</span>
+out[<span class="n">0</span>] = <span class="b">Close</span>[<span class="n">0</span>];
+<span class="k">for</span> (i = <span class="n">1</span>; i &lt; <span class="b">BarCount</span>; i++)    <span class="c">// start at 1 to read i-1</span>
+{
+    out[i] = <span class="n">0.9</span> * out[i-<span class="n">1</span>] + <span class="n">0.1</span> * <span class="b">Close</span>[i];
+}</pre><ul>
+<li>Vectorise by default. Loop only when bar i needs the previous result of the same output: trailing stops, Supertrend, parabolic SAR, state machines.</li>
+<li>Compute indicators before the loop; carry state in scalars and reset it on exit; ratchet with <code>Max()</code>/<code>Min()</code>.</li>
+<li>Never read <code>[i+1]</code> in a signal; every <code>while</code> must move toward its exit; don't name variables <code>atr</code>, <code>ma</code> or <code>rsi</code> (they shadow built-ins).</li>
+</ul></div>
+<div class="card g" data-ck="functions-procedures-and-include" data-skey="ovafl:the-afl-language-arrays-functions-logic-and-time/functions-procedures-and-include" id="functions-procedures-and-include"><h3 data-label="Functions, procedures and #include">Functions, procedures and #include<a aria-label="Link to this card" class="anchor" href="#functions-procedures-and-include">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="k">function</span> <span class="f">SmoothRSI</span>(period, smooth)
+{
+    raw = <span class="f">RSI</span>(period);
+    <span class="k">return</span> <span class="f">EMA</span>(raw, smooth);          <span class="c">// nothing after return runs</span>
+}
+<span class="k">procedure</span> <span class="f">DrawLevel</span>(value, col, label)
+{
+    <span class="f">Plot</span>(value, label, col, <span class="b">styleDashed</span> | <span class="b">styleNoLabel</span>);
+}
+s = <span class="f">SmoothRSI</span>(<span class="n">14</span>, <span class="n">3</span>);                 <span class="c">// order matters: (14, 3)</span>
+<span class="f">DrawLevel</span>(<span class="f">HHV</span>(<span class="b">High</span>, <span class="n">20</span>), <span class="b">colorGreen</span>, <span class="s">"20-bar high"</span>);</pre><ul>
+<li>A <b>function</b> returns a value; a <b>procedure</b> acts (plots) and returns nothing. Arguments match by position.</li>
+<li>Variables inside are local; share with <code>global x;</code> declared in both places, sparingly.</li>
+<li>Keep tested helpers in <code>MyLibrary.afl</code> in the Include folder and add <code>#include &lt;MyLibrary.afl&gt;</code>: fix once, every formula benefits. Guard divisions: <code>IIf(b == 0, 0, a / b)</code>.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ovaflatlas"><span>Previous</span>00 · AmiBroker AFL: atlas and routes</a><a class="sn-next" href="#chart"><span>Next</span>02 · Charting and visualisation</a></nav></section>
+<section class="sec p" data-origin="ovafl" data-sid="chart" id="chart"><h2 data-label="Charting and visualisation"><span class="n">02</span>Charting and visualisation</h2>
+<p class="src">OpenAlgo Open Varsity · AmiBroker AFL · chapters 2, 5–6 and 13–17 (<a href="https://www.openalgo.in/amibroker/formula-editor">formula editor</a>, <a href="https://www.openalgo.in/amibroker/plotting-and-styles">plotting</a>, <a href="https://www.openalgo.in/amibroker/parameters">parameters</a>, <a href="https://www.openalgo.in/amibroker/shapes-and-text">shapes and text</a>, <a href="https://www.openalgo.in/amibroker/color-coding">colours</a>, <a href="https://www.openalgo.in/amibroker/title-and-strformat">title</a>, <a href="https://www.openalgo.in/amibroker/panes-and-foreign">panes and Foreign</a>, <a href="https://www.openalgo.in/amibroker/gfx-dashboards">GFX</a>)</p>
+<div class="g2">
+<div class="card p" data-ck="the-editor-and-plot" data-skey="ovafl:charting-and-visualisation/the-editor-and-plot" id="the-editor-and-plot"><h3 data-label="The editor and Plot">The editor and Plot<a aria-label="Link to this card" class="anchor" href="#the-editor-and-plot">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="f">_SECTION_BEGIN</span>(<span class="s">"Price and MA"</span>);
+<span class="f">Plot</span>(C, <span class="s">"Close"</span>, <span class="b">colorDefault</span>, <span class="b">styleNoTitle</span> | <span class="f">GetPriceStyle</span>());
+<span class="f">Plot</span>(<span class="f">MA</span>(C, <span class="n">20</span>), <span class="s">"MA 20"</span>, <span class="b">colorRed</span>, <span class="b">styleLine</span> | <span class="b">styleThick</span>);
+<span class="f">Plot</span>(<span class="n">0</span>, <span class="s">""</span>, <span class="b">colorWhite</span>, <span class="b">styleDashed</span>);       <span class="c">// reference line</span>
+<span class="f">_SECTION_END</span>();</pre><div class="tw"><table>
+<tr><th>Shape (pick one)</th><th>Modifiers (stack with |)</th></tr>
+<tr><td><code>styleLine</code>, <code>styleCandle</code>, <code>styleBar</code>, <code>styleHistogram</code>, <code>styleArea</code></td><td><code>styleThick</code>, <code>styleDots</code>, <code>styleDashed</code>, <code>styleNoTitle</code>, <code>styleNoLabel</code>, <code>styleOwnScale</code></td></tr>
+</table></div><ul>
+<li><b>Apply</b> replaces the pane (use while developing); <b>Insert</b> adds without erasing. <code>_SECTION_BEGIN/END</code> groups controls in the Parameters window.</li>
+<li>Same units as price (MAs, bands, <abbr class="gl" data-tip="Average price paid since the session open, weighted by volume. Institutions benchmark executions against it; price above VWAP shows buyers in control intraday." data-tip-title="VWAP: Volume-weighted average price">VWAP</abbr>) overlay the price pane; <abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr>, <abbr class="gl" data-tip="EMA12 minus EMA26, with a 9-period EMA signal line and a histogram of the difference. Used for crossovers, zero-line tests and divergence." data-tip-title="MACD: Moving average convergence divergence">MACD</abbr> and volume get their own pane or <code>styleOwnScale</code>. Never mix two shapes.</li>
+<li>Colours: <code>colorRed</code> etc., <code>ColorRGB(r, g, b)</code>, <code>colorDefault</code>, <code>colorCycle</code>. Keep a consistent meaning: green bullish, red bearish, grey neutral.</li>
+</ul></div>
+<div class="card b" data-ck="parameters-tune-without-editing" data-skey="ovafl:charting-and-visualisation/parameters-tune-without-editing" id="parameters-tune-without-editing"><h3 data-label="Parameters: tune without editing">Parameters: tune without editing<a aria-label="Link to this card" class="anchor" href="#parameters-tune-without-editing">#</a></h3><div class="tw"><table>
+<tr><th>Control</th><th>Returns</th></tr>
+<tr><td><code>Param("Length", 20, 1, 100, 1)</code></td><td>Number (label, default, min, max, step)</td></tr>
+<tr><td><code>ParamToggle("Show", "Off|On", 1)</code></td><td>0 or 1</td></tr>
+<tr><td><code>ParamList("Mode", "Fast|Slow")</code></td><td>Text: compare with <code>== "Slow"</code></td></tr>
+<tr><td><code>ParamColor</code>, <code>ParamStyle</code></td><td>A colour, a style flag</td></tr>
+<tr><td><code>ParamField("Apply to", 3)</code></td><td>A price array (3 = Close)</td></tr>
+<tr><td><code>ParamStr</code>, <code>ParamDate</code>, <code>ParamTime</code></td><td>Text, date, TimeNum-style time</td></tr>
+<tr><td><code>ParamTrigger("Test")</code></td><td>True once per click (an event)</td></tr>
+</table></div><p>Right-click the chart → Parameters. Parametrise what a user might tune (periods, multipliers, thresholds, colours), not fixed maths. <code>_TRACE("text")</code> writes to Window → Log for debugging. Later, swap <code>Param</code> for <code>Optimize</code> to sweep values.</p></div>
+<div class="card t" data-ck="arrows-shapes-and-text" data-skey="ovafl:charting-and-visualisation/arrows-shapes-and-text" id="arrows-shapes-and-text"><h3 data-label="Arrows, shapes and text">Arrows, shapes and text<a aria-label="Link to this card" class="anchor" href="#arrows-shapes-and-text">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">upShape = <span class="f">IIf</span>(<span class="b">Buy</span>, <span class="b">shapeUpArrow</span>, <span class="b">shapeNone</span>);
+dnShape = <span class="f">IIf</span>(<span class="b">Sell</span>, <span class="b">shapeDownArrow</span>, <span class="b">shapeNone</span>);
+<span class="f">PlotShapes</span>(upShape, <span class="b">colorGreen</span>, <span class="n">0</span>, <span class="b">Low</span>, -<span class="n">20</span>);
+<span class="f">PlotShapes</span>(dnShape, <span class="b">colorRed</span>, <span class="n">0</span>, <span class="b">High</span>, -<span class="n">20</span>);
+<span class="c">// 1/0 × shape</span>
+<span class="f">PlotShapes</span>(<span class="b">Cover</span> * <span class="b">shapeStar</span>, <span class="b">colorRed</span>, <span class="n">0</span>, <span class="b">Low</span>, -<span class="n">12</span>);</pre><ul>
+<li><code>PlotShapes(shape, colour, layer, y, offset)</code>: anchor at <code>Low</code> or <code>High</code>; offset is screen pixels, <b>negative pushes down, positive up</b>, whatever the anchor.</li>
+<li>Always use <code>shapeNone</code> on false bars. Shapes: up/down arrows (and small), square, star, circles, digits 0–9.</li>
+<li><code>PlotText(text, bar, price, textColour, bgColour)</code> in a loop for a few key labels only; hundreds slow the chart. Layer shapes back to front for bold markers, and keep one convention across strategies.</li>
+</ul></div>
+<div class="card y" data-ck="colours-ribbons-and-candles" data-skey="ovafl:charting-and-visualisation/colours-ribbons-and-candles" id="colours-ribbons-and-candles"><h3 data-label="Colours, ribbons and candles">Colours, ribbons and candles<a aria-label="Link to this card" class="anchor" href="#colours-ribbons-and-candles">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">candleCol = <span class="f">IIf</span>(<span class="f">MACD</span>() &gt; <span class="n">0</span>, <span class="b">colorGreen</span>, <span class="b">colorRed</span>);
+<span class="f">Plot</span>(C, <span class="s">"Price"</span>, candleCol, <span class="b">styleCandle</span>);
+ribbon = <span class="f">IIf</span>(C &gt; <span class="f">EMA</span>(C, <span class="n">50</span>), <span class="b">colorGreen</span>, <span class="b">colorRed</span>);
+<span class="f">Plot</span>(<span class="n">1</span>, <span class="s">""</span>, ribbon,
+     <span class="b">styleArea</span> | <span class="b">styleOwnScale</span> | <span class="b">styleNoLabel</span>, <span class="n">0</span>, <span class="n">1</span>);
+fill = <span class="f">ColorBlend</span>(<span class="b">colorYellow</span>, <span class="b">colorBlack</span>, <span class="n">0.9</span>);
+<span class="f">PlotOHLC</span>(lo, lo, hi, hi, <span class="s">""</span>, fill, <span class="b">styleCloud</span>);   <span class="c">// shade a band</span></pre><p>One pattern everywhere: condition → <code>IIf</code> colour array → Plot's colour slot. A ribbon needs <code>styleOwnScale</code> and the 0–1 range or it squashes the candles. Keep to one or two ribbons, light fills, and define custom colours once at the top.</p></div>
+<div class="card r" data-ck="title-and-strformat" data-skey="ovafl:charting-and-visualisation/title-and-strformat" id="title-and-strformat"><h3 data-label="Title and StrFormat">Title and StrFormat<a aria-label="Link to this card" class="anchor" href="#title-and-strformat">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="f">_N</span>(<span class="b">Title</span> = <span class="f">StrFormat</span>(
+    <span class="s">"{{NAME}} {{DATE}} O %g H %g L %g C %g (%.1f%%)"</span>,
+    O, H, L, C, <span class="f">SelectedValue</span>(<span class="f">ROC</span>(C, <span class="n">1</span>))));
+regime = <span class="f">WriteIf</span>(C &gt; <span class="f">EMA</span>(C, <span class="n">50</span>), <span class="s">"Bullish"</span>, <span class="s">"Bearish"</span>);
+<span class="b">Title</span>  = <span class="b">Title</span> + <span class="s">"\n"</span> + regime;</pre><ul>
+<li>Placeholders fill left to right: <code>%g</code> trims trailing zeros, <code>%.2f</code> fixes decimals, <code>%%</code> is a literal percent. Count and order must match.</li>
+<li>Tokens: <code>{{NAME}}</code>, <code>{{DATE}}</code>, <code>{{INTERVAL}}</code>, <code>{{VALUES}}</code>. <code>\n</code> starts a second line.</li>
+<li><code>WriteIf</code> returns text, <code>IIf</code> numbers; <code>NumToStr(x, 1.2)</code> formats a number; <code>SelectedValue(arr)</code> reads the bar under the cursor.</li>
+</ul></div>
+<div class="card o" data-ck="panes-and-other-symbols" data-skey="ovafl:charting-and-visualisation/panes-and-other-symbols" id="panes-and-other-symbols"><h3 data-label="Panes and other symbols">Panes and other symbols<a aria-label="Link to this card" class="anchor" href="#panes-and-other-symbols">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">idx   = <span class="f">Foreign</span>(<span class="s">"NIFTY-I"</span>, <span class="s">"C"</span>);       <span class="c">// one field, date-aligned</span>
+rs    = <span class="b">Close</span> / idx;                    <span class="c">// relative strength</span>
+<span class="f">Plot</span>(rs, <span class="s">"RS"</span>, <span class="b">colorWhite</span>, <span class="b">styleLine</span> | <span class="b">styleOwnScale</span>);
+<span class="f">SetForeign</span>(<span class="s">"NIFTY-I"</span>);                  <span class="c">// whole indicators on it</span>
+    idxATR = <span class="f">ATR</span>(<span class="n">14</span>);
+<span class="f">RestorePriceArrays</span>();                   <span class="c">// always pair them</span></pre><ul>
+<li><code>Foreign</code> reads a field, <code>PlotForeign</code> draws a symbol, <code>SetForeign</code> swaps all price arrays until <code>RestorePriceArrays()</code>; forget the restore and later code silently uses the other symbol.</li>
+<li><abbr class="gl" data-tip="A stock's price divided by an index (the RS line), or its percentile rank of 12-month performance. Not the same thing as RSI." data-tip-title="RS: Relative strength">RS</abbr> direction is what matters: rising = leading. Ratios (<code>a / b</code>), spreads and <code>Correlation(C, Foreign(x, "C"), n)</code> are the building blocks of pairs work.</li>
+<li>Check the ticker string matches your database (<code>NIFTY-I</code> vs <code>NIFTY</code>); parameterise it with <code>ParamStr</code>; put comparisons in their own pane.</li>
+</ul></div>
+<div class="card g full" data-ck="gfx-dashboards" data-skey="ovafl:charting-and-visualisation/gfx-dashboards" id="gfx-dashboards"><h3 data-label="GFX dashboards">GFX dashboards<a aria-label="Link to this card" class="anchor" href="#gfx-dashboards">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">w = <span class="f">Status</span>(<span class="s">"pxchartwidth"</span>);  h = <span class="f">Status</span>(<span class="s">"pxchartheight"</span>);
+isLong = <span class="f">Flip</span>(<span class="b">Buy</span>, <span class="b">Sell</span>);
+<span class="f">GfxSelectPen</span>(<span class="b">colorGreen</span>, <span class="n">2</span>);
+<span class="k">if</span> (<span class="f">SelectedValue</span>(isLong)) <span class="f">GfxSelectSolidBrush</span>(<span class="b">colorDarkGreen</span>);
+<span class="k">else</span> <span class="f">GfxSelectSolidBrush</span>(<span class="b">colorDarkRed</span>);       <span class="c">// GFX wants single values</span>
+<span class="f">GfxRoundRect</span>(<span class="n">20</span>, h - <span class="n">120</span>, <span class="n">260</span>, h - <span class="n">20</span>, <span class="n">12</span>, <span class="n">12</span>);   <span class="c">// box first</span>
+<span class="f">GfxSetBkMode</span>(<span class="n">1</span>);                                 <span class="c">// transparent text background</span>
+<span class="f">GfxSelectFont</span>(<span class="s">"Tahoma"</span>, <span class="n">13</span>, <span class="n">700</span>);
+<span class="f">GfxSetTextColor</span>(<span class="b">colorWhite</span>);
+<span class="f">GfxTextOut</span>(<span class="f">WriteIf</span>(<span class="f">SelectedValue</span>(isLong), <span class="s">"LONG"</span>, <span class="s">"FLAT"</span>), <span class="n">36</span>, h - <span class="n">110</span>);
+<span class="f">GfxTextOut</span>(<span class="s">"Close "</span> + <span class="f">NumToStr</span>(<span class="f">SelectedValue</span>(C), <span class="n">1.2</span>), <span class="n">36</span>, h - <span class="n">80</span>);</pre><ul>
+<li>Pixels, origin top-left, y grows downward; drawings stay fixed while price scrolls. Later calls paint over earlier ones: boxes first, text last.</li>
+<li>GFX takes single values, never arrays: wrap with <code>SelectedValue()</code> or <code>LastValue()</code>. Anchor to <code>Status("pxchartwidth")</code> / <code>"pxchartheight"</code> so resizing doesn't break it.</li>
+<li>Use GFX for status panels and small tables; lines, bands and arrows belong to <code>Plot</code> and <code>PlotShapes</code>. Wrap the panel in a <code>ParamToggle</code> so it can be hidden.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#lang"><span>Previous</span>01 · The AFL language: arrays, functions, logic and time</a><a class="sn-next" href="#scan"><span>Next</span>03 · Exploration and scanning</a></nav></section>
+<section class="sec t" data-origin="ovafl" data-sid="scan" id="scan"><h2 data-label="Exploration and scanning"><span class="n">03</span>Exploration and scanning</h2>
+<p class="src">OpenAlgo Open Varsity · AmiBroker AFL · chapters 18–20 (<a href="https://www.openalgo.in/amibroker/exploration-basics">exploration</a>, <a href="https://www.openalgo.in/amibroker/building-a-scanner">building a scanner</a>, <a href="https://www.openalgo.in/amibroker/ranking-and-filtering">filtering and ranking</a>)</p>
+<div class="g2">
+<div class="card t" data-ck="exploration-filter-and-columns" data-skey="ovafl:exploration-and-scanning/exploration-filter-and-columns" id="exploration-filter-and-columns"><h3 data-label="Exploration: Filter and columns">Exploration: Filter and columns<a aria-label="Link to this card" class="anchor" href="#exploration-filter-and-columns">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="b">Filter</span> = <span class="n">1</span>;  <span class="c">// every bar, every symbol</span>
+<span class="f">AddColumn</span>(<span class="b">Close</span>, <span class="s">"LTP"</span>, <span class="n">1.2</span>);                 <span class="c">// 2 decimals</span>
+<span class="f">AddColumn</span>(<span class="f">RSI</span>(<span class="n">14</span>), <span class="s">"RSI"</span>, <span class="n">1.2</span>);
+<span class="f">AddColumn</span>(<span class="b">Volume</span>, <span class="s">"Volume"</span>, <span class="n">1.0</span>);             <span class="c">// no decimals</span>
+trendTxt = <span class="f">WriteIf</span>(C &gt; <span class="f">EMA</span>(C, <span class="n">50</span>), <span class="s">"Bullish"</span>, <span class="s">"Bearish"</span>);
+<span class="f">AddTextColumn</span>(trendTxt, <span class="s">"Trend"</span>);</pre><ul>
+<li>An exploration runs one formula over many symbols and prints a table instead of simulating trades. Set <b>Apply to</b> (current, all, a watchlist) and <b>Range</b> (last n bars, dates, all) before pressing Explore.</li>
+<li><code>Filter</code> is the row switch; "1 recent bar" gives one row per symbol, a wide range with <code>Filter = 1</code> gives thousands.</li>
+<li>Numbers go to <code>AddColumn</code>, text to <code>AddTextColumn</code>. Format <code>1.2</code> = 2 decimals, <code>1.0</code> none, <code>1.3</code> three. Keep columns few and purposeful.</li>
+</ul></div>
+<div class="card g" data-ck="a-signal-scanner" data-skey="ovafl:exploration-and-scanning/a-signal-scanner" id="a-signal-scanner"><h3 data-label="A signal scanner">A signal scanner<a aria-label="Link to this card" class="anchor" href="#a-signal-scanner">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">bull = <span class="f">Cross</span>(<span class="f">MACD</span>(<span class="n">12</span>, <span class="n">26</span>), <span class="f">Signal</span>(<span class="n">12</span>, <span class="n">26</span>, <span class="n">9</span>));
+bear = <span class="f">Cross</span>(<span class="f">Signal</span>(<span class="n">12</span>, <span class="n">26</span>, <span class="n">9</span>), <span class="f">MACD</span>(<span class="n">12</span>, <span class="n">26</span>));
+<span class="b">Filter</span> = bull <span class="k">OR</span> bear;  <span class="c">// only hits survive</span>
+<span class="f">AddTextColumn</span>(<span class="f">WriteIf</span>(bull, <span class="s">"Bullish"</span>, <span class="s">"Bearish"</span>), <span class="s">"Signal"</span>);
+<span class="f">AddColumn</span>(<span class="f">MACD</span>(<span class="n">12</span>, <span class="n">26</span>), <span class="s">"MACD"</span>, <span class="n">1.2</span>);  <span class="c">// show the trigger value</span>
+volSpike  = <span class="b">Volume</span> &gt; <span class="f">Ref</span>(<span class="f">HHV</span>(<span class="b">Volume</span>, <span class="n">30</span>), -<span class="n">1</span>);
+yearHigh  = <span class="b">High</span> &gt; <span class="f">Ref</span>(<span class="f">HHV</span>(<span class="b">High</span>, <span class="n">252</span>), -<span class="n">1</span>);</pre><ul>
+<li>A scanner is an exploration whose <code>Filter</code> is the signal. Change the condition, not the machinery; always add the value that triggered the hit so results sort.</li>
+<li>Patterns: momentum flips (<code>Cross</code>), extremes (<abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr> 70/30), breakouts (price AND volume), volume spikes and 52-week highs compared with the <b>previous</b> bar's window.</li>
+<li><b>Explore</b> gives a sortable table for screening; <b>Scan</b> reports Buy/Sell/Short/Cover and can fire alerts. Save the formula, watchlist and range together as an <code>.apx</code> project.</li>
+</ul></div>
+<div class="card b full" data-ck="filter-sort-colour-and-rank" data-skey="ovafl:exploration-and-scanning/filter-sort-colour-and-rank" id="filter-sort-colour-and-rank"><h3 data-label="Filter, sort, colour and rank">Filter, sort, colour and rank<a aria-label="Link to this card" class="anchor" href="#filter-sort-colour-and-rank">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">relVol = <span class="b">Volume</span> / <span class="f">MA</span>(<span class="b">Volume</span>, <span class="n">20</span>);
+r      = <span class="f">RSI</span>(<span class="n">14</span>);
+<span class="b">Filter</span> = (relVol &gt; <span class="n">1.5</span>) <span class="k">AND</span> (<span class="b">Close</span> &gt; <span class="f">EMA</span>(<span class="b">Close</span>, <span class="n">50</span>));
+<span class="f">AddColumn</span>(<span class="b">Close</span>, <span class="s">"Close"</span>, <span class="n">1.2</span>);
+<span class="f">AddColumn</span>(relVol, <span class="s">"RelVol"</span>, <span class="n">1.2</span>);                          <span class="c">// column 3</span>
+bk = <span class="f">IIf</span>(r &gt; <span class="n">70</span>, <span class="b">colorRed</span>, <span class="f">IIf</span>(r &lt; <span class="n">30</span>, <span class="b">colorGreen</span>, <span class="b">colorDarkGrey</span>));
+<span class="f">AddColumn</span>(r, <span class="s">"RSI"</span>, <span class="n">1.2</span>, <span class="b">colorWhite</span>, bk);                   <span class="c">// text, background</span>
+<span class="f">SetSortColumns</span>(-<span class="n">3</span>);                                         <span class="c">// busiest first</span></pre><p>Add one condition at a time and watch the row count: an empty list usually means the last clause is too strict. Column 1 is the symbol, so your first <code>AddColumn</code> is column 2; negative numbers sort descending. Relative volume (<code>Volume / MA(Volume, 20)</code>) surfaces unusual activity. "Let the filter earn its place first; add the polish second."</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#chart"><span>Previous</span>02 · Charting and visualisation</a><a class="sn-next" href="#sys"><span>Next</span>04 · Building trading systems</a></nav></section>
+<section class="sec g" data-origin="ovafl" data-sid="sys" id="sys"><h2 data-label="Building trading systems"><span class="n">04</span>Building trading systems</h2>
+<p class="src">OpenAlgo Open Varsity · AmiBroker AFL · chapters 21–24 (<a href="https://www.openalgo.in/amibroker/buy-sell-signals">Buy, Sell, Short, Cover</a>, <a href="https://www.openalgo.in/amibroker/cleaning-signals">clean signals</a>, <a href="https://www.openalgo.in/amibroker/stops-and-targets">stops and targets</a>, <a href="https://www.openalgo.in/amibroker/position-sizing">sizing and delays</a>)</p>
+<div class="g2">
+<div class="card g" data-ck="buy-sell-short-and-cover" data-skey="ovafl:building-trading-systems/buy-sell-short-and-cover" id="buy-sell-short-and-cover"><h3 data-label="Buy, Sell, Short and Cover">Buy, Sell, Short and Cover<a aria-label="Link to this card" class="anchor" href="#buy-sell-short-and-cover">#</a></h3><div class="tw"><table>
+<tr><th>Array</th><th>Job</th></tr>
+<tr><td><code>Buy</code></td><td>Opens a long</td></tr>
+<tr><td><code>Sell</code></td><td>Closes the long (never opens a short)</td></tr>
+<tr><td><code>Short</code></td><td>Opens a short</td></tr>
+<tr><td><code>Cover</code></td><td>Closes the short (never opens a long)</td></tr>
+</table></div><pre class="code" data-hl="afl" data-lang="afl">Fast = <span class="f">EMA</span>(<span class="b">Close</span>, <span class="n">10</span>);
+Slow = <span class="f">EMA</span>(<span class="b">Close</span>, <span class="n">20</span>);
+<span class="b">Buy</span>  = <span class="f">Cross</span>(Fast, Slow);
+<span class="b">Sell</span> = <span class="f">Cross</span>(Slow, Fast);
+<span class="c">// Short = Sell; Cover = Buy;   // always-in-the-market variant</span></pre><p>Reserved, case-insensitive 1/0 arrays; unused ones default to no signal. While long, further Buys are ignored until a Sell. Every Buy needs an exit. Fills default to the signal bar's close; set <code>BuyPrice</code>, <code>SellPrice</code>, <code>ShortPrice</code>, <code>CoverPrice</code> to change that. Start long-only (cash shorts may be unavailable).</p></div>
+<div class="card r" data-ck="clean-signals-and-no-repainting" data-skey="ovafl:building-trading-systems/clean-signals-and-no-repainting" id="clean-signals-and-no-repainting"><h3 data-label="Clean signals and no repainting">Clean signals and no repainting<a aria-label="Link to this card" class="anchor" href="#clean-signals-and-no-repainting">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="b">Buy</span>  = <span class="f">Ref</span>(<span class="f">Cross</span>(Fast, Slow), -<span class="n">1</span>);     <span class="c">// act on the closed bar</span>
+<span class="b">Sell</span> = <span class="f">Ref</span>(<span class="f">Cross</span>(Slow, Fast), -<span class="n">1</span>);
+<span class="b">Buy</span>  = <span class="f">ExRem</span>(<span class="b">Buy</span>, <span class="b">Sell</span>);               <span class="c">// first of each run only</span>
+<span class="b">Sell</span> = <span class="f">ExRem</span>(<span class="b">Sell</span>, <span class="b">Buy</span>);               <span class="c">// always as a pair</span>
+<span class="b">BuyPrice</span>  = <span class="f">ValueWhen</span>(<span class="b">Buy</span>, <span class="b">Open</span>);      <span class="c">// next-bar open, realistic</span>
+<span class="b">SellPrice</span> = <span class="f">ValueWhen</span>(<span class="b">Sell</span>, <span class="b">Open</span>);
+<span class="f">SetTradeDelays</span>(<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>);            <span class="c">// one delay mechanism only</span>
+inLong = <span class="f">Flip</span>(<span class="b">Buy</span>, <span class="b">Sell</span>);  <span class="c">// 1 on every bar in the trade</span></pre><ul>
+<li>Choppy markets make <code>Cross</code> fire repeatedly; <code>ExRem</code> keeps buys and sells strictly alternating (edges), while <code>Flip</code> gives the in-trade state (fill).</li>
+<li>Repainting: the live bar is unfinished, so a cross can appear and vanish. Acting on the previous closed bar costs the cross bar but makes the backtest honest.</li>
+<li><code>Ref(…, −1)</code> plus a non-zero trade delay lags fills by two bars and distorts the report.</li>
+</ul></div>
+<div class="card y" data-ck="stops-and-targets-with-applystop" data-skey="ovafl:building-trading-systems/stops-and-targets-with-applystop" id="stops-and-targets-with-applystop"><h3 data-label="Stops and targets with ApplyStop">Stops and targets with ApplyStop<a aria-label="Link to this card" class="anchor" href="#stops-and-targets-with-applystop">#</a></h3><div class="tw"><table>
+<tr><th>Argument</th><th>Values</th></tr>
+<tr><td>type</td><td><code>stopTypeLoss</code>, <code>stopTypeProfit</code>, <code>stopTypeTrailing</code></td></tr>
+<tr><td>mode</td><td><code>stopModePercent</code>, <code>stopModePoint</code>, <code>stopModeDisable</code></td></tr>
+<tr><td>amount</td><td>A number, or an array (e.g. 2 × <abbr class="gl" data-tip="Average size of each bar including gaps, usually over 14 bars with Wilder smoothing. Used for stop distance and position size, not direction." data-tip-title="ATR: Average true range">ATR</abbr>)</td></tr>
+<tr><td>exitAtStop</td><td><code>True</code>: exit intrabar at the level; <code>False</code>: check the close only</td></tr>
+</table></div><pre class="code" data-hl="afl" data-lang="afl"><span class="f">ApplyStop</span>(<span class="b">stopTypeLoss</span>,   <span class="b">stopModePercent</span>, <span class="n">0.5</span>, <span class="k">True</span>);
+<span class="f">ApplyStop</span>(<span class="b">stopTypeProfit</span>, <span class="b">stopModePercent</span>, <span class="n">1.0</span>, <span class="k">True</span>);
+<span class="f">ApplyStop</span>(<span class="b">stopTypeLoss</span>,   <span class="b">stopModePoint</span>, <span class="n">2</span> * <span class="f">ATR</span>(<span class="n">14</span>), <span class="k">True</span>);
+<span class="c">// freeze for plotting levels</span>
+atrAtEntry = <span class="f">ValueWhen</span>(<span class="b">Buy</span>, <span class="f">ATR</span>(<span class="n">14</span>));</pre><p>A plotted line never exits a trade; only <code>ApplyStop</code> does, and it handles longs and shorts automatically. Trailing stops follow the best price since entry. Lock entry-time ATR with <code>ValueWhen</code> or the drawn levels wobble. Test every stop with and without it: too tight turns noise into a string of small losses.</p></div>
+<div class="card b" data-ck="position-sizing-costs-and-delays" data-skey="ovafl:building-trading-systems/position-sizing-costs-and-delays" id="position-sizing-costs-and-delays"><h3 data-label="Position sizing, costs and delays">Position sizing, costs and delays<a aria-label="Link to this card" class="anchor" href="#position-sizing-costs-and-delays">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="f">SetOption</span>(<span class="s">"InitialEquity"</span>, <span class="n">1000000</span>);
+<span class="c">// 1 = % of value, 2 = flat per trade</span>
+<span class="f">SetOption</span>(<span class="s">"CommissionMode"</span>, <span class="n">2</span>);
+<span class="f">SetOption</span>(<span class="s">"CommissionAmount"</span>, <span class="n">20</span>);
+<span class="f">SetOption</span>(<span class="s">"AccountMargin"</span>, <span class="n">100</span>);  <span class="c">// 100 = fully funded, 20 = 5x</span>
+<span class="f">SetPositionSize</span>(<span class="n">75</span>, <span class="b">spsPercentOfEquity</span>);</pre><div class="tw"><table>
+<tr><th>Mode (₹1,318 stock, ₹10 lakh equity)</th><th>Size</th></tr>
+<tr><td><code>spsShares</code>, 100</td><td>100 shares (₹1,31,800)</td></tr>
+<tr><td><code>spsValue</code>, 1,00,000</td><td>75 shares</td></tr>
+<tr><td><code>spsPercentOfEquity</code>, 75</td><td>569 shares, compounding</td></tr>
+</table></div><p>Test with fixed size first to see the bare edge; percent-of-equity compounding flatters weak edges. Always include realistic commissions, match <code>AccountMargin</code> to the instrument, and keep core assumptions in code because AFL settings override the dialog. <code>SetTradeDelays(buy, sell, short, cover)</code> is the engine's whole-bar delay.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#scan"><span>Previous</span>03 · Exploration and scanning</a><a class="sn-next" href="#bt"><span>Next</span>05 · Backtesting and optimisation</a></nav></section>
+<section class="sec r" data-origin="ovafl" data-sid="bt" id="bt"><h2 data-label="Backtesting and optimisation"><span class="n">05</span>Backtesting and optimisation</h2>
+<p class="src">OpenAlgo Open Varsity · AmiBroker AFL · chapters 25–27 (<a href="https://www.openalgo.in/amibroker/first-backtest">first backtest</a>, <a href="https://www.openalgo.in/amibroker/backtest-report">reading the report</a>, <a href="https://www.openalgo.in/amibroker/optimization">optimisation</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="your-first-backtest" data-skey="ovafl:backtesting-and-optimisation/your-first-backtest" id="your-first-backtest"><h3 data-label="Your first backtest">Your first backtest<a aria-label="Link to this card" class="anchor" href="#your-first-backtest">#</a></h3><ol class="steps">
+<li>Analysis → New Analysis; pick the saved <code>.afl</code>.</li>
+<li>Set symbols, date range and a periodicity that matches the system (daily for swing, minutes for intraday).</li>
+<li>Put equity, commission, size and delays in code, not just the dialog.</li>
+<li>Press Backtest, then Report → Equity.</li>
+</ol><ul>
+<li>Read the curve's shape first: a steady climb is good; one jump then sideways is a lucky trade; a deep cliff is drawdown risk even if it ends higher.</li>
+<li>Test multiple years across varied regimes; a few months proves little. A backtest is a simulation of the past, not a forecast: forward-test in OpenAlgo's analyzer mode next.</li>
+</ul></div>
+<div class="card y full" data-ck="reading-the-report" data-skey="ovafl:backtesting-and-optimisation/reading-the-report" id="reading-the-report"><h3 data-label="Reading the report">Reading the report<a aria-label="Link to this card" class="anchor" href="#reading-the-report">#</a></h3><div class="tw"><table>
+<tr><th>Metric</th><th>Good</th><th>Poor</th><th>Note</th></tr>
+<tr><td>CAR (annual return)</td><td>&gt; 10%</td><td>&lt; 0</td><td>Use instead of net profit, which grows with test length</td></tr>
+<tr><td>Max system drawdown</td><td>0 to −10%</td><td>Worse than −30%</td><td>Could you sit through it?</td></tr>
+<tr><td>CAR / MDD</td><td>&gt; 2 excellent, 1–2 respectable</td><td>&lt; 1</td><td>Check it isn't curve-fit</td></tr>
+<tr><td>RAR % (return per exposure)</td><td>&gt; 10</td><td>&lt; 0</td><td>Judge with exposure %</td></tr>
+<tr><td>Payoff ratio (avg win ÷ avg loss)</td><td>&gt; 2</td><td>&lt; 1</td><td>Win rate means nothing without it</td></tr>
+<tr><td>Profit factor</td><td>&gt; 2</td><td>&lt; 1</td><td>&gt; 1 is profitable</td></tr>
+<tr><td>Expectancy, recovery factor</td><td>&gt; 0; &gt; 2</td><td>&lt; 0; &lt; 1</td><td>Recovery = net profit ÷ worst drawdown</td></tr>
+<tr><td>Sharpe; K-ratio</td><td>&gt; 1 (2 very good); ≥ 1</td><td>3+ is suspicious; &lt; 1</td><td>Ulcer index: lower is better</td></tr>
+</table></div><ul>
+<li>Check All / Long / Short separately: the edge may live on one side. Trend systems win rarely with big payoffs; mean reversion wins often with small ones.</li>
+<li>Want 30–50 trades at minimum, ideally hundreds. Sort the trade list: is profit spread out, or carried by one giant winner? Remove it and re-check.</li>
+<li>Benchmark against buy-and-hold. A smooth curve with a very high Sharpe on heavily optimised parameters is a curve-fitting warning; a good backtest is a hypothesis.</li>
+</ul></div>
+<div class="card o" data-ck="optimisation-and-robustness" data-skey="ovafl:backtesting-and-optimisation/optimisation-and-robustness" id="optimisation-and-robustness"><h3 data-label="Optimisation and robustness">Optimisation and robustness<a aria-label="Link to this card" class="anchor" href="#optimisation-and-robustness">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="c">// name, default, min, max, step</span>
+Fast = <span class="f">Optimize</span>(<span class="s">"Fast EMA"</span>, <span class="n">10</span>, <span class="n">5</span>, <span class="n">30</span>, <span class="n">1</span>);
+Slow = <span class="f">Optimize</span>(<span class="s">"Slow EMA"</span>, <span class="n">20</span>, <span class="n">10</span>, <span class="n">100</span>, <span class="n">5</span>);
+<span class="f">OptimizerSetEngine</span>(<span class="s">"cmae"</span>);  <span class="c">// smart search for 3+ dials</span>
+<span class="f">OptimizerSetOption</span>(<span class="s">"Runs"</span>, <span class="n">5</span>);
+<span class="f">OptimizerSetOption</span>(<span class="s">"MaxEval"</span>, <span class="n">5000</span>);</pre><ul>
+<li><code>Optimize</code> returns the default except during an optimisation run (arrow beside Backtest → Optimize). Exhaustive search suits 2–3 dials; beyond that use CMA-ES (<code>cmae</code>), particle swarm (<code>spso</code>) or Tribes (<code>trib</code>), and budget ≈ 10× more tests per extra dial. Set on/off switches by hand.</li>
+<li>Rank by CAR/MDD, not net profit, and check trade counts. On the 2D heatmap or 3D graph pick the centre of a broad plateau, never a lone spike.</li>
+<li>Use few dials, sensible steps (not 0.1 on <abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr> periods), never optimise on all your data, and confirm with AmiBroker's walk-forward and then sandbox trading.</li>
+</ul></div>
+<div class="card t" data-ck="is-this-system-ready-for-sandbox" data-skey="ovafl:backtesting-and-optimisation/is-this-system-ready-for-sandbox" id="is-this-system-ready-for-sandbox"><h3 data-label="Is this system ready for sandbox?">Is this system ready for sandbox?<a aria-label="Link to this card" class="anchor" href="#is-this-system-ready-for-sandbox">#</a></h3><div class="ladder"><div class="l-start">A backtest you like</div><div class="l-step"><div class="l-q" data-tip="Check for positive Ref, channels that include the current bar, and Ref -1 combined with non-zero SetTradeDelays." tabindex="0"><span class="l-n">1</span><span>Are signals shifted a bar, ExRem-cleaned, with one delay mechanism?</span></div><div class="l-as"><div class="l-a" data-tip="Raw cross → Ref(…, −1) → ExRem pair → ValueWhen(…, Open) prices → SetTradeDelays(0,0,0,0)." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Fix repainting first</b><span>Ref -1, ExRem pair, SetTradeDelays 0</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="AFL settings override the Analysis dialog, so put InitialEquity, commission, SetPositionSize and AccountMargin in the formula." tabindex="0"><span class="l-n">2</span><span>Are commission, size and margin set explicitly in code?</span></div><div class="l-as"><div class="l-a" data-tip="Start with a fixed share count to see the bare edge; switch to percent-of-equity later." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Set costs and size in code</b><span>zero-cost results flatter every system</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Read CAR, max drawdown and CAR/MDD first, then expectancy and payoff; check All, Long and Short separately." tabindex="0"><span class="l-n">3</span><span>30 or more trades, CAR/MDD near 1 or better, and beating buy-and-hold?</span></div><div class="l-as"><div class="l-a" data-tip="Extend the history across regimes, add symbols, or accept the idea doesn't have an edge." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Not enough evidence</b><span>longer history, more symbols, or a better idea</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="On the heatmap or 3D view, neighbours of the chosen setting should be nearly as good." tabindex="0"><span class="l-n">4</span><span>Do the parameters come from a broad plateau that held out of sample?</span></div><div class="l-as"><div class="l-a" data-tip="Choose the centre of a broad green island, not the tallest cell, then confirm with walk-forward." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Re-pick from a plateau</b><span>then walk-forward before trusting it</span></div></div><div class="l-a" data-tip="Run the identical AFL through OpenAlgo's sandbox for weeks: correct orders, no duplicates, then minimum live size." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Forward-test in analyzer mode</b><span>then the smallest live size</span></div></div></div></div></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#sys"><span>Previous</span>04 · Building trading systems</a><a class="sn-next" href="#play"><span>Next</span>06 · Strategy playbook</a></nav></section>
+<section class="sec y" data-origin="ovafl" data-sid="play" id="play"><h2 data-label="Strategy playbook"><span class="n">06</span>Strategy playbook</h2>
+<p class="src">OpenAlgo Open Varsity · AmiBroker AFL · chapters 28–32 (<a href="https://www.openalgo.in/amibroker/ema-crossover-system">EMA crossover</a>, <a href="https://www.openalgo.in/amibroker/supertrend-system">Supertrend</a>, <a href="https://www.openalgo.in/amibroker/vwap-intraday-system">VWAP intraday</a>, <a href="https://www.openalgo.in/amibroker/breakout-system">Donchian and ORB</a>, <a href="https://www.openalgo.in/amibroker/rsi-pullback-system">RSI pullback</a>)</p>
+<div class="g2">
+<div class="card y full" data-ck="five-systems-at-a-glance" data-skey="ovafl:strategy-playbook/five-systems-at-a-glance" id="five-systems-at-a-glance"><h3 data-label="Five systems at a glance">Five systems at a glance<a aria-label="Link to this card" class="anchor" href="#five-systems-at-a-glance">#</a></h3><div class="tw"><table>
+<tr><th>System</th><th>Entry</th><th>Exit</th><th>Key parameters</th><th>Character</th></tr>
+<tr><td><abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr> crossover</td><td>Fast EMA crosses above slow</td><td>Crosses back below</td><td>Fast 10 (2–50), slow 20 (5–100), optional shorts</td><td>Win rate under 50%, payoff above 1; whipsaws in chop</td></tr>
+<tr><td>Supertrend</td><td>Close breaks the prior upper band</td><td>Close breaks the prior lower band</td><td>Factor 3 (1–6, step 0.5), <abbr class="gl" data-tip="Average size of each bar including gaps, usually over 14 bars with Wilder smoothing. Used for stop distance and position size, not direction." data-tip-title="ATR: Average true range">ATR</abbr> period 10 (5–30)</td><td>Band ratchets like a trailing stop; few big winners</td></tr>
+<tr><td><abbr class="gl" data-tip="Average price paid since the session open, weighted by volume. Institutions benchmark executions against it; price above VWAP shows buyers in control intraday." data-tip-title="VWAP: Volume-weighted average price">VWAP</abbr> intraday</td><td>Close crosses above session VWAP, 09:30–15:00</td><td>Cross below VWAP, or square off 15:15</td><td>5- or 15-minute bars; one-bar delay; next-open fills</td><td>Pick trend (reclaim) or reversion (fade), not both</td></tr>
+<tr><td>Donchian / opening range</td><td>High crosses the prior N-bar high, or the opening-range high</td><td>Low crosses the prior N-bar low; <abbr class="gl" data-tip="Trading the break of the first 15- or 30-minute high or low of the session." data-tip-title="ORB: Opening range breakout">ORB</abbr> squares off 15:15, no entries after 14:30</td><td>Channel 20 (try 55); OR bars 3 on 5-min</td><td>Expect false breaks; gap-safe fills</td></tr>
+<tr><td><abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr> pullback</td><td>Close above 200 EMA, RSI was &lt; 40, RSI turning up</td><td>RSI crosses 60, or close below the EMA</td><td>RSI 14, dip 40, trend EMA 200 (50–300)</td><td>Wins 55–70%, payoff often below 1</td></tr>
+</table></div><p>The course reports no fixed backtest figures for these; generate your own with realistic costs. Shared plumbing: <code>Ref(…, −1)</code> signals with zero trade delays (or the engine delay with <code>Open</code> fills), <code>ExRem</code>, explicit sizing, and sandbox before live. "A breakout system that only works at zero cost is not a system."</p></div>
+<div class="card o" data-ck="supertrend-needs-a-loop" data-skey="ovafl:strategy-playbook/supertrend-needs-a-loop" id="supertrend-needs-a-loop"><h3 data-label="Supertrend needs a loop">Supertrend needs a loop<a aria-label="Link to this card" class="anchor" href="#supertrend-needs-a-loop">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">Factor = <span class="f">Optimize</span>(<span class="s">"Factor"</span>, <span class="n">3</span>, <span class="n">1</span>, <span class="n">6</span>, <span class="n">0.5</span>);
+Pd     = <span class="f">Optimize</span>(<span class="s">"ATR period"</span>, <span class="n">10</span>, <span class="n">5</span>, <span class="n">30</span>, <span class="n">1</span>);
+mid = (H + L) / <span class="n">2</span>;
+up  = mid + Factor * <span class="f">ATR</span>(Pd);
+dn  = mid - Factor * <span class="f">ATR</span>(Pd);
+trend = <span class="k">Null</span>;  trend[<span class="n">0</span>] = <span class="n">1</span>;
+lineUp = dn;   lineDn = up;               <span class="c">// raw bands as seeds</span>
+<span class="k">for</span> (i = <span class="n">1</span>; i &lt; <span class="b">BarCount</span>; i++)
+{
+    <span class="k">if</span> (<span class="b">Close</span>[i] &gt; lineDn[i-<span class="n">1</span>])      trend[i] = <span class="n">1</span>;
+    <span class="k">else</span> <span class="k">if</span> (<span class="b">Close</span>[i] &lt; lineUp[i-<span class="n">1</span>]) trend[i] = -<span class="n">1</span>;
+    <span class="k">else</span>                             trend[i] = trend[i-<span class="n">1</span>];
+    <span class="k">if</span> (trend[i] == <span class="n">1</span> <span class="k">AND</span> trend[i-<span class="n">1</span>] == <span class="n">1</span>)
+        lineUp[i] = <span class="f">Max</span>(dn[i], lineUp[i-<span class="n">1</span>]);   <span class="c">// only tightens</span>
+    <span class="k">if</span> (trend[i] == -<span class="n">1</span> <span class="k">AND</span> trend[i-<span class="n">1</span>] == -<span class="n">1</span>)
+        lineDn[i] = <span class="f">Min</span>(up[i], lineDn[i-<span class="n">1</span>]);
+}
+st = <span class="f">IIf</span>(trend == <span class="n">1</span>, lineUp, lineDn);</pre><p>Each bar depends on the previous bar's state, so this is a genuine loop case: seed bar 0, start at 1, reset to the raw band on a flip (here by keeping the seed), ratchet otherwise. A compact sketch in the course's spirit; signals are <code>trend == 1</code> / <code>== −1</code>, cleaned with ExRem.</p></div>
+<div class="card g" data-ck="session-anchored-vwap-and-opening-range" data-skey="ovafl:strategy-playbook/session-anchored-vwap-and-opening-range" id="session-anchored-vwap-and-opening-range"><h3 data-label="Session-anchored VWAP and opening range">Session-anchored VWAP and opening range<a aria-label="Link to this card" class="anchor" href="#session-anchored-vwap-and-opening-range">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">newDay    = <span class="f">DateNum</span>() != <span class="f">Ref</span>(<span class="f">DateNum</span>(), -<span class="n">1</span>);
+barsToday = <span class="n">1</span> + <span class="f">BarsSince</span>(newDay);
+tp   = (H + L + C) / <span class="n">3</span>;
+vwap = <span class="f">Sum</span>(tp * V, barsToday) / <span class="f">Max</span>(<span class="f">Sum</span>(V, barsToday), <span class="n">1</span>);
+tn   = <span class="f">TimeNum</span>();
+<span class="b">Buy</span>  = <span class="f">Ref</span>(<span class="f">Cross</span>(C, vwap) <span class="k">AND</span> tn &gt;= <span class="n">93000</span> <span class="k">AND</span> tn &lt; <span class="n">150000</span>, -<span class="n">1</span>);
+<span class="b">Sell</span> = <span class="f">Ref</span>(<span class="f">Cross</span>(vwap, C), -<span class="n">1</span>) <span class="k">OR</span> tn &gt;= <span class="n">151500</span>;
+
+ORBars = <span class="f">Param</span>(<span class="s">"OR bars"</span>, <span class="n">3</span>, <span class="n">1</span>, <span class="n">12</span>, <span class="n">1</span>);  <span class="c">// 3 × 5-min = 15 min</span>
+orDone = barsToday == ORBars;
+orHigh = <span class="f">ValueWhen</span>(orDone, <span class="f">HighestSince</span>(newDay, <span class="b">High</span>));
+orLow  = <span class="f">ValueWhen</span>(orDone, <span class="f">LowestSince</span>(newDay, <span class="b">Low</span>));
+up20   = <span class="f">Ref</span>(<span class="f">HHV</span>(<span class="b">High</span>, <span class="n">20</span>), -<span class="n">1</span>);  <span class="c">// Donchian, prior bar</span>
+<span class="b">BuyPrice</span> = <span class="f">Max</span>(<span class="b">Open</span>, up20);                    <span class="c">// gap-safe fill</span></pre><p>Reset <abbr class="gl" data-tip="Average price paid since the session open, weighted by volume. Institutions benchmark executions against it; price above VWAP shows buyers in control intraday." data-tip-title="VWAP: Volume-weighted average price">VWAP</abbr> every session ("yesterday's volume has no business in today's average"); <code>Max(…, 1)</code> guards zero-volume bars. Freeze the opening range with <code>ValueWhen</code> rather than recomputing it. Use intraday periodicity, and commodity session times for MCX.</p></div>
+<div class="card b" data-ck="rsi-pullback-inside-a-trend" data-skey="ovafl:strategy-playbook/rsi-pullback-inside-a-trend" id="rsi-pullback-inside-a-trend"><h3 data-label="RSI pullback inside a trend">RSI pullback inside a trend<a aria-label="Link to this card" class="anchor" href="#rsi-pullback-inside-a-trend">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">trendMA = <span class="f">EMA</span>(<span class="b">Close</span>, <span class="f">Param</span>(<span class="s">"Trend EMA"</span>, <span class="n">200</span>, <span class="n">50</span>, <span class="n">300</span>, <span class="n">10</span>));
+r       = <span class="f">RSI</span>(<span class="f">Param</span>(<span class="s">"RSI length"</span>, <span class="n">14</span>, <span class="n">2</span>, <span class="n">50</span>, <span class="n">1</span>));
+upTrend = <span class="b">Close</span> &gt; trendMA;
+dipped  = <span class="f">Ref</span>(r, -<span class="n">1</span>) &lt; <span class="f">Param</span>(<span class="s">"Dip level"</span>, <span class="n">40</span>, <span class="n">10</span>, <span class="n">50</span>, <span class="n">1</span>);
+<span class="b">Buy</span>  = upTrend <span class="k">AND</span> dipped <span class="k">AND</span> r &gt; <span class="f">Ref</span>(r, -<span class="n">1</span>);
+<span class="b">Sell</span> = <span class="f">Cross</span>(r, <span class="n">60</span>) <span class="k">OR</span> <span class="b">Close</span> &lt; trendMA;
+<span class="b">Buy</span>  = <span class="f">ExRem</span>(<span class="b">Buy</span>, <span class="b">Sell</span>);  <span class="b">Sell</span> = <span class="f">ExRem</span>(<span class="b">Sell</span>, <span class="b">Buy</span>);
+<span class="f">SetTradeDelays</span>(<span class="n">1</span>, <span class="n">1</span>, <span class="n">1</span>, <span class="n">1</span>);  <span class="b">BuyPrice</span> = <span class="b">SellPrice</span> = <span class="b">Open</span>;</pre><div class="formula"><span class="fl">expectancy = win% × avg win − loss% × avg loss</span><span class="fl">62% × 1.4% − 38% × 1.6% ≈ +0.26% a trade</span></div><p>Without the trend gate it buys falling knives. A dip level of 30 rarely triggers in uptrends; if trades are scarce, shorten the <abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr> rather than deleting the filter. Judge by expectancy, never win rate alone.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#bt"><span>Previous</span>05 · Backtesting and optimisation</a><a class="sn-next" href="#live"><span>Next</span>07 · Real-time, alerts and automation</a></nav></section>
+<section class="sec o" data-origin="ovafl" data-sid="live" id="live"><h2 data-label="Real-time, alerts and automation"><span class="n">07</span>Real-time, alerts and automation</h2>
+<p class="src">OpenAlgo Open Varsity · AmiBroker AFL · chapters 33–36 (<a href="https://www.openalgo.in/amibroker/multi-timeframe">multiple time frames</a>, <a href="https://www.openalgo.in/amibroker/alerts">alerts</a>, <a href="https://www.openalgo.in/amibroker/openalgo-automation">OpenAlgo automation</a>, <a href="https://www.openalgo.in/amibroker/whats-next">what next</a>)</p>
+<div class="g2">
+<div class="card o" data-ck="multiple-time-frames" data-skey="ovafl:real-time-alerts-and-automation/multiple-time-frames" id="multiple-time-frames"><h3 data-label="Multiple time frames">Multiple time frames<a aria-label="Link to this card" class="anchor" href="#multiple-time-frames">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="f">TimeFrameSet</span>(<span class="b">inHourly</span>);
+    hrEMA = <span class="f">EMA</span>(<span class="b">Close</span>, <span class="n">20</span>);
+<span class="f">TimeFrameRestore</span>();                            <span class="c">// always pair them</span>
+<span class="c">// expandLast by default</span>
+hrEMAx  = <span class="f">TimeFrameExpand</span>(hrEMA, <span class="b">inHourly</span>);
+<span class="b">Buy</span>     = <span class="f">Cross</span>(fast, slow) <span class="k">AND</span> <span class="b">Close</span> &gt; hrEMAx;
+prevDayClose = <span class="f">TimeFrameGetPrice</span>(<span class="s">"C"</span>, <span class="b">inDaily</span>, -<span class="n">1</span>);  <span class="c">// closed bar</span></pre><div class="tw"><table>
+<tr><th>Expand mode</th><th>Use</th></tr>
+<tr><td><code>expandLast</code></td><td>Value appears after the higher bar closes: for trading</td></tr>
+<tr><td><code>expandFirst</code></td><td>Appears from the start of the higher bar: leaks the future</td></tr>
+<tr><td><code>expandPoint</code></td><td>One bar only</td></tr>
+</table></div><p>Lower timeframe gives the entry, higher gives permission. Expand before comparing or plotting; use offset −1 (closed) in signals, not 0 (still forming). Self-check: the expanded line should only change at completed higher-bar boundaries.</p></div>
+<div class="card t" data-ck="alerts-log-voice-telegram" data-skey="ovafl:real-time-alerts-and-automation/alerts-log-voice-telegram" id="alerts-log-voice-telegram"><h3 data-label="Alerts: log, voice, Telegram">Alerts: log, voice, Telegram<a aria-label="Link to this card" class="anchor" href="#alerts-log-voice-telegram">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">msg = <span class="s">"BUY "</span> + <span class="f">Name</span>() + <span class="s">" at "</span> + <span class="f">NumToStr</span>(<span class="b">Close</span>, <span class="n">1.2</span>);
+<span class="f">AlertIf</span>(<span class="b">Buy</span>, <span class="s">""</span>, msg, <span class="n">1</span>);
+<span class="f">RequestTimedRefresh</span>(<span class="n">1</span>, <span class="k">False</span>);  <span class="c">// re-run about once a second</span>
+key = <span class="f">Name</span>() + <span class="f">GetChartID</span>() + <span class="f">Interval</span>(<span class="n">2</span>);
+bar = <span class="f">StrFormat</span>(<span class="s">"%0.f"</span>, <span class="f">LastValue</span>(<span class="f">BarIndex</span>()));
+<span class="k">if</span> (<span class="f">LastValue</span>(<span class="b">Buy</span>) <span class="k">AND</span> <span class="f">StaticVarGetText</span>(key + <span class="s">"buyBar"</span>) != bar)
+{
+    <span class="f">StaticVarSetText</span>(key + <span class="s">"buyBar"</span>, bar);     <span class="c">// once per bar</span>
+    <span class="f">Say</span>(<span class="s">"Buy signal"</span>);
+    url = <span class="s">"https://api.telegram.org/bot"</span> + token +
+          <span class="s">"/sendMessage?chat_id="</span> + chat +
+          <span class="s">"&amp;text=Buy%20"</span> + <span class="f">Name</span>();
+    ih = <span class="f">InternetOpenURL</span>(url);
+    <span class="k">if</span> (ih) <span class="f">InternetClose</span>(ih);
+}</pre><p>A plain <code>if (Buy) Say(…)</code> re-fires on every refresh: fingerprint the bar in a static variable (the course also keeps a flag and re-arms it when the signal clears). Alert on confirmed signals (<code>Ref(Cross(…), −1)</code>, ExRem), URL-encode spaces, close internet handles, keep the bot token as a placeholder, and toggle each channel with <code>ParamList</code>.</p></div>
+<div class="card r full" data-ck="automating-orders-through-openalgo" data-skey="ovafl:real-time-alerts-and-automation/automating-orders-through-openalgo" id="automating-orders-through-openalgo"><h3 data-label="Automating orders through OpenAlgo">Automating orders through OpenAlgo<a aria-label="Link to this card" class="anchor" href="#automating-orders-through-openalgo">#</a></h3><pre class="code" data-hl="afl" data-lang="afl">apikey = <span class="f">ParamStr</span>(<span class="s">"OpenAlgo API key"</span>, <span class="s">"PLACEHOLDER"</span>);
+host   = <span class="f">ParamStr</span>(<span class="s">"Host"</span>, <span class="s">"http://127.0.0.1:5000"</span>);
+algoOn = <span class="f">ParamList</span>(<span class="s">"Algo mode"</span>, <span class="s">"Disable|Enable"</span>, <span class="n">0</span>) == <span class="s">"Enable"</span>;   <span class="c">// off by default</span>
+
+<span class="k">function</span> <span class="f">PlaceOrder</span>(action, qty)
+{
+    body = <span class="s">"{\"</span>apikey\<span class="s">":\"" + apikey + "</span>\<span class="s">",\"</span>strategy\<span class="s">":\"</span>afl-ema\<span class="s">",\"</span>symbol\<span class="s">":\"</span>" + <span class="f">Name</span>() +
+           <span class="s">"\"</span>,\<span class="s">"action\"</span>:\<span class="s">""</span> + action + <span class="s">"\"</span>,\<span class="s">"exchange\"</span>:\<span class="s">"NSE\"</span>,\<span class="s">"pricetype\"</span>:\<span class="s">"MARKET\"</span>," +
+           <span class="s">"\"</span>product\<span class="s">":\"</span>MIS\<span class="s">",\"</span>quantity\<span class="s">":\"" + NumToStr(qty, 1.0, False) + "</span>\<span class="s">"}"</span>;
+    <span class="f">InternetSetHeaders</span>(<span class="s">"Content-Type: application/json\r\n"</span>);
+    ih = <span class="f">InternetPostRequest</span>(host + <span class="s">"/api/v1/placeorder"</span>, body);
+    <span class="k">if</span> (ih) { <span class="k">while</span> ((s = <span class="f">InternetReadString</span>(ih)) != <span class="s">""</span>) <span class="f">_TRACE</span>(s); <span class="f">InternetClose</span>(ih); }
+}
+
+<span class="k">if</span> (algoOn <span class="k">AND</span> <span class="f">LastValue</span>(<span class="b">Buy</span>) <span class="k">AND</span> <span class="f">StaticVarGetText</span>(key + <span class="s">"ordBar"</span>) != bar)
+{
+    <span class="f">StaticVarSetText</span>(key + <span class="s">"ordBar"</span>, bar);     <span class="c">// one order per bar</span>
+    <span class="f">PlaceOrder</span>(<span class="s">"BUY"</span>, <span class="n">1</span>);
+}</pre><ul>
+<li>OpenAlgo runs locally and exposes one order API for any connected broker; AFL just posts JSON to it (<code>placeorder</code>; a <code>closeposition</code> endpoint backs a "close all" button; the course's SmartOrder chart module moves to a target position).</li>
+<li>Three safety layers: OpenAlgo's analyzer mode on, an algo switch defaulting to Disable, and once-per-bar de-duplication. Prove the connection with chart buttons before automating signals, read every <code>_TRACE</code> response, and use different strategy names for sandbox and live.</li>
+<li>Never paste a real API key into shared code. Go live with the smallest quantity and remove safety layers one at a time, only after each earns trust.</li>
+</ul></div>
+<div class="card g" data-ck="where-to-go-next" data-skey="ovafl:real-time-alerts-and-automation/where-to-go-next" id="where-to-go-next"><h3 data-label="Where to go next">Where to go next<a aria-label="Link to this card" class="anchor" href="#where-to-go-next">#</a></h3><ul>
+<li><b>Portfolio backtests:</b> test a whole universe, rank candidates, allocate capital.</li>
+<li><b>Custom backtester (CBT):</b> custom sizing, exit priorities, portfolio rules.</li>
+<li><b>Walk-forward analysis:</b> optimise on one slice, test the next unseen slice, roll on.</li>
+<li>Advanced GFX dashboards and exporting data for ML.</li>
+<li>Pick by bottleneck: can't choose between candidates → portfolio backtests; fear the result is luck → walk-forward.</li>
+<li>Habits: version-control <code>.afl</code> files, keep a strategy journal (idea, rules, numbers, why it should work), sandbox before every live run. "Never run untested code with real money."</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#play"><span>Previous</span>06 · Strategy playbook</a><a class="sn-next" href="#last"><span>Next</span>08 · Checklists and quick reference</a></nav></section>
+<section class="sec g" data-origin="ovafl" data-sid="last" id="last"><h2 data-label="Checklists and quick reference"><span class="n">08</span>Checklists and quick reference</h2>
+<p>A skeleton to start every system from.</p>
+<div class="g2">
+<div class="card g full" data-ck="afl-system-skeleton" data-skey="ovafl:checklists-and-quick-reference/afl-system-skeleton" id="afl-system-skeleton"><h3 data-label="AFL system skeleton">AFL system skeleton<a aria-label="Link to this card" class="anchor" href="#afl-system-skeleton">#</a></h3><pre class="code" data-hl="afl" data-lang="afl"><span class="f">_SECTION_BEGIN</span>(<span class="s">"System"</span>);
+<span class="f">SetOption</span>(<span class="s">"InitialEquity"</span>, <span class="n">1000000</span>);
+<span class="f">SetOption</span>(<span class="s">"CommissionMode"</span>, <span class="n">2</span>);  <span class="f">SetOption</span>(<span class="s">"CommissionAmount"</span>, <span class="n">20</span>);
+<span class="f">SetPositionSize</span>(<span class="n">100</span>, <span class="b">spsShares</span>);                 <span class="c">// fixed size first</span>
+<span class="f">SetTradeDelays</span>(<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>);
+
+fastLen = <span class="f">Optimize</span>(<span class="s">"Fast"</span>, <span class="n">10</span>, <span class="n">5</span>, <span class="n">30</span>, <span class="n">1</span>);
+slowLen = <span class="f">Optimize</span>(<span class="s">"Slow"</span>, <span class="n">20</span>, <span class="n">10</span>, <span class="n">100</span>, <span class="n">5</span>);
+Fast = <span class="f">EMA</span>(<span class="b">Close</span>, fastLen);  Slow = <span class="f">EMA</span>(<span class="b">Close</span>, slowLen);
+
+<span class="b">Buy</span>  = <span class="f">Ref</span>(<span class="f">Cross</span>(Fast, Slow), -<span class="n">1</span>);  <span class="b">Sell</span> = <span class="f">Ref</span>(<span class="f">Cross</span>(Slow, Fast), -<span class="n">1</span>);
+<span class="b">Buy</span>  = <span class="f">ExRem</span>(<span class="b">Buy</span>, <span class="b">Sell</span>);            <span class="b">Sell</span> = <span class="f">ExRem</span>(<span class="b">Sell</span>, <span class="b">Buy</span>);
+<span class="b">BuyPrice</span> = <span class="f">ValueWhen</span>(<span class="b">Buy</span>, <span class="b">Open</span>);    <span class="b">SellPrice</span> = <span class="f">ValueWhen</span>(<span class="b">Sell</span>, <span class="b">Open</span>);
+<span class="f">ApplyStop</span>(<span class="b">stopTypeLoss</span>, <span class="b">stopModePercent</span>, <span class="n">2</span>, <span class="k">True</span>);
+
+<span class="f">Plot</span>(C, <span class="s">"Close"</span>, <span class="b">colorDefault</span>, <span class="b">styleNoTitle</span> | <span class="f">GetPriceStyle</span>());
+<span class="f">Plot</span>(Fast, <span class="s">"Fast"</span>, <span class="b">colorAqua</span>);  <span class="f">Plot</span>(Slow, <span class="s">"Slow"</span>, <span class="b">colorOrange</span>);
+<span class="f">PlotShapes</span>(<span class="f">IIf</span>(<span class="b">Buy</span>, <span class="b">shapeUpArrow</span>, <span class="b">shapeNone</span>), <span class="b">colorGreen</span>, <span class="n">0</span>, <span class="b">Low</span>, -<span class="n">20</span>);
+<span class="f">PlotShapes</span>(<span class="f">IIf</span>(<span class="b">Sell</span>, <span class="b">shapeDownArrow</span>, <span class="b">shapeNone</span>), <span class="b">colorRed</span>, <span class="n">0</span>, <span class="b">High</span>, -<span class="n">20</span>);
+<span class="f">_SECTION_END</span>();</pre></div>
+<div class="card b" data-ck="pre-live-checklist" data-skey="ovafl:checklists-and-quick-reference/pre-live-checklist" id="pre-live-checklist"><h3 data-label="Pre-live checklist">Pre-live checklist<a aria-label="Link to this card" class="anchor" href="#pre-live-checklist">#</a></h3><ol class="steps">
+<li>Signals use only closed bars: <code>Ref(…, −1)</code>, no positive <code>Ref</code>, channels shifted a bar.</li>
+<li><code>ExRem</code> pair applied; exactly one delay mechanism.</li>
+<li>Equity, commission, size and margin set in code.</li>
+<li>Enough trades, CAR/MDD and expectancy checked against buy-and-hold.</li>
+<li>Parameters from a plateau, confirmed out of sample.</li>
+<li>Intraday: entry window and square-off time coded.</li>
+<li>Alerts and orders fire once per bar; API keys are placeholders.</li>
+<li>Analyzer mode run clean for weeks; then the smallest live size.</li>
+</ol></div>
+<div class="card o" data-ck="about-this-sheet" data-skey="ovafl:checklists-and-quick-reference/about-this-sheet" id="about-this-sheet"><h3 data-label="About this sheet">About this sheet<a aria-label="Link to this card" class="anchor" href="#about-this-sheet">#</a></h3><p>This sheet condenses the free course <a href="https://www.openalgo.in/amibroker">AmiBroker AFL</a> from <a href="https://www.openalgo.in/learn">OpenAlgo Open Varsity</a> (36 chapters, 8 modules) into reference cards in our own words. Code snippets are short illustrative AFL in the course's style, not copies of its listings; confirm function details in the official AmiBroker guide. Each section links back to its chapters. Educational, not investment advice.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#live"><span>Previous</span>07 · Real-time, alerts and automation</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"428654ee6cbd": {"R": "Cross is true only on the bar where the fast line moves through the slow one, but on a live bar it can appear and vanish.", "D": "Shifting one bar means you only act on a cross that has already closed: it can no longer repaint.", "X": "Removes repeated signals in choppy markets so Buy and Sell strictly alternate. Always apply both lines.", "P": "With delayed signals, Open is the next bar's open: a fill you could really have got.", "Z": "Because the delay is already in the signal, the engine delay must be zero, or fills land two bars late."}}</script>
+</body></html>

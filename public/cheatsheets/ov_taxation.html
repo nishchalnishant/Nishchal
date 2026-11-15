@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Taxation for Traders and Investors · Cheatsheets</title>
+<meta name="description" content="Indian tax for traders and investors: the three buckets, new vs old regime, advance tax, capital gains and STT, intraday as speculative income, F&amp;O as business income, turnover, audit, loss carry-forward, US stocks, Schedule FA, crypto and which ITR to file.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+
+</head>
+<body class="s-ovtax" data-hue="g">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><a href="index.html#ov" class="on" title="OpenAlgo Open Varsity course sheets">Open Varsity</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><h4>Open Varsity</h4><a href="ov_stock_market_basics.html">Stock basics</a><a href="ov_technical_analysis.html">OV technicals</a><a href="ov_python_for_traders.html">Python for traders</a><a href="ov_futures_trading.html">Futures</a><a href="ov_options_basics.html">Options basics</a><a href="ov_options_strategies.html">Options strategies</a><a href="ov_algo_trading_python.html">Algo trading</a><a href="ov_quantitative_trading.html">Quant trading</a><a href="ov_statistical_arbitrage.html">Stat arb</a><a href="ov_amibroker_afl.html">AmiBroker AFL</a><a href="ov_taxation.html" aria-current="page">Taxation</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Open Varsity · Beginner</div><h1>Taxation for Traders and Investors</h1><p>Indian tax for traders and investors: the three buckets, new vs old regime, advance tax, capital gains and STT, intraday as speculative income, F&amp;O as business income, turnover, audit, loss carry-forward, US stocks, Schedule FA, crypto and which ITR to file.</p></div>
+      <div class="stats"><div><b>7</b>sections</div><div><b>26</b>cards</div><div><b>4</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec g" data-origin="ovtax" data-sid="ovtaxatlas" id="ovtaxatlas"><h2 data-label="Taxation for traders and investors: atlas and routes"><span class="n">00</span>Taxation for traders and investors: atlas and routes</h2>
+<p>How Indian trading and investing profits are taxed: the three income buckets, slabs and deadlines, capital gains and STT, intraday, gifts, F&amp;O as business income with turnover, audit and losses, US stocks and foreign-asset disclosure, crypto, and filing the right ITR. Condensed from OpenAlgo's free Open Varsity course. Educational, not tax advice: confirm with a chartered accountant.</p>
+<div class="g2">
+<div class="card g full" data-ck="taxation-topic-atlas" data-skey="ovtax:taxation-for-traders-and-investors-atlas-and-rou/taxation-topic-atlas" id="taxation-topic-atlas"><h3 data-label="Taxation topic atlas">Taxation topic atlas<a aria-label="Link to this card" class="anchor" href="#taxation-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>Taxation for Traders</b><small>5 areas · 19 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#basics" title="Go to: Start here: filing, buckets, regimes and deadlines"><span class="at-n">01</span><span class="at-bl">Start here</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#why-filing-matters-more-than-the-tax" title="Go to: Why filing matters more than the tax">Why filing matters</a><a class="at-chip" href="#the-three-buckets" title="Go to: The three buckets">Three income buckets</a><a class="at-chip" href="#new-regime-slabs-fy-2025-26-default" title="Go to: New regime slabs (FY 2025-26, default)">Old vs new regime</a><a class="at-chip" href="#advance-tax-and-the-dates-you-can-t-miss" title="Go to: Advance tax and the dates you can't miss">Advance tax and dates</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#equity" title="Go to: The equity investor: capital gains, STT, intraday and gifts"><span class="at-n">02</span><span class="at-bl">Equity investor</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#capital-gains-on-shares-and-mutual-funds" title="Go to: Capital gains on shares and mutual funds">Capital gains</a><a class="at-chip" href="#stt-a-charge-and-a-tracker" title="Go to: STT: a charge and a tracker">STT and charges</a><a class="at-chip" href="#intraday-speculative-business-income" title="Go to: Intraday: speculative business income">Intraday tax</a><a class="at-chip" href="#gifting-and-inheriting-shares" title="Go to: Gifting and inheriting shares">Gifts and inheritance</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#fno" title="Go to: The F&amp;O trader: business income, turnover, audit and losses"><span class="at-n">03</span><span class="at-bl">F and O trader</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#the-number-one-mistake-f-o-is-business-income" title="Go to: The number-one mistake: F&amp;O is business income">Business income</a><a class="at-chip" href="#turnover-is-not-contract-value" title="Go to: Turnover is not contract value">Turnover and expenses</a><a class="at-chip" href="#do-i-need-a-tax-audit" title="Go to: Do I need a tax audit?">Tax audit</a><a class="at-chip" href="#f-o-losses-set-off-and-carry-forward" title="Go to: F&amp;O losses: set-off and carry-forward">Loss set-off</a><a class="at-chip" href="#what-happens-if-you-don-t-report-f-o" title="Go to: What happens if you don't report F&amp;O">Not reporting</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#global" title="Go to: Global and crypto"><span class="at-n">04</span><span class="at-bl">Global and crypto</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#us-stocks-for-indian-residents" title="Go to: US stocks for Indian residents">US stocks</a><a class="at-chip" href="#schedule-fa-and-the-black-money-act" title="Go to: Schedule FA and the Black Money Act">Schedule FA</a><a class="at-chip" href="#crypto-flat-30-and-1-tds" title="Go to: Crypto: flat 30% and 1% TDS">Crypto tax</a><a class="at-chip" href="#crypto-derivatives-a-grey-area" title="Go to: Crypto derivatives: a grey area">Crypto derivatives</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#filing" title="Go to: Filing it right"><span class="at-n">05</span><span class="at-bl">Filing</span><span class="at-c">2</span></a><div class="at-leaves"><a class="at-chip" href="#which-itr-form-is-yours" title="Go to: Which ITR form is yours">Which ITR form</a><a class="at-chip" href="#calendar-documents-and-when-to-call-a-ca" title="Go to: Calendar, documents and when to call a CA">Year-round checklist</a></div></div></div></div></div>
+<div class="card b" data-ck="how-to-use-this-sheet" data-skey="ovtax:taxation-for-traders-and-investors-atlas-and-rou/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li>Sort every activity with the "Which bucket?" ladder first: the bucket decides the rate, the form and the loss rules.</li>
+<li><b>Investors:</b> capital gains, <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr>, gifts, US stocks and Schedule FA.</li>
+<li><b><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> and intraday traders:</b> the whole F&amp;O section, then the year-round checklist.</li>
+<li>Calendar the five dates and file every year, even in a loss year.</li>
+</ol><div class="callout"><b>Educational only, not tax advice.</b> Condensed in our own words from <a href="https://www.openalgo.in/taxation">OpenAlgo Open Varsity: Taxation for Traders and Investors</a>. Figures are as the course states them for FY 2025-26 (AY 2026-27); Budgets change rates and rules every year.</div></div>
+<div class="card y" data-ck="which-bucket-is-this-trade" data-skey="ovtax:taxation-for-traders-and-investors-atlas-and-rou/which-bucket-is-this-trade" id="which-bucket-is-this-trade"><h3 data-label="Which bucket is this trade?">Which bucket is this trade?<a aria-label="Link to this card" class="anchor" href="#which-bucket-is-this-trade">#</a></h3><div class="ladder"><div class="l-start">A profit or loss to classify</div><div class="l-step"><div class="l-q" data-tip="Index, stock, currency or commodity: every F&amp;O trade lands in the same head, however short the holding." tabindex="0"><span class="l-n">1</span><span>Is it a futures or options contract, on any underlying?</span></div><div class="l-as"><div class="l-a" data-tip="Taxed at your slab on ITR-3; genuine expenses deductible; losses carry forward 8 years if you file on time." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Non-speculative business income</b><span>slab rate, ITR-3, broad loss set-off</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Equity intraday squared off before close never takes delivery, so it isn't a capital asset transfer." tabindex="0"><span class="l-n">2</span><span>Bought and sold the same day, with no delivery?</span></div><div class="l-as"><div class="l-a" data-tip="Slab rate on ITR-3; losses set off only against speculative income and carry forward just 4 years." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Speculative business income</b><span>slab rate; losses only vs speculative income</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Coins, tokens and NFTs sold, swapped or spent count as transfers of a virtual digital asset." tabindex="0"><span class="l-n">3</span><span>Is it a crypto or other VDA transfer?</span></div><div class="l-as"><div class="l-a" data-tip="Section 115BBH: 30% plus cess, cost only deductible, no loss set-off, 1% TDS on sales; report in Schedule VDA." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Flat 30% VDA tax</b><span>no deductions but cost, no loss set-off</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Count from the buy date to the sell date; STT must have been paid for these rates." tabindex="0"><span class="l-n">4</span><span>Listed shares or equity funds held more than 12 months?</span></div><div class="l-as"><div class="l-a" data-tip="The first ₹1.25 lakh of listed-equity long-term gains each year is exempt; 12.5% plus cess above it." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>LTCG at 12.5%</b><span>above ₹1.25 lakh a year</span></div></div><div class="l-a" data-tip="Section 111A rate on listed equity held 12 months or less, regardless of your slab." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>STCG at 20%</b><span>listed equity held 12 months or less</span></div></div></div></div></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#basics"><span>Next</span>01 · Start here: filing, buckets, regimes and deadlines</a></nav></section>
+<section class="sec b" data-origin="ovtax" data-sid="basics" id="basics"><h2 data-label="Start here: filing, buckets, regimes and deadlines"><span class="n">01</span>Start here: filing, buckets, regimes and deadlines</h2>
+<p class="src">OpenAlgo Open Varsity · Taxation · chapters 1–4 (<a href="https://www.openalgo.in/taxation/why-tax-matters">why tax matters</a>, <a href="https://www.openalgo.in/taxation/the-income-buckets">the income buckets</a>, <a href="https://www.openalgo.in/taxation/old-vs-new-regime">old vs new regime</a>, <a href="https://www.openalgo.in/taxation/advance-tax-and-deadlines">advance tax and deadlines</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="why-filing-matters-more-than-the-tax" data-skey="ovtax:start-here-filing-buckets-regimes-and-deadlines/why-filing-matters-more-than-the-tax" id="why-filing-matters-more-than-the-tax"><h3 data-label="Why filing matters more than the tax">Why filing matters more than the tax<a aria-label="Link to this card" class="anchor" href="#why-filing-matters-more-than-the-tax">#</a></h3><ul>
+<li>Every exchange trade pays <b><abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr></b> against your PAN, and the <b>AIS</b> (Annual Information Statement) compiles trades, dividends and interest from brokers, banks and exchanges. Your trades are already visible; filing just matches the records.</li>
+<li><b>The Karnataka case:</b> a farmer lost ≈ ₹26 lakh in <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> around 2014 and filed nothing because "no profit, nothing to report". In 2021 the case was reopened on ≈ ₹69 crore of turnover, a notice went unanswered, the whole turnover was treated as income, and the demand came to ≈ ₹68 crore.</li>
+<li>A loss reported on time is harmless and becomes an asset: lose ₹2 lakh this year and next year's ₹3 lakh profit is taxed on ₹1 lakh.</li>
+<li>File every year, on time, and answer every notice.</li>
+</ul></div>
+<div class="card g" data-ck="the-three-buckets" data-skey="ovtax:start-here-filing-buckets-regimes-and-deadlines/the-three-buckets" id="the-three-buckets"><h3 data-label="The three buckets">The three buckets<a aria-label="Link to this card" class="anchor" href="#the-three-buckets">#</a></h3><div class="tw"><table>
+<tr><th>Activity</th><th>Bucket</th><th>Losses can offset</th></tr>
+<tr><td><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> on equity, commodity or currency</td><td>Non-speculative business income</td><td>Most income heads, except salary</td></tr>
+<tr><td>Intraday equity (no delivery)</td><td>Speculative business income</td><td>Only speculative income</td></tr>
+<tr><td>Delivery shares, equity mutual funds</td><td>Capital gains (short or long term)</td><td>Only capital gains</td></tr>
+</table></div><ul>
+<li>Sorting test: delivery taken (even overnight) → capital gains; same-day, no delivery → speculative; any future or option → business, whatever the holding period.</li>
+<li>"Speculative" is a tax label, not a judgement of skill. Business income is taxed at your slab rate.</li>
+<li>Buckets don't net: an F&amp;O profit of ₹1 lakh and an intraday loss of ₹40,000 leaves ₹1 lakh taxable, not ₹60,000. The wrong ITR form can make a return defective.</li>
+</ul></div>
+<div class="card t" data-ck="new-regime-slabs-fy-2025-26-default" data-skey="ovtax:start-here-filing-buckets-regimes-and-deadlines/new-regime-slabs-fy-2025-26-default" id="new-regime-slabs-fy-2025-26-default"><h3 data-label="New regime slabs (FY 2025-26, default)">New regime slabs (FY 2025-26, default)<a aria-label="Link to this card" class="anchor" href="#new-regime-slabs-fy-2025-26-default">#</a></h3><div class="tw"><table>
+<tr><th>Taxable income</th><th>Rate</th></tr>
+<tr><td>Up to ₹4 lakh</td><td>Nil</td></tr>
+<tr><td>₹4–8 lakh</td><td>5%</td></tr>
+<tr><td>₹8–12 lakh</td><td>10%</td></tr>
+<tr><td>₹12–16 lakh</td><td>15%</td></tr>
+<tr><td>₹16–20 lakh</td><td>20%</td></tr>
+<tr><td>₹20–24 lakh</td><td>25%</td></tr>
+<tr><td>Above ₹24 lakh</td><td>30%</td></tr>
+</table></div><div class="formula"><span class="fl">₹16 lakh: 0 + 20,000 + 40,000 + 60,000 = ₹1,20,000</span><span class="fl">+ 4% cess = ₹1,24,800</span></div><ul>
+<li>Each rate applies only to its slice. The <b>87A rebate</b> (up to ₹60,000) makes slab tax zero up to ₹12 lakh (marginal relief just above), but it does not cover special-rate capital gains (20% STCG, 12.5% LTCG). Old regime rebate: up to ₹12,500 at ₹5 lakh or less.</li>
+<li>Cess 4% on tax plus surcharge; surcharge starts above ₹50 lakh of income.</li>
+<li>With business income, choosing the old regime needs <b>Form 10-IEA</b> by the Section 139(1) due date; miss it and you stay in the new regime that year.</li>
+</ul></div>
+<div class="card o" data-ck="advance-tax-and-the-dates-you-can-t-miss" data-skey="ovtax:start-here-filing-buckets-regimes-and-deadlines/advance-tax-and-the-dates-you-can-t-miss" id="advance-tax-and-the-dates-you-can-t-miss"><h3 data-label="Advance tax and the dates you can't miss">Advance tax and the dates you can't miss<a aria-label="Link to this card" class="anchor" href="#advance-tax-and-the-dates-you-can-t-miss">#</a></h3><div class="tw"><table>
+<tr><th>Date</th><th>Cumulative share of the year's tax</th><th>Meera (₹1.2 lakh tax)</th></tr>
+<tr><td>15 June</td><td>15%</td><td>₹18,000</td></tr>
+<tr><td>15 September</td><td>45%</td><td>+₹36,000</td></tr>
+<tr><td>15 December</td><td>75%</td><td>+₹36,000</td></tr>
+<tr><td>15 March</td><td>100%</td><td>+₹30,000</td></tr>
+<tr><td>31 July (next year)</td><td colspan="2">ITR due date for non-audit individuals (can be extended)</td></tr>
+</table></div><ul>
+<li>Advance tax applies when the year's net tax after TDS exceeds ₹10,000. Traders usually cross it because nothing is withheld on trading profits, and nobody sends reminders.</li>
+<li>Each date tops you up to the running total (the September instalment is 30%, not 45%). Before each date, take broker P&amp;L to date, estimate the tax, pay, adjust next time.</li>
+<li>Two clocks: advance-tax dates avoid interest; the return due date protects loss carry-forward (up to 8 assessment years for business and capital losses). A late return still reports the loss but forfeits the carry-forward.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ovtaxatlas"><span>Previous</span>00 · Taxation for traders and investors: atlas and routes</a><a class="sn-next" href="#equity"><span>Next</span>02 · The equity investor: capital gains, STT, intraday and gifts</a></nav></section>
+<section class="sec t" data-origin="ovtax" data-sid="equity" id="equity"><h2 data-label="The equity investor: capital gains, STT, intraday and gifts"><span class="n">02</span>The equity investor: capital gains, STT, intraday and gifts</h2>
+<p class="src">OpenAlgo Open Varsity · Taxation · chapters 5–8 (<a href="https://www.openalgo.in/taxation/capital-gains-on-shares">capital gains</a>, <a href="https://www.openalgo.in/taxation/stt-and-charges">STT and charges</a>, <a href="https://www.openalgo.in/taxation/intraday-trading-tax">intraday</a>, <a href="https://www.openalgo.in/taxation/gifting-and-inheriting-shares">gifting and inheriting</a>)</p>
+<div class="g2">
+<div class="card t full" data-ck="capital-gains-on-shares-and-mutual-funds" data-skey="ovtax:the-equity-investor-capital-gains-stt-intraday-a/capital-gains-on-shares-and-mutual-funds" id="capital-gains-on-shares-and-mutual-funds"><h3 data-label="Capital gains on shares and mutual funds">Capital gains on shares and mutual funds<a aria-label="Link to this card" class="anchor" href="#capital-gains-on-shares-and-mutual-funds">#</a></h3><div class="tw"><table>
+<tr><th>Gain (listed shares, equity MFs)</th><th>Holding</th><th>Section</th><th>Rate</th></tr>
+<tr><td>Short-term (STCG)</td><td>12 months or less</td><td>111A</td><td>20%</td></tr>
+<tr><td>Long-term (LTCG)</td><td>More than 12 months</td><td>112A</td><td>12.5% above ₹1.25 lakh a year</td></tr>
+<tr><td>Debt mutual funds</td><td colspan="2">Any</td><td>Slab rate</td></tr>
+</table></div><div class="formula"><span class="fl">grandfathered cost (bought before 31 Jan 2018) = max(actual cost, min(FMV on 31 Jan 2018, sale price))</span><span class="fl">cost 15,000 · FMV 18,000 · sale 20,000 → cost 18,000 → LTCG 2,000 (not 5,000)</span></div><ul>
+<li>The ₹1.25 lakh LTCG exemption is per person per year across all equity, not per stock. Ravi's ₹2 lakh LTCG → ₹75,000 taxable → ₹9,375. Priya's 8-month ₹40,000 gain → ₹8,000. Add 4% cess (and surcharge at very high incomes).</li>
+<li>Capital losses only offset capital gains: a long-term loss only LTCG, a short-term loss either. Carry forward 8 years if filed on time.</li>
+<li>Each <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr> instalment has its own purchase date. Use the broker's capital-gains statement for costs. Spread sales across years to reuse the exemption; hold winners past 12 months where practical.</li>
+</ul></div>
+<div class="card r" data-ck="stt-a-charge-and-a-tracker" data-skey="ovtax:the-equity-investor-capital-gains-stt-intraday-a/stt-a-charge-and-a-tracker" id="stt-a-charge-and-a-tracker"><h3 data-label="STT: a charge and a tracker">STT: a charge and a tracker<a aria-label="Link to this card" class="anchor" href="#stt-a-charge-and-a-tracker">#</a></h3><div class="tw"><table>
+<tr><th>Transaction (from 1 Apr 2026, per the course)</th><th>Rate</th><th>Paid by / on</th></tr>
+<tr><td>Delivery equity, buy and sell</td><td>0.1%</td><td>Both sides, trade value</td></tr>
+<tr><td>Intraday equity</td><td>0.025%</td><td>Seller, sell value</td></tr>
+<tr><td>Mutual fund units</td><td>0.001%</td><td>Seller</td></tr>
+<tr><td>Futures</td><td>0.05%</td><td>Seller, trade price</td></tr>
+<tr><td>Options sold</td><td>0.15%</td><td>Seller, on premium</td></tr>
+<tr><td>Options exercised</td><td>0.15%</td><td>Buyer, on intrinsic value</td></tr>
+</table></div><p>Sell one ₹5 lakh futures lot → ₹250; sell one option lot at ₹50 × 65 → ≈ ₹4.88 (premium, not notional). 20 futures sales a month ≈ ₹60,000 a year. No separate <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr> return; it's collected through the broker. Traders reporting business income deduct STT and other charges as expenses (Vikram: ₹6 lakh profit − ₹45,000 STT = ₹5.55 lakh before other charges).</p></div>
+<div class="card y" data-ck="intraday-speculative-business-income" data-skey="ovtax:the-equity-investor-capital-gains-stt-intraday-a/intraday-speculative-business-income" id="intraday-speculative-business-income"><h3 data-label="Intraday: speculative business income">Intraday: speculative business income<a aria-label="Link to this card" class="anchor" href="#intraday-speculative-business-income">#</a></h3><ul>
+<li>Same-day buy and sell with no delivery is <b>speculative business income</b>, taxed at your slab rate (₹1.2 lakh at a 10% slab → ₹12,000 + cess). Shares that settle into your demat aren't intraday, even if sold next day.</li>
+<li>Deduct brokerage, <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr> and other trading charges. Most active traders file ITR-3.</li>
+<li>Speculative losses only offset speculative income, carry forward just <b>4 years</b> (vs 8 for business and capital losses), and need an on-time return.</li>
+<li>Sunita: ₹50,000 intraday loss can't touch her ₹80,000 delivery STCG or her salary; next year's ₹30,000 intraday profit is absorbed, leaving ₹20,000 to carry.</li>
+<li>Keep intraday and delivery records separate from day one.</li>
+</ul></div>
+<div class="card p" data-ck="gifting-and-inheriting-shares" data-skey="ovtax:the-equity-investor-capital-gains-stt-intraday-a/gifting-and-inheriting-shares" id="gifting-and-inheriting-shares"><h3 data-label="Gifting and inheriting shares">Gifting and inheriting shares<a aria-label="Link to this card" class="anchor" href="#gifting-and-inheriting-shares">#</a></h3><div class="tw"><table>
+<tr><th>Transfer</th><th>Gift tax</th><th>Future income taxed to</th></tr>
+<tr><td>To an adult child or sibling</td><td>Nil (relative)</td><td>The receiver</td></tr>
+<tr><td>To a spouse or minor child</td><td>Nil</td><td>The giver (clubbing, Sec 64)</td></tr>
+<tr><td>From non-relatives, &gt; ₹50,000 in a year</td><td>Whole amount taxable (Sec 56(2)(x))</td><td>The receiver</td></tr>
+<tr><td>Inheritance or will</td><td>Exempt</td><td>The heir</td></tr>
+</table></div><ul>
+<li>₹50,000 is a cliff, not an allowance: ₹50,001 is taxed from the first rupee, and small non-relative gifts are added together.</li>
+<li>The receiver keeps the donor's <b>cost and holding period</b>: shares bought for ₹1 lakh, held 3 years, gifted, sold 18 months later at ₹1.8 lakh → ₹80,000 long-term gain. Keep the donor's contract notes, or the cost may be unprovable.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#basics"><span>Previous</span>01 · Start here: filing, buckets, regimes and deadlines</a><a class="sn-next" href="#fno"><span>Next</span>03 · The F&amp;O trader: business income, turnover, audit and losses</a></nav></section>
+<section class="sec r" data-origin="ovtax" data-sid="fno" id="fno"><h2 data-label="The F&amp;O trader: business income, turnover, audit and losses"><span class="n">03</span>The F&amp;O trader: business income, turnover, audit and losses</h2>
+<p class="src">OpenAlgo Open Varsity · Taxation · chapters 9–13 (<a href="https://www.openalgo.in/taxation/fno-is-business-income">F&amp;O is business income</a>, <a href="https://www.openalgo.in/taxation/fno-turnover-and-expenses">turnover and expenses</a>, <a href="https://www.openalgo.in/taxation/fno-tax-audit">tax audit</a>, <a href="https://www.openalgo.in/taxation/fno-losses-set-off">losses</a>, <a href="https://www.openalgo.in/taxation/not-reporting-fno">not reporting</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="the-number-one-mistake-f-o-is-business-income" data-skey="ovtax:the-f-o-trader-business-income-turnover-audit-an/the-number-one-mistake-f-o-is-business-income" id="the-number-one-mistake-f-o-is-business-income"><h3 data-label="The number-one mistake: F&amp;O is business income">The number-one mistake: F&amp;O is business income<a aria-label="Link to this card" class="anchor" href="#the-number-one-mistake-f-o-is-business-income">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Meera (correct)</th><th>Rohan (wrong)</th></tr>
+<tr><td>Salary + <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> profit</td><td>₹12 lakh + ₹3 lakh</td><td>₹12 lakh + ₹3 lakh</td></tr>
+<tr><td>Head</td><td>Business income</td><td>Short-term capital gains</td></tr>
+<tr><td>Expenses</td><td>₹20,000 deducted → ₹2.8 lakh</td><td>None allowed</td></tr>
+<tr><td>Tax on F&amp;O</td><td>≈ ₹42,000 at the 15% slab</td><td>≈ ₹60,000 at 20%, plus defective-return risk</td></tr>
+</table></div><p>F&amp;O profit is non-speculative business income ("profits and gains of business or profession") whether you trade monthly or hourly: slab rates, genuine expenses deductible, losses set off widely and carried 8 years if filed on time. Report it on <b>ITR-3</b>, never ITR-1 or as capital gains on ITR-2.</p></div>
+<div class="card o" data-ck="turnover-is-not-contract-value" data-skey="ovtax:the-f-o-trader-business-income-turnover-audit-an/turnover-is-not-contract-value" id="turnover-is-not-contract-value"><h3 data-label="Turnover is not contract value">Turnover is not contract value<a aria-label="Link to this card" class="anchor" href="#turnover-is-not-contract-value">#</a></h3><div class="formula"><span class="fl">F&amp;O turnover = Σ |profit or loss on each trade| + premium received on options sold</span><span class="fl">trades +12,000 / −8,000 / +5,000 → turnover 25,000 · net profit 9,000 (taxed)</span></div><ul>
+<li>Anita's ₹3.2 crore of contract value was really ≈ ₹6 lakh of turnover. Turnover only decides audit thresholds; net profit is what's taxed. Take it from the broker's tax P&amp;L and turnover report, not by hand.</li>
+<li>Deductible if genuine and trade-connected: brokerage, <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr>, exchange charges, internet and phone (trading share), charting and data tools, CA fees, depreciation on a laptop (yearly share).</li>
+<li>₹1.5 lakh profit − ₹45,000 expenses = ₹1.05 lakh taxable, ≈ ₹6,750 saved at 15%. Keep contract notes, invoices and statements in one folder; never claim personal costs.</li>
+</ul></div>
+<div class="card y" data-ck="do-i-need-a-tax-audit" data-skey="ovtax:the-f-o-trader-business-income-turnover-audit-an/do-i-need-a-tax-audit" id="do-i-need-a-tax-audit"><h3 data-label="Do I need a tax audit?">Do I need a tax audit?<a aria-label="Link to this card" class="anchor" href="#do-i-need-a-tax-audit">#</a></h3><div class="ladder"><div class="l-start">Work out your derivatives turnover first</div><div class="l-step"><div class="l-q" data-tip="Use turnover (sum of absolute trade P&amp;L plus option premium sold), not contract value. Online broker trading is almost always non-cash." tabindex="0"><span class="l-n">1</span><span>Above ₹10 crore with cash at most 5% of receipts and payments, or ₹1 crore otherwise?</span></div><div class="l-as"><div class="l-a" data-tip="A chartered accountant audits the books and files the report before the return; skipping it costs the lower of ₹1.5 lakh or 0.5% of turnover." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Audit under 44AB</b><span>turnover, not profit, triggered it</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Only relevant if you used the presumptive scheme before; most F&amp;O traders file regular books and can skip this." tabindex="0"><span class="l-n">2</span><span>Did you opt into 44AD presumptive and declare below the deemed profit, or a loss?</span></div><div class="l-as"><div class="l-a" data-tip="Report the loss on ITR-3 by the due date so it carries forward for 8 years." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>No audit: file on time</b><span>and report any loss to carry it forward</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Total income from all heads after set-off, compared with the exemption limit for your regime." tabindex="0"><span class="l-n">3</span><span>Is your total income above the basic exemption limit?</span></div><div class="l-as"><div class="l-a" data-tip="The 44AD exit and re-entry rules decide it, and they depend on what you declared in earlier years." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Audit may apply: see a CA</b><span>it depends on your 44AD history</span></div></div><div class="l-a" data-tip="Below the exemption limit the 44AD audit trigger usually doesn't bite; still confirm and file the return." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Likely no audit</b><span>confirm with a CA</span></div></div></div></div></div><p>Vikram: ≈ ₹2 lakh <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> loss on ≈ ₹40 lakh turnover, all digital → far below ₹10 crore, no audit. A loss alone never forces an audit; skipping the return to "stay invisible" is the real risk.</p></div>
+<div class="card g" data-ck="f-o-losses-set-off-and-carry-forward" data-skey="ovtax:the-f-o-trader-business-income-turnover-audit-an/f-o-losses-set-off-and-carry-forward" id="f-o-losses-set-off-and-carry-forward"><h3 data-label="F&amp;O losses: set-off and carry-forward">F&amp;O losses: set-off and carry-forward<a aria-label="Link to this card" class="anchor" href="#f-o-losses-set-off-and-carry-forward">#</a></h3><div class="tw"><table>
+<tr><th>Ravi</th><th>Amount</th></tr>
+<tr><td>Salary</td><td>₹8 lakh (never offset)</td></tr>
+<tr><td>Rent</td><td>₹2 lakh → offset to 0</td></tr>
+<tr><td>FD interest</td><td>₹1 lakh → offset to 0</td></tr>
+<tr><td><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> loss</td><td>₹5 lakh: ₹3 lakh used, ₹2 lakh carried</td></tr>
+<tr><td>Next year: F&amp;O profit ₹3 lakh</td><td>Taxable ₹1 lakh</td></tr>
+</table></div><ul>
+<li>In the same year an F&amp;O loss offsets house property, other business, capital gains and other sources, but <b>never salary</b>.</li>
+<li>Unused loss carries forward up to <b>8 assessment years</b>, against future business income only, and only if the return was filed by the Section 139(1) due date. A late return keeps the current-year set-off but loses the carry-forward for good.</li>
+</ul></div>
+<div class="card p full" data-ck="what-happens-if-you-don-t-report-f-o" data-skey="ovtax:the-f-o-trader-business-income-turnover-audit-an/what-happens-if-you-don-t-report-f-o" id="what-happens-if-you-don-t-report-f-o"><h3 data-label="What happens if you don't report F&amp;O">What happens if you don't report F&amp;O<a aria-label="Link to this card" class="anchor" href="#what-happens-if-you-don-t-report-f-o">#</a></h3><div class="tw"><table>
+<tr><th>Lapse</th><th>Consequence</th></tr>
+<tr><td>Under-reporting or concealing income (Sec 270A)</td><td>50%–200% of the tax on the under-reported amount</td></tr>
+<tr><td>No books of account (Sec 271A)</td><td>₹25,000</td></tr>
+<tr><td>Required audit not done (Sec 271B)</td><td>Lower of ₹1.5 lakh or 0.5% of turnover</td></tr>
+<tr><td>Late return (Sec 234F)</td><td>₹5,000 (₹1,000 if income is up to ₹5 lakh)</td></tr>
+<tr><td>Return doesn't match AIS</td><td>Notices, including a defective-return notice (Sec 139(9))</td></tr>
+<tr><td>Late filing</td><td>8-year loss carry-forward forfeited</td></tr>
+</table></div><p>Anjali, ₹3 lakh loss on ₹40 lakh AIS turnover: reporting it costs nil tax and keeps the carry-forward; in the course's worst case, ₹5 lakh of unexplained turnover treated as income meant ₹1 lakh of tax at 20% plus a 50% penalty: ₹1.5 lakh and interest. Report <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> every year on ITR-3 and reconcile with AIS first.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#equity"><span>Previous</span>02 · The equity investor: capital gains, STT, intraday and gifts</a><a class="sn-next" href="#global"><span>Next</span>04 · Global and crypto</a></nav></section>
+<section class="sec p" data-origin="ovtax" data-sid="global" id="global"><h2 data-label="Global and crypto"><span class="n">04</span>Global and crypto</h2>
+<p class="src">OpenAlgo Open Varsity · Taxation · chapters 14–17 (<a href="https://www.openalgo.in/taxation/tax-on-us-stocks">US stocks</a>, <a href="https://www.openalgo.in/taxation/foreign-assets-and-black-money">Schedule FA and Black Money Act</a>, <a href="https://www.openalgo.in/taxation/crypto-tax-basics">crypto tax</a>, <a href="https://www.openalgo.in/taxation/crypto-fno-tax">crypto derivatives</a>)</p>
+<div class="g2">
+<div class="card p" data-ck="us-stocks-for-indian-residents" data-skey="ovtax:global-and-crypto/us-stocks-for-indian-residents" id="us-stocks-for-indian-residents"><h3 data-label="US stocks for Indian residents">US stocks for Indian residents<a aria-label="Link to this card" class="anchor" href="#us-stocks-for-indian-residents">#</a></h3><div class="tw"><table>
+<tr><th>Item</th><th>Rule</th></tr>
+<tr><td>Gains held &gt; 24 months</td><td>Long-term, 12.5% + cess</td></tr>
+<tr><td>Gains held ≤ 24 months</td><td>Short-term, slab rate</td></tr>
+<tr><td>Dividends</td><td>US withholds 25%; India taxes at slab; claim foreign tax credit</td></tr>
+<tr><td>Remittances (LRS)</td><td>20% TCS above ₹7 lakh a year, credited back</td></tr>
+</table></div><ul>
+<li>Under the India–US treaty, residents' capital gains are taxed only in India. ₹8 lakh bought, ₹11 lakh sold after 30 months → ₹3 lakh gain → ₹37,500 + cess.</li>
+<li>₹10,000 dividend: ₹2,500 withheld in the US; Indian tax at 20% = ₹2,000, fully covered by the credit. File <b>Form 67 before the ITR</b> or the credit can be lost.</li>
+<li>Don't apply the 12-month Indian rule to US shares, and treat TCS as a credit, not a cost.</li>
+</ul></div>
+<div class="card r" data-ck="schedule-fa-and-the-black-money-act" data-skey="ovtax:global-and-crypto/schedule-fa-and-the-black-money-act" id="schedule-fa-and-the-black-money-act"><h3 data-label="Schedule FA and the Black Money Act">Schedule FA and the Black Money Act<a aria-label="Link to this card" class="anchor" href="#schedule-fa-and-the-black-money-act">#</a></h3><ul>
+<li>Residents disclose <b>every foreign asset every year</b> in Schedule FA (US shares, foreign funds and ETFs, overseas brokerage and bank accounts), even with no sale, gain or dividend: it records what you own, not what you earned. ITR-2 for most; ITR-3 if you also trade as a business.</li>
+<li>Black Money Act 2015 for undisclosed foreign income or assets: ₹10 lakh penalty per year of non-disclosure, 30% tax, and prosecution of 6 months to 7 years.</li>
+<li>From 1 Oct 2024 the ₹10 lakh penalty doesn't apply if foreign assets (excluding immovable property) stay under ₹20 lakh, but the duty to disclose remains.</li>
+<li>Meera held ≈ ₹90,000 of US shares, earned almost nothing and left Schedule FA blank: "no foreign income" isn't "no foreign asset". Fix past returns with a CA.</li>
+<li>LRS example: ₹12 lakh remitted → ₹5 lakh above the threshold → ₹1 lakh TCS, recoverable at filing.</li>
+</ul></div>
+<div class="card y" data-ck="crypto-flat-30-and-1-tds" data-skey="ovtax:global-and-crypto/crypto-flat-30-and-1-tds" id="crypto-flat-30-and-1-tds"><h3 data-label="Crypto: flat 30% and 1% TDS">Crypto: flat 30% and 1% TDS<a aria-label="Link to this card" class="anchor" href="#crypto-flat-30-and-1-tds">#</a></h3><div class="tw"><table>
+<tr><th>Rule</th><th>Detail</th></tr>
+<tr><td>Rate (Sec 115BBH)</td><td>Flat 30% + surcharge + 4% cess; no slabs, no exemption</td></tr>
+<tr><td>Deductions</td><td>Cost of acquisition only: no fees, software, power, interest</td></tr>
+<tr><td>Losses</td><td>No set-off against anything, even other crypto; no carry-forward</td></tr>
+<tr><td>TDS (Sec 194S)</td><td>1% of sale value above ₹50,000 a year (specified persons) or ₹10,000 (others)</td></tr>
+<tr><td>Reporting</td><td>Schedule VDA: ITR-2 as an investor, ITR-3 as a business</td></tr>
+</table></div><p>Coin A gains ₹1 lakh → ₹31,200 tax; coin B loses ₹40,000 and can't reduce it: ₹60,000 real profit, ₹31,200 tax. TDS works like advance tax and leaves a trail in AIS / Form 26AS.</p></div>
+<div class="card o" data-ck="crypto-derivatives-a-grey-area" data-skey="ovtax:global-and-crypto/crypto-derivatives-a-grey-area" id="crypto-derivatives-a-grey-area"><h3 data-label="Crypto derivatives: a grey area">Crypto derivatives: a grey area<a aria-label="Link to this card" class="anchor" href="#crypto-derivatives-a-grey-area">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Spot crypto</th><th>Crypto futures (common reading)</th></tr>
+<tr><td>Rule</td><td>Flat 30%, Sec 115BBH</td><td>Usually business income at slab</td></tr>
+<tr><td>Expenses</td><td>Cost only</td><td>Business expenses may be allowed</td></tr>
+<tr><td>Losses</td><td>No set-off</td><td>Some set-off may apply</td></tr>
+<tr><td>1% TDS</td><td>Yes</td><td>No</td></tr>
+</table></div><ul>
+<li>Futures are contracts on a price, not transfers of the coin, so the 30% rule generally isn't read to reach them; a conservative view calls them speculative. No clear official guidance: ₹3 lakh profit could be ≈ ₹90,000 or ≈ ₹60,000 (at 20%) of tax.</li>
+<li>LRS doesn't permit remitting margin to overseas exchanges or funding overseas derivatives, so offshore futures can breach FEMA regardless of tax paid.</li>
+<li>Keep every record, document why you chose your position, and get a CA's review.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#fno"><span>Previous</span>03 · The F&amp;O trader: business income, turnover, audit and losses</a><a class="sn-next" href="#filing"><span>Next</span>05 · Filing it right</a></nav></section>
+<section class="sec y" data-origin="ovtax" data-sid="filing" id="filing"><h2 data-label="Filing it right"><span class="n">05</span>Filing it right</h2>
+<p class="src">OpenAlgo Open Varsity · Taxation · chapters 18–19 (<a href="https://www.openalgo.in/taxation/choosing-your-itr">which ITR</a>, <a href="https://www.openalgo.in/taxation/the-traders-tax-checklist">year-round checklist</a>)</p>
+<div class="g2">
+<div class="card y" data-ck="which-itr-form-is-yours" data-skey="ovtax:filing-it-right/which-itr-form-is-yours" id="which-itr-form-is-yours"><h3 data-label="Which ITR form is yours">Which ITR form is yours<a aria-label="Link to this card" class="anchor" href="#which-itr-form-is-yours">#</a></h3><div class="tw"><table>
+<tr><th>Form</th><th>Fits</th><th>Can't hold</th></tr>
+<tr><td>ITR-1 (Sahaj)</td><td>Salary, interest, one house property, modest income</td><td>Capital gains, any business income</td></tr>
+<tr><td>ITR-2</td><td>Capital gains, multiple properties, foreign assets (FA), crypto as capital gains (VDA)</td><td>Business income</td></tr>
+<tr><td>ITR-3</td><td><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr>, intraday, trading or crypto as a business, plus everything ITR-2 holds</td><td>Nothing: the complete form</td></tr>
+<tr><td>ITR-4 (Sugam)</td><td>Limited presumptive cases</td><td>Most active traders</td></tr>
+</table></div><p>The kind of income, not the amount, picks the form, and business income overrides everything: Vikram's salary + ₹80,000 LTCG + ₹40,000 F&amp;O profit → ITR-3; Anjali, an investor with no F&amp;O → ITR-2. A mismatched form draws a Sec 139(9) defective-return notice, and ignoring it can make the return count as not filed.</p></div>
+<div class="card t" data-ck="the-year-round-loop" data-skey="ovtax:filing-it-right/the-year-round-loop" id="the-year-round-loop"><h3 data-label="The year-round loop">The year-round loop<a aria-label="Link to this card" class="anchor" href="#the-year-round-loop">#</a></h3><pre class="mermaid" data-h="331" data-key="3e3880f775d4" data-w="244">flowchart TD
+  B["Pull broker tax P&amp;L and turnover"] --&gt; A["Pay advance tax on the four dates"]
+  A --&gt; E["Save expense proofs as you go"]
+  E --&gt; R["Reconcile with AIS and Form 26AS"]
+  R --&gt; F["File the right ITR by the due date"]</pre><p>Treat tax as a quarterly habit rather than a July scramble: about five minutes a quarter keeps records current; reconstructing everything in July is costly.</p></div>
+<div class="card g full" data-ck="calendar-documents-and-when-to-call-a-ca" data-skey="ovtax:filing-it-right/calendar-documents-and-when-to-call-a-ca" id="calendar-documents-and-when-to-call-a-ca"><h3 data-label="Calendar, documents and when to call a CA">Calendar, documents and when to call a CA<a aria-label="Link to this card" class="anchor" href="#calendar-documents-and-when-to-call-a-ca">#</a></h3><div class="tw"><table>
+<tr><th>When</th><th>Do</th></tr>
+<tr><td>15 Jun</td><td>Advance tax 1 (if net tax &gt; ₹10,000); fresh broker tax P&amp;L</td></tr>
+<tr><td>15 Sep</td><td>Advance tax 2; review turnover; update the expense file</td></tr>
+<tr><td>15 Dec</td><td>Advance tax 3; check turnover against audit thresholds</td></tr>
+<tr><td>15 Mar</td><td>Final instalment; dry-run the full year's profit, loss and tax</td></tr>
+<tr><td>Jun–Jul</td><td>Full-year P&amp;L and turnover report; reconcile; file ITR-3 by the due date</td></tr>
+</table></div><ul>
+<li>Four documents: the broker's tax P&amp;L and turnover report, expense proofs, the <b>AIS</b> (the department's view of your transactions) and <b>Form 26AS</b> (TDS, TCS and advance tax credits). Your figures should agree with them.</li>
+<li>Bring in a chartered accountant when turnover is large or an audit may apply, when you hold foreign assets (Schedule FA even with no gain), or when crypto is involved.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#global"><span>Previous</span>04 · Global and crypto</a><a class="sn-next" href="#last"><span>Next</span>06 · Checklists and quick reference</a></nav></section>
+<section class="sec g" data-origin="ovtax" data-sid="last" id="last"><h2 data-label="Checklists and quick reference"><span class="n">06</span>Checklists and quick reference</h2>
+<p>Tick every box before you file.</p>
+<div class="g2">
+<div class="card g" data-ck="pre-filing-checklist" data-skey="ovtax:checklists-and-quick-reference/pre-filing-checklist" id="pre-filing-checklist"><h3 data-label="Pre-filing checklist">Pre-filing checklist<a aria-label="Link to this card" class="anchor" href="#pre-filing-checklist">#</a></h3><ol class="steps">
+<li>Full-year broker P&amp;L and turnover downloaded.</li>
+<li>Advance tax paid on the four dates where needed, visible in 26AS.</li>
+<li>Expense proofs saved and totalled.</li>
+<li>Figures agree with AIS and 26AS.</li>
+<li><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> and intraday reported as business income on ITR-3.</li>
+<li>Schedule FA, Form 67 and Schedule VDA done where relevant.</li>
+<li>Regime chosen (Form 10-IEA if moving to the old regime with business income).</li>
+<li>Filed by the due date, so losses carry forward.</li>
+<li>CA review if turnover, audit, foreign assets or crypto apply.</li>
+</ol></div>
+<div class="card b" data-ck="rates-at-a-glance-as-the-course-states" data-skey="ovtax:checklists-and-quick-reference/rates-at-a-glance-as-the-course-states" id="rates-at-a-glance-as-the-course-states"><h3 data-label="Rates at a glance (as the course states)">Rates at a glance (as the course states)<a aria-label="Link to this card" class="anchor" href="#rates-at-a-glance-as-the-course-states">#</a></h3><div class="formula"><span class="fl">F&amp;O, intraday: slab rate (business income)</span><span class="fl">listed equity STCG (≤ 12 months): 20%</span><span class="fl">listed equity LTCG: 12.5% above ₹1.25 lakh a year</span><span class="fl">US shares: &gt; 24 months 12.5%, else slab</span><span class="fl">crypto (VDA): flat 30%, 1% TDS on sales</span><span class="fl">cess: 4% on tax + surcharge</span><span class="fl">advance tax: 15 / 45 / 75 / 100% by 15 Jun / Sep / Dec / Mar</span><span class="fl">carry-forward: 8 years (business, capital) · 4 years (speculative)</span><span class="fl">audit (44AB): turnover &gt; ₹10 crore (≤ 5% cash) or ₹1 crore</span><span class="fl">non-relative gifts: whole amount taxable above ₹50,000 a year</span></div></div>
+<div class="card o" data-ck="about-this-sheet" data-skey="ovtax:checklists-and-quick-reference/about-this-sheet" id="about-this-sheet"><h3 data-label="About this sheet">About this sheet<a aria-label="Link to this card" class="anchor" href="#about-this-sheet">#</a></h3><p>This sheet condenses the free course <a href="https://www.openalgo.in/taxation">Taxation for Traders and Investors</a> from <a href="https://www.openalgo.in/learn">OpenAlgo Open Varsity</a> (19 chapters, 5 modules) into reference cards in our own words. Rates, thresholds and section numbers are as the course gives them for FY 2025-26 / AY 2026-27 (<abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr> as stated from 1 Apr 2026); tax law and section numbering change, and worked examples are illustrative. Each section links back to its chapters. Educational only, not tax advice: confirm your position with a qualified chartered accountant.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#filing"><span>Previous</span>05 · Filing it right</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"3e3880f775d4": {"B": "Download the broker's tax P&L and turnover report each quarter, not only in July.", "A": "If the year's net tax will top ₹10,000: 15%, 45%, 75% and 100% by 15 Jun, 15 Sep, 15 Dec and 15 Mar.", "E": "Invoices for data, tools, internet and CA fees go into one folder as they arrive.", "R": "AIS and Form 26AS are what the department already sees; your figures should match before you file.", "F": "ITR-3 for any F&O or intraday; filing by the 139(1) due date keeps loss carry-forward alive."}}</script>
+</body></html>

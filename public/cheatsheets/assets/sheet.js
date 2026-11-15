@@ -753,7 +753,7 @@
         help = document.createElement('div'); help.id = 'kbd-help'; help.setAttribute('role', 'dialog'); help.setAttribute('aria-label', 'Keyboard shortcuts');
         help.innerHTML = '<div class="kh-box"><b>Keyboard shortcuts</b><table>' +
           [['/', 'Search this sheet'], ['Esc', 'Clear search, close panels'], ['[ / ]', 'Previous / next section'], ['t', 'Toggle dark mode'],
-           ['s', 'Open the Study menu'], ['f', 'Start flashcards'], ['?', 'Show or hide this list'],
+           ['s', 'Open the Study menu'], ['f', 'Start flashcards'], ['l', 'Listen: start or pause your study buddy'], ['?', 'Show or hide this list'],
            ['Space / 1 / 2', 'In flashcards: show, again, got it']].map(([k, v]) => `<tr><td><kbd>${k}</kbd></td><td>${v}</td></tr>`).join('') +
           '</table><button type="button" class="kh-close">Close</button></div>';
         document.body.appendChild(help);

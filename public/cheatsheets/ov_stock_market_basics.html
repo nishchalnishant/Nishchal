@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Stock Market Basics · Cheatsheets</title>
+<meta name="description" content="Inflation and compounding, the six asset classes, SEBI and the market plumbing, T+1 settlement and the closing auction, IPOs and corporate actions, quotes, depth and indices, what moves prices, a beginner roadmap, biases and scams.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+
+</head>
+<body class="s-ovsm" data-hue="b">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><a href="index.html#ov" class="on" title="OpenAlgo Open Varsity course sheets">Open Varsity</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><h4>Open Varsity</h4><a href="ov_stock_market_basics.html" aria-current="page">Stock basics</a><a href="ov_technical_analysis.html">OV technicals</a><a href="ov_python_for_traders.html">Python for traders</a><a href="ov_futures_trading.html">Futures</a><a href="ov_options_basics.html">Options basics</a><a href="ov_options_strategies.html">Options strategies</a><a href="ov_algo_trading_python.html">Algo trading</a><a href="ov_quantitative_trading.html">Quant trading</a><a href="ov_statistical_arbitrage.html">Stat arb</a><a href="ov_amibroker_afl.html">AmiBroker AFL</a><a href="ov_taxation.html">Taxation</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Open Varsity · Beginner</div><h1>Stock Market Basics</h1><p>Inflation and compounding, the six asset classes, SEBI and the market plumbing, T+1 settlement and the closing auction, IPOs and corporate actions, quotes, depth and indices, what moves prices, a beginner roadmap, biases and scams.</p></div>
+      <div class="stats"><div><b>8</b>sections</div><div><b>60</b>cards</div><div><b>9</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec b" data-origin="ovsm" data-sid="ovsmatlas" id="ovsmatlas"><h2 data-label="Stock market basics: atlas and routes"><span class="n">00</span>Stock market basics: atlas and routes</h2>
+<p>The whole course on one screen: why to invest, how the Indian market is wired, how companies list, how to read prices, what moves them, and how to start safely. Condensed from OpenAlgo's free Open Varsity course. Educational, not investment advice.</p>
+<div class="g2">
+<div class="card b full" data-ck="stock-market-basics-topic-atlas" data-skey="ovsm:stock-market-basics-atlas-and-routes/stock-market-basics-topic-atlas" id="stock-market-basics-topic-atlas"><h3 data-label="Stock market basics topic atlas">Stock market basics topic atlas<a aria-label="Link to this card" class="anchor" href="#stock-market-basics-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>Stock Market Basics</b><small>6 areas · 30 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#money" title="Go to: Money and markets: why invest, where, and what a share is"><span class="at-n">01</span><span class="at-bl">Money and markets</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#inflation-and-real-returns" title="Go to: Inflation and real returns">Inflation and real returns</a><a class="at-chip" href="#compounding-and-starting-early" title="Go to: Compounding and starting early">Compounding and starting early</a><a class="at-chip" href="#the-six-asset-classes-compared" title="Go to: The six asset classes compared">The six asset classes</a><a class="at-chip" href="#asset-allocation-basics" title="Go to: Asset allocation basics">Asset allocation</a><a class="at-chip" href="#what-a-share-actually-is" title="Go to: What a share actually is">What a share is</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#eco" title="Go to: The market ecosystem: regulators, plumbing and settlement"><span class="at-n">02</span><span class="at-bl">Market ecosystem</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#sebi-and-rbi-who-guards-what" title="Go to: SEBI and RBI: who guards what">SEBI and RBI</a><a class="at-chip" href="#exchanges-brokers-depositories-clearing" title="Go to: Exchanges, brokers, depositories, clearing">Exchanges, brokers, depositories</a><a class="at-chip" href="#brokers-and-the-true-cost-of-a-trade" title="Go to: Brokers and the true cost of a trade">Trading hours and charges</a><a class="at-chip" href="#from-buy-click-to-shares-in-demat" title="Go to: From buy click to shares in demat">Clearing and T+1 settlement</a><a class="at-chip" href="#trading-hours-and-the-closing-auction" title="Go to: Trading hours and the closing auction">Closing auction session</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#ipo" title="Go to: Going public: funding, IPOs and corporate actions"><span class="at-n">03</span><span class="at-bl">Going public</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#the-funding-ladder" title="Go to: The funding ladder">Funding ladder and valuation</a><a class="at-chip" href="#valuation-and-dilution" title="Go to: Valuation and dilution">Dilution</a><a class="at-chip" href="#how-an-ipo-works" title="Go to: How an IPO works">IPO process and categories</a><a class="at-chip" href="#corporate-actions-at-a-glance" title="Go to: Corporate actions at a glance">Rights, FPO, OFS</a><a class="at-chip" href="#adjustment-arithmetic" title="Go to: Adjustment arithmetic">Bonus, split, dividend, buyback</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#read" title="Go to: Reading the market: quotes, depth, indices and jargon"><span class="at-n">04</span><span class="at-bl">Reading the market</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#anatomy-of-a-stock-quote" title="Go to: Anatomy of a stock quote">Anatomy of a quote</a><a class="at-chip" href="#market-depth-the-five-best-bids-and-asks" title="Go to: Market depth: the five best bids and asks">Market depth and circuits</a><a class="at-chip" href="#how-an-index-is-built" title="Go to: How an index is built">Nifty, Sensex and index weights</a><a class="at-chip" href="#bull-bear-and-size-buckets" title="Go to: Bull, bear and size buckets">Bull, bear and market jargon</a><a class="at-chip" href="#long-vs-short" title="Go to: Long vs short">Long vs short</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#moves" title="Go to: What moves prices: expectations, macro and events"><span class="at-n">05</span><span class="at-bl">What moves prices</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#prices-move-on-surprise-not-on-news" title="Go to: Prices move on surprise, not on news">Expectations vs results</a><a class="at-chip" href="#rates-inflation-and-the-rbi" title="Go to: Rates, inflation and the RBI">Interest rates and inflation</a><a class="at-chip" href="#fiis-vs-diis" title="Go to: FIIs vs DIIs">FIIs, DIIs and SIP flows</a><a class="at-chip" href="#crude-rupee-and-inflation-chain" title="Go to: Crude, rupee and inflation chain">Crude, rupee and global cues</a><a class="at-chip" href="#results-season-and-dividend-dates" title="Go to: Results season and dividend dates">Results, dividends and catalysts</a></div></div><div class="at-row" style="--b:var(--c-r)"><a class="at-branch" href="#start" title="Go to: Becoming an investor: first steps, mindset and staying safe"><span class="at-n">06</span><span class="at-bl">Becoming an investor</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#opening-your-accounts" title="Go to: Opening your accounts">Accounts and KYC</a><a class="at-chip" href="#index-sip-or-direct-stocks" title="Go to: Index SIP or direct stocks?">Index SIP vs direct stocks</a><a class="at-chip" href="#beginner-roadmap" title="Go to: Beginner roadmap">Beginner roadmap</a><a class="at-chip" href="#biases-that-cost-investors-money" title="Go to: Biases that cost investors money">Biases and the emotional cycle</a><a class="at-chip" href="#is-this-tip-a-scam" title="Go to: Is this tip a scam?">Scams and red flags</a></div></div></div></div></div>
+<div class="card t" data-ck="how-to-use-this-sheet" data-skey="ovsm:stock-market-basics-atlas-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li><b>Brand new:</b> read money and markets, then the ecosystem. They explain what you are buying and who keeps it safe.</li>
+<li><b>Opening an account:</b> jump to becoming an investor for KYC, the beginner roadmap and the index <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr> vs direct stock choice.</li>
+<li><b>Confused by a price:</b> reading the market decodes the quote, depth, circuits and corporate-action adjustments.</li>
+<li><b>Before acting on a tip:</b> run the scam checklist at the end.</li>
+</ol><div class="callout"><b>Educational, not investment advice.</b> Condensed in our own words from <a href="https://www.openalgo.in/stocks">OpenAlgo Open Varsity: Stock Market Basics</a>. Figures are approximate and change over time.</div></div>
+<div class="card o" data-ck="the-investor-s-journey" data-skey="ovsm:stock-market-basics-atlas-and-routes/the-investor-s-journey" id="the-investor-s-journey"><h3 data-label="The investor's journey">The investor's journey<a aria-label="Link to this card" class="anchor" href="#the-investor-s-journey">#</a></h3><pre class="mermaid" data-h="473" data-key="ef22cd1af2b2" data-w="246">flowchart TD
+  W["Why invest: beat inflation"] --&gt; E["Emergency fund and no costly debt"]
+  E --&gt; A["Demat and trading account, KYC"]
+  A --&gt; I["Index fund SIP"]
+  I --&gt; L["Learn the businesses you own"]
+  L --&gt; D["Add direct stocks slowly"]
+  D --&gt; R["Review quarterly, not daily"]</pre><p>Each step is a gate. Skipping the early ones (cushion, debt, habit) is how most beginners get hurt.</p></div>
+<div class="card g full" data-ck="four-questions-before-any-investment" data-skey="ovsm:stock-market-basics-atlas-and-routes/four-questions-before-any-investment" id="four-questions-before-any-investment"><h3 data-label="Four questions before any investment">Four questions before any investment<a aria-label="Link to this card" class="anchor" href="#four-questions-before-any-investment">#</a></h3><div class="tw"><table>
+<tr><th>Question</th><th>Why it matters</th><th>Where it's covered</th></tr>
+<tr><td>Does my money beat inflation after tax?</td><td>Idle cash loses buying power every year</td><td>Money and markets</td></tr>
+<tr><td>Who holds my shares and guarantees the trade?</td><td>Depositories and the clearing corporation, not your broker</td><td>Market ecosystem</td></tr>
+<tr><td>Is the price move real or an adjustment?</td><td>Bonus, split and dividend drops are arithmetic, not losses</td><td>Going public, reading the market</td></tr>
+<tr><td>Is the person advising me SEBI-registered?</td><td>Unregistered paid tips are illegal and usually a trap</td><td>Becoming an investor</td></tr>
+</table></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#money"><span>Next</span>01 · Money and markets: why invest, where, and what a share is</a></nav></section>
+<section class="sec g" data-origin="ovsm" data-sid="money" id="money"><h2 data-label="Money and markets: why invest, where, and what a share is"><span class="n">01</span>Money and markets: why invest, where, and what a share is</h2>
+<p class="src">OpenAlgo Open Varsity · Stock Market Basics · chapters 1–3 (<a href="https://www.openalgo.in/stocks/why-invest">why invest</a>, <a href="https://www.openalgo.in/stocks/asset-classes">asset classes</a>, <a href="https://www.openalgo.in/stocks/what-is-a-stock">what a stock is</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="inflation-and-real-returns" data-skey="ovsm:money-and-markets-why-invest-where-and-what-a-sh/inflation-and-real-returns" id="inflation-and-real-returns"><h3 data-label="Inflation and real returns">Inflation and real returns<a aria-label="Link to this card" class="anchor" href="#inflation-and-real-returns">#</a></h3><ul>
+<li><b>Inflation</b> quietly shrinks what each rupee buys. At about 6% a year, ₹1 lakh kept idle from 2000 buys only what about ₹23,000 bought then, roughly 25 years later.</li>
+<li><b>Saving</b> protects the rupee amount; <b>investing</b> aims to protect and grow buying power. You need both: a cash cushion and growing assets.</li>
+<li>A savings account at about 3% against 5–6% inflation is a slow leak.</li>
+</ul><div class="formula"><span class="fl">real return ≈ nominal return − inflation</span><span class="fl">FD 7% − inflation 6% ≈ 1% real</span><span class="fl">equity ~12% − inflation 6% ≈ 6% real</span></div><p>Always judge returns after inflation (and tax), never by the headline number.</p></div>
+<div class="card b" data-ck="compounding-and-starting-early" data-skey="ovsm:money-and-markets-why-invest-where-and-what-a-sh/compounding-and-starting-early" id="compounding-and-starting-early"><h3 data-label="Compounding and starting early">Compounding and starting early<a aria-label="Link to this card" class="anchor" href="#compounding-and-starting-early">#</a></h3><div class="tw"><table>
+<tr><th>₹5,000/month SIP at ~12%</th><th>Invested</th><th>Approx. value</th></tr>
+<tr><td>10 years</td><td>₹6 lakh</td><td>₹11.6 lakh</td></tr>
+<tr><td>20 years</td><td>₹12 lakh</td><td>₹50 lakh</td></tr>
+<tr><td>30 years</td><td>₹18 lakh</td><td>₹1.76 crore</td></tr>
+</table></div><ul>
+<li>Tripling the time multiplied the result about 15 times: the last years do the most work.</li>
+<li><b>Start early:</b> someone investing ₹5,000 a month from 25 to 35 and then stopping ends at 60 with more than someone investing the same from 35 to 60, despite putting in less than half.</li>
+<li>Time in the market beats timing the market.</li>
+</ul></div>
+<div class="card p full" data-ck="the-six-asset-classes-compared" data-skey="ovsm:money-and-markets-why-invest-where-and-what-a-sh/the-six-asset-classes-compared" id="the-six-asset-classes-compared"><h3 data-label="The six asset classes compared">The six asset classes compared<a aria-label="Link to this card" class="anchor" href="#the-six-asset-classes-compared">#</a></h3><div class="tw"><table>
+<tr><th>Asset</th><th>What it is</th><th>Risk</th><th>Long-run return (approx.)</th><th>Liquidity</th><th>Tax (India, approx.)</th></tr>
+<tr><td>Cash / savings</td><td>Instantly spendable money</td><td>Very low</td><td>3–4%</td><td>Instant</td><td>Interest at slab rate</td></tr>
+<tr><td>Debt (FDs, bonds)</td><td>Lending for fixed interest</td><td>Low</td><td>6–7%</td><td>Medium–high</td><td>Added to income, slab rate</td></tr>
+<tr><td>Gold</td><td>Scarce metal, crisis hedge</td><td>Medium</td><td>8–10%</td><td>Medium–high (ETFs)</td><td>12.5% long term after 24 months (ETFs, funds)</td></tr>
+<tr><td>Real estate</td><td>Land and property, rent</td><td>Medium–high</td><td>7–9% plus rent</td><td>Very low</td><td>12.5% long term after 24 months</td></tr>
+<tr><td>Equity</td><td>Part-ownership of businesses</td><td>High short term</td><td>~12%</td><td>High</td><td>12.5% LTCG over ₹1.25 lakh (held over 1 year); 20% STCG</td></tr>
+<tr><td>Crypto</td><td>Digital tokens, no cash flows</td><td>Very high</td><td>Unknown, extreme swings</td><td>High</td><td>Flat 30%, 1% TDS per sale, no loss set-off</td></tr>
+</table></div><p>Funds (mutual funds, ETFs, index funds) are baskets of these building blocks. Higher potential return always comes with higher risk; risk means a wider range of outcomes, not certain loss. Tax rates change with each Budget, so check the current ones.</p></div>
+<div class="card o" data-ck="asset-allocation-basics" data-skey="ovsm:money-and-markets-why-invest-where-and-what-a-sh/asset-allocation-basics" id="asset-allocation-basics"><h3 data-label="Asset allocation basics">Asset allocation basics<a aria-label="Link to this card" class="anchor" href="#asset-allocation-basics">#</a></h3><ul>
+<li>Spread money across classes so one can offset another.</li>
+<li><b>Rough starting rule:</b> equity share ≈ 100 − age (a 25-year-old ≈ 75% equity, the rest debt and a little gold). A starting point, not a law.</li>
+<li>Emergency fund in cash or liquid funds; never in property.</li>
+<li>Money needed within 3–5 years stays out of equities.</li>
+<li>Equity has built the most long-run wealth because it owns growing businesses that reinvest profits: the Sensex went from a base of 100 (1979) to roughly 76,000, about 770× in ~45 years.</li>
+</ul></div>
+<div class="card y" data-ck="recent-asset-class-notes" data-skey="ovsm:money-and-markets-why-invest-where-and-what-a-sh/recent-asset-class-notes" id="recent-asset-class-notes"><h3 data-label="Recent asset-class notes">Recent asset-class notes<a aria-label="Link to this card" class="anchor" href="#recent-asset-class-notes">#</a></h3><ul>
+<li><b>Gold:</b> rose ~27% in 2024 and surged further in 2025 (international gold above $4,000/oz). A strong run does not guarantee a repeat.</li>
+<li><b>Sovereign Gold Bonds:</b> no new tranches after the 2025 Budget; existing bonds keep paying 2.5% a year to maturity. New buyers use gold ETFs or funds.</li>
+<li><b>Crypto:</b> can swing 10% in a day and has fallen 70%+ from peaks in past cycles; it pays no profits or dividends. Never the foundation of wealth.</li>
+</ul></div>
+<div class="card t" data-ck="what-a-share-actually-is" data-skey="ovsm:money-and-markets-why-invest-where-and-what-a-sh/what-a-share-actually-is" id="what-a-share-actually-is"><h3 data-label="What a share actually is">What a share actually is<a aria-label="Link to this card" class="anchor" href="#what-a-share-actually-is">#</a></h3><ul>
+<li>A <b>share</b> is legal part-ownership of a company. Your stake = your shares ÷ shares outstanding.</li>
+<li><b>Rights:</b> a claim on profits (dividends), a claim on what is left after debts, and usually one vote per share at the AGM.</li>
+<li><b>You earn two ways:</b> price appreciation (capital gains) and dividends while you hold.</li>
+<li><b>Price discovery:</b> a continuous auction. More eager buyers than sellers lifts the price; the displayed price is just the latest agreed trade.</li>
+<li>Per-share price says nothing about value: MRF trades above ₹1.5 lakh a share simply because it has never split its shares.</li>
+</ul></div>
+<div class="card g" data-ck="debt-vs-equity-primary-vs-secondary" data-skey="ovsm:money-and-markets-why-invest-where-and-what-a-sh/debt-vs-equity-primary-vs-secondary" id="debt-vs-equity-primary-vs-secondary"><h3 data-label="Debt vs equity, primary vs secondary">Debt vs equity, primary vs secondary<a aria-label="Link to this card" class="anchor" href="#debt-vs-equity-primary-vs-secondary">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Debt</th><th>Equity</th></tr>
+<tr><td>Obligation</td><td>Interest plus repayment</td><td>None</td></tr>
+<tr><td>Default risk for the company</td><td>Yes</td><td>No</td></tr>
+<tr><td>Dilutes owners</td><td>No</td><td>Yes</td></tr>
+</table></div><div class="tw"><table>
+<tr><th></th><th>Primary market</th><th>Secondary market</th></tr>
+<tr><td>Seller</td><td>The company (new shares)</td><td>Another investor</td></tr>
+<tr><td>Cash goes to</td><td>The company</td><td>The selling investor</td></tr>
+<tr><td>Example</td><td>An IPO</td><td>Buying TCS on <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> or <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr></td></tr>
+</table></div><div class="formula"><span class="fl">dividend income = dividend per share × shares held</span><span class="fl">capital gain = sell price − buy price</span></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ovsmatlas"><span>Previous</span>00 · Stock market basics: atlas and routes</a><a class="sn-next" href="#eco"><span>Next</span>02 · The market ecosystem: regulators, plumbing and settlement</a></nav></section>
+<section class="sec p" data-origin="ovsm" data-sid="eco" id="eco"><h2 data-label="The market ecosystem: regulators, plumbing and settlement"><span class="n">02</span>The market ecosystem: regulators, plumbing and settlement</h2>
+<p class="src">OpenAlgo Open Varsity · Stock Market Basics · chapters 4–6 (<a href="https://www.openalgo.in/stocks/sebi-and-regulators">SEBI and regulators</a>, <a href="https://www.openalgo.in/stocks/market-ecosystem">exchanges, brokers, depositories</a>, <a href="https://www.openalgo.in/stocks/clearing-settlement">clearing and settlement</a>)</p>
+<div class="g2">
+<div class="card p" data-ck="sebi-and-rbi-who-guards-what" data-skey="ovsm:the-market-ecosystem-regulators-plumbing-and-set/sebi-and-rbi-who-guards-what" id="sebi-and-rbi-who-guards-what"><h3 data-label="SEBI and RBI: who guards what">SEBI and RBI: who guards what<a aria-label="Link to this card" class="anchor" href="#sebi-and-rbi-who-guards-what">#</a></h3><div class="tw"><table>
+<tr><th>Regulator</th><th>Watches</th><th>Main jobs</th></tr>
+<tr><td><abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr></td><td>Shares, bonds, mutual funds, derivatives</td><td>Protect investors; register and regulate exchanges, brokers, funds, advisers; develop the market (faster settlement, demat, disclosure)</td></tr>
+<tr><td><abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr></td><td>The rupee and banks</td><td>Issue currency, fight inflation through the repo rate, regulate banks, manage forex</td></tr>
+</table></div><ul>
+<li>Investor protection toolkit: bans on insider trading, manipulation and misleading ads; mandatory disclosure; shares held in your own demat account; fines and bans; the <b>SCORES</b> complaint portal.</li>
+<li>SEBI registration signals accountability, not guaranteed profits.</li>
+</ul></div>
+<div class="card r" data-ck="reforms-usually-follow-scandals" data-skey="ovsm:the-market-ecosystem-regulators-plumbing-and-set/reforms-usually-follow-scandals" id="reforms-usually-follow-scandals"><h3 data-label="Reforms usually follow scandals">Reforms usually follow scandals<a aria-label="Link to this card" class="anchor" href="#reforms-usually-follow-scandals">#</a></h3><div class="tw"><table>
+<tr><th>Year</th><th>Event</th><th>Outcome</th></tr>
+<tr><td>1988</td><td><abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> formed</td><td>Advisory body, few powers</td></tr>
+<tr><td>1992</td><td>Harshad Mehta scam</td><td>SEBI Act gives statutory powers</td></tr>
+<tr><td>2001</td><td>Ketan Parekh scam</td><td>Tighter settlement; badla banned</td></tr>
+<tr><td>2009</td><td>Satyam fraud</td><td>Corporate-governance overhaul</td></tr>
+<tr><td>2024–25</td><td>Finfluencer rules</td><td>Registered entities can't tie up with unregistered finfluencers</td></tr>
+<tr><td>FY25</td><td>SEBI <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> study</td><td>~91% of individual F&amp;O traders lost money; fewer weekly expiries, bigger lot sizes</td></tr>
+</table></div></div>
+<div class="card b" data-ck="exchanges-brokers-depositories-clearing" data-skey="ovsm:the-market-ecosystem-regulators-plumbing-and-set/exchanges-brokers-depositories-clearing" id="exchanges-brokers-depositories-clearing"><h3 data-label="Exchanges, brokers, depositories, clearing">Exchanges, brokers, depositories, clearing<a aria-label="Link to this card" class="anchor" href="#exchanges-brokers-depositories-clearing">#</a></h3><div class="tw"><table>
+<tr><th>Player</th><th>Job</th><th>India</th></tr>
+<tr><td>Exchange</td><td>Matches orders and publishes trades; does not set prices</td><td><abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> (1875, Asia's oldest), <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> (1994, largest by volume)</td></tr>
+<tr><td>Broker</td><td>Licensed member that routes your orders</td><td>Discount or full-service</td></tr>
+<tr><td>Depository</td><td>Holds your shares electronically</td><td>NSDL (1996), CDSL</td></tr>
+<tr><td>DP</td><td>Your broker as the link to the depository</td><td>Charges ₹13–20 per sell leaving demat</td></tr>
+<tr><td>Clearing corporation</td><td>Guarantees both sides of every trade</td><td>NSE Clearing, Indian Clearing Corporation</td></tr>
+</table></div><p>Exchanges match, brokers route, depositories hold, clearing corporations guarantee. Your shares sit at NSDL or CDSL, not with your broker.</p></div>
+<div class="card t" data-ck="trading-hours-and-the-closing-auction" data-skey="ovsm:the-market-ecosystem-regulators-plumbing-and-set/trading-hours-and-the-closing-auction" id="trading-hours-and-the-closing-auction"><h3 data-label="Trading hours and the closing auction">Trading hours and the closing auction<a aria-label="Link to this card" class="anchor" href="#trading-hours-and-the-closing-auction">#</a></h3><div class="tw"><table>
+<tr><th>Session (IST, Mon–Fri)</th><th>Time</th></tr>
+<tr><td>Pre-open (call auction sets the open)</td><td>9:00–9:15</td></tr>
+<tr><td>Normal market</td><td>9:15–15:30</td></tr>
+<tr><td>Post-close (orders at the closing price)</td><td>15:40–16:00</td></tr>
+</table></div><ul>
+<li>Orders placed while closed wait; an <b>AMO</b> (after-market order) is sent at the next open. Diwali has a one-hour Muhurat session.</li>
+<li><b>Closing auction session (from 3 Aug 2026)</b> for stocks with derivatives: continuous trading stops at 15:15; the reference price is the 15:00–15:15 <abbr class="gl" data-tip="Average price paid since the session open, weighted by volume. Institutions benchmark executions against it; price above VWAP shows buyers in control intraday." data-tip-title="VWAP: Volume-weighted average price">VWAP</abbr>; order entry closes at a random moment between 15:28 and 15:30; matching ends by 15:35, within ±3% of the reference. Other stocks keep the last-30-minute VWAP close.</li>
+<li>Equity derivatives are not in the auction: they trade to 15:40 and close on the 15:10–15:40 VWAP.</li>
+</ul></div>
+<div class="card o" data-ck="brokers-and-the-true-cost-of-a-trade" data-skey="ovsm:the-market-ecosystem-regulators-plumbing-and-set/brokers-and-the-true-cost-of-a-trade" id="brokers-and-the-true-cost-of-a-trade"><h3 data-label="Brokers and the true cost of a trade">Brokers and the true cost of a trade<a aria-label="Link to this card" class="anchor" href="#brokers-and-the-true-cost-of-a-trade">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Discount broker</th><th>Full-service broker</th></tr>
+<tr><td>Offers</td><td>Platform only</td><td>Trades plus research and advice</td></tr>
+<tr><td>Brokerage</td><td>Flat, about ₹20 per order; often zero on delivery</td><td>Usually a % of trade value</td></tr>
+<tr><td>Suits</td><td>Self-directed investors</td><td>Investors who want guidance</td></tr>
+</table></div><ul>
+<li>Every trade also pays <b><abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr></b>, exchange charges, <b>18% <abbr class="gl" data-tip="India's indirect tax; monthly collections are a quick read on consumption." data-tip-title="GST: Goods and services tax">GST</abbr></b> on brokerage and charges, stamp duty (buys), a <abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> fee, and DP charges on sells.</li>
+<li>"Zero brokerage" is not zero cost: on tiny trades the statutory charges can exceed brokerage.</li>
+</ul></div>
+<div class="card g" data-ck="demat-account-types" data-skey="ovsm:the-market-ecosystem-regulators-plumbing-and-set/demat-account-types" id="demat-account-types"><h3 data-label="Demat account types">Demat account types<a aria-label="Link to this card" class="anchor" href="#demat-account-types">#</a></h3><ul>
+<li><b>Regular</b> (residents), <b>joint</b>, <b>corporate</b>, <b>custodial</b> (minors via a guardian), <b>premium</b> (frequent traders).</li>
+<li><b>NRI:</b> repatriable (linked to an NRE account) and non-repatriable (NRO account).</li>
+<li><b>BSDA</b> (basic services demat): no annual charge up to ₹4 lakh of holdings, a small fee up to ₹10 lakh; only allowed as your single demat account.</li>
+<li>India passed about 21.6 crore demat accounts by December 2025 (CDSL ~17 crore, NSDL ~4 crore but more by value); far fewer are active in a year.</li>
+</ul></div>
+<div class="card p" data-ck="from-buy-click-to-shares-in-demat" data-skey="ovsm:the-market-ecosystem-regulators-plumbing-and-set/from-buy-click-to-shares-in-demat" id="from-buy-click-to-shares-in-demat"><h3 data-label="From buy click to shares in demat">From buy click to shares in demat<a aria-label="Link to this card" class="anchor" href="#from-buy-click-to-shares-in-demat">#</a></h3><pre class="mermaid" data-h="473" data-key="dc83138efac1" data-w="322">flowchart TD
+  O["You place an order"] --&gt; B["Broker routes it"]
+  B --&gt; X["Exchange matches a seller"]
+  X --&gt; C["Clearing corporation becomes the counterparty"]
+  C --&gt; N["Netting: one net obligation per security"]
+  N --&gt; S["Settlement T+1: pay-in and pay-out"]
+  S --&gt; D["Shares land in your demat"]</pre><p>A <b>trade</b> is the matched promise; <b>clearing</b> works out who owes what; <b>settlement</b> moves the money and shares, both legs at once so nobody has to trust the other side.</p></div>
+<div class="card b" data-ck="settlement-cycles-and-t-0" data-skey="ovsm:the-market-ecosystem-regulators-plumbing-and-set/settlement-cycles-and-t-0" id="settlement-cycles-and-t-0"><h3 data-label="Settlement cycles and T+0">Settlement cycles and T+0<a aria-label="Link to this card" class="anchor" href="#settlement-cycles-and-t-0">#</a></h3><div class="tw"><table>
+<tr><th>Period</th><th>Cycle</th></tr>
+<tr><td>Until 2001</td><td>Weekly badla settlement</td></tr>
+<tr><td>2002</td><td>T+3</td></tr>
+<tr><td>2003</td><td>T+2 (the global norm for two decades)</td></tr>
+<tr><td>January 2023</td><td>T+1, fully adopted (the US followed in May 2024)</td></tr>
+<tr><td>2024–25</td><td>Optional T+0 beta, phased across the top 500 stocks about 100 at a time</td></tr>
+</table></div><ul>
+<li>T+1: sale proceeds usable and purchases deliverable the next working day.</li>
+<li>T+0 runs alongside T+1 and is optional. It is about when ownership finalises, not intraday trading.</li>
+</ul></div>
+<div class="card r" data-ck="why-trades-almost-never-fail" data-skey="ovsm:the-market-ecosystem-regulators-plumbing-and-set/why-trades-almost-never-fail" id="why-trades-almost-never-fail"><h3 data-label="Why trades almost never fail">Why trades almost never fail<a aria-label="Link to this card" class="anchor" href="#why-trades-almost-never-fail">#</a></h3><ol class="steps">
+<li><b>Novation:</b> the clearing corporation becomes buyer to every seller and seller to every buyer, removing counterparty risk.</li>
+<li><b>Margins:</b> traders deposit money upfront as a cushion.</li>
+<li><b>Settlement Guarantee Fund:</b> a pool that completes settlement if a member defaults.</li>
+<li><b>Auctions and penalties:</b> if a seller fails to deliver, shares are bought in the market for the buyer and the defaulter pays.</li>
+</ol><p>Netting example: buy 10 and sell 5 of the same stock in a day, and only the net 5 shares move.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#money"><span>Previous</span>01 · Money and markets: why invest, where, and what a share is</a><a class="sn-next" href="#ipo"><span>Next</span>03 · Going public: funding, IPOs and corporate actions</a></nav></section>
+<section class="sec o" data-origin="ovsm" data-sid="ipo" id="ipo"><h2 data-label="Going public: funding, IPOs and corporate actions"><span class="n">03</span>Going public: funding, IPOs and corporate actions</h2>
+<p class="src">OpenAlgo Open Varsity · Stock Market Basics · chapters 7–9 (<a href="https://www.openalgo.in/stocks/how-companies-get-funded">how companies get funded</a>, <a href="https://www.openalgo.in/stocks/the-ipo">the IPO</a>, <a href="https://www.openalgo.in/stocks/corporate-actions-raising">rights, FPO, OFS, bonus and splits</a>)</p>
+<div class="g2">
+<div class="card o" data-ck="the-funding-ladder" data-skey="ovsm:going-public-funding-ipos-and-corporate-actions/the-funding-ladder" id="the-funding-ladder"><h3 data-label="The funding ladder">The funding ladder<a aria-label="Link to this card" class="anchor" href="#the-funding-ladder">#</a></h3><pre class="mermaid" data-h="402" data-key="d952fc6b792d" data-w="249">flowchart TD
+  I["Idea"] --&gt; BS["Bootstrapping"]
+  BS --&gt; AN["Friends, family, angels"]
+  AN --&gt; VC["Venture capital: seed, Series A, B, C"]
+  VC --&gt; PE["Private equity"]
+  PE --&gt; IPO["IPO and listing"]</pre><ul>
+<li>Each rung usually brings bigger cheques at higher valuations: angels ₹25 lakh to a few crore, VC rounds crores to hundreds of crore, PE hundreds to thousands of crore.</li>
+<li><b>Unicorn:</b> a startup valued at $1 billion or more; India has well over 100.</li>
+</ul></div>
+<div class="card b" data-ck="valuation-and-dilution" data-skey="ovsm:going-public-funding-ipos-and-corporate-actions/valuation-and-dilution" id="valuation-and-dilution"><h3 data-label="Valuation and dilution">Valuation and dilution<a aria-label="Link to this card" class="anchor" href="#valuation-and-dilution">#</a></h3><div class="formula"><span class="fl">implied valuation = investment ÷ stake acquired</span><span class="fl">₹10 crore for 20% → ₹10 ÷ 0.20 = ₹50 crore</span><span class="fl">founder's stake value = valuation × founder %</span></div><div class="tw"><table>
+<tr><th>Stage</th><th>Valuation</th><th>Founder %</th><th>Stake value</th></tr>
+<tr><td>Bootstrapped</td><td>₹2 cr</td><td>100%</td><td>₹2 cr</td></tr>
+<tr><td>Seed</td><td>₹20 cr</td><td>75%</td><td>₹15 cr</td></tr>
+<tr><td>Series A</td><td>₹100 cr</td><td>55%</td><td>₹55 cr</td></tr>
+<tr><td>Series B</td><td>₹500 cr</td><td>40%</td><td>₹200 cr</td></tr>
+<tr><td>IPO</td><td>₹4,000 cr</td><td>30%</td><td>₹1,200 cr</td></tr>
+</table></div><p>A smaller slice of a much bigger company can be worth far more. Private valuations are negotiated opinions, not guarantees of IPO returns.</p></div>
+<div class="card g" data-ck="why-companies-go-public" data-skey="ovsm:going-public-funding-ipos-and-corporate-actions/why-companies-go-public" id="why-companies-go-public"><h3 data-label="Why companies go public">Why companies go public<a aria-label="Link to this card" class="anchor" href="#why-companies-go-public">#</a></h3><ul>
+<li><b>Capital:</b> raise hundreds to thousands of crore for growth or to repay debt.</li>
+<li><b>Liquidity:</b> early investors and employees can finally sell.</li>
+<li><b>Visibility:</b> trust from customers, lenders and hires.</li>
+<li><b>Cost:</b> quarterly disclosure, public scrutiny, and a share price judged every day.</li>
+</ul></div>
+<div class="card t full" data-ck="how-an-ipo-works" data-skey="ovsm:going-public-funding-ipos-and-corporate-actions/how-an-ipo-works" id="how-an-ipo-works"><h3 data-label="How an IPO works">How an IPO works<a aria-label="Link to this card" class="anchor" href="#how-an-ipo-works">#</a></h3><pre class="mermaid" data-h="108" data-key="9f16c38ae4fe" data-w="1337">flowchart LR
+  D1["DRHP filed with SEBI"] --&gt; D2["RHP with price band and dates"]
+  D2 --&gt; D3["Book-building: about 3 days of bids"]
+  D3 --&gt; D4["Cut-off price fixed"]
+  D4 --&gt; D5["Allotment: lottery if oversubscribed"]
+  D5 --&gt; D6["Unallotted money unblocked"]
+  D5 --&gt; D7["Listing day: trading starts"]</pre><ul>
+<li><b>Fresh issue</b> = new shares, money to the company. <b>OFS</b> = existing holders sell, money to them. Check the mix in the offer document.</li>
+<li>Apply in lots through <b>ASBA/UPI</b>: the money is blocked, not debited, until allotment.</li>
+<li>Retail allotment is a random draw of one lot per applicant, so applying for more lots does not raise your odds of the first lot.</li>
+<li><b>GMP</b> (grey market premium) is unofficial and unregulated rumour, not a reason to apply.</li>
+</ul></div>
+<div class="card p" data-ck="ipo-categories-and-what-to-read" data-skey="ovsm:going-public-funding-ipos-and-corporate-actions/ipo-categories-and-what-to-read" id="ipo-categories-and-what-to-read"><h3 data-label="IPO categories and what to read">IPO categories and what to read<a aria-label="Link to this card" class="anchor" href="#ipo-categories-and-what-to-read">#</a></h3><div class="tw"><table>
+<tr><th>Category</th><th>Who</th><th>Share of issue</th></tr>
+<tr><td>QIB</td><td>Mutual funds, banks, insurers, FPIs</td><td>Up to 50%</td></tr>
+<tr><td>NII / HNI</td><td>Individuals above ₹2 lakh</td><td>At least 15%</td></tr>
+<tr><td>Retail</td><td>Up to ₹2 lakh</td><td>At least 35%</td></tr>
+</table></div><ul>
+<li><b>Anchors</b> take up to 60% of the QIB part a day early; half locked in for 30 days, half for 90.</li>
+<li>In the RHP, read the <b>risk factors</b> first, then objects of the issue, financials, promoter holding and the basis for the price versus listed peers.</li>
+<li><b>SME IPOs</b> (<abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> Emerge, <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> SME) have lighter rules, higher minimums and much higher volatility: not for first-timers.</li>
+</ul></div>
+<div class="card r" data-ck="listing-day-is-not-a-promise" data-skey="ovsm:going-public-funding-ipos-and-corporate-actions/listing-day-is-not-a-promise" id="listing-day-is-not-a-promise"><h3 data-label="Listing day is not a promise">Listing day is not a promise<a aria-label="Link to this card" class="anchor" href="#listing-day-is-not-a-promise">#</a></h3><div class="formula"><span class="fl">listing gain % = (listing price − issue price) ÷ issue price × 100</span><span class="fl">(150 − 70) ÷ 70 ≈ +114%</span></div><ul>
+<li>Big brands can list flat or lower: India's largest IPO to date listed about 1% below its issue price.</li>
+<li>Big listing pops can fade: one 2024 issue more than doubled on day one, then fell about a quarter over the following months.</li>
+<li>2024 saw about 91 mainboard IPOs raising roughly ₹1.6 lakh crore.</li>
+</ul></div>
+<div class="card y full" data-ck="corporate-actions-at-a-glance" data-skey="ovsm:going-public-funding-ipos-and-corporate-actions/corporate-actions-at-a-glance" id="corporate-actions-at-a-glance"><h3 data-label="Corporate actions at a glance">Corporate actions at a glance<a aria-label="Link to this card" class="anchor" href="#corporate-actions-at-a-glance">#</a></h3><div class="tw"><table>
+<tr><th>Action</th><th>New shares?</th><th>Money goes to</th><th>Price effect</th><th>Your wealth on the day</th></tr>
+<tr><td>Rights issue</td><td>Yes, if you subscribe</td><td>Company</td><td>Adjusts down slightly</td><td>Neutral if you subscribe or sell the entitlement</td></tr>
+<tr><td>FPO</td><td>Yes</td><td>Company</td><td>Can dip on dilution</td><td>Diluted unless you buy</td></tr>
+<tr><td>OFS</td><td>No</td><td>Selling holders</td><td>Short-term pressure</td><td>No dilution</td></tr>
+<tr><td>Dividend</td><td>No</td><td>Shareholders (cash)</td><td>Drops by the dividend on ex-date</td><td>Neutral</td></tr>
+<tr><td>Bonus</td><td>Yes, free</td><td>Nobody</td><td>Falls in proportion</td><td>Unchanged</td></tr>
+<tr><td>Split</td><td>Yes, free</td><td>Nobody</td><td>Falls in proportion</td><td>Unchanged</td></tr>
+<tr><td>Buyback</td><td>No, shares cancelled</td><td>Tendering shareholders</td><td>Often supportive</td><td>Neutral to mildly positive</td></tr>
+</table></div><p>Since 1 October 2024, buyback proceeds are taxed as dividend income in shareholders' hands.</p></div>
+<div class="card b" data-ck="adjustment-arithmetic" data-skey="ovsm:going-public-funding-ipos-and-corporate-actions/adjustment-arithmetic" id="adjustment-arithmetic"><h3 data-label="Adjustment arithmetic">Adjustment arithmetic<a aria-label="Link to this card" class="anchor" href="#adjustment-arithmetic">#</a></h3><div class="formula"><span class="fl">1:1 bonus: new price = old price ÷ 2</span><span class="fl">split: new price = old price ÷ split ratio</span><span class="fl">ex-dividend open ≈ previous close − dividend</span></div><ul>
+<li>Bonus: 10 shares × ₹2,900 = ₹29,000 becomes 20 × ₹1,450 = ₹29,000.</li>
+<li>Split ₹10 face value to ₹1: one share becomes ten at a tenth of the price.</li>
+<li>Rights 1:5 at ₹200 when the market is ₹300: the entitlement has value because of the ₹100 discount; subscribe or sell it, never ignore it.</li>
+<li>Under T+1 the ex-date and record date usually coincide: own the share before the ex-date to get the dividend.</li>
+</ul></div>
+<div class="card o" data-ck="why-did-my-stock-drop-overnight" data-skey="ovsm:going-public-funding-ipos-and-corporate-actions/why-did-my-stock-drop-overnight" id="why-did-my-stock-drop-overnight"><h3 data-label="Why did my stock drop overnight?">Why did my stock drop overnight?<a aria-label="Link to this card" class="anchor" href="#why-did-my-stock-drop-overnight">#</a></h3><div class="ladder"><div class="l-start">A holding opened sharply lower</div><div class="l-step"><div class="l-q" data-tip="On the ex-date the price opens lower by roughly the dividend, because new buyers no longer get it. Check the corporate-actions tab." tabindex="0"><span class="l-n">1</span><span>Ex-dividend today, and the drop matches the dividend?</span></div><div class="l-as"><div class="l-a" data-tip="You still receive the dividend in cash, so your total value is unchanged. Nothing to do." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Dividend adjustment</b><span>cash is coming to you, nothing to do</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Bonus issues and splits add shares and cut the price in the same proportion; charts and your cost are adjusted." tabindex="0"><span class="l-n">2</span><span>Bonus or split effective, and your share count rose?</span></div><div class="l-as"><div class="l-a" data-tip="Same total value spread over more shares. Selling in panic here is the classic mistake." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Corporate action</b><span>value unchanged, nothing to do</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="New shares at a discount (rights) or to the public (FPO) can pull the price down through dilution." tabindex="0"><span class="l-n">3</span><span>Rights issue or FPO announced?</span></div><div class="l-as"><div class="l-a" data-tip="For a rights issue, either subscribe or sell your entitlement before it lapses; ignoring it dilutes you." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Dilution or rights pricing</b><span>decide whether to subscribe</span></div></div><div class="l-a" data-tip="If no corporate action explains the move, read the company's exchange filings and news before deciding anything." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Real news</b><span>read the exchange filings before acting</span></div></div></div></div></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#eco"><span>Previous</span>02 · The market ecosystem: regulators, plumbing and settlement</a><a class="sn-next" href="#read"><span>Next</span>04 · Reading the market: quotes, depth, indices and jargon</a></nav></section>
+<section class="sec t" data-origin="ovsm" data-sid="read" id="read"><h2 data-label="Reading the market: quotes, depth, indices and jargon"><span class="n">04</span>Reading the market: quotes, depth, indices and jargon</h2>
+<p class="src">OpenAlgo Open Varsity · Stock Market Basics · chapters 10–12 (<a href="https://www.openalgo.in/stocks/stock-quote">anatomy of a quote</a>, <a href="https://www.openalgo.in/stocks/indices">indices</a>, <a href="https://www.openalgo.in/stocks/market-jargon">market jargon</a>)</p>
+<div class="g2">
+<div class="card t" data-ck="anatomy-of-a-stock-quote" data-skey="ovsm:reading-the-market-quotes-depth-indices-and-jarg/anatomy-of-a-stock-quote" id="anatomy-of-a-stock-quote"><h3 data-label="Anatomy of a stock quote">Anatomy of a stock quote<a aria-label="Link to this card" class="anchor" href="#anatomy-of-a-stock-quote">#</a></h3><div class="tw"><table>
+<tr><th>Field</th><th>Meaning</th></tr>
+<tr><td>LTP</td><td>Price of the most recent trade (a record, not a forecast)</td></tr>
+<tr><td>Previous close</td><td>Yesterday's official close; the reference for "change"</td></tr>
+<tr><td>Change</td><td>LTP − previous close, in ₹ and %</td></tr>
+<tr><td>Bid / ask</td><td>Best price a buyer will pay / a seller will accept right now</td></tr>
+<tr><td>Spread</td><td>Ask − bid: paise means liquid, rupees means thin</td></tr>
+<tr><td>OHLC</td><td>Open, high, low, close: one candlestick</td></tr>
+<tr><td>Volume</td><td>Shares traded so far in the session</td></tr>
+</table></div><div class="formula"><span class="fl">change % = (LTP − previous close) ÷ previous close × 100</span><span class="fl">(1,476.30 − 1,468.50) ÷ 1,468.50 ≈ +0.53%</span></div></div>
+<div class="card b" data-ck="market-depth-the-five-best-bids-and-asks" data-skey="ovsm:reading-the-market-quotes-depth-indices-and-jarg/market-depth-the-five-best-bids-and-asks" id="market-depth-the-five-best-bids-and-asks"><h3 data-label="Market depth: the five best bids and asks">Market depth: the five best bids and asks<a aria-label="Link to this card" class="anchor" href="#market-depth-the-five-best-bids-and-asks">#</a></h3><pre class="code" data-hl="text" data-lang="text">Bid qty   Bid      Ask      Ask qty
+   <span class="n">320</span>  <span class="n">1</span>,<span class="n">476.20</span>  <span class="n">1</span>,<span class="n">476.30</span>     <span class="n">280</span>
+   <span class="n">540</span>  <span class="n">1</span>,<span class="n">476.10</span>  <span class="n">1</span>,<span class="n">476.40</span>     <span class="n">610</span>
+ <span class="n">1</span>,<span class="n">250</span>  <span class="n">1</span>,<span class="n">476.00</span>  <span class="n">1</span>,<span class="n">476.50</span>     <span class="n">900</span>
+   <span class="n">410</span>  <span class="n">1</span>,<span class="n">475.90</span>  <span class="n">1</span>,<span class="n">476.60</span>     <span class="n">350</span>
+   <span class="n">760</span>  <span class="n">1</span>,<span class="n">475.80</span>  <span class="n">1</span>,<span class="n">476.70</span>   <span class="n">1</span>,<span class="n">100</span>
+Buy <span class="n">3</span>,<span class="n">280</span> vs sell <span class="n">3</span>,<span class="n">240</span> <span class="o">→</span> roughly balanced</pre><ul>
+<li>Left side is demand below the price; right side is supply above it.</li>
+<li>Depth is a snapshot, not a crystal ball: large orders can be cancelled in an instant.</li>
+<li>Price up on high volume shows conviction; up on thin volume is tentative.</li>
+</ul></div>
+<div class="card r" data-ck="circuits-daily-price-bands" data-skey="ovsm:reading-the-market-quotes-depth-indices-and-jarg/circuits-daily-price-bands" id="circuits-daily-price-bands"><h3 data-label="Circuits: daily price bands">Circuits: daily price bands<a aria-label="Link to this card" class="anchor" href="#circuits-daily-price-bands">#</a></h3><ul>
+<li>Individual stocks have bands of <b>2%, 5%, 10% or 20%</b>; large derivative stocks have wider, flexible bands and rarely lock.</li>
+<li><b>Upper circuit:</b> only buyers left, trading freezes. <b>Lower circuit:</b> only sellers, and holders may not be able to exit for days.</li>
+<li><b>Market-wide breakers:</b> a 10%, 15% or 20% fall in the Nifty or Sensex pauses all trading.</li>
+<li>Circuits trap both sides: chasing an upper-circuit stock can leave you unable to sell when it turns.</li>
+</ul></div>
+<div class="card p" data-ck="how-an-index-is-built" data-skey="ovsm:reading-the-market-quotes-depth-indices-and-jarg/how-an-index-is-built" id="how-an-index-is-built"><h3 data-label="How an index is built">How an index is built<a aria-label="Link to this card" class="anchor" href="#how-an-index-is-built">#</a></h3><ul>
+<li>An <b>index</b> is one number for a weighted basket of stocks. You can't buy it, but an index fund or ETF holds every constituent at its weight.</li>
+<li><b>Weight</b> comes from <b>free-float market cap</b>: only shares available to the public count, not promoter or government holdings.</li>
+<li><b>Nifty 50</b> (<abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr>, 50 stocks) and <b>Sensex</b> (<abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr>, 30 stocks) overlap heavily and usually move by similar percentages.</li>
+<li>Weights drift daily and constituents are reviewed twice a year.</li>
+</ul><div class="formula"><span class="fl">stock's contribution = weight × % move</span><span class="fl">index move = sum of all contributions</span><span class="fl">10.6% weight × 2% move ≈ +0.21% on the index</span><span class="fl">0.3% weight × 2% move ≈ +0.006%</span></div></div>
+<div class="card o" data-ck="the-nifty-is-top-heavy" data-skey="ovsm:reading-the-market-quotes-depth-indices-and-jarg/the-nifty-is-top-heavy" id="the-nifty-is-top-heavy"><h3 data-label="The Nifty is top-heavy">The Nifty is top-heavy<a aria-label="Link to this card" class="anchor" href="#the-nifty-is-top-heavy">#</a></h3><div class="tw"><table>
+<tr><th>Company</th><th>Sector</th><th>Weight (approx.)</th></tr>
+<tr><td>HDFC Bank</td><td>Banking</td><td>10.6%</td></tr>
+<tr><td>ICICI Bank</td><td>Banking</td><td>8.3%</td></tr>
+<tr><td>Reliance Industries</td><td>Energy, retail, telecom</td><td>8.3%</td></tr>
+<tr><td>Bharti Airtel</td><td>Telecom</td><td>5.2%</td></tr>
+<tr><td>Larsen &amp; Toubro</td><td>Infrastructure</td><td>4.4%</td></tr>
+</table></div><ul>
+<li>The top 10 are about half the index, and financials about 35%.</li>
+<li>"The market fell" often means a few heavyweights fell: check breadth before concluding.</li>
+<li>Sector indices (Bank Nifty, Nifty IT, Auto, Pharma, FMCG, Metal) show what is driving the day; Nifty 100, 500, midcap and smallcap indices show the wider market.</li>
+</ul></div>
+<div class="card g" data-ck="bull-bear-and-size-buckets" data-skey="ovsm:reading-the-market-quotes-depth-indices-and-jarg/bull-bear-and-size-buckets" id="bull-bear-and-size-buckets"><h3 data-label="Bull, bear and size buckets">Bull, bear and size buckets<a aria-label="Link to this card" class="anchor" href="#bull-bear-and-size-buckets">#</a></h3><ul>
+<li><b>Bull market:</b> a sustained rise. <b>Bear market:</b> a fall of 20% or more from a recent peak. <b>Correction:</b> about 10% or more. <b>Crash:</b> a sudden, panic-driven plunge.</li>
+<li><b>Breadth:</b> advancing versus declining stocks; weak breadth means a few giants are hiding a falling market.</li>
+<li><b>Volatility:</b> the size and speed of swings in either direction.</li>
+</ul><div class="tw"><table>
+<tr><th>Bucket</th><th>SEBI rank by market cap</th><th>Character</th></tr>
+<tr><td>Large-cap</td><td>Top 100</td><td>Steadier, lower risk</td></tr>
+<tr><td>Mid-cap</td><td>101–250</td><td>Growth with more risk</td></tr>
+<tr><td>Small-cap</td><td>251 and below</td><td>Biggest swings both ways</td></tr>
+</table></div><p>A penny stock's low price is not a bargain; liquidity matters most on the day you need to exit.</p></div>
+<div class="card y" data-ck="long-vs-short" data-skey="ovsm:reading-the-market-quotes-depth-indices-and-jarg/long-vs-short" id="long-vs-short"><h3 data-label="Long vs short">Long vs short<a aria-label="Link to this card" class="anchor" href="#long-vs-short">#</a></h3><ul>
+<li><b>Long:</b> buy now, sell later; profit if the price rises; the worst case is losing what you paid.</li>
+<li><b>Short:</b> sell first, buy back later; profit if the price falls; the loss is unlimited because prices have no ceiling.</li>
+<li>In India most retail shorts are <b>intraday only</b>; holding a short overnight needs formal borrowing through <b>SLB</b> (securities lending and borrowing).</li>
+</ul><div class="formula"><span class="fl">short profit per share = sell price − buy-back price</span><span class="fl">sell 100, buy back 80 → ₹20</span></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ipo"><span>Previous</span>03 · Going public: funding, IPOs and corporate actions</a><a class="sn-next" href="#moves"><span>Next</span>05 · What moves prices: expectations, macro and events</a></nav></section>
+<section class="sec r" data-origin="ovsm" data-sid="moves" id="moves"><h2 data-label="What moves prices: expectations, macro and events"><span class="n">05</span>What moves prices: expectations, macro and events</h2>
+<p class="src">OpenAlgo Open Varsity · Stock Market Basics · chapters 13–15 (<a href="https://www.openalgo.in/stocks/what-moves-a-stock">what moves a stock</a>, <a href="https://www.openalgo.in/stocks/macro-forces">macro forces</a>, <a href="https://www.openalgo.in/stocks/events-and-prices">events and prices</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="prices-move-on-surprise-not-on-news" data-skey="ovsm:what-moves-prices-expectations-macro-and-events/prices-move-on-surprise-not-on-news" id="prices-move-on-surprise-not-on-news"><h3 data-label="Prices move on surprise, not on news">Prices move on surprise, not on news<a aria-label="Link to this card" class="anchor" href="#prices-move-on-surprise-not-on-news">#</a></h3><ul>
+<li>Price is the latest agreed trade, not fair value. Every tick is an imbalance between eager buyers and eager sellers.</li>
+<li>What tips the balance: news, earnings, expectations and market-wide sentiment.</li>
+<li><b>Markets price the future:</b> results are judged against expectations. A stock expected to grow profit 15% that reports 12% can fall, even though the business grew.</li>
+<li><b>Buy the rumour, sell the news:</b> prices often run up before good news and slip once it arrives.</li>
+</ul><div class="tw"><table>
+<tr><th>Result vs expectation</th><th>Typical reaction</th></tr>
+<tr><td>Beat</td><td>Often jumps</td></tr>
+<tr><td>Meet</td><td>Usually muted</td></tr>
+<tr><td>Miss</td><td>Often falls</td></tr>
+</table></div></div>
+<div class="card b" data-ck="measuring-returns-properly" data-skey="ovsm:what-moves-prices-expectations-macro-and-events/measuring-returns-properly" id="measuring-returns-properly"><h3 data-label="Measuring returns properly">Measuring returns properly<a aria-label="Link to this card" class="anchor" href="#measuring-returns-properly">#</a></h3><div class="formula"><span class="fl">absolute return = selling price − buying price</span><span class="fl">% return = gain ÷ buying price × 100</span><span class="fl">₹100 gain on ₹400 = 25%; the same ₹100 on ₹2,000 = 5%</span></div><ul>
+<li>Always state the time: doubling in 15 years is under 5% a year, below a typical FD.</li>
+<li>Use annualised returns to compare holdings with different periods.</li>
+</ul></div>
+<div class="card p" data-ck="rates-inflation-and-the-rbi" data-skey="ovsm:what-moves-prices-expectations-macro-and-events/rates-inflation-and-the-rbi" id="rates-inflation-and-the-rbi"><h3 data-label="Rates, inflation and the RBI">Rates, inflation and the RBI<a aria-label="Link to this card" class="anchor" href="#rates-inflation-and-the-rbi">#</a></h3><ul>
+<li>The <b>repo rate</b> is the price of money. Lower rates mean cheaper loans, more spending, money leaving FDs for equities, and a higher present value of future profits: generally supportive for stocks. Higher rates do the reverse.</li>
+<li>The <abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr> targets about <b>4% inflation within a 2–6% band</b>. Hot inflation brings hikes; inflation well inside the band leaves room to cut.</li>
+<li>2025 example (approx.): repo cut from about 6.5% to about 5.25% as retail inflation fell sharply.</li>
+</ul></div>
+<div class="card o" data-ck="fiis-vs-diis" data-skey="ovsm:what-moves-prices-expectations-macro-and-events/fiis-vs-diis" id="fiis-vs-diis"><h3 data-label="FIIs vs DIIs">FIIs vs DIIs<a aria-label="Link to this card" class="anchor" href="#fiis-vs-diis">#</a></h3><div class="tw"><table>
+<tr><th></th><th>FIIs / FPIs</th><th>DIIs</th></tr>
+<tr><td>Who</td><td>Foreign funds and pensions</td><td>Mutual funds, insurers, pension funds</td></tr>
+<tr><td>Money</td><td>Global capital</td><td>Domestic savings and SIPs</td></tr>
+<tr><td>Behaviour</td><td>Large, fast, driven by global cues</td><td>Steadier, fed every month by SIPs</td></tr>
+<tr><td>When they sell</td><td>Index can drop sharply</td><td>Often cushions the fall</td></tr>
+</table></div><p>In 2025 record <abbr class="gl" data-tip="Older name for foreign portfolio investors; still used in daily NSE flow data." data-tip-title="FII: Foreign institutional investor">FII</abbr> selling (about ₹1.66 lakh crore) was largely absorbed by domestic <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr> inflows of about ₹31,000 crore a month; <abbr class="gl" data-tip="Indian mutual funds, insurers, banks and pension funds. SIP inflows have made them a steady buyer." data-tip-title="DII: Domestic institutional investor">DII</abbr> ownership of NSE-listed companies overtook FII ownership.</p></div>
+<div class="card t" data-ck="crude-rupee-and-inflation-chain" data-skey="ovsm:what-moves-prices-expectations-macro-and-events/crude-rupee-and-inflation-chain" id="crude-rupee-and-inflation-chain"><h3 data-label="Crude, rupee and inflation chain">Crude, rupee and inflation chain<a aria-label="Link to this card" class="anchor" href="#crude-rupee-and-inflation-chain">#</a></h3><pre class="mermaid" data-h="402" data-key="abebc1768bee" data-w="372">flowchart TD
+  C["Crude oil rises"] --&gt; M["Bigger import bill: India imports about 85% of its crude"]
+  M --&gt; U["More dollar demand, rupee weakens"]
+  U --&gt; P["Imports cost more, inflation rises"]
+  P --&gt; R["RBI keeps rates higher"]
+  R --&gt; S["Headwind for stocks"]</pre><p>A weaker rupee hurts importers (oil marketers, many manufacturers) and often helps dollar earners such as IT services and pharma.</p></div>
+<div class="card g" data-ck="global-cues-and-the-macro-mood-check" data-skey="ovsm:what-moves-prices-expectations-macro-and-events/global-cues-and-the-macro-mood-check" id="global-cues-and-the-macro-mood-check"><h3 data-label="Global cues and the macro mood check">Global cues and the macro mood check<a aria-label="Link to this card" class="anchor" href="#global-cues-and-the-macro-mood-check">#</a></h3><ul>
+<li>A hawkish US Fed tends to pull money towards the US and away from emerging markets like India.</li>
+<li>Overnight US and Asian markets and <b>GIFT Nifty</b> hint at India's open; wars, oil shocks, elections and trade news spread within hours.</li>
+</ul><ol class="steps">
+<li>Are rates rising or falling?</li>
+<li>Is inflation under control?</li>
+<li>Is the rupee stable or sliding?</li>
+<li>Is crude calm or spiking?</li>
+<li>Are FIIs net sellers or buyers?</li>
+<li>Is the world risk-on or risk-off?</li>
+</ol><p>Macro is context, not a timing tool: check it at turning points, then stick to your plan.</p></div>
+<div class="card y" data-ck="results-season-and-dividend-dates" data-skey="ovsm:what-moves-prices-expectations-macro-and-events/results-season-and-dividend-dates" id="results-season-and-dividend-dates"><h3 data-label="Results season and dividend dates">Results season and dividend dates<a aria-label="Link to this card" class="anchor" href="#results-season-and-dividend-dates">#</a></h3><ul>
+<li>Listed companies report four times a year: Q1 Apr–Jun, Q2 Jul–Sep, Q3 Oct–Dec, Q4 Jan–Mar; each season lasts about six weeks.</li>
+<li>Watch revenue (top line), net profit (bottom line), margins, growth year on year and quarter on quarter, and above all <b>guidance</b>: a guidance cut can sink a stock despite good results.</li>
+<li><b>Dividend dates:</b> announcement, then <b>ex-date</b> (own it before this), then <b>record date</b>.</li>
+</ul><div class="formula"><span class="fl">dividend yield = annual dividend ÷ share price × 100</span><span class="fl">₹20 on a ₹400 stock = 5%</span></div></div>
+<div class="card b" data-ck="catalysts-to-plan-around" data-skey="ovsm:what-moves-prices-expectations-macro-and-events/catalysts-to-plan-around" id="catalysts-to-plan-around"><h3 data-label="Catalysts to plan around">Catalysts to plan around<a aria-label="Link to this card" class="anchor" href="#catalysts-to-plan-around">#</a></h3><div class="tw"><table>
+<tr><th>Type</th><th>Examples</th></tr>
+<tr><td>Company-specific</td><td>Mergers and acquisitions, regulatory news, management changes, big orders, court rulings, rating changes, index inclusion (index funds must buy) or exclusion</td></tr>
+<tr><td>Scheduled, market-wide</td><td>Union Budget (1 February), election results, <abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr> policy</td></tr>
+<tr><td>Unscheduled shocks</td><td>Pandemics, wars, banking scares, surprise central-bank moves</td></tr>
+</table></div><p>Results-day prices can whip both ways within minutes: learn from the calendar, don't trade the noise.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#read"><span>Previous</span>04 · Reading the market: quotes, depth, indices and jargon</a><a class="sn-next" href="#start"><span>Next</span>06 · Becoming an investor: first steps, mindset and staying safe</a></nav></section>
+<section class="sec y" data-origin="ovsm" data-sid="start" id="start"><h2 data-label="Becoming an investor: first steps, mindset and staying safe"><span class="n">06</span>Becoming an investor: first steps, mindset and staying safe</h2>
+<p class="src">OpenAlgo Open Varsity · Stock Market Basics · chapters 16–18 (<a href="https://www.openalgo.in/stocks/getting-started">first steps</a>, <a href="https://www.openalgo.in/stocks/risk-and-psychology">risk and mindset</a>, <a href="https://www.openalgo.in/stocks/scams-and-protection">scams and protection</a>)</p>
+<div class="g2">
+<div class="card y" data-ck="opening-your-accounts" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/opening-your-accounts" id="opening-your-accounts"><h3 data-label="Opening your accounts">Opening your accounts<a aria-label="Link to this card" class="anchor" href="#opening-your-accounts">#</a></h3><ul>
+<li>You need three linked accounts: <b>bank</b> (money), <b>trading</b> (places orders) and <b>demat</b> (holds shares). Trading and demat are usually opened together online in a day or two.</li>
+<li><b>KYC documents:</b> PAN, Aadhaar (OTP e-verification), bank details, photo and signature, sometimes a video check; then e-sign.</li>
+<li>Opening an account is the smallest milestone. Being ready means an emergency fund, no costly debt, a simple plan and a steady <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr>.</li>
+</ul></div>
+<div class="card b" data-ck="index-sip-or-direct-stocks" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/index-sip-or-direct-stocks" id="index-sip-or-direct-stocks"><h3 data-label="Index SIP or direct stocks?">Index SIP or direct stocks?<a aria-label="Link to this card" class="anchor" href="#index-sip-or-direct-stocks">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Index fund SIP</th><th>Direct stocks</th></tr>
+<tr><td>You own</td><td>A slice of the whole index</td><td>Companies you pick</td></tr>
+<tr><td>Diversification</td><td>Instant</td><td>Build it yourself</td></tr>
+<tr><td>Effort</td><td>Low, automated</td><td>High, research each one</td></tr>
+<tr><td>Risk</td><td>Spread out</td><td>Concentrated</td></tr>
+<tr><td>Best for</td><td>Most beginners</td><td>Later, once you can justify each holding</td></tr>
+</table></div><p>SIPs bring automatic discipline and <b>rupee-cost averaging</b>: a fixed amount buys more units when prices are low. Many start from ₹500 a month.</p></div>
+<div class="card g" data-ck="beginner-roadmap" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/beginner-roadmap" id="beginner-roadmap"><h3 data-label="Beginner roadmap">Beginner roadmap<a aria-label="Link to this card" class="anchor" href="#beginner-roadmap">#</a></h3><ol class="steps">
+<li>Emergency fund of 3–6 months' expenses in a safe, liquid place.</li>
+<li>Clear costly debt such as credit cards and expensive personal loans.</li>
+<li>Open demat and trading accounts; complete KYC.</li>
+<li>Start a small automated <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr> in a broad index fund (₹500–1,000 a month).</li>
+<li>Keep learning about what you own.</li>
+<li>Add direct stocks slowly, with a small slice of money you can afford to lose.</li>
+<li>Stay consistent; let compounding work for years.</li>
+</ol></div>
+<div class="card t" data-ck="before-buying-any-single-stock" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/before-buying-any-single-stock" id="before-buying-any-single-stock"><h3 data-label="Before buying any single stock">Before buying any single stock<a aria-label="Link to this card" class="anchor" href="#before-buying-any-single-stock">#</a></h3><ol class="steps">
+<li>Can I explain what the business does and how it makes money?</li>
+<li>Why could it be bigger or more profitable in 5–10 years?</li>
+<li>What could break that story?</li>
+<li>How much of my portfolio will it be, and what will I do if it falls 50%?</li>
+</ol><p>Borrowed conviction from tips and TV leads to panic-selling at the first dip. Form your own view or stay with the index.</p></div>
+<div class="card r" data-ck="position-sizing-why-one-stock-can-t-sink-you" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/position-sizing-why-one-stock-can-t-sink-you" id="position-sizing-why-one-stock-can-t-sink-you"><h3 data-label="Position sizing: why one stock can't sink you">Position sizing: why one stock can't sink you<a aria-label="Link to this card" class="anchor" href="#position-sizing-why-one-stock-can-t-sink-you">#</a></h3><div class="formula"><span class="fl">portfolio hit = weight × stock's fall</span><span class="fl">5% weight × 50% fall = 2.5% of wealth</span><span class="fl">80% weight × 50% fall = 40% of wealth</span></div><ul>
+<li>Higher return always means higher risk; a "guaranteed high return" is a misunderstanding or a scam.</li>
+<li>Expect markets to fall 30–50% now and then. That is normal, not a malfunction.</li>
+</ul></div>
+<div class="card p" data-ck="the-emotional-cycle" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/the-emotional-cycle" id="the-emotional-cycle"><h3 data-label="The emotional cycle">The emotional cycle<a aria-label="Link to this card" class="anchor" href="#the-emotional-cycle">#</a></h3><pre class="mermaid" data-h="473" data-key="0b574b9545db" data-w="271">flowchart TD
+  O["Optimism"] --&gt; E["Euphoria: peak risk"]
+  E --&gt; AX["Anxiety"]
+  AX --&gt; F["Fear"]
+  F --&gt; PN["Panic"]
+  PN --&gt; DS["Despair: often the best opportunity"]
+  DS --&gt; H["Hope"]
+  H --&gt; O</pre><p>Feelings run opposite to opportunity: comfort is highest near tops and lowest near bottoms.</p></div>
+<div class="card o full" data-ck="biases-that-cost-investors-money" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/biases-that-cost-investors-money" id="biases-that-cost-investors-money"><h3 data-label="Biases that cost investors money">Biases that cost investors money<a aria-label="Link to this card" class="anchor" href="#biases-that-cost-investors-money">#</a></h3><div class="tw"><table>
+<tr><th>Bias</th><th>Looks like</th><th>Counter</th></tr>
+<tr><td>FOMO and herding</td><td>Buying after a big rally because everyone is</td><td>Automate buying; ignore tips</td></tr>
+<tr><td>Loss aversion</td><td>Holding losers, selling winners ("watering weeds, cutting flowers"); losses hurt about twice as much as gains please</td><td>Write sell rules while calm</td></tr>
+<tr><td>Anchoring</td><td>"I'll sell when it gets back to ₹500"</td><td>Judge today's business, not your cost</td></tr>
+<tr><td>Overconfidence</td><td>Bigger bets and more trades after a few wins</td><td>Fixed position-size limits</td></tr>
+<tr><td>Recency</td><td>Expecting good years to repeat, or avoiding stocks after a crash</td><td>Long horizon, steady <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr></td></tr>
+</table></div><p>Studies such as Morningstar's "Mind the Gap" find the average fund investor earns roughly 1–1.5 points a year less than their own funds because of badly timed buying and selling. Habits that help: automate, write down why you own each holding, review monthly or quarterly, and do nothing for a day after a big win or loss.</p></div>
+<div class="card r full" data-ck="india-s-big-market-scams-and-what-changed" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/india-s-big-market-scams-and-what-changed" id="india-s-big-market-scams-and-what-changed"><h3 data-label="India's big market scams and what changed">India's big market scams and what changed<a aria-label="Link to this card" class="anchor" href="#india-s-big-market-scams-and-what-changed">#</a></h3><div class="tw"><table>
+<tr><th>Scam</th><th>What happened (approx.)</th><th>Reform that followed</th></tr>
+<tr><td>Harshad Mehta (1992)</td><td>Fake bank receipts funded a ₹4,000+ crore stock ramp</td><td><abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> statutory powers, electronic <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> trading, demat</td></tr>
+<tr><td>Ketan Parekh (2001)</td><td>Circular trading pumped a group of stocks using misused bank money</td><td>Tighter surveillance; badla banned</td></tr>
+<tr><td>Satyam (2009)</td><td>Founder inflated profits, including about ₹5,000 crore of cash that did not exist</td><td>Stronger audit and governance rules</td></tr>
+<tr><td>NSEL (2013)</td><td>About ₹5,600 crore default on commodity contracts backed by goods that barely existed</td><td>Spot-exchange oversight overhauled</td></tr>
+<tr><td>Karvy (2019)</td><td>Broker pledged about ₹2,000 crore of clients' shares without consent</td><td>Client securities ring-fenced; pledge rules tightened</td></tr>
+</table></div></div>
+<div class="card y" data-ck="modern-traps" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/modern-traps" id="modern-traps"><h3 data-label="Modern traps">Modern traps<a aria-label="Link to this card" class="anchor" href="#modern-traps">#</a></h3><ul>
+<li><b>Pump and dump:</b> operators buy a cheap illiquid stock, hype it in WhatsApp or Telegram groups, then sell into the buying they created.</li>
+<li><b>Finfluencers and fake advisers:</b> paid tips without <abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> registration are illegal; registered firms may not tie up with unregistered finfluencers.</li>
+<li><b>Guaranteed-return apps:</b> early withdrawals work, new deposits pay old ones, then the app vanishes.</li>
+<li><b>Dabba trading:</b> "trades" that never reach an exchange; a criminal offence with no legal protection for you.</li>
+</ul><p>Know the two registrations: a <b>Research Analyst</b> publishes research views; a <b>Registered Investment Adviser</b> gives personal, fee-based advice with a duty to you.</p></div>
+<div class="card b" data-ck="is-this-tip-a-scam" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/is-this-tip-a-scam" id="is-this-tip-a-scam"><h3 data-label="Is this tip a scam?">Is this tip a scam?<a aria-label="Link to this card" class="anchor" href="#is-this-tip-a-scam">#</a></h3><div class="ladder"><div class="l-start">Someone offers a tip or a plan</div><div class="l-step"><div class="l-q" data-tip="Nothing in markets is guaranteed; a promise of fixed high returns is the most common sign of a scam or Ponzi scheme." tabindex="0"><span class="l-n">1</span><span>Promises guaranteed or fixed high returns?</span></div><div class="l-as"><div class="l-a" data-tip="Do not pay, do not share details, and do not try to recover losses by staying in." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Walk away</b><span>real markets never guarantee returns</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Anyone giving paid buy or sell advice must be SEBI-registered; check the number yourself on sebi.gov.in." tabindex="0"><span class="l-n">2</span><span>Not SEBI-registered, or no registration number you can verify?</span></div><div class="l-as"><div class="l-a" data-tip="Do not pay, do not share details, and do not try to recover losses by staying in." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Walk away</b><span>unregistered paid advice is illegal</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Deadlines, thinly traded small-caps and requests for credentials are the tools of pump-and-dump schemes and account takeovers." tabindex="0"><span class="l-n">3</span><span>Pushes urgency, an obscure small-cap, or asks for OTPs or logins?</span></div><div class="l-as"><div class="l-a" data-tip="Treat it as a scam until proven otherwise; never share OTPs, passwords or remote access." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Red flag</b><span>classic pump-and-dump or account takeover</span></div></div><div class="l-a" data-tip="Ask who profits if you buy, check filings and registration, and only invest after forming your own view." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Still verify</b><span>who gains if you buy? do your own homework</span></div></div></div></div></div></div>
+<div class="card g" data-ck="if-you-have-been-defrauded" data-skey="ovsm:becoming-an-investor-first-steps-mindset-and-sta/if-you-have-been-defrauded" id="if-you-have-been-defrauded"><h3 data-label="If you have been defrauded">If you have been defrauded<a aria-label="Link to this card" class="anchor" href="#if-you-have-been-defrauded">#</a></h3><ol class="steps">
+<li>Stop all further payments immediately.</li>
+<li>Save screenshots, chats and transaction records.</li>
+<li>For registered entities, complain on <abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr>'s SCORES portal.</li>
+<li>Report cyber fraud on helpline 1930 or cybercrime.gov.in.</li>
+<li>Act fast: frozen money can sometimes be recovered.</li>
+</ol></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#moves"><span>Previous</span>05 · What moves prices: expectations, macro and events</a><a class="sn-next" href="#last"><span>Next</span>07 · Checklists and one-line formulas</a></nav></section>
+<section class="sec g" data-origin="ovsm" data-sid="last" id="last"><h2 data-label="Checklists and one-line formulas"><span class="n">07</span>Checklists and one-line formulas</h2>
+<p>Run these before your first investment, before any single stock, and whenever a tip arrives.</p>
+<div class="g2">
+<div class="card g" data-ck="before-you-start-investing" data-skey="ovsm:checklists-and-one-line-formulas/before-you-start-investing" id="before-you-start-investing"><h3 data-label="Before you start investing">Before you start investing<a aria-label="Link to this card" class="anchor" href="#before-you-start-investing">#</a></h3><ul>
+<li>Emergency fund of 3–6 months in place.</li>
+<li>No credit-card or expensive personal-loan debt.</li>
+<li>Demat, trading and bank accounts linked; KYC done.</li>
+<li>A monthly <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr> amount you can keep paying in bad years.</li>
+<li>Money needed within 3–5 years kept out of equities.</li>
+<li>Returns judged after inflation and tax.</li>
+</ul></div>
+<div class="card b" data-ck="before-buying-a-stock" data-skey="ovsm:checklists-and-one-line-formulas/before-buying-a-stock" id="before-buying-a-stock"><h3 data-label="Before buying a stock">Before buying a stock<a aria-label="Link to this card" class="anchor" href="#before-buying-a-stock">#</a></h3><ul>
+<li>I can explain the business and why it grows.</li>
+<li>I know what is already expected and priced in.</li>
+<li>The position size survives a 50% fall.</li>
+<li>I checked the spread, volume and circuit band.</li>
+<li>I checked the corporate-action calendar.</li>
+<li>My sell rules are written down.</li>
+</ul></div>
+<div class="card r" data-ck="staying-safe" data-skey="ovsm:checklists-and-one-line-formulas/staying-safe" id="staying-safe"><h3 data-label="Staying safe">Staying safe<a aria-label="Link to this card" class="anchor" href="#staying-safe">#</a></h3><ul>
+<li>Deal only with SEBI-registered brokers, advisers and funds; verify on sebi.gov.in.</li>
+<li>Never share passwords, OTPs or remote access.</li>
+<li>Ignore "sure-shot" tips and guaranteed returns.</li>
+<li>Keep shares in your own demat; read your contract notes.</li>
+<li>Ask who gains if you buy.</li>
+</ul></div>
+<div class="card t" data-ck="one-line-formulas" data-skey="ovsm:checklists-and-one-line-formulas/one-line-formulas" id="one-line-formulas"><h3 data-label="One-line formulas">One-line formulas<a aria-label="Link to this card" class="anchor" href="#one-line-formulas">#</a></h3><div class="formula"><span class="fl">real return ≈ nominal − inflation</span><span class="fl">ownership % = your shares ÷ shares outstanding</span><span class="fl">implied valuation = investment ÷ stake</span><span class="fl">listing gain % = (listing − issue) ÷ issue × 100</span><span class="fl">index contribution = weight × % move</span><span class="fl">dividend yield = annual dividend ÷ price × 100</span><span class="fl">portfolio hit = weight × stock's fall</span></div></div>
+<div class="card o full" data-ck="about-this-sheet" data-skey="ovsm:checklists-and-one-line-formulas/about-this-sheet" id="about-this-sheet"><h3 data-label="About this sheet">About this sheet<a aria-label="Link to this card" class="anchor" href="#about-this-sheet">#</a></h3><p>This sheet condenses the free course <a href="https://www.openalgo.in/stocks">Stock Market Basics</a> from <a href="https://www.openalgo.in/learn">OpenAlgo Open Varsity</a> (18 chapters, 6 modules) into reference cards, written in our own words. Each section links back to the chapters it draws on; read those for the full explanations, charts and stories. Figures are approximate and dated, and rules (tax, <abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr>, exchange) change: check the current versions. Educational, not investment advice.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#start"><span>Previous</span>06 · Becoming an investor: first steps, mindset and staying safe</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"ef22cd1af2b2": {"W": "Idle cash loses buying power to inflation of 5–6% a year, so long-term money has to be invested to keep its value.", "E": "Keep 3–6 months of expenses somewhere safe and liquid, and clear credit-card or costly personal-loan debt before investing.", "A": "A trading account places orders, a demat account holds the shares; both need KYC with PAN, Aadhaar and bank details.", "I": "A small automatic SIP in a broad index fund gives instant diversification, low cost and the habit of investing every month.", "L": "Learn how the businesses in your fund or watchlist make money, so you are not relying on borrowed conviction.", "D": "Add individual stocks gradually, with a small slice of money you can afford to lose, once you can justify each one.", "R": "Review monthly or quarterly. Checking daily invites emotional trades."}, "dc83138efac1": {"O": "You place a buy order in your broker app.", "B": "Only exchange members can send orders, so your broker routes it to NSE or BSE.", "X": "The exchange matches your order with a seller at the best available price; that match is the trade.", "C": "Novation: the clearing corporation becomes buyer to every seller and seller to every buyer, removing counterparty risk.", "N": "Clearing nets each member's buys and sells in a security into one obligation, so only the net shares and money move.", "S": "On T+1 the pay-in (money and shares in) and pay-out (shares and money out) happen together, the next working day.", "D": "The shares are credited to your demat account at NSDL or CDSL, not held by your broker."}, "d952fc6b792d": {"I": "An idea with a pitch deck or prototype and little or no money.", "BS": "The founder funds it from savings and early revenue and still owns 100%.", "AN": "Friends, family and angel investors back the earliest stage, typically ₹25 lakh to a few crore, for a small stake.", "VC": "Venture capital funds invest in rounds: seed, then Series A, B, C. Each round usually raises more at a higher valuation.", "PE": "Private equity writes large cheques, hundreds to thousands of crore, into established and often profitable companies.", "IPO": "The company sells shares to the public and lists on NSE or BSE, giving earlier investors a way to sell."}, "9f16c38ae4fe": {"D1": "The draft red herring prospectus goes to SEBI and the public for comments and queries.", "D2": "The red herring prospectus adds the price band and the issue dates just before the issue opens.", "D3": "Investors bid in lots within the price band for about three working days; money is blocked through ASBA or UPI.", "D4": "After bidding closes, the single issue price is set. Bidding at cut-off accepts whatever this final price is.", "D5": "If an issue is oversubscribed, retail allotment is a computerised lottery of one lot per applicant.", "D6": "If you get nothing, the blocked amount is released; you never lose money just by applying.", "D7": "Shares start trading on the exchange; the difference from the issue price is the listing gain or loss."}, "abebc1768bee": {"C": "A rise in crude oil prices, often from supply cuts, wars or global demand.", "M": "India imports about 85% of its crude, so the oil import bill rises in dollars.", "U": "Importers need more dollars, so the rupee tends to weaken.", "P": "A weaker rupee makes imports dearer and feeds into fuel and goods prices, pushing inflation up.", "R": "With inflation higher, the RBI is less able to cut, or may raise, the repo rate.", "S": "Higher rates and costs weigh on company profits and valuations, especially for importers."}, "0b574b9545db": {"O": "Prices are rising and confidence is building.", "E": "Everyone feels rich and certain; this is where financial risk is highest.", "AX": "The first falls arrive and are explained away as a dip.", "F": "Losses mount and investors start to doubt their holdings.", "PN": "Selling becomes urgent and indiscriminate.", "DS": "Nobody wants stocks any more; prices are low and future returns are often best from here.", "H": "Prices stabilise and cautious buyers return, and the cycle begins again."}}</script>
+</body></html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Statistical Arbitrage · Cheatsheets</title>
+<meta name="description" content="Pairs and baskets on NSE stocks, honestly: data and biases, the short leg in India, stationarity, correlation vs cointegration, Engle-Granger, multiple testing, spreads and z-scores, Kalman hedges, Johansen, factor-neutral books, sizing, validation and implementation.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+
+</head>
+<body class="s-ovsa" data-hue="p">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><a href="index.html#ov" class="on" title="OpenAlgo Open Varsity course sheets">Open Varsity</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><h4>Open Varsity</h4><a href="ov_stock_market_basics.html">Stock basics</a><a href="ov_technical_analysis.html">OV technicals</a><a href="ov_python_for_traders.html">Python for traders</a><a href="ov_futures_trading.html">Futures</a><a href="ov_options_basics.html">Options basics</a><a href="ov_options_strategies.html">Options strategies</a><a href="ov_algo_trading_python.html">Algo trading</a><a href="ov_quantitative_trading.html">Quant trading</a><a href="ov_statistical_arbitrage.html" aria-current="page">Stat arb</a><a href="ov_amibroker_afl.html">AmiBroker AFL</a><a href="ov_taxation.html">Taxation</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Open Varsity · Expert</div><h1>Statistical Arbitrage</h1><p>Pairs and baskets on NSE stocks, honestly: data and biases, the short leg in India, stationarity, correlation vs cointegration, Engle-Granger, multiple testing, spreads and z-scores, Kalman hedges, Johansen, factor-neutral books, sizing, validation and implementation.</p></div>
+      <div class="stats"><div><b>7</b>sections</div><div><b>26</b>cards</div><div><b>3</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec p" data-origin="ovsa" data-sid="ovsaatlas" id="ovsaatlas"><h2 data-label="Statistical arbitrage: atlas and routes"><span class="n">00</span>Statistical arbitrage: atlas and routes</h2>
+<p>A brutally honest course on trading relationships between NSE stocks: what stat arb is, building and auditing the data, stationarity and cointegration, building a pair and watching it break, Kalman hedges, Johansen baskets, factor-neutral books, risk and sizing, validation and real implementation. Condensed from OpenAlgo's free Open Varsity course. Educational, not investment advice.</p>
+<div class="g2">
+<div class="card p full" data-ck="statistical-arbitrage-topic-atlas" data-skey="ovsa:statistical-arbitrage-atlas-and-routes/statistical-arbitrage-topic-atlas" id="statistical-arbitrage-topic-atlas"><h3 data-label="Statistical arbitrage topic atlas">Statistical arbitrage topic atlas<a aria-label="Link to this card" class="anchor" href="#statistical-arbitrage-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>Statistical Arbitrage</b><small>5 areas · 18 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#found" title="Go to: Foundations and honesty"><span class="at-n">01</span><span class="at-bl">Foundations</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#what-statistical-arbitrage-really-is" title="Go to: What statistical arbitrage really is">What stat arb is</a><a class="at-chip" href="#building-the-historical-database" title="Go to: Building the historical database">Historical database</a><a class="at-chip" href="#the-data-layer-and-its-biases" title="Go to: The data layer and its biases">Data biases</a><a class="at-chip" href="#research-vs-real-markets-the-short-leg-decides" title="Go to: Research vs real markets: the short leg decides">The short leg</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#stat" title="Go to: Stationarity, correlation and cointegration"><span class="at-n">02</span><span class="at-bl">Stationarity and cointegration</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#random-walks-vs-stationary-series" title="Go to: Random walks vs stationary series">Random walks and AR(1)</a><a class="at-chip" href="#adf-kpss-and-hurst" title="Go to: ADF, KPSS and Hurst">ADF, KPSS and Hurst</a><a class="at-chip" href="#correlation-is-not-cointegration" title="Go to: Correlation is not cointegration">Correlation vs cointegration</a><a class="at-chip" href="#engle-granger-mechanics-on-hdfcbank-vs-kotakbank" title="Go to: Engle–Granger mechanics on HDFCBANK vs KOTAKBANK">Engle-Granger mechanics</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#pair" title="Go to: Building a pair, then breaking it"><span class="at-n">03</span><span class="at-bl">Building a pair</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#finding-pairs-without-fooling-yourself" title="Go to: Finding pairs without fooling yourself">Finding pairs honestly</a><a class="at-chip" href="#the-spread-and-the-signal" title="Go to: The spread and the signal">Spread and signal</a><a class="at-chip" href="#the-brutal-reality-check" title="Go to: The brutal reality check">Reality check</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#proper" title="Go to: Doing it properly: dynamic hedges, baskets, books and risk"><span class="at-n">04</span><span class="at-bl">Doing it properly</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#kalman-filter-hedge-ratios" title="Go to: Kalman filter hedge ratios">Kalman hedge</a><a class="at-chip" href="#baskets-and-the-johansen-test" title="Go to: Baskets and the Johansen test">Johansen baskets</a><a class="at-chip" href="#cross-sectional-factor-neutral-books" title="Go to: Cross-sectional, factor-neutral books">Cross-sectional book</a><a class="at-chip" href="#risk-sizing-and-portfolio-construction" title="Go to: Risk, sizing and portfolio construction">Risk and sizing</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#real" title="Go to: Research to reality: validation and implementation"><span class="at-n">05</span><span class="at-bl">Research to reality</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#the-validation-battery" title="Go to: The validation battery">Validation battery</a><a class="at-chip" href="#implementation-pathways" title="Go to: Implementation pathways">Implementation</a><a class="at-chip" href="#the-nine-gate-pre-trade-checklist" title="Go to: The nine-gate pre-trade checklist">Nine-gate checklist</a></div></div></div></div></div>
+<div class="card b" data-ck="how-to-use-this-sheet" data-skey="ovsa:statistical-arbitrage-atlas-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li>Start with the honest scorecard and the funnel: they set expectations for everything else.</li>
+<li><b>Building a pair:</b> stationarity → correlation vs cointegration → Engle–Granger → finding pairs → spread and signal.</li>
+<li><b>Before believing any result:</b> the reality check and the validation battery.</li>
+<li><b>Before any order:</b> the short-leg card, implementation, and the nine gates at the end.</li>
+</ol><div class="callout"><b>Educational, not investment advice.</b> Condensed in our own words from <a href="https://www.openalgo.in/stats-arb">OpenAlgo Open Varsity: Statistical Arbitrage</a>. The course's motto: "a statistical relationship is not a tradable edge".</div></div>
+<div class="card r" data-ck="the-honest-scorecard" data-skey="ovsa:statistical-arbitrage-atlas-and-routes/the-honest-scorecard" id="the-honest-scorecard"><h3 data-label="The honest scorecard">The honest scorecard<a aria-label="Link to this card" class="anchor" href="#the-honest-scorecard">#</a></h3><div class="tw"><table>
+<tr><th>Technique</th><th>Headline</th><th>Honest verdict</th></tr>
+<tr><td>Naive pair HDFCBANK / KOTAKBANK</td><td>In-sample net Sharpe 1.01</td><td>Out-of-sample net 0.34</td></tr>
+<tr><td>Kalman dynamic hedge</td><td>"Adaptive"</td><td>OOS −1.50 vs static +0.76</td></tr>
+<tr><td>Johansen 5-bank basket</td><td>94% of sub-baskets stationary in-sample</td><td>0% out of sample</td></tr>
+<tr><td>Cross-sectional factor-neutral</td><td>Gross Sharpe 1.34</td><td>Net −1.99 (≈ 235× turnover)</td></tr>
+<tr><td>Six vol-targeted pairs</td><td>Net Sharpe 0.94</td><td>OOS 0.43: the best survivor</td></tr>
+</table></div><p>Most candidates die between "they move together" and "net, out-of-sample, implementable". The best survivor is marginal: small allocation, kill switch, close monitoring.</p></div>
+<div class="card g" data-ck="from-relationship-to-edge" data-skey="ovsa:statistical-arbitrage-atlas-and-routes/from-relationship-to-edge" id="from-relationship-to-edge"><h3 data-label="From relationship to edge">From relationship to edge<a aria-label="Link to this card" class="anchor" href="#from-relationship-to-edge">#</a></h3><pre class="mermaid" data-h="331" data-key="740da3f57a1c" data-w="281">flowchart TD
+  C["Correlation: thousands of pairs"] --&gt; I["In-sample cointegration: far fewer"]
+  I --&gt; O["Out-of-sample stability: fewer still"]
+  O --&gt; N["Net of realistic costs: very few"]
+  N --&gt; E["Implementable in India: a handful, if any"]</pre><p>Each layer removes apparent edge. What survives the whole funnel is the honest estimate, and zero survivors is a legitimate result.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#found"><span>Next</span>01 · Foundations and honesty</a></nav></section>
+<section class="sec b" data-origin="ovsa" data-sid="found" id="found"><h2 data-label="Foundations and honesty"><span class="n">01</span>Foundations and honesty</h2>
+<p class="src">OpenAlgo Open Varsity · Statistical Arbitrage · chapters 1–4 (<a href="https://www.openalgo.in/stats-arb/what-is-statistical-arbitrage">what stat arb is</a>, <a href="https://www.openalgo.in/stats-arb/building-the-database">the database</a>, <a href="https://www.openalgo.in/stats-arb/the-data-layer-and-its-biases">data biases</a>, <a href="https://www.openalgo.in/stats-arb/research-vs-real-markets">research vs real markets</a>)</p>
+<div class="g2">
+<div class="card b" data-ck="what-statistical-arbitrage-really-is" data-skey="ovsa:foundations-and-honesty/what-statistical-arbitrage-really-is" id="what-statistical-arbitrage-really-is"><h3 data-label="What statistical arbitrage really is">What statistical arbitrage really is<a aria-label="Link to this card" class="anchor" href="#what-statistical-arbitrage-really-is">#</a></h3><div class="formula"><span class="fl">spread = log A − (α + β · log B)        β from OLS</span><span class="fl">AR(1): Δs_t = a + b · s_(t−1)</span><span class="fl">half-life = −ln 2 / ln(1 + b)    (only when b &lt; 0)</span></div><ul>
+<li>Classic arbitrage: same cash flow, two prices, no risk. Stat arb has no guarantee, only a statistical tether. "Trade a stationary relationship, not a price."</li>
+<li>BAJFINANCE vs BAJAJFINSV, 2,473 days: return correlation 0.824, β 1.153, yet spread ADF p = 0.199 (random walk not rejected) and half-life 104 days. Rolling correlation ranged 0.71–0.92.</li>
+<li><b>Dollar-neutral</b> (+1 / −1) leaves net beta +0.09 here; <b>beta-neutral</b> sizes the short at βA/βB ≈ 1.06× for net beta ≈ 0. Neutrality drifts and re-hedging costs money.</li>
+</ul></div>
+<div class="card o" data-ck="the-family-tree-and-where-the-edge-went" data-skey="ovsa:foundations-and-honesty/the-family-tree-and-where-the-edge-went" id="the-family-tree-and-where-the-edge-went"><h3 data-label="The family tree, and where the edge went">The family tree, and where the edge went<a aria-label="Link to this card" class="anchor" href="#the-family-tree-and-where-the-edge-went">#</a></h3><div class="tw"><table>
+<tr><th>Form</th><th>Trades</th></tr>
+<tr><td>Single-name reversion</td><td>A stock vs its own average (fragile)</td></tr>
+<tr><td>Pairs</td><td>Two stocks, one hedge ratio</td></tr>
+<tr><td>Baskets</td><td>A cointegrated weighted group</td></tr>
+<tr><td>Cross-sectional, factor-neutral</td><td>A whole universe ranked, market and sector hedged</td></tr>
+</table></div><ul>
+<li>The edge came from providing liquidity, slow news diffusion and structural flows (rebalances, redemptions, tax selling); early quant desks harvested it in the late 1980s–1990s.</li>
+<li>It decayed with faster data, crowded cointegration screens, ETFs and market makers. August 2007's "quant quake" was crowded books unwinding into each other.</li>
+<li>In India, shorting beyond a day isn't free: stock futures, SLB borrow or intraday square-off, each with its own costs, margin and availability, on both legs, both ways.</li>
+</ul></div>
+<div class="card t" data-ck="building-the-historical-database" data-skey="ovsa:foundations-and-honesty/building-the-historical-database" id="building-the-historical-database"><h3 data-label="Building the historical database">Building the historical database<a aria-label="Link to this card" class="anchor" href="#building-the-historical-database">#</a></h3><ul>
+<li>Download once, store locally, read the cache every run, verify before trusting. Universe: the 50 Nifty stocks (<abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr>) plus NIFTY (NSE_INDEX) as the trading calendar, tagged into 14 sectors.</li>
+<li>Ten years of daily bars: <code>source="db"</code> 54.7 ms vs <code>source="api"</code> 346 ms (≈ 6.3×), and the cache returns identical bytes each run while vendor history can be revised.</li>
+<li>DuckDB tables: <code>market_data</code> (symbol, exchange, interval, epoch-second timestamp) and <code>data_catalog</code> (first/last date, rows, last download).</li>
+<li>Verify: rows per symbol (≈ 2,477 for full history), start dates for young listings or renames, stale series (&gt; 7 days behind), and internal gaps against the NIFTY calendar (10 of 50 names were perfectly clean; worst missed 3 sessions). One missing bar on a leg fakes a spread move.</li>
+<li>Nightly top-up: fetch after each symbol's last date, re-fetch the last few weeks for revisions, upsert on symbol + date, back off on timeouts and HTTP 429s.</li>
+</ul></div>
+<div class="card y" data-ck="the-data-layer-and-its-biases" data-skey="ovsa:foundations-and-honesty/the-data-layer-and-its-biases" id="the-data-layer-and-its-biases"><h3 data-label="The data layer and its biases">The data layer and its biases<a aria-label="Link to this card" class="anchor" href="#the-data-layer-and-its-biases">#</a></h3><div class="tw"><table>
+<tr><th>Name</th><th>Years of history</th></tr>
+<tr><td>JIOFIN</td><td>2.8</td></tr>
+<tr><td>ETERNAL</td><td>4.9</td></tr>
+<tr><td>MAXHEALTH</td><td>5.8</td></tr>
+<tr><td>HDFCLIFE / SBILIFE</td><td>8.6 / 8.7</td></tr>
+<tr><td>Most others</td><td>≈ 10.5</td></tr>
+</table></div><ul>
+<li>A rectangular panel (3,195 days × 50 names) is capped by its youngest listing: pairing with JIOFIN leaves ≈ 700 days, about one regime, which is weak evidence.</li>
+<li>Liquidity (365-day close × volume): even the thinnest names trade ₹160–200 crore a day, so the filter ranks cost rather than feasibility. A pair is only as liquid as its thinner leg.</li>
+<li><b>Adjusted closes</b> are right for measuring relationships; fills happen at raw prices, and hedge ratios can go stale after an ex-date.</li>
+<li>Name your biases: survivorship (delisted and dropped names missing), symbol changes (demergers stitched into one series), and no point-in-time index membership. Blind <code>dropna()</code> silently favours old large caps.</li>
+</ul></div>
+<div class="card r full" data-ck="research-vs-real-markets-the-short-leg-decides" data-skey="ovsa:foundations-and-honesty/research-vs-real-markets-the-short-leg-decides" id="research-vs-real-markets-the-short-leg-decides"><h3 data-label="Research vs real markets: the short leg decides">Research vs real markets: the short leg decides<a aria-label="Link to this card" class="anchor" href="#research-vs-real-markets-the-short-leg-decides">#</a></h3><div class="tw"><table>
+<tr><th>Short vehicle</th><th>How long</th><th>Costs and catches</th></tr>
+<tr><td>Intraday cash (MIS)</td><td>Same day only</td><td>Auto square-off near 15:20; full round trip every day</td></tr>
+<tr><td>SLB borrow</td><td>Days to weeks</td><td>Annual borrow fee, thin patchy supply, recall mid-trade</td></tr>
+<tr><td>Stock futures</td><td>Overnight default</td><td>Basis, monthly roll, fixed lots, margin, <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> ban; hedge fitted on cash but traded in futures adds tracking error</td></tr>
+<tr><td>Synthetic (options)</td><td>To expiry</td><td>Greeks and assignment; rarely worth it for linear spreads</td></tr>
+</table></div><div class="formula"><span class="fl">model fair future: F = S · e^((r − q)T)   (r 6.5%, q 0.6%: RELIANCE 30 days ≈ ₹6.41 ≈ 48.6 bps)</span></div><ul>
+<li>Backtests silently assume you can stay short as long as reversion takes, both legs fill at the measured close, and holding is free. In India all three are false.</li>
+<li>Liquidity spans ≈ 15× (HDFCBANK ≈ ₹2,479 crore a day vs TATACONSUM ≈ ₹164 crore; median ≈ ₹399 crore). Futures margin runs ≈ ⅕ to ⅓ of notional per leg; bans (<abbr class="gl" data-tip="Number of futures or options contracts outstanding. Rising price with rising OI means new positions are backing the move." data-tip-title="OI: Open interest">OI</abbr> ≥ 95% of <abbr class="gl" data-tip="Cap on total open interest in a stock's derivatives. Above 95% the stock enters the F&amp;O ban and new positions are not allowed." data-tip-title="MWPL: Market-wide position limit">MWPL</abbr>) and price bands can freeze a leg and leave naked direction; stock futures held to expiry settle physically.</li>
+<li>Choose the short vehicle first: it sets the cost. Learn on closes; never assume you can trade at them.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ovsaatlas"><span>Previous</span>00 · Statistical arbitrage: atlas and routes</a><a class="sn-next" href="#stat"><span>Next</span>02 · Stationarity, correlation and cointegration</a></nav></section>
+<section class="sec t" data-origin="ovsa" data-sid="stat" id="stat"><h2 data-label="Stationarity, correlation and cointegration"><span class="n">02</span>Stationarity, correlation and cointegration</h2>
+<p class="src">OpenAlgo Open Varsity · Statistical Arbitrage · chapters 5–7 (<a href="https://www.openalgo.in/stats-arb/stationarity-and-random-walks">stationarity</a>, <a href="https://www.openalgo.in/stats-arb/correlation-is-not-cointegration">correlation is not cointegration</a>, <a href="https://www.openalgo.in/stats-arb/cointegration-mechanics">cointegration mechanics</a>)</p>
+<div class="g2">
+<div class="card t" data-ck="random-walks-vs-stationary-series" data-skey="ovsa:stationarity-correlation-and-cointegration/random-walks-vs-stationary-series" id="random-walks-vs-stationary-series"><h3 data-label="Random walks vs stationary series">Random walks vs stationary series<a aria-label="Link to this card" class="anchor" href="#random-walks-vs-stationary-series">#</a></h3><div class="formula"><span class="fl">random walk I(1): x_t = x_(t−1) + e_t     variance grows as t·σ²</span><span class="fl">AR(1) I(0): y_t = φ·y_(t−1) + e_t, |φ| &lt; 1   variance → σ² / (1 − φ²)</span><span class="fl">log return: r_t = log P_t − log P_(t−1)     turns I(1) into I(0)</span></div><ul>
+<li>Across 400 simulated paths, random-walk variance reached 391.9 by step 399 and kept growing; <abbr class="gl" data-tip="Money customers owe for goods already delivered." data-tip-title="AR: Accounts receivable">AR</abbr>(1) with φ = 0.85 settled at 3.56 (theory 3.60). Bounded variance is the anchor you trade.</li>
+<li>RELIANCE, 2,477 days: log-price mean jumps 6.27 → 7.16 between halves (non-stationary); returns stay stable. Volatility clustering is not non-stationarity, but it matters for sizing.</li>
+<li>Prices are I(1), returns I(0); stat arb manufactures an I(0) spread and trades that.</li>
+</ul></div>
+<div class="card g" data-ck="adf-kpss-and-hurst" data-skey="ovsa:stationarity-correlation-and-cointegration/adf-kpss-and-hurst" id="adf-kpss-and-hurst"><h3 data-label="ADF, KPSS and Hurst">ADF, KPSS and Hurst<a aria-label="Link to this card" class="anchor" href="#adf-kpss-and-hurst">#</a></h3><div class="tw"><table>
+<tr><th>RELIANCE</th><th>ADF (H0: unit root)</th><th>KPSS (H0: stationary)</th></tr>
+<tr><td>Log price</td><td>−2.234 vs 10% CV −2.567: can't reject</td><td>7.216 vs 1% CV 0.739: reject</td></tr>
+<tr><td>Returns</td><td>−15.241 vs 1% CV −3.433: reject</td><td>0.317 vs 5% CV 0.463: can't reject</td></tr>
+</table></div><ul>
+<li>The two tests have opposite nulls: agreement is a strong verdict; disagreement means re-specify (trend, breaks). Fix ADF's regression form (c, ct, n) and lag rule before running.</li>
+<li><b>Power trap:</b> a truly stationary <abbr class="gl" data-tip="Money customers owe for goods already delivered." data-tip-title="AR: Accounts receivable">AR</abbr>(1) with φ = 0.99 is detected only ≈ 61% of the time. "Failed to reject" often means too little data.</li>
+<li><b>Hurst:</b> ≈ 0.5 random walk, &lt; 0.5 mean-reverting, &gt; 0.5 trending. 14 <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> names ranged 0.46–0.56: no stock is a convincing mean-reverter. One clue only.</li>
+<li>Across 24 names, 100% of price series kept a unit root and 100% of return series rejected it.</li>
+</ul></div>
+<div class="card o full" data-ck="correlation-is-not-cointegration" data-skey="ovsa:stationarity-correlation-and-cointegration/correlation-is-not-cointegration" id="correlation-is-not-cointegration"><h3 data-label="Correlation is not cointegration">Correlation is not cointegration<a aria-label="Link to this card" class="anchor" href="#correlation-is-not-cointegration">#</a></h3><div class="tw"><table>
+<tr><th>Pair (NSE 2016–2026)</th><th>Return correlation</th><th>Engle–Granger p</th><th>Verdict</th></tr>
+<tr><td>TATASTEEL / JSWSTEEL</td><td>0.76 (highest)</td><td>0.204</td><td>Not cointegrated</td></tr>
+<tr><td>KOTAKBANK / HDFCBANK</td><td>0.60</td><td>0.001</td><td>Cointegrated</td></tr>
+<tr><td>MARUTI / M&amp;M</td><td>0.53</td><td>0.000</td><td>Cointegrated</td></tr>
+</table></div><ul>
+<li><b>Correlation</b> (on returns) is same-day co-movement, useful for hedge stability. <b>Cointegration</b> (on log levels) asks whether the hedged spread keeps returning, which is what a pairs trade needs.</li>
+<li>75 same-sector pairs → 11 cointegrated; 0 of 4 cross-sector "fake" pairs. Rank correlation between return correlation and cointegration p: −0.04, essentially none.</li>
+<li><b>Spurious regression:</b> 3,000 pairs of independent random walks gave |t| &gt; 1.96 in 90.1% of runs (should be 5%), median |t| 10.0. High R² on price levels means nothing.</li>
+<li>Verdicts are window-specific: INFY/HCLTECH p 0.007 in the first half, 0.861 in the second. Screen on cointegration first, use correlation as a secondary filter, rank on half-life and cost, confirm out of sample, and correct for the number of pairs tested.</li>
+</ul></div>
+<div class="card b full" data-ck="engle-granger-mechanics-on-hdfcbank-vs-kotakbank" data-skey="ovsa:stationarity-correlation-and-cointegration/engle-granger-mechanics-on-hdfcbank-vs-kotakbank" id="engle-granger-mechanics-on-hdfcbank-vs-kotakbank"><h3 data-label="Engle–Granger mechanics on HDFCBANK vs KOTAKBANK">Engle–Granger mechanics on HDFCBANK vs KOTAKBANK<a aria-label="Link to this card" class="anchor" href="#engle-granger-mechanics-on-hdfcbank-vs-kotakbank">#</a></h3><div class="tw"><table>
+<tr><th>Hedge-ratio convention (log prices, 2019–2023)</th><th>β</th></tr>
+<tr><td>OLS A on B (used for the spread)</td><td>1.0545</td></tr>
+<tr><td>OLS B on A, flipped</td><td>1.2724 (20.7% higher)</td></tr>
+<tr><td>Total least squares (symmetric)</td><td>1.1751</td></tr>
+</table></div><div class="formula"><span class="fl">product of the two OLS slopes = R²  (1.0545 × 0.7859 ≈ 0.83) → never reciprocals</span><span class="fl">OU half-life: regress Δs on s(t−1): λ = −0.0237 → κ = 0.0237 → ln 2 / κ = 29.3 days</span></div><ul>
+<li>Step 1: OLS of log A on log B gives β and the residual spread. Step 2: test the spread. The pair passed with <code>coint</code> p = 0.0306 (t −3.521 vs 5% critical −3.341); the runner-up HDFCBANK–SBIN failed at 0.096.</li>
+<li>Report the honest p: a plain ADF on the residual says 0.0075, but β was estimated, so Engle–Granger's 0.0306 is the number. The hedge ratio is an estimate with a convention, not a fact (errors in both legs bias OLS).</li>
+<li>Spread sd 0.0698 log units, 59 mean crossings, near-symmetric tails. ≈ 2.4% of a gap closes per day.</li>
+<li><b>Half-life mirage:</b> test stationarity first. A random walk can print a 280-day "half-life"; a near-unit-root drift 64 days with ADF p 0.106. A rolling 120-day β swung −0.31 to 1.30 (range 258% of its mean): a fixed in-sample β can drift out of bands.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#found"><span>Previous</span>01 · Foundations and honesty</a><a class="sn-next" href="#pair"><span>Next</span>03 · Building a pair, then breaking it</a></nav></section>
+<section class="sec o" data-origin="ovsa" data-sid="pair" id="pair"><h2 data-label="Building a pair, then breaking it"><span class="n">03</span>Building a pair, then breaking it</h2>
+<p class="src">OpenAlgo Open Varsity · Statistical Arbitrage · chapters 8–10 (<a href="https://www.openalgo.in/stats-arb/finding-pairs-without-fooling-yourself">finding pairs</a>, <a href="https://www.openalgo.in/stats-arb/the-spread-and-the-signal">spread and signal</a>, <a href="https://www.openalgo.in/stats-arb/the-brutal-reality-check">the brutal reality check</a>)</p>
+<div class="g2">
+<div class="card o" data-ck="finding-pairs-without-fooling-yourself" data-skey="ovsa:building-a-pair-then-breaking-it/finding-pairs-without-fooling-yourself" id="finding-pairs-without-fooling-yourself"><h3 data-label="Finding pairs without fooling yourself">Finding pairs without fooling yourself<a aria-label="Link to this card" class="anchor" href="#finding-pairs-without-fooling-yourself">#</a></h3><div class="tw"><table>
+<tr><th>Funnel step</th><th>Pairs</th></tr>
+<tr><td>Blind scan of 50 names, C(50, 2)</td><td>1,225 (≈ 61 chance "winners" at p &lt; 0.05)</td></tr>
+<tr><td>Same-sector economic prior</td><td>78 (≈ 4 chance winners)</td></tr>
+<tr><td>Enough history</td><td>73</td></tr>
+<tr><td>Naive p &lt; 0.05 in-sample (2018–2023)</td><td>16</td></tr>
+<tr><td>After Benjamini–Hochberg (p ≤ 0.0048)</td><td>7</td></tr>
+<tr><td>After Bonferroni (p &lt; 0.05 / 73 = 0.00068)</td><td>1</td></tr>
+<tr><td>Confirmed out of sample (2024 →)</td><td><b>0</b></td></tr>
+</table></div><ul>
+<li>6,000 simulated random-walk pairs gave a 5.25% false-positive rate: the test is honest; the danger is how many times you run it.</li>
+<li>"Choosing what not to test is the cheapest risk control in the field." Fix window, universe, sector map, history minimum, correction and split before looking, and report the whole funnel. Zero survivors is a legitimate result.</li>
+</ul></div>
+<div class="card g" data-ck="the-spread-and-the-signal" data-skey="ovsa:building-a-pair-then-breaking-it/the-spread-and-the-signal" id="the-spread-and-the-signal"><h3 data-label="The spread and the signal">The spread and the signal<a aria-label="Link to this card" class="anchor" href="#the-spread-and-the-signal">#</a></h3><div class="tw"><table>
+<tr><th>Rule (HDFCBANK vs KOTAKBANK)</th><th>Setting</th></tr>
+<tr><td>Spread</td><td>log A − 1.0545 · log B</td></tr>
+<tr><td>z-score window</td><td>Trailing, sized to the half-life (29 days)</td></tr>
+<tr><td>Short spread</td><td>z between +2 and +3.5</td></tr>
+<tr><td>Long spread</td><td>z between −3.5 and −2</td></tr>
+<tr><td>Exit</td><td>|z| &lt; 0.5</td></tr>
+<tr><td>Hard stop</td><td>|z| &gt; 3.5; flat, no re-entry until back inside</td></tr>
+<tr><td>Fill</td><td>Signal at close t, trade at close t + 1: one <code>.shift(1)</code></td></tr>
+</table></div><p>Robust z = (spread − rolling median) ÷ (1.4826 × MAD) handles gaps. In-sample, gross: +98% total, Sharpe 0.99, 40 round trips, 72.5% wins, ≈ 14-day holds, no stops hit. Fitted on the same data, gross of ≈ 28 bps a round trip, frozen β, equal-rupee legs, an abstract short: "a beautiful in-sample curve is a warning, not evidence".</p></div>
+<div class="card r full" data-ck="the-brutal-reality-check" data-skey="ovsa:building-a-pair-then-breaking-it/the-brutal-reality-check" id="the-brutal-reality-check"><h3 data-label="The brutal reality check">The brutal reality check<a aria-label="Link to this card" class="anchor" href="#the-brutal-reality-check">#</a></h3><div class="tw"><table>
+<tr><th>View (frozen β 1.0545, 60-day z, CNC costs 0.474% a round trip)</th><th>Sharpe</th><th>Total</th></tr>
+<tr><td>In-sample gross</td><td>1.14</td><td>+134.2%</td></tr>
+<tr><td>In-sample net</td><td>1.01</td><td>+110.5%</td></tr>
+<tr><td>Out-of-sample gross</td><td>0.46</td><td>+17.5%</td></tr>
+<tr><td>Out-of-sample net (2024 →, 2.5 years)</td><td>0.34</td><td>+11.5% (max drawdown −13.8%)</td></tr>
+<tr><td>Walk-forward, quarterly refit</td><td>0.62</td><td>+22.3%</td></tr>
+</table></div><ul>
+<li><b>Leak 1, out of sample:</b> about two-thirds of the edge vanished.</li>
+<li><b>Leak 2, costs:</b> 8 fills a round trip, dominated by the 0.1% sell-side <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr>; 33 trips × 0.474% = 15.9% of capital. Out-of-sample net Sharpe hits zero near a 1.9% round-trip cost.</li>
+<li><b>Leak 3, de-cointegration:</b> rolling 252-day p ranged 0.005–0.978 (latest 0.734) and failed the 5% test in ≈ 90% of windows; the frozen β was ≈ 63% above the test-period average, leaving directional risk.</li>
+<li><b>Leak 4, look-ahead and survivorship:</b> full-sample z normalisation inflated OOS Sharpe 0.34 → 1.12; same-bar fills flip +135% into −64%; this pair was the best of 10 bank pairs, and 5 of the 10 lost money net out of sample.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#stat"><span>Previous</span>02 · Stationarity, correlation and cointegration</a><a class="sn-next" href="#proper"><span>Next</span>04 · Doing it properly: dynamic hedges, baskets, books and risk</a></nav></section>
+<section class="sec g" data-origin="ovsa" data-sid="proper" id="proper"><h2 data-label="Doing it properly: dynamic hedges, baskets, books and risk"><span class="n">04</span>Doing it properly: dynamic hedges, baskets, books and risk</h2>
+<p class="src">OpenAlgo Open Varsity · Statistical Arbitrage · chapters 11–14 (<a href="https://www.openalgo.in/stats-arb/dynamic-hedge-ratios-kalman">Kalman hedge ratios</a>, <a href="https://www.openalgo.in/stats-arb/baskets-and-johansen">baskets and Johansen</a>, <a href="https://www.openalgo.in/stats-arb/cross-sectional-factor-neutral">cross-sectional factor-neutral</a>, <a href="https://www.openalgo.in/stats-arb/risk-sizing-and-portfolio">risk, sizing and portfolio</a>)</p>
+<div class="g2">
+<div class="card g" data-ck="kalman-filter-hedge-ratios" data-skey="ovsa:doing-it-properly-dynamic-hedges-baskets-books-a/kalman-filter-hedge-ratios" id="kalman-filter-hedge-ratios"><h3 data-label="Kalman filter hedge ratios">Kalman filter hedge ratios<a aria-label="Link to this card" class="anchor" href="#kalman-filter-hedge-ratios">#</a></h3><div class="formula"><span class="fl">state x = [α, β] drifts:  x_t = x_(t−1) + w,  Q = δ / (1 − δ) · I</span><span class="fl">observe: A_t = α_t + β_t · B_t + v,  variance R</span><span class="fl">innovation e_t = A_t − (α + β·B_t)  (the dynamic spread)</span><span class="fl">only the Q / R ratio matters · defaults δ = 1e-4, R = 1e-3</span></div><div class="tw"><table>
+<tr><th>HDFCBANK on KOTAKBANK, net</th><th>IS Sharpe</th><th>OOS Sharpe</th><th>Trades</th></tr>
+<tr><td>Static β</td><td>+1.12</td><td>+0.76</td><td>41</td></tr>
+<tr><td>Kalman β</td><td>−0.53</td><td>−1.50</td><td>78</td></tr>
+</table></div><p>Kalman β was smooth (0.64–1.07, never negative) while rolling OLS swung −0.31 to +1.74 and went negative on 7.5% of days, yet the static β won the trade test; 0 of 20 Q × R settings beat it out of sample. "Adaptivity is not free": every re-hedge pays costs on both legs, and the free intercept can absorb the very mispricing you want. Freeze δ and R on in-sample data before any out-of-sample look.</p></div>
+<div class="card b" data-ck="baskets-and-the-johansen-test" data-skey="ovsa:doing-it-properly-dynamic-hedges-baskets-books-a/baskets-and-the-johansen-test" id="baskets-and-the-johansen-test"><h3 data-label="Baskets and the Johansen test">Baskets and the Johansen test<a aria-label="Link to this card" class="anchor" href="#baskets-and-the-johansen-test">#</a></h3><ul>
+<li>A basket has 3–5 legs and k − 1 free weights: pooled reversion, but more estimation error and cost (≈ 69 bps a round trip for five legs vs ≈ 28 for a pair intraday).</li>
+<li><b>Johansen</b> fits a VECM on log levels and finds the cointegration rank r: eigenvectors are the basket weights. <b>Trace</b> tests rank ≤ r stepwise; <b>max-eigenvalue</b> tests r vs r + 1. Fix det_order and lags in advance.</li>
+<li>Five banks, 2019–2023: trace said r = 1 (75.18 &gt; 69.82, then 45.56 &lt; 47.85); max-eigen said r = 0. Pre-declare which rule wins.</li>
+<li>Weights with HDFCBANK at +1: ICICI −0.166, KOTAK −0.518, AXIS −0.115, SBIN −0.017; spread ADF p 0.0005, half-life 23.7 days (optimistic: fitted on the same data).</li>
+<li>Split at mid-2021 and three of four weights flipped sign (SBIN −0.80 → +8.56); bootstrap noise exceeded the weights themselves. Out of sample the same vector's p went 0.0005 → 0.558; 16 sub-baskets were 94% stationary in-sample and 0% after. Use the fewest legs, never trade the in-sample winner.</li>
+</ul></div>
+<div class="card t" data-ck="cross-sectional-factor-neutral-books" data-skey="ovsa:doing-it-properly-dynamic-hedges-baskets-books-a/cross-sectional-factor-neutral-books" id="cross-sectional-factor-neutral-books"><h3 data-label="Cross-sectional, factor-neutral books">Cross-sectional, factor-neutral books<a aria-label="Link to this card" class="anchor" href="#cross-sectional-factor-neutral-books">#</a></h3><div class="formula"><span class="fl">residual = return − β · NIFTY return   (120-day rolling β)</span><span class="fl">signal = −(sum of last k residuals), demeaned across stocks</span><span class="fl">weights: rank, demean, scale to gross 1 (≈ ½ long, ½ short)</span></div><ul>
+<li>Removing market cuts a median 31% of daily variance; market plus sector 61%. The book trades the remaining third. Sector averages are only known at the close, so act next bar.</li>
+<li>Top-minus-bottom decile +3.89 bps a day gross; gross Sharpe 0.51 (market-only) and 1.34 (market + sector); realised book beta ≈ 0.006.</li>
+<li>But turnover ≈ 235× a year: gross edge ≈ 2.48 bps a day vs cost ≈ 6.45 → net Sharpe −1.99. Breakeven is 2.66 bps a side vs realistic 6.9 (MIS) or 11.9 (CNC). Slowing the signal (k = 15) cut losses to −0.16 but never crossed zero.</li>
+<li>Real capacity needs hundreds of names and a dependable short side; crowded unwinds can flip reversal into momentum (2007).</li>
+</ul></div>
+<div class="card y" data-ck="risk-sizing-and-portfolio-construction" data-skey="ovsa:doing-it-properly-dynamic-hedges-baskets-books-a/risk-sizing-and-portfolio-construction" id="risk-sizing-and-portfolio-construction"><h3 data-label="Risk, sizing and portfolio construction">Risk, sizing and portfolio construction<a aria-label="Link to this card" class="anchor" href="#risk-sizing-and-portfolio-construction">#</a></h3><div class="tw"><table>
+<tr><th>Pair (2019–23)</th><th>EG p</th></tr>
+<tr><td>M&amp;M / MARUTI</td><td>0.0015</td></tr>
+<tr><td>INFY / TCS</td><td>0.0017</td></tr>
+<tr><td>TCS / HCLTECH</td><td>0.0217</td></tr>
+<tr><td>HDFCBANK / KOTAKBANK</td><td>0.0306</td></tr>
+<tr><td>TATASTEEL / JSWSTEEL</td><td>0.0356</td></tr>
+<tr><td>HINDALCO / TATASTEEL</td><td>0.0686</td></tr>
+</table></div><ul>
+<li>Six pairs (half-life 5–60 days) vs one: OOS Sharpe 0.43 vs 0.34, max drawdown −10.0% vs −13.8%. Shared legs (TCS, TATASTEEL) mean fewer independent bets than it looks.</li>
+<li>Vol targeting (leverage = target vol ÷ own vol, 8% per pair, 10% book, frozen on train) lifted Sharpe 1.10 → 1.34; cap any pair at 35%; risk parity gives each 1/6 of risk. Ledoit–Wolf shrinkage buys stability, not correctness; correlations near 0.04 can jump toward 1 in a crisis.</li>
+<li>Rupee-neutral is not beta-neutral: pair beta = β_A − hedge × β_B (M&amp;M/MARUTI −1.11). A NIFTY futures overlay can trim residual beta.</li>
+<li><b>Stops cut both ways:</b> a |z| &gt; 3 stop lost 6.4% in two days on a trade that reverted to +21.4%. A −5% drawdown throttle cut max drawdown to −8.6% but Sharpe to 0.76.</li>
+<li>Retire a pair after 3 rolling readings with p &gt; 0.10; re-admit after 3 with p &lt; 0.05. Retirement always lags the break: median live pairs were 0 of 6.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#pair"><span>Previous</span>03 · Building a pair, then breaking it</a><a class="sn-next" href="#real"><span>Next</span>05 · Research to reality: validation and implementation</a></nav></section>
+<section class="sec r" data-origin="ovsa" data-sid="real" id="real"><h2 data-label="Research to reality: validation and implementation"><span class="n">05</span>Research to reality: validation and implementation</h2>
+<p class="src">OpenAlgo Open Varsity · Statistical Arbitrage · chapters 15–17 (<a href="https://www.openalgo.in/stats-arb/honest-backtesting-and-validation">honest validation</a>, <a href="https://www.openalgo.in/stats-arb/implementation-pathways">implementation pathways</a>, <a href="https://www.openalgo.in/stats-arb/capstone-and-checklist">capstone and checklist</a>)</p>
+<div class="g2">
+<div class="card r full" data-ck="the-validation-battery" data-skey="ovsa:research-to-reality-validation-and-implementatio/the-validation-battery" id="the-validation-battery"><h3 data-label="The validation battery">The validation battery<a aria-label="Link to this card" class="anchor" href="#the-validation-battery">#</a></h3><div class="tw"><table>
+<tr><th>Layer</th><th>Result (HDFCBANK / KOTAKBANK)</th></tr>
+<tr><td>Single in-sample backtest</td><td>Net Sharpe 1.01</td></tr>
+<tr><td>Walk-forward, anchored (14 folds of 126 days)</td><td>Median 0.47; 93% of folds positive; worst −0.96</td></tr>
+<tr><td>Walk-forward, rolling</td><td>Median 0.57; 86% positive; best +3.07</td></tr>
+<tr><td>Purged + embargoed CV (holding period 39 days)</td><td>0.78 → 0.50: 55% inflation removed</td></tr>
+<tr><td>Deflated Sharpe (64 trials)</td><td>PSR vs 0 = 1.000; DSR = 0.962</td></tr>
+<tr><td>Probability of backtest overfitting (CSCV, 8 blocks)</td><td>54%: selection adds little</td></tr>
+<tr><td>Block bootstrap (20-day blocks, 3,000 resamples)</td><td>OOS 0.34, 95% CI [−0.47, 1.15]; ≈ 20% chance the true Sharpe is below 0</td></tr>
+<tr><td>Stability sweep</td><td>Base 0.82; 3 × 3 neighbourhood 0.79 (sd 0.08); 96% of cells positive</td></tr>
+</table></div><div class="formula"><span class="fl">E[max SR of N trials] ≈ √Var(SR) · [(1 − γ)·Φ⁻¹(1 − 1/N) + γ·Φ⁻¹(1 − 1/(N·e))],  γ ≈ 0.577</span><span class="fl">PSR = Φ[(SR − SR*)·√(n − 1) / √(1 − γ₃·SR + ((γ₄ − 1)/4)·SR²)]</span></div><ul>
+<li>Shuffled k-fold leaks because trade labels overlap in time: 100% of test days leak; contiguous blocks 16.6%; purging ±holding period plus an embargo, 0%.</li>
+<li>A <b>ridge</b> (thin spike) dies when a setting is nudged; a <b>plateau</b> is robust but can still be low: 90-day z → OOS 0.99, 60 or 120 → 0.34, tighter stop → 0.19, doubled costs → 0.22.</li>
+<li>Run the battery once on a pre-fixed hypothesis; validators can be overfit too, and the true number of trials is always larger than the ones you wrote down. Here the surviving edge is thin and statistically indistinguishable from zero.</li>
+</ul></div>
+<div class="card o" data-ck="implementation-pathways" data-skey="ovsa:research-to-reality-validation-and-implementatio/implementation-pathways" id="implementation-pathways"><h3 data-label="Implementation pathways">Implementation pathways<a aria-label="Link to this card" class="anchor" href="#implementation-pathways">#</a></h3><div class="tw"><table>
+<tr><th>Route</th><th>Cost pattern</th><th>Watch-outs</th></tr>
+<tr><td>Cash intraday</td><td>A full round trip daily</td><td>Square off near 15:20</td></tr>
+<tr><td>SLB borrow</td><td>One round trip + borrow (≈ 3% a year used)</td><td>Lumpy, recallable, can spike to double digits</td></tr>
+<tr><td>Stock futures</td><td>One round trip + roll every ≈ 30 days</td><td>Basis wobble, lot rounding, dividends</td></tr>
+</table></div><ul>
+<li>Holding period picks the vehicle: multi-day holds need futures or SLB; daily re-crossing overtakes futures cost after ≈ 1 day.</li>
+<li>Intraday cost stack: effective spread ≈ 5.3 bps (Corwin–Schultz on liquid large caps; daily high-low overstates it ≈ 33×), legged entries median 7.8 bps (p95 16.2), square-root impact 8–26 bps at 1–10% participation → a round-trip hurdle ≈ <b>123 bps</b> against a per-trade edge of 30–50 bps.</li>
+<li><b>Legging:</b> with 95% per-leg fill odds, ≈ 9.5% of entries leave a naked leg (≈ 18% at 90%); that tail outweighs slippage.</li>
+<li>Kill-switch gates, any one flattens: |z| beyond the hard limit (4.8 in the sample), drawdown stop, broken leg (flatten the survivor now), thin margin or <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> ban, stale data, square-off clock. Retire decayed pairs (return correlation below 0.5 in 48% of history here) rather than averaging down. Rehearse in OpenAlgo's analyzer first.</li>
+</ul></div>
+<div class="card b" data-ck="should-this-pair-go-live" data-skey="ovsa:research-to-reality-validation-and-implementatio/should-this-pair-go-live" id="should-this-pair-go-live"><h3 data-label="Should this pair go live?">Should this pair go live?<a aria-label="Link to this card" class="anchor" href="#should-this-pair-go-live">#</a></h3><div class="ladder"><div class="l-start">A pair that survived your scan</div><div class="l-step"><div class="l-q" data-tip="Quote the p-value with the size of the search; Bonferroni α/m for live money, BH for a shortlist." tabindex="0"><span class="l-n">1</span><span>Does it pass cointegration after correcting for how many pairs you tested?</span></div><div class="l-as"><div class="l-a" data-tip="Restart from an economic prior (same sector, same drivers) and a smaller, pre-declared search." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Back to research</b><span>a scan hit is a hypothesis, not a finding</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Freeze the hedge ratio and rules on the training window, then test once on later data, net of costs." tabindex="0"><span class="l-n">2</span><span>Is the out-of-sample net Sharpe positive, with a sane bootstrap interval?</span></div><div class="l-as"><div class="l-a" data-tip="The flagship pair's net Sharpe fell from 1.01 in-sample to 0.34 out of sample, with a CI spanning zero." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Drop it: in-sample only</b><span>the shine was fitting the past</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Intraday shorts can't be held overnight; SLB is thin and recallable; futures need F&amp;O eligibility and no MWPL ban." tabindex="0"><span class="l-n">3</span><span>Can you actually short the leg: liquid future or SLB, not in a ban?</span></div><div class="l-as"><div class="l-a" data-tip="Without a dependable short the book isn't market-neutral, whatever the statistics say." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Not implementable</b><span>the short leg decides the trade</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Intraday the course estimates a ≈ 123 bps round-trip hurdle; delivery round trips cost ≈ 47 bps per leg-notional." tabindex="0"><span class="l-n">4</span><span>Does the per-trade edge clear the full two-leg cost hurdle for your vehicle?</span></div><div class="l-as"><div class="l-a" data-tip="Lower turnover (slower signals, longer holds) or cheaper execution, or keep it as research." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Edge eaten by costs</b><span>slow the signal or stay in research</span></div></div><div class="l-a" data-tip="Analyzer mode first, then small live size with a kill switch, broken-leg alerts and a rolling-p retirement rule." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Sandbox, then tiny size</b><span>kill switch, monitoring and a retirement rule</span></div></div></div></div></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#proper"><span>Previous</span>04 · Doing it properly: dynamic hedges, baskets, books and risk</a><a class="sn-next" href="#last"><span>Next</span>06 · Checklists and quick reference</a></nav></section>
+<section class="sec g" data-origin="ovsa" data-sid="last" id="last"><h2 data-label="Checklists and quick reference"><span class="n">06</span>Checklists and quick reference</h2>
+<p>A "no" at any gate sends the idea back to research.</p>
+<div class="g2">
+<div class="card g" data-ck="the-nine-gate-pre-trade-checklist" data-skey="ovsa:checklists-and-quick-reference/the-nine-gate-pre-trade-checklist" id="the-nine-gate-pre-trade-checklist"><h3 data-label="The nine-gate pre-trade checklist">The nine-gate pre-trade checklist<a aria-label="Link to this card" class="anchor" href="#the-nine-gate-pre-trade-checklist">#</a></h3><ol class="steps">
+<li><b>Liquidity:</b> can both legs absorb your size without moving price?</li>
+<li><b>Borrow / short access:</b> SLB or a liquid future, at a known cost?</li>
+<li><b><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> eligibility and bans:</b> on the list today and not in an <abbr class="gl" data-tip="Cap on total open interest in a stock's derivatives. Above 95% the stock enters the F&amp;O ban and new positions are not allowed." data-tip-title="MWPL: Market-wide position limit">MWPL</abbr> ban, checked before every entry.</li>
+<li><b>Net costs:</b> every charge, spread and impact on two legs, both ways; the edge must clear them.</li>
+<li><b>Fills and legging:</b> next-bar fills, partials, broken-leg risk.</li>
+<li><b>Capital and margin:</b> margin on both legs, daily MTM, a gap-day buffer.</li>
+<li><b>Monitoring:</b> spread, z-score, exposure, P&amp;L and broken-leg alerts.</li>
+<li><b>Kill switch:</b> the flatten rule defined before you need it.</li>
+<li><b>Tax and entity:</b> futures and cash are taxed differently; model after tax.</li>
+</ol></div>
+<div class="card b" data-ck="formulas-to-keep" data-skey="ovsa:checklists-and-quick-reference/formulas-to-keep" id="formulas-to-keep"><h3 data-label="Formulas to keep">Formulas to keep<a aria-label="Link to this card" class="anchor" href="#formulas-to-keep">#</a></h3><div class="formula"><span class="fl">spread = log A − (α + β·log B)</span><span class="fl">half-life = ln 2 / κ,  κ = −slope of Δs on s(t−1)</span><span class="fl">z = (s − rolling mean) / rolling std</span><span class="fl">robust z = (s − median) / (1.4826 · MAD)</span><span class="fl">pair beta = β_A − hedge · β_B</span><span class="fl">beta-neutral short = (β_A / β_B) × long notional</span><span class="fl">Bonferroni: p &lt; α / m · BH: largest i with p(i) ≤ (i/m)·α</span><span class="fl">F_model = S · e^((r − q)T)</span><span class="fl">leverage = target vol / own vol</span></div></div>
+<div class="card o" data-ck="about-this-sheet" data-skey="ovsa:checklists-and-quick-reference/about-this-sheet" id="about-this-sheet"><h3 data-label="About this sheet">About this sheet<a aria-label="Link to this card" class="anchor" href="#about-this-sheet">#</a></h3><p>This sheet condenses the free 17-chapter course <a href="https://www.openalgo.in/stats-arb">Statistical Arbitrage</a> from <a href="https://www.openalgo.in/learn">OpenAlgo Open Varsity</a> (4 modules) into reference cards in our own words. Every number is from the course's own <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> research on adjusted daily closes (mostly 2016–2026) with its stated cost models, and its biases (survivorship, adjusted vs tradable prices) apply here too. Each section links back to its chapters. Educational, not investment advice.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#real"><span>Previous</span>05 · Research to reality: validation and implementation</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"740da3f57a1c": {"C": "Same-day return co-movement is easy to find and says nothing about whether the gap between two prices returns.", "I": "Engle–Granger or Johansen on log levels, corrected for how many pairs you scanned (BH or Bonferroni).", "O": "The same frozen hedge and rules on later data. In the course, 7 in-sample survivors became 0 out of sample.", "N": "Two legs, both ways: STT, charges, spread, impact and borrow. The flagship pair's net OOS Sharpe was 0.34.", "E": "A short leg you can actually hold (futures or SLB, not banned), margin for both legs, legging risk and a kill switch."}}</script>
+</body></html>

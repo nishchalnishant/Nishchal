@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Options Basics · Cheatsheets</title>
+<meta name="description" content="Calls and puts, premium, strike and expiry, index vs stock settlement, moneyness, intrinsic and time value, the option chain, spreads and liquidity, the four payoffs, Greeks, implied volatility and the expected move, OI and PCR, strike and expiry choice, margin, charges, event risk and a pre-trade checklist.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+
+</head>
+<body class="s-ovopt" data-hue="p">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><a href="index.html#ov" class="on" title="OpenAlgo Open Varsity course sheets">Open Varsity</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><h4>Open Varsity</h4><a href="ov_stock_market_basics.html">Stock basics</a><a href="ov_technical_analysis.html">OV technicals</a><a href="ov_python_for_traders.html">Python for traders</a><a href="ov_futures_trading.html">Futures</a><a href="ov_options_basics.html" aria-current="page">Options basics</a><a href="ov_options_strategies.html">Options strategies</a><a href="ov_algo_trading_python.html">Algo trading</a><a href="ov_quantitative_trading.html">Quant trading</a><a href="ov_statistical_arbitrage.html">Stat arb</a><a href="ov_amibroker_afl.html">AmiBroker AFL</a><a href="ov_taxation.html">Taxation</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Open Varsity · Beginner</div><h1>Options Basics</h1><p>Calls and puts, premium, strike and expiry, index vs stock settlement, moneyness, intrinsic and time value, the option chain, spreads and liquidity, the four payoffs, Greeks, implied volatility and the expected move, OI and PCR, strike and expiry choice, margin, charges, event risk and a pre-trade checklist.</p></div>
+      <div class="stats"><div><b>9</b>sections</div><div><b>46</b>cards</div><div><b>5</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec p" data-origin="ovopt" data-sid="ovoptatlas" id="ovoptatlas"><h2 data-label="Options basics: atlas and routes"><span class="n">00</span>Options basics: atlas and routes</h2>
+<p>The course on one screen: what an option is and why it exists, the contract and how it settles, how to read a premium and an option chain, the four single-leg payoffs, the Greeks and implied volatility, choosing strikes and expiries, costs and events, and trading safely. Condensed from OpenAlgo's free Open Varsity course. Educational, not investment advice.</p>
+<div class="g2">
+<div class="card p full" data-ck="options-basics-topic-atlas" data-skey="ovopt:options-basics-atlas-and-routes/options-basics-topic-atlas" id="options-basics-topic-atlas"><h3 data-label="Options basics topic atlas">Options basics topic atlas<a aria-label="Link to this card" class="anchor" href="#options-basics-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>Options Basics</b><small>7 areas · 29 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#what" title="Go to: Why and what: rights, jobs, rivals and the two building blocks"><span class="at-n">01</span><span class="at-bl">Why and what</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#a-right-not-an-obligation" title="Go to: A right, not an obligation">Right, not obligation</a><a class="at-chip" href="#the-four-jobs-options-do" title="Go to: The four jobs options do">Four jobs</a><a class="at-chip" href="#stock-vs-future-vs-long-call" title="Go to: Stock vs future vs long call">Stock vs future vs option</a><a class="at-chip" href="#calls-and-puts-the-two-building-blocks" title="Go to: Calls and puts: the two building blocks">Calls and puts</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#contract" title="Go to: The contract: premium, strike, expiry and settlement"><span class="at-n">02</span><span class="at-bl">The contract</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#premium-strike-and-expiry" title="Go to: Premium, strike and expiry">Premium, strike, expiry</a><a class="at-chip" href="#buyer-s-right-seller-s-duty" title="Go to: Buyer's right, seller's duty">Buyer right, seller duty</a><a class="at-chip" href="#index-vs-stock-options-in-india" title="Go to: Index vs stock options in India">Index vs stock options</a><a class="at-chip" href="#what-happens-at-expiry" title="Go to: What happens at expiry">Expiry and settlement</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#price" title="Go to: Reading the price: moneyness, value split, live P&amp;L, chain and spread"><span class="at-n">03</span><span class="at-bl">Reading the price</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#in-at-and-out-of-the-money" title="Go to: In, at and out of the money">Moneyness</a><a class="at-chip" href="#intrinsic-value-plus-time-value" title="Go to: Intrinsic value plus time value">Intrinsic and time value</a><a class="at-chip" href="#payoff-at-expiry-vs-live-p-l" title="Go to: Payoff at expiry vs live P&amp;L">Payoff vs live value</a><a class="at-chip" href="#reading-the-option-chain" title="Go to: Reading the option chain">Option chain</a><a class="at-chip" href="#bid-ask-spread-and-liquidity" title="Go to: Bid, ask, spread and liquidity">Spread and liquidity</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#payoffs" title="Go to: The four payoffs and who has the edge"><span class="at-n">04</span><span class="at-bl">Four payoffs</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#long-call-buy-the-right-to-buy" title="Go to: Long call: buy the right to buy">Long call</a><a class="at-chip" href="#long-put-profit-from-a-fall-or-insure-shares" title="Go to: Long put: profit from a fall, or insure shares">Long put</a><a class="at-chip" href="#short-call-and-short-put" title="Go to: Short call and short put">Short call and put</a><a class="at-chip" href="#buyer-vs-seller-who-has-the-edge" title="Go to: Buyer vs seller: who has the edge?">Buyer vs seller</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#vol" title="Go to: Volatility and positioning: Greeks, IV, expected move, OI and PCR"><span class="at-n">05</span><span class="at-bl">Volatility and positioning</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#the-greeks-four-plain-questions" title="Go to: The Greeks: four plain questions">The Greeks</a><a class="at-chip" href="#implied-volatility-the-price-of-fear" title="Go to: Implied volatility: the price of fear">Implied volatility</a><a class="at-chip" href="#expected-move-from-the-atm-straddle" title="Go to: Expected move from the ATM straddle">Expected move</a><a class="at-chip" href="#open-interest-volume-and-pcr" title="Go to: Open interest, volume and PCR">OI and PCR</a></div></div><div class="at-row" style="--b:var(--c-r)"><a class="at-branch" href="#choose" title="Go to: Choosing strike and expiry, margin, costs and event risk"><span class="at-n">06</span><span class="at-bl">Choosing and costs</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#choosing-a-strike-delta-as-a-guide" title="Go to: Choosing a strike: delta as a guide">Strike and expiry</a><a class="at-chip" href="#seller-margin-hedging-and-pledging" title="Go to: Seller margin, hedging and pledging">Margin and pledging</a><a class="at-chip" href="#the-charges-stack" title="Go to: The charges stack">Charges</a><a class="at-chip" href="#event-risk-results-rbi-policy-and-the-budget" title="Go to: Event risk: results, RBI policy and the Budget">Event risk</a></div></div><div class="at-row" style="--b:var(--c-y)"><a class="at-branch" href="#safety" title="Go to: Trading safely: sizing, defined risk, mistakes and spreads"><span class="at-n">07</span><span class="at-bl">Trading safely</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#size-by-premium-at-risk" title="Go to: Size by premium at risk">Position sizing</a><a class="at-chip" href="#classic-mistakes-and-their-fixes" title="Go to: Classic mistakes and their fixes">Classic mistakes</a><a class="at-chip" href="#from-single-legs-to-spreads" title="Go to: From single legs to spreads">Spreads</a><a class="at-chip" href="#eight-point-pre-trade-checklist" title="Go to: Eight-point pre-trade checklist">Pre-trade checklist</a></div></div></div></div></div>
+<div class="card b" data-ck="how-to-use-this-sheet" data-skey="ovopt:options-basics-atlas-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li><b>Brand new:</b> read why and what, then the contract. Every later idea is built from calls and puts.</li>
+<li><b>Before your first trade:</b> reading the price (spread and liquidity especially), the four payoffs and the Greeks.</li>
+<li><b>Before every trade:</b> the strike-and-expiry ladder, costs, event risk and the eight-point checklist at the end.</li>
+<li>Practise in OpenAlgo's analyzer (sandbox) mode first, with no real money.</li>
+</ol><div class="callout"><b>Educational, not investment advice.</b> Condensed in our own words from <a href="https://www.openalgo.in/options-basics">OpenAlgo Open Varsity: Options Basics</a>. Lot sizes, margins, charges and settlement rules change: verify current values with the exchange or broker. The course is frank that most option buyers lose money.</div></div>
+<div class="card y" data-ck="one-option-by-the-numbers" data-skey="ovopt:options-basics-atlas-and-routes/one-option-by-the-numbers" id="one-option-by-the-numbers"><h3 data-label="One option, by the numbers">One option, by the numbers<a aria-label="Link to this card" class="anchor" href="#one-option-by-the-numbers">#</a></h3><div class="tw"><table>
+<tr><th>Item</th><th>Course example</th></tr>
+<tr><td>Contract</td><td>RELIANCE 1320 call, monthly expiry Tue 28 Jul 2026</td></tr>
+<tr><td>Symbol</td><td><code>RELIANCE28JUL261320CE</code></td></tr>
+<tr><td>Spot when bought</td><td>≈ ₹1,318 (25 Jun 2026)</td></tr>
+<tr><td>Premium</td><td>≈ ₹31 per share</td></tr>
+<tr><td>Lot</td><td>500 shares</td></tr>
+<tr><td>Cost = buyer's max loss</td><td>≈ ₹15,590 per lot</td></tr>
+<tr><td>Breakeven at expiry</td><td>1351 = strike + premium (a little higher after charges)</td></tr>
+<tr><td>Delta</td><td>≈ 0.5 → ≈ ₹250 per lot per ₹1 move</td></tr>
+<tr><td>Theta</td><td>≈ ₹1 per share a day ≈ ₹500 per lot</td></tr>
+<tr><td>Implied volatility</td><td>≈ 20%, calm for RELIANCE</td></tr>
+</table></div><p>The course rounds the premium to ₹31; ₹15,590 per lot implies ≈ ₹31.18. Premiums are quoted per share and paid per lot.</p></div>
+<div class="card t" data-ck="the-life-of-an-option-trade" data-skey="ovopt:options-basics-atlas-and-routes/the-life-of-an-option-trade" id="the-life-of-an-option-trade"><h3 data-label="The life of an option trade">The life of an option trade<a aria-label="Link to this card" class="anchor" href="#the-life-of-an-option-trade">#</a></h3><pre class="mermaid" data-h="402" data-key="3e136e90ef16" data-w="473">flowchart TD
+  V["View: direction, size of move, and by when"] --&gt; S["Pick strike and expiry"]
+  S --&gt; L["Check liquidity, IV and the event calendar"]
+  L --&gt; E["Enter: buy at the ask, or sell at the bid"]
+  E --&gt; H["Hold: delta, theta and vega act every day"]
+  H --&gt; X["Exit: square off before expiry"]
+  H --&gt; P["Or expiry: only intrinsic value settles"]</pre><p>Most traders exit before expiry. Holding to the end is a choice, not a default.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#what"><span>Next</span>01 · Why and what: rights, jobs, rivals and the two building blocks</a></nav></section>
+<section class="sec b" data-origin="ovopt" data-sid="what" id="what"><h2 data-label="Why and what: rights, jobs, rivals and the two building blocks"><span class="n">01</span>Why and what: rights, jobs, rivals and the two building blocks</h2>
+<p class="src">OpenAlgo Open Varsity · Options Basics · chapters 1–4 (<a href="https://www.openalgo.in/options-basics/what-is-an-option">what an option is</a>, <a href="https://www.openalgo.in/options-basics/why-options-exist">why options exist</a>, <a href="https://www.openalgo.in/options-basics/options-vs-futures-vs-stocks">options vs futures vs stocks</a>, <a href="https://www.openalgo.in/options-basics/calls-and-puts">calls and puts</a>)</p>
+<div class="g2">
+<div class="card b" data-ck="a-right-not-an-obligation" data-skey="ovopt:why-and-what-rights-jobs-rivals-and-the-two-buil/a-right-not-an-obligation" id="a-right-not-an-obligation"><h3 data-label="A right, not an obligation">A right, not an obligation<a aria-label="Link to this card" class="anchor" href="#a-right-not-an-obligation">#</a></h3><ul>
+<li>An <b>option</b> gives its buyer the right, but not the duty, to buy or sell an <b>underlying</b> at a fixed <b>strike</b> on or before a fixed <b>expiry</b>.</li>
+<li>The buyer pays a <b>premium</b> up front. That premium is the most the buyer can lose: if the deal turns bad, they simply walk away.</li>
+<li>The seller pockets the premium and takes on the duty to honour the deal.</li>
+<li><b>Token-money picture:</b> pay ₹1 lakh to lock a ₹50 lakh flat for 3 months. If prices jump to ₹60 lakh, buy at ₹50 lakh; if they fall or plans change, walk away and lose only the ₹1 lakh. Token = premium, ₹50 lakh = strike, 3 months = expiry, flat = underlying.</li>
+</ul><p>Test for any trade: "Am I paying a small, known amount today to lock a price, with the freedom to walk away later?"</p></div>
+<div class="card g" data-ck="the-four-jobs-options-do" data-skey="ovopt:why-and-what-rights-jobs-rivals-and-the-two-buil/the-four-jobs-options-do" id="the-four-jobs-options-do"><h3 data-label="The four jobs options do">The four jobs options do<a aria-label="Link to this card" class="anchor" href="#the-four-jobs-options-do">#</a></h3><div class="tw"><table>
+<tr><th>Job</th><th>Typical tool</th><th>Risk carried</th></tr>
+<tr><td>Hedge a holding</td><td>Buy a put</td><td>Premium paid</td></tr>
+<tr><td>Speculate on direction</td><td>Buy a call or put</td><td>Premium paid</td></tr>
+<tr><td>Earn income</td><td>Sell a call or put</td><td>Large, sometimes unlimited</td></tr>
+<tr><td>Leverage</td><td>Buy a call or put</td><td>Premium paid</td></tr>
+</table></div><ul>
+<li>Three of the four jobs are buyer jobs with a capped loss. Only selling carries open-ended risk.</li>
+<li>₹15,590 buys upside on 500 RELIANCE shares worth ≈ ₹6.59 lakh, about 1/42 of the share cost.</li>
+<li>Institutions mostly use options to manage risk. A common retail pattern is buying cheap, far out-of-the-money options as lottery tickets, which usually decay to nothing.</li>
+<li>Name the job before you trade. If it is none of the four, it is a punt.</li>
+</ul></div>
+<div class="card o full" data-ck="stock-vs-future-vs-long-call" data-skey="ovopt:why-and-what-rights-jobs-rivals-and-the-two-buil/stock-vs-future-vs-long-call" id="stock-vs-future-vs-long-call"><h3 data-label="Stock vs future vs long call">Stock vs future vs long call<a aria-label="Link to this card" class="anchor" href="#stock-vs-future-vs-long-call">#</a></h3><div class="tw"><table>
+<tr><th>Feature</th><th>Stock (500 shares)</th><th>Future (1 lot)</th><th>Long 1320 call (1 lot)</th></tr>
+<tr><td>Cash up front</td><td>≈ ₹6.59 lakh</td><td>Margin, often ≈ 1/5 of value</td><td>≈ ₹15,590 premium</td></tr>
+<tr><td>Payoff shape</td><td>Straight line, ₹500 per ₹1</td><td>Straight line on full exposure</td><td>Bent: flat loss below strike, rises above breakeven</td></tr>
+<tr><td>Daily mark-to-market and margin calls</td><td>No</td><td>Yes</td><td>No</td></tr>
+<tr><td>Time decay</td><td>No</td><td>No</td><td>Yes, every day</td></tr>
+<tr><td>Expiry</td><td>None</td><td>Fixed</td><td>Fixed</td></tr>
+<tr><td>Worst case</td><td>Whole value, only if the company goes to zero</td><td>No cap; can exceed the deposit</td><td>Premium paid</td></tr>
+</table></div><p>An option is not "a cheaper future". The two have different risk shapes: the future gives the full straight-line move with no floor on loss, while the long option caps the loss but leaks value with time. The same correct view can win in one instrument and lose in another, so match the instrument to your timing, risk tolerance and the cash you can afford to lose.</p></div>
+<div class="card p" data-ck="calls-and-puts-the-two-building-blocks" data-skey="ovopt:why-and-what-rights-jobs-rivals-and-the-two-buil/calls-and-puts-the-two-building-blocks" id="calls-and-puts-the-two-building-blocks"><h3 data-label="Calls and puts: the two building blocks">Calls and puts: the two building blocks<a aria-label="Link to this card" class="anchor" href="#calls-and-puts-the-two-building-blocks">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Call (CE)</th><th>Put (PE)</th></tr>
+<tr><td>Right to</td><td>Buy at the strike</td><td>Sell at the strike</td></tr>
+<tr><td>Buyer wants</td><td>A meaningful rise</td><td>A meaningful fall, or insurance on shares</td></tr>
+<tr><td>At 1400 / 1250 (1320 strike)</td><td>Valuable / worthless</td><td>Worthless / valuable</td></tr>
+</table></div><ul>
+<li>Memory aid: <b>call up, put down</b>. You "call" shares in to buy them and "put" them away to sell.</li>
+<li>At a near-spot strike the call and put cost about the same (≈ ₹31 each here): the market sees up and down as roughly equally likely, so choosing between them is a directional call, not a bargain hunt.</li>
+<li>Indian exchange-traded options are European style: they settle at expiry, but you can close them any time before by trading the opposite side.</li>
+<li>Every strategy is a mix of bought and sold calls and puts. Shares plus a bought put is protection; a call plus a put profits from a big move either way; a sold option earns premium in a quiet market.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ovoptatlas"><span>Previous</span>00 · Options basics: atlas and routes</a><a class="sn-next" href="#contract"><span>Next</span>02 · The contract: premium, strike, expiry and settlement</a></nav></section>
+<section class="sec o" data-origin="ovopt" data-sid="contract" id="contract"><h2 data-label="The contract: premium, strike, expiry and settlement"><span class="n">02</span>The contract: premium, strike, expiry and settlement</h2>
+<p class="src">OpenAlgo Open Varsity · Options Basics · chapters 5–8 (<a href="https://www.openalgo.in/options-basics/premium-strike-expiry">premium, strike, expiry</a>, <a href="https://www.openalgo.in/options-basics/right-not-obligation">right, not obligation</a>, <a href="https://www.openalgo.in/options-basics/index-vs-stock-options">index vs stock options</a>, <a href="https://www.openalgo.in/options-basics/expiry-exercise-assignment">expiry, exercise and assignment</a>)</p>
+<div class="g2">
+<div class="card o" data-ck="premium-strike-and-expiry" data-skey="ovopt:the-contract-premium-strike-expiry-and-settlemen/premium-strike-and-expiry" id="premium-strike-and-expiry"><h3 data-label="Premium, strike and expiry">Premium, strike and expiry<a aria-label="Link to this card" class="anchor" href="#premium-strike-and-expiry">#</a></h3><div class="tw"><table>
+<tr><th>Number</th><th>What it is</th><th>Changes?</th></tr>
+<tr><td>Premium</td><td>Price of the option, quoted per share and paid per lot; the buyer's max loss</td><td>Every tick</td></tr>
+<tr><td>Strike</td><td>Locked price: calls buy at it, puts sell at it</td><td>Never</td></tr>
+<tr><td>Expiry</td><td>Deadline after which the right vanishes</td><td>Never</td></tr>
+</table></div><ul>
+<li>A strike nearer spot, or a later expiry, means a <b>higher premium</b>. Each strike on the ladder (1300, 1320, 1340…) is a separate option with its own price.</li>
+<li>Time works against the buyer and for the seller. Time value erodes faster as expiry nears.</li>
+<li><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> options (RELIANCE, NIFTY, BANKNIFTY) expire on <b>Tuesdays</b>; monthly = last Tuesday. <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> derivatives such as SENSEX expire on <b>Thursdays</b>.</li>
+</ul></div>
+<div class="card b" data-ck="reading-an-option-symbol" data-skey="ovopt:the-contract-premium-strike-expiry-and-settlemen/reading-an-option-symbol" id="reading-an-option-symbol"><h3 data-label="Reading an option symbol">Reading an option symbol<a aria-label="Link to this card" class="anchor" href="#reading-an-option-symbol">#</a></h3><div class="formula"><span class="fl">RELIANCE 28JUL26 1320 CE</span><span class="fl">underlying · expiry (day, month, year) · strike · type</span><span class="fl">CE = call, PE = put</span></div><ul>
+<li><code>RELIANCE28JUL261320PE</code> is the matching put: only the last two letters differ.</li>
+<li>Mixing up CE and PE in a fast market is a classic beginner slip; read the last two letters before every order.</li>
+<li>Cost check: premium per share × lot = what leaves your account.</li>
+</ul></div>
+<div class="card g" data-ck="buyer-s-right-seller-s-duty" data-skey="ovopt:the-contract-premium-strike-expiry-and-settlemen/buyer-s-right-seller-s-duty" id="buyer-s-right-seller-s-duty"><h3 data-label="Buyer's right, seller's duty">Buyer's right, seller's duty<a aria-label="Link to this card" class="anchor" href="#buyer-s-right-seller-s-duty">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Buyer (holder)</th><th>Seller (writer)</th></tr>
+<tr><td>Cash</td><td>Pays the premium</td><td>Receives the premium</td></tr>
+<tr><td>Gets</td><td>A right to exercise or walk away</td><td>A duty if the buyer exercises (assignment)</td></tr>
+<tr><td>Best case</td><td>Open-ended</td><td>Keeps the premium</td></tr>
+<tr><td>Worst case</td><td>Premium lost</td><td>Large or unlimited</td></tr>
+<tr><td>Margin</td><td>None beyond the premium</td><td>Must post margin</td></tr>
+<tr><td>Time decay</td><td>Against</td><td>For</td></tr>
+</table></div><ul>
+<li>The buyer exercises only when the strike beats the open market; otherwise the option expires worthless.</li>
+<li>1320 call, premium 31: at 1400 exercise (buy ₹80 below market); at 1290, 1200 or 1000 the loss is the same capped ₹15,590.</li>
+<li>The seller's premium is pay for carrying risk, like an insurer's, not a gift. Capped loss does not mean easy profit either: most call buyers miss breakeven in time.</li>
+</ul></div>
+<div class="card t full" data-ck="index-vs-stock-options-in-india" data-skey="ovopt:the-contract-premium-strike-expiry-and-settlemen/index-vs-stock-options-in-india" id="index-vs-stock-options-in-india"><h3 data-label="Index vs stock options in India">Index vs stock options in India<a aria-label="Link to this card" class="anchor" href="#index-vs-stock-options-in-india">#</a></h3><div class="tw"><table>
+<tr><th>Underlying</th><th>Family</th><th>Lot (course)</th><th>In the money at expiry</th></tr>
+<tr><td>NIFTY</td><td>Index (weekly + monthly)</td><td>65</td><td>Cash payout</td></tr>
+<tr><td>BANKNIFTY</td><td>Index</td><td>30</td><td>Cash payout</td></tr>
+<tr><td>FINNIFTY</td><td>Index</td><td>60</td><td>Cash payout</td></tr>
+<tr><td>MIDCPNIFTY</td><td>Index</td><td>120</td><td>Cash payout</td></tr>
+<tr><td>RELIANCE</td><td>Single stock (monthly)</td><td>500</td><td>Physical delivery of 500 shares</td></tr>
+</table></div><ul>
+<li>An index has no shares behind it, so it settles in rupees. A stock option held in the money to expiry becomes a real trade: a 1320 call bought for ₹15,590 can turn into a bill of 500 × 1320 = ₹6.6 lakh; a short put can force you to buy shares.</li>
+<li>Exercised options pay <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr> of 0.15% on the intrinsic (settlement) value from 1 Apr 2026, much more than the STT on simply selling the option.</li>
+<li>Stock options also face the <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> ban, corporate-action adjustments to lot and strike, quantity freezes and price bands.</li>
+<li>Safe habit: square off stock options before expiry week unless you intend to give or take delivery with full funds. With index options, still manage your own exit.</li>
+</ul></div>
+<div class="card r full" data-ck="what-happens-at-expiry" data-skey="ovopt:the-contract-premium-strike-expiry-and-settlemen/what-happens-at-expiry" id="what-happens-at-expiry"><h3 data-label="What happens at expiry">What happens at expiry<a aria-label="Link to this card" class="anchor" href="#what-happens-at-expiry">#</a></h3><pre class="mermaid" data-h="373" data-key="82a67020ba0b" data-w="820">flowchart TD
+  E["Expiry: final settlement price is fixed"] --&gt; Q{{"In the money?"}}
+  Q --&gt;|no| W["Expires worthless: buyer loses the premium, seller keeps it"]
+  Q --&gt;|yes| T{{"Index or stock option?"}}
+  T --&gt;|index| C["Cash: intrinsic value × lot paid or debited"]
+  T --&gt;|stock| D["Delivery: the full lot changes hands at the strike"]
+  C --&gt; X["Exercise STT: 0.15% of intrinsic value"]
+  D --&gt; X
+  classDef dec fill:__DF__,stroke:__DS__,color:__FG__
+  class Q,T dec</pre><p>No partial credit: finishing ₹1 out of the money is worth the same as ₹100 out, which is zero.</p></div>
+<div class="card y" data-ck="auto-exercise-assignment-and-the-settlement-pric" data-skey="ovopt:the-contract-premium-strike-expiry-and-settlemen/auto-exercise-assignment-and-the-settlement-pric" id="auto-exercise-assignment-and-the-settlement-pric"><h3 data-label="Auto-exercise, assignment and the settlement price">Auto-exercise, assignment and the settlement price<a aria-label="Link to this card" class="anchor" href="#auto-exercise-assignment-and-the-settlement-pric">#</a></h3><ul>
+<li>At expiry time value is gone and only <b>intrinsic value</b> settles. 1320 call settling at 1360 pays ₹40 a share ≈ ₹20,000 a lot; at 1320 or 1290 it pays nothing.</li>
+<li>The exchange <b>auto-exercises</b> every in-the-money option. A seller of that option is <b>assigned</b> and must settle it; the premium collected does not cap that duty.</li>
+<li>Index options settle on the index's official close. For stocks, the course notes that from 3 Aug 2026 the official close normally comes from the closing auction, with the 15:00–15:15 <abbr class="gl" data-tip="Average price paid since the session open, weighted by volume. Institutions benchmark executions against it; price above VWAP shows buyers in control intraday." data-tip-title="VWAP: Volume-weighted average price">VWAP</abbr> as reference and fallback; stock options trade until 15:40 and the derivative closing price uses the 15:10–15:40 VWAP.</li>
+<li>You cannot influence the settlement number. Square off in time to avoid delivery, exercise <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr> and surprise fills.</li>
+</ul><p>Rules change: confirm the current <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> contract specification and NSE Clearing schedule before any expiry.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#what"><span>Previous</span>01 · Why and what: rights, jobs, rivals and the two building blocks</a><a class="sn-next" href="#price"><span>Next</span>03 · Reading the price: moneyness, value split, live P&amp;L, chain and spread</a></nav></section>
+<section class="sec t" data-origin="ovopt" data-sid="price" id="price"><h2 data-label="Reading the price: moneyness, value split, live P&amp;L, chain and spread"><span class="n">03</span>Reading the price: moneyness, value split, live P&amp;L, chain and spread</h2>
+<p class="src">OpenAlgo Open Varsity · Options Basics · chapters 9–13 (<a href="https://www.openalgo.in/options-basics/moneyness">moneyness</a>, <a href="https://www.openalgo.in/options-basics/intrinsic-and-time-value">intrinsic and time value</a>, <a href="https://www.openalgo.in/options-basics/payoff-vs-live-pnl">payoff vs live P&amp;L</a>, <a href="https://www.openalgo.in/options-basics/the-option-chain">the option chain</a>, <a href="https://www.openalgo.in/options-basics/bid-ask-spread-liquidity">bid, ask, spread and liquidity</a>)</p>
+<div class="g2">
+<div class="card t" data-ck="in-at-and-out-of-the-money" data-skey="ovopt:reading-the-price-moneyness-value-split-live-p-l/in-at-and-out-of-the-money" id="in-at-and-out-of-the-money"><h3 data-label="In, at and out of the money">In, at and out of the money<a aria-label="Link to this card" class="anchor" href="#in-at-and-out-of-the-money">#</a></h3><div class="tw"><table>
+<tr><th>Strike (spot 1,318)</th><th>Call</th><th>Put</th></tr>
+<tr><td>1260, 1300</td><td>ITM</td><td>OTM</td></tr>
+<tr><td>1320</td><td><abbr class="gl" data-tip="An option whose strike equals the current price. An ATM straddle's price ÷ stock price approximates the expected move." data-tip-title="ATM: At the money">ATM</abbr></td><td>ATM</td></tr>
+<tr><td>1340, 1380</td><td>OTM</td><td>ITM</td></tr>
+</table></div><ul>
+<li>Test: exercise this second, would you gain? Yes is <b>ITM</b>, no is <b>OTM</b>, on the line is <b>ATM</b>.</li>
+<li>Calls want a low strike (buy cheap); puts want a high strike (sell dear). 1300 call: ₹18 intrinsic. 1340 put: ₹22 intrinsic.</li>
+<li>Moneyness moves with price: at 1,360 the 1320 call is ₹40 ITM and the put is OTM; at 1,280 the reverse.</li>
+<li>OTM options are cheap because they are pure hope; cheap is not good value. And ITM is not the same as profitable: it still has to cover the premium paid.</li>
+</ul></div>
+<div class="card p" data-ck="intrinsic-value-plus-time-value" data-skey="ovopt:reading-the-price-moneyness-value-split-live-p-l/intrinsic-value-plus-time-value" id="intrinsic-value-plus-time-value"><h3 data-label="Intrinsic value plus time value">Intrinsic value plus time value<a aria-label="Link to this card" class="anchor" href="#intrinsic-value-plus-time-value">#</a></h3><div class="formula"><span class="fl">premium = intrinsic value + time value</span><span class="fl">call intrinsic = max(spot − strike, 0)</span><span class="fl">put intrinsic = max(strike − spot, 0)</span><span class="fl">time value = premium − intrinsic</span></div><ul>
+<li>Spot 1,318, both 1320 options ≈ ₹31: call = 0 intrinsic + 31 time; put = 2 intrinsic + 29 time.</li>
+<li>Time value is the "hope premium". It melts every day, slowly at first and steeply in the final week, and is zero at expiry.</li>
+<li>A flat stock still costs the buyer: two flat weeks at 1,318 shrink both premiums.</li>
+<li>Before buying, ask how far, and how fast, the stock must move to beat that melt.</li>
+</ul></div>
+<div class="card o full" data-ck="payoff-at-expiry-vs-live-p-l" data-skey="ovopt:reading-the-price-moneyness-value-split-live-p-l/payoff-at-expiry-vs-live-p-l" id="payoff-at-expiry-vs-live-p-l"><h3 data-label="Payoff at expiry vs live P&amp;L">Payoff at expiry vs live P&amp;L<a aria-label="Link to this card" class="anchor" href="#payoff-at-expiry-vs-live-p-l">#</a></h3><div class="tw"><table>
+<tr><th>Line on the chart</th><th>Shows</th><th>Shaped by</th></tr>
+<tr><td>Solid, bent line</td><td>P&amp;L if held to expiry: pure intrinsic value</td><td>Strike and premium only</td></tr>
+<tr><td>Dotted, rounded curve (T+0)</td><td>What the position is worth today</td><td>Delta, theta, vega, and the bid-ask spread</td></tr>
+<tr><td>Gap between them</td><td>Time value still left</td><td>Shrinks to nothing by expiry morning</td></tr>
+</table></div><ul>
+<li>Example: next day RELIANCE goes 1,318 → 1,325, the right way. Delta ≈ 0.5 passes on only ≈ ₹3.5 of the ₹7 move; a day of theta and the spread (you bought at the ask, you are valued at the bid) take their share, so the P&amp;L can be near flat or slightly negative.</li>
+<li>Falling implied volatility (vega) can shrink the premium even when spot does not move.</li>
+<li>Keep two questions apart: "Was I right on direction?" and "Am I in profit?" Use the payoff chart as your expiry plan; track the trade on the today curve.</li>
+</ul></div>
+<div class="card g full" data-ck="reading-the-option-chain" data-skey="ovopt:reading-the-price-moneyness-value-split-live-p-l/reading-the-option-chain" id="reading-the-option-chain"><h3 data-label="Reading the option chain">Reading the option chain<a aria-label="Link to this card" class="anchor" href="#reading-the-option-chain">#</a></h3><div class="tw"><table>
+<tr><th>Call LTP</th><th>Call OI</th><th>Strike</th><th>Put LTP</th><th>Put OI</th></tr>
+<tr><td>42</td><td>1,80,000</td><td>1300</td><td>24</td><td>2,40,000</td></tr>
+<tr><td>36</td><td>1,30,000</td><td>1310</td><td>28</td><td>1,60,000</td></tr>
+<tr><td><b>31</b></td><td>3,10,000</td><td><b>1320 (<abbr class="gl" data-tip="An option whose strike equals the current price. An ATM straddle's price ÷ stock price approximates the expected move." data-tip-title="ATM: At the money">ATM</abbr>)</b></td><td><b>31</b></td><td>3,40,000</td></tr>
+<tr><td>26</td><td>1,50,000</td><td>1330</td><td>37</td><td>1,20,000</td></tr>
+<tr><td>21</td><td>2,00,000</td><td>1340</td><td>44</td><td>90,000</td></tr>
+</table></div><ul>
+<li>Layout: calls on the left, strikes down the middle, puts on the right; one row is one strike for one expiry. Switching expiry reprices everything, and later expiries cost more.</li>
+<li>Find ATM first: the strike nearest spot. Calls get cheaper up the strikes, puts cheaper down them.</li>
+<li>Fields: <b>LTP</b> last trade · <b>bid</b> best buyer · <b>ask</b> best seller · <b>volume</b> today's trades · <b><abbr class="gl" data-tip="Number of futures or options contracts outstanding. Rising price with rising OI means new positions are backing the move." data-tip-title="OI: Open interest">OI</abbr></b> contracts still open.</li>
+<li>Deep ITM strikes are dear because of intrinsic value; far OTM strikes are cheap because they need big moves. Heavy OI marks where traders are positioned: a clue, not a forecast. The chain prices rights; it does not predict direction. (Illustrative, rounded numbers from the course.)</li>
+</ul></div>
+<div class="card r" data-ck="bid-ask-spread-and-liquidity" data-skey="ovopt:reading-the-price-moneyness-value-split-live-p-l/bid-ask-spread-and-liquidity" id="bid-ask-spread-and-liquidity"><h3 data-label="Bid, ask, spread and liquidity">Bid, ask, spread and liquidity<a aria-label="Link to this card" class="anchor" href="#bid-ask-spread-and-liquidity">#</a></h3><div class="tw"><table>
+<tr><th>RELIANCE call</th><th>Bid</th><th>Ask</th><th>Spread per lot</th></tr>
+<tr><td>1320 (<abbr class="gl" data-tip="An option whose strike equals the current price. An ATM straddle's price ÷ stock price approximates the expected move." data-tip-title="ATM: At the money">ATM</abbr>)</td><td>30.80</td><td>31.20</td><td>₹0.40 ≈ ₹200</td></tr>
+<tr><td>1500 (far OTM)</td><td>0.50</td><td>1.50</td><td>₹1.00 ≈ ₹500</td></tr>
+</table></div><ul>
+<li>You buy at the ask and sell at the bid, always the worse side. Buying and instantly selling loses the spread with no move at all.</li>
+<li>On the 1500 strike you pay 1.50 and could sell for 0.50: about two-thirds of the premium gone to spread.</li>
+<li>LTP is a past trade and can be stale on sleepy strikes. Size off the live bid and ask.</li>
+<li>Liquidity filter before any idea: tight spread, real volume and open interest. Wide spread plus thin volume means walk away. Prefer near-ATM strikes on major underlyings in the nearer expiries.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#contract"><span>Previous</span>02 · The contract: premium, strike, expiry and settlement</a><a class="sn-next" href="#payoffs"><span>Next</span>04 · The four payoffs and who has the edge</a></nav></section>
+<section class="sec g" data-origin="ovopt" data-sid="payoffs" id="payoffs"><h2 data-label="The four payoffs and who has the edge"><span class="n">04</span>The four payoffs and who has the edge</h2>
+<p class="src">OpenAlgo Open Varsity · Options Basics · chapters 14–17 (<a href="https://www.openalgo.in/options-basics/long-call">long call</a>, <a href="https://www.openalgo.in/options-basics/long-put">long put</a>, <a href="https://www.openalgo.in/options-basics/short-call-and-put">short call and put</a>, <a href="https://www.openalgo.in/options-basics/buyer-vs-seller">buyer vs seller</a>)</p>
+<div class="g2">
+<div class="card g full" data-ck="the-four-payoffs-side-by-side" data-skey="ovopt:the-four-payoffs-and-who-has-the-edge/the-four-payoffs-side-by-side" id="the-four-payoffs-side-by-side"><h3 data-label="The four payoffs side by side">The four payoffs side by side<a aria-label="Link to this card" class="anchor" href="#the-four-payoffs-side-by-side">#</a></h3><div class="tw"><table>
+<tr><th>Position (1320 strike, premium ≈ 31, lot 500)</th><th>Wants</th><th>Max profit</th><th>Max loss</th><th>Breakeven</th><th>Time decay</th></tr>
+<tr><td>Long call</td><td>A big rise, soon</td><td>No ceiling</td><td>Premium ≈ ₹15,590</td><td>1351 = strike + premium</td><td>Against</td></tr>
+<tr><td>Long put</td><td>A big fall, soon</td><td>Large: price can't go below 0</td><td>Premium ≈ ₹15,590</td><td>1289 = strike − premium</td><td>Against</td></tr>
+<tr><td>Short call</td><td>Stay below 1320</td><td>Premium ≈ ₹15,590</td><td>Unlimited</td><td>1351</td><td>For</td></tr>
+<tr><td>Short put</td><td>Stay above 1320</td><td>Premium ≈ ₹15,590</td><td>Very large: ≈ ₹6.44 lakh if the stock went to 0</td><td>1289</td><td>For</td></tr>
+</table></div><p>Each ₹1 beyond breakeven is worth ₹500 to the lot. Buyers and sellers of the same option are exact mirror images: one side's capped loss is the other side's capped gain.</p></div>
+<div class="card b" data-ck="long-call-buy-the-right-to-buy" data-skey="ovopt:the-four-payoffs-and-who-has-the-edge/long-call-buy-the-right-to-buy" id="long-call-buy-the-right-to-buy"><h3 data-label="Long call: buy the right to buy">Long call: buy the right to buy<a aria-label="Link to this card" class="anchor" href="#long-call-buy-the-right-to-buy">#</a></h3><ul>
+<li>Payoff at expiry: a flat loss of the premium below 1320, a hinge at the strike, zero at 1351, then a climb with no ceiling.</li>
+<li>Three endings: 1310 → lose ≈ ₹15,590 · 1351 → about zero · 1400 → (1400 − 1351) × 500 ≈ ₹24,500 profit.</li>
+<li>The stock must clear <b>breakeven</b>, not just the strike. A move to 1345 helps a shareholder but still loses for this call buyer.</li>
+<li>The whole premium here is time value, which leaks daily and fastest in the final week. Be right on size and timing, not only direction.</li>
+<li>Makes sense when you expect a sizeable move reasonably soon and risk only money you can lose entirely. A call that needs a miracle by Friday is usually a donation.</li>
+</ul></div>
+<div class="card p" data-ck="long-put-profit-from-a-fall-or-insure-shares" data-skey="ovopt:the-four-payoffs-and-who-has-the-edge/long-put-profit-from-a-fall-or-insure-shares" id="long-put-profit-from-a-fall-or-insure-shares"><h3 data-label="Long put: profit from a fall, or insure shares">Long put: profit from a fall, or insure shares<a aria-label="Link to this card" class="anchor" href="#long-put-profit-from-a-fall-or-insure-shares">#</a></h3><ul>
+<li>Mirror of the long call: worthless above 1320, breakeven 1289, then ₹500 per ₹1 fall. At 1250: (1289 − 1250) × 500 ≈ ₹19,500.</li>
+<li>At expiry: value = (strike − price) × lot when positive; net P&amp;L = that value − premium.</li>
+<li>Right but still losing: a fall to 1295 is real, yet above breakeven, so the trade loses after decay.</li>
+<li><b>Protective put:</b> own 500 shares (≈ ₹6.59 lakh) and buy one 1320 put for ≈ ₹15,590. A crash to 1200 is mostly offset by the put; a rise to 1400 lets the put lapse. Premium = insurance cost, strike = floor, expiry = when the policy ends.</li>
+</ul></div>
+<div class="card r" data-ck="short-call-and-short-put" data-skey="ovopt:the-four-payoffs-and-who-has-the-edge/short-call-and-short-put" id="short-call-and-short-put"><h3 data-label="Short call and short put">Short call and short put<a aria-label="Link to this card" class="anchor" href="#short-call-and-short-put">#</a></h3><ul>
+<li>Selling (writing) an option: receive the premium now, take on the obligation. The best case is that it expires worthless and you keep everything.</li>
+<li><b>Short call</b> wants the stock below the strike; above 1351 every ₹1 costs ₹500, without limit. At 1400 the loss is ≈ ₹24,500.</li>
+<li><b>Short put</b> wants the stock above the strike; below 1289 every ₹1 costs ₹500, down toward zero.</li>
+<li>Sellers post margin (SPAN for a worst-case day plus an exposure buffer), far larger than the premium, and it can rise as the trade goes against you. Check it in a margin calculator first.</li>
+<li>Cap the tail: own the shares behind a sold call, or pair the sold option with a bought one (a spread).</li>
+</ul></div>
+<div class="card o" data-ck="the-seller-s-trap-in-numbers" data-skey="ovopt:the-four-payoffs-and-who-has-the-edge/the-seller-s-trap-in-numbers" id="the-seller-s-trap-in-numbers"><h3 data-label="The seller's trap in numbers">The seller's trap in numbers<a aria-label="Link to this card" class="anchor" href="#the-seller-s-trap-in-numbers">#</a></h3><div class="formula"><span class="fl">6 calm months selling the 1320 call ≈ 6 × ₹15,590 ≈ ₹93,540</span><span class="fl">one gap to 1450: (1450 − 1351) × 500 ≈ ₹49,500 loss</span><span class="fl">→ over 3 months of premium gone in one move</span></div><p>Selling produces many small wins and rare large losses. A seller can win 9 trades out of 10 and still finish down if the tenth loss is bigger than the nine wins combined. Premium received is rented-out risk, not earned income.</p></div>
+<div class="card t" data-ck="buyer-vs-seller-who-has-the-edge" data-skey="ovopt:the-four-payoffs-and-who-has-the-edge/buyer-vs-seller-who-has-the-edge" id="buyer-vs-seller-who-has-the-edge"><h3 data-label="Buyer vs seller: who has the edge?">Buyer vs seller: who has the edge?<a aria-label="Link to this card" class="anchor" href="#buyer-vs-seller-who-has-the-edge">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Buyer</th><th>Seller</th></tr>
+<tr><td>Risk</td><td>Capped at premium</td><td>Large or unlimited</td></tr>
+<tr><td>Reward</td><td>Large or unlimited</td><td>Capped at premium</td></tr>
+<tr><td>Typical win rate</td><td>Low: most options expire worthless</td><td>High</td></tr>
+<tr><td>Time decay</td><td>Daily enemy</td><td>Daily friend</td></tr>
+<tr><td>Must be right on</td><td>Direction, size and timing</td><td>Not being hit by the tail</td></tr>
+<tr><td>Suits</td><td>A specific, time-bound view with an affordable loss</td><td>Traders who can fund margin and cap the tail</td></tr>
+</table></div><p>"Buyers have limited risk; sellers have the odds." Neither is a free lunch: the premium is where the two trades meet. Win rate and win size are separate measures, so weigh both. The edge comes from judgement, sizing and discipline, not from the choice of side. Before any trade, say that side's catch out loud.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#price"><span>Previous</span>03 · Reading the price: moneyness, value split, live P&amp;L, chain and spread</a><a class="sn-next" href="#vol"><span>Next</span>05 · Volatility and positioning: Greeks, IV, expected move, OI and PCR</a></nav></section>
+<section class="sec y" data-origin="ovopt" data-sid="vol" id="vol"><h2 data-label="Volatility and positioning: Greeks, IV, expected move, OI and PCR"><span class="n">05</span>Volatility and positioning: Greeks, IV, expected move, OI and PCR</h2>
+<p class="src">OpenAlgo Open Varsity · Options Basics · chapters 18–21 (<a href="https://www.openalgo.in/options-basics/the-greeks">the Greeks</a>, <a href="https://www.openalgo.in/options-basics/implied-volatility">implied volatility</a>, <a href="https://www.openalgo.in/options-basics/hv-iv-and-expected-move">HV, IV and the expected move</a>, <a href="https://www.openalgo.in/options-basics/open-interest-volume-pcr">open interest, volume and PCR</a>)</p>
+<div class="g2">
+<div class="card y full" data-ck="the-greeks-four-plain-questions" data-skey="ovopt:volatility-and-positioning-greeks-iv-expected-mo/the-greeks-four-plain-questions" id="the-greeks-four-plain-questions"><h3 data-label="The Greeks: four plain questions">The Greeks: four plain questions<a aria-label="Link to this card" class="anchor" href="#the-greeks-four-plain-questions">#</a></h3><div class="tw"><table>
+<tr><th>Greek</th><th>Question it answers</th><th>Typical values</th><th>Buyer's experience</th></tr>
+<tr><td>Delta</td><td>How much does the premium move per ₹1 in the stock?</td><td>Calls 0 to +1, puts 0 to −1; <abbr class="gl" data-tip="An option whose strike equals the current price. An ATM straddle's price ÷ stock price approximates the expected move." data-tip-title="ATM: At the money">ATM</abbr> ≈ ±0.5, deep ITM near 1, far OTM near 0</td><td>The profit engine when you are right</td></tr>
+<tr><td>Gamma</td><td>How fast does delta itself change?</td><td>Highest ATM, especially near expiry; low deep ITM and far OTM</td><td>Sudden speed-up near the strike late in the cycle</td></tr>
+<tr><td>Theta</td><td>How much value leaks per day from time alone?</td><td>1320 call ≈ ₹1 a day ≈ ₹500 per lot; largest ATM; brutal in the final week</td><td>The daily enemy (sellers collect it)</td></tr>
+<tr><td>Vega</td><td>How much does the premium move when implied volatility changes?</td><td>Highest ATM with plenty of time left</td><td>Hidden gains or losses with a flat stock</td></tr>
+</table></div><ul>
+<li>Delta also gives a rough feel for the chance of finishing in the money: 0.15 suggests slim odds. It is a feel, not an exact probability, and it moves as the stock moves (that is gamma).</li>
+<li>A flat week can still cost the buyer twice: theta bleeds value and a dip in implied volatility (vega) takes more.</li>
+<li>Read delta and theta together before buying. A position is the sum of all four Greeks, not one of them. OpenAlgo can report Greeks for any strike.</li>
+</ul></div>
+<div class="card r" data-ck="implied-volatility-the-price-of-fear" data-skey="ovopt:volatility-and-positioning-greeks-iv-expected-mo/implied-volatility-the-price-of-fear" id="implied-volatility-the-price-of-fear"><h3 data-label="Implied volatility: the price of fear">Implied volatility: the price of fear<a aria-label="Link to this card" class="anchor" href="#implied-volatility-the-price-of-fear">#</a></h3><div class="tw"><table>
+<tr><th>Mood (RELIANCE 1320 call, all else fixed)</th><th>IV</th><th>Premium</th></tr>
+<tr><td>Calm</td><td>≈ 15%</td><td>Below ₹31</td></tr>
+<tr><td>Normal (anchor)</td><td>≈ 20%</td><td>≈ ₹31</td></tr>
+<tr><td>Nervous, news due</td><td>≈ 35%</td><td>Well above</td></tr>
+<tr><td>Fearful, event looming</td><td>50%+</td><td>2–3× the anchor</td></tr>
+</table></div><ul>
+<li><b>Implied volatility</b> is the market's expected future movement, quoted as an annual %, backed out of option prices. It looks forward; it is not a record of past moves.</li>
+<li>High <abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr> means expensive options, low IV cheap ones. IV says how costly the bet is, never which way it goes.</li>
+<li>Cheap, low-IV options are cheap because a small move is expected, and it may not come.</li>
+</ul></div>
+<div class="card o" data-ck="iv-crush-around-events" data-skey="ovopt:volatility-and-positioning-greeks-iv-expected-mo/iv-crush-around-events" id="iv-crush-around-events"><h3 data-label="IV crush around events">IV crush around events<a aria-label="Link to this card" class="anchor" href="#iv-crush-around-events">#</a></h3><pre class="mermaid" data-h="331" data-key="7954510051a8" data-w="395">flowchart TD
+  C["Calm: IV near its usual range"] --&gt; B["Event approaches: demand lifts IV, premiums swell"]
+  B --&gt; R["Result lands: the uncertainty is resolved"]
+  R --&gt; K["IV crush: premium falls toward intrinsic value"]
+  K --&gt; N["Normal again: price reflects the real move and the time left"]</pre><p>To win as a buyer, the real move must beat the move the crowd already paid for. Sellers aim to collect the swollen premium and keep it as <abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr> falls, which carries large risk.</p></div>
+<div class="card p" data-ck="hv-vs-iv-and-iv-rank" data-skey="ovopt:volatility-and-positioning-greeks-iv-expected-mo/hv-vs-iv-and-iv-rank" id="hv-vs-iv-and-iv-rank"><h3 data-label="HV vs IV, and IV rank">HV vs IV, and IV rank<a aria-label="Link to this card" class="anchor" href="#hv-vs-iv-and-iv-rank">#</a></h3><div class="formula"><span class="fl">IV rank = (IV now − 1-yr low) / (1-yr high − 1-yr low) × 100</span><span class="fl">RELIANCE: (20 − 14) / (34 − 14) = 30%  → lower half of its year</span><span class="fl">IV percentile = % of past-year days with IV below today's</span></div><ul>
+<li><b>Historical (realised) volatility</b> is what the stock actually did over a past window, say 20–30 trading days. <b><abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr></b> is what is priced in through expiry.</li>
+<li>IV well above HV: the market is paying for a move not yet seen (results due?). IV below HV: options look cheap next to recent movement.</li>
+<li>Volatility is relative: 20% is calm for one stock and stormy for another. Never judge IV alone; check its rank or percentile first. Expensive is not automatically bad, and cheap is not automatically good.</li>
+</ul></div>
+<div class="card g" data-ck="expected-move-from-the-atm-straddle" data-skey="ovopt:volatility-and-positioning-greeks-iv-expected-mo/expected-move-from-the-atm-straddle" id="expected-move-from-the-atm-straddle"><h3 data-label="Expected move from the ATM straddle">Expected move from the ATM straddle<a aria-label="Link to this card" class="anchor" href="#expected-move-from-the-atm-straddle">#</a></h3><div class="tw"><table>
+<tr><th>NIFTY, 28 Jul monthly</th><th>Value</th></tr>
+<tr><td>Spot / <abbr class="gl" data-tip="An option whose strike equals the current price. An ATM straddle's price ÷ stock price approximates the expected move." data-tip-title="ATM: At the money">ATM</abbr> strike</td><td>≈ 24,056 / 24,050</td></tr>
+<tr><td>ATM call + ATM put</td><td>≈ 426 + 295</td></tr>
+<tr><td>Straddle = expected move</td><td>≈ ±720 points</td></tr>
+<tr><td>Expected range</td><td>≈ 23,336 – 24,776</td></tr>
+</table></div><ul>
+<li>The straddle price is a rough one-standard-deviation band: the close lands inside it about two-thirds of the time. It is neither a guarantee nor a direction call.</li>
+<li>Right and still losing: buy a NIFTY call, NIFTY rises 300 points. Less than half the priced 720-point move arrived, so the time value paid for it is not recovered.</li>
+<li>For sellers, the straddle is the cushion they hope price stays inside.</li>
+</ul></div>
+<div class="card b full" data-ck="open-interest-volume-and-pcr" data-skey="ovopt:volatility-and-positioning-greeks-iv-expected-mo/open-interest-volume-and-pcr" id="open-interest-volume-and-pcr"><h3 data-label="Open interest, volume and PCR">Open interest, volume and PCR<a aria-label="Link to this card" class="anchor" href="#open-interest-volume-and-pcr">#</a></h3><div class="tw"><table>
+<tr><th>Price</th><th>OI</th><th>Read as</th><th>Meaning</th></tr>
+<tr><td>Up</td><td>Up</td><td>Long build-up</td><td>Fresh buyers entering</td></tr>
+<tr><td>Up</td><td>Down</td><td>Short covering</td><td>Sellers buying back; can fade once done</td></tr>
+<tr><td>Down</td><td>Up</td><td>Short build-up</td><td>Fresh sellers entering</td></tr>
+<tr><td>Down</td><td>Down</td><td>Long unwinding</td><td>Buyers exiting</td></tr>
+</table></div><ul>
+<li><b>Volume</b> counts trades today and resets each morning. <b>Open interest</b> counts contracts still open and carries over. Two new traders opening: <abbr class="gl" data-tip="Number of futures or options contracts outstanding. Rising price with rising OI means new positions are backing the move." data-tip-title="OI: Open interest">OI</abbr> +1. One closing to a new one: OI unchanged. Both closing: OI −1. Volume rises in every case.</li>
+<li>Read the <b>change</b> in OI together with price, never the OI level alone. Build-up moves are usually seen as better supported, but that is a soft judgement.</li>
+<li><b>OI walls:</b> heavy put OI below price is often called support and heavy call OI above it resistance. These are tendencies that break often, especially on trend and event days.</li>
+<li><b><abbr class="gl" data-tip="For banks: provisions ÷ gross NPAs (above 70% is comfortable). In options: put open interest ÷ call open interest, read as a sentiment gauge." data-tip-title="PCR: Provision coverage ratio / put-call ratio">PCR</abbr></b> = total put OI ÷ total call OI. Above 1 is read as bearish positioning or, if crowded, contrarian bullish; below 1 the reverse. No fixed threshold works and the same reading is argued both ways: it is a mood gauge.</li>
+<li>All of these describe positioning, not intent: a put block may be a bet, a hedge or one leg of a spread. Use them as context alongside price and a plan, never as the reason to enter.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#payoffs"><span>Previous</span>04 · The four payoffs and who has the edge</a><a class="sn-next" href="#choose"><span>Next</span>06 · Choosing strike and expiry, margin, costs and event risk</a></nav></section>
+<section class="sec r" data-origin="ovopt" data-sid="choose" id="choose"><h2 data-label="Choosing strike and expiry, margin, costs and event risk"><span class="n">06</span>Choosing strike and expiry, margin, costs and event risk</h2>
+<p class="src">OpenAlgo Open Varsity · Options Basics · chapters 22–24 (<a href="https://www.openalgo.in/options-basics/choosing-strike-and-expiry">choosing strike and expiry</a>, <a href="https://www.openalgo.in/options-basics/margin-and-costs">margin and costs</a>, <a href="https://www.openalgo.in/options-basics/event-risk">event risk</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="choosing-a-strike-delta-as-a-guide" data-skey="ovopt:choosing-strike-and-expiry-margin-costs-and-even/choosing-a-strike-delta-as-a-guide" id="choosing-a-strike-delta-as-a-guide"><h3 data-label="Choosing a strike: delta as a guide">Choosing a strike: delta as a guide<a aria-label="Link to this card" class="anchor" href="#choosing-a-strike-delta-as-a-guide">#</a></h3><div class="tw"><table>
+<tr><th>Zone (calls, spot 1,318)</th><th>Delta</th><th>Character</th></tr>
+<tr><td>ITM (below spot)</td><td>≈ 0.70–0.90</td><td>Dearest; mostly intrinsic; moves nearly ₹1 for ₹1; less decay pressure</td></tr>
+<tr><td><abbr class="gl" data-tip="An option whose strike equals the current price. An ATM straddle's price ÷ stock price approximates the expected move." data-tip-title="ATM: At the money">ATM</abbr> (1320)</td><td>≈ 0.50</td><td>Balanced; about half a move flows through; thickest time value</td></tr>
+<tr><td>OTM</td><td>≈ 0.30</td><td>Cheap, all hope; needs a clear move</td></tr>
+<tr><td>Far OTM</td><td>≤ 0.10</td><td>Lottery ticket; usually expires worthless</td></tr>
+</table></div><p>Delta roughly tracks the odds of finishing in the money (0.80 ≈ 80% feel, 0.15 ≈ one in seven). Match delta to your confidence and the size of move you expect. Buying many long shots does not improve the odds; it multiplies small losses.</p></div>
+<div class="card t" data-ck="choosing-an-expiry-weekly-vs-monthly" data-skey="ovopt:choosing-strike-and-expiry-margin-costs-and-even/choosing-an-expiry-weekly-vs-monthly" id="choosing-an-expiry-weekly-vs-monthly"><h3 data-label="Choosing an expiry: weekly vs monthly">Choosing an expiry: weekly vs monthly<a aria-label="Link to this card" class="anchor" href="#choosing-an-expiry-weekly-vs-monthly">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Weekly</th><th>Monthly</th></tr>
+<tr><td>Available on</td><td>NIFTY (where offered)</td><td>NIFTY, RELIANCE and other stocks</td></tr>
+<tr><td>Premium</td><td>Cheaper</td><td>Dearer: more time bought</td></tr>
+<tr><td>Theta</td><td>Fierce</td><td>Gentle early on</td></tr>
+<tr><td>Suits</td><td>A fast, precise call</td><td>A move that needs room</td></tr>
+</table></div><ul>
+<li>Decay is non-linear: a slow melt, then a steep collapse in the final days. A slow thesis needs more time; do not overpay for time you won't use either.</li>
+<li>Avoid expiries that straddle an event you did not mean to trade, or accept the inflated premium knowingly.</li>
+<li>Liquidity check: near-ATM strikes in near-month popular contracts are usually liquid; far OTM or thin far-month strikes make round trips costly.</li>
+</ul></div>
+<div class="card y full" data-ck="should-i-buy-this-option" data-skey="ovopt:choosing-strike-and-expiry-margin-costs-and-even/should-i-buy-this-option" id="should-i-buy-this-option"><h3 data-label="Should I buy this option?">Should I buy this option?<a aria-label="Link to this card" class="anchor" href="#should-i-buy-this-option">#</a></h3><div class="ladder"><div class="l-start">You have a view and an option in mind</div><div class="l-step"><div class="l-q" data-tip="For a bought option the maximum loss is premium × lot. Set the 2–5% cap before looking at the trade, not after." tabindex="0"><span class="l-n">1</span><span>Can you state the maximum loss in rupees, within 2–5% of capital?</span></div><div class="l-as"><div class="l-a" data-tip="Do the arithmetic first. If one lot breaks the cap, choose a cheaper contract or skip the idea." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Don't enter yet</b><span>work out premium × lot and size first</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Read the live bid and ask, not the LTP. A wide spread is an instant loss on entry and a trap on exit." tabindex="0"><span class="l-n">2</span><span>Is the strike liquid: tight spread, real volume and OI?</span></div><div class="l-as"><div class="l-a" data-tip="Near-ATM strikes on major underlyings in the nearer expiry carry most of the volume and the tightest spreads." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Move nearer the money</b><span>or to a busier underlying</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Check the corporate results calendar, RBI policy dates and the Budget against the option's expiry." tabindex="0"><span class="l-n">3</span><span>Does a result, RBI policy or Budget date fall before expiry?</span></div><div class="l-as"><div class="l-a" data-tip="Pre-event premium is swollen. After the news IV collapses, so a modest move your way can still lose." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Expect an IV crush</b><span>wait, or pay the swollen premium knowingly</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Compare your expected move with breakeven (strike ± premium plus costs) and with the straddle's priced-in move." tabindex="0"><span class="l-n">4</span><span>Can your expected move clear breakeven after charges, before expiry?</span></div><div class="l-as"><div class="l-a" data-tip="If the move you expect does not beat breakeven in time, the option loses even when the direction is right." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Pass: move too small</b><span>right direction is not enough</span></div></div><div class="l-a" data-tip="Write the profit target and the loss limit now, e.g. close if the premium doubles or halves, then size within the cap." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Buy it with a written exit</b><span>profit target and loss limit set now</span></div></div></div></div></div></div>
+<div class="card b" data-ck="seller-margin-hedging-and-pledging" data-skey="ovopt:choosing-strike-and-expiry-margin-costs-and-even/seller-margin-hedging-and-pledging" id="seller-margin-hedging-and-pledging"><h3 data-label="Seller margin, hedging and pledging">Seller margin, hedging and pledging<a aria-label="Link to this card" class="anchor" href="#seller-margin-hedging-and-pledging">#</a></h3><ul>
+<li>A naked short index option blocks roughly <b>₹1.5–1.8 lakh</b> of margin per lot: SPAN (loss across a range of moves) plus an exposure buffer. A few thousand rupees of premium can sit on a block many times its size.</li>
+<li><b>Hedge to cut margin:</b> buy a further-out option against the one sold. The worst case becomes bounded, so margin often drops to a small fraction of the naked figure. Hedging lowers both risk and margin.</li>
+<li><b>Pledging</b> shares or certain funds adds collateral, after a haircut. At least about half the margin must still be cash, and mark-to-market losses are settled in cash, so keep a cash buffer or risk a forced exit or a penalty.</li>
+</ul></div>
+<div class="card g" data-ck="the-charges-stack" data-skey="ovopt:choosing-strike-and-expiry-margin-costs-and-even/the-charges-stack" id="the-charges-stack"><h3 data-label="The charges stack">The charges stack<a aria-label="Link to this card" class="anchor" href="#the-charges-stack">#</a></h3><div class="tw"><table>
+<tr><th>Charge</th><th>When</th><th>Basis (from 1 Apr 2026)</th></tr>
+<tr><td>Brokerage</td><td>Every order</td><td>Often ≈ ₹20 flat; nil at some brokers</td></tr>
+<tr><td><abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr> on sale</td><td>Selling or writing</td><td>0.15% of premium value</td></tr>
+<tr><td>STT on exercise</td><td>ITM option exercised at expiry</td><td>0.15% of intrinsic (settlement) value</td></tr>
+<tr><td>Exchange transaction</td><td>Both sides</td><td>Small % of premium turnover</td></tr>
+<tr><td><abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> fee</td><td>Both sides</td><td>Tiny % of turnover</td></tr>
+<tr><td><abbr class="gl" data-tip="India's indirect tax; monthly collections are a quick read on consumption." data-tip-title="GST: Goods and services tax">GST</abbr></td><td>Both sides</td><td>18% on brokerage + transaction charges</td></tr>
+<tr><td>Stamp duty</td><td>Buy side only</td><td>Small % of buy value</td></tr>
+</table></div><p>Exercise STT example: a NIFTY call finishing 300 points in the money → 300 × 65 = ₹19,500 settlement value → ≈ ₹29 STT, charged on intrinsic value, not on the cheap premium. Square off ITM options before the close on expiry day unless you want settlement.</p></div>
+<div class="card p" data-ck="thin-scalps-lose-to-charges" data-skey="ovopt:choosing-strike-and-expiry-margin-costs-and-even/thin-scalps-lose-to-charges" id="thin-scalps-lose-to-charges"><h3 data-label="Thin scalps lose to charges">Thin scalps lose to charges<a aria-label="Link to this card" class="anchor" href="#thin-scalps-lose-to-charges">#</a></h3><div class="formula"><span class="fl">Buy 1320 call at 31, lot 500</span><span class="fl">Case A, sell at 31.50: gross ₹250; STT 0.15% × ₹15,750 ≈ ₹24</span><span class="fl">  all charges ≈ ₹80–100 → net ≈ ₹150</span><span class="fl">Case B, sell at 31.10: gross ₹50 − same charges → net loss</span></div><p>Breakeven = strike + premium (1351) only before costs; the true breakeven sits a little higher. Judge every trade by its net result after the full stack, not by the premium move.</p></div>
+<div class="card o full" data-ck="event-risk-results-rbi-policy-and-the-budget" data-skey="ovopt:choosing-strike-and-expiry-margin-costs-and-even/event-risk-results-rbi-policy-and-the-budget" id="event-risk-results-rbi-policy-and-the-budget"><h3 data-label="Event risk: results, RBI policy and the Budget">Event risk: results, RBI policy and the Budget<a aria-label="Link to this card" class="anchor" href="#event-risk-results-rbi-policy-and-the-budget">#</a></h3><div class="tw"><table>
+<tr><th>Event</th><th>Typically moves</th></tr>
+<tr><td>Company results (e.g. RELIANCE quarterlies)</td><td>That stock and its options</td></tr>
+<tr><td><abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr> monetary policy</td><td>Banks, rate-sensitive stocks, the index</td></tr>
+<tr><td>Union Budget</td><td>Whole sectors in one session</td></tr>
+<tr><td>Elections</td><td>The index, sharply and in either direction</td></tr>
+<tr><td>Global, e.g. a US Fed meeting</td><td>NIFTY via risk sentiment</td></tr>
+</table></div><ul>
+<li>The week before results the same 1320 call can cost ≈ ₹50 instead of ≈ ₹31, with no stock move at all.</li>
+<li><b>Right and still losing:</b> buy at ≈ ₹50 with the stock at 1318; results lift it to 1345 (₹25 intrinsic), but after the crush the premium is ≈ ₹35. Loss ≈ ₹15 a share ≈ ₹7,500 a lot, because the real move was smaller than the one priced in.</li>
+<li>Naked selling into a binary event is not a beginner trade; a surprise beyond the priced range can exceed the premium many times. If you sell, define the risk with a bought option.</li>
+<li>Habits: check the calendar against your expiry, position while <abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr> is calm, or wait until after the crush when premiums are cheaper.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#vol"><span>Previous</span>05 · Volatility and positioning: Greeks, IV, expected move, OI and PCR</a><a class="sn-next" href="#safety"><span>Next</span>07 · Trading safely: sizing, defined risk, mistakes and spreads</a></nav></section>
+<section class="sec p" data-origin="ovopt" data-sid="safety" id="safety"><h2 data-label="Trading safely: sizing, defined risk, mistakes and spreads"><span class="n">07</span>Trading safely: sizing, defined risk, mistakes and spreads</h2>
+<p class="src">OpenAlgo Open Varsity · Options Basics · chapters 25–26 (<a href="https://www.openalgo.in/options-basics/risk-and-mistakes">risk and the classic mistakes</a>, <a href="https://www.openalgo.in/options-basics/spreads-and-checklist">spreads and checklist</a>)</p>
+<div class="g2">
+<div class="card p" data-ck="size-by-premium-at-risk" data-skey="ovopt:trading-safely-sizing-defined-risk-mistakes-and-/size-by-premium-at-risk" id="size-by-premium-at-risk"><h3 data-label="Size by premium at risk">Size by premium at risk<a aria-label="Link to this card" class="anchor" href="#size-by-premium-at-risk">#</a></h3><div class="formula"><span class="fl">premium at risk per trade ≈ 2–5% of capital (decided before entry)</span><span class="fl">one RELIANCE 1320 lot ≈ ₹15,590</span><span class="fl">on ₹2 lakh: 1 lot ≈ 8% · 3 lots ≈ 25% on one bet</span></div><ul>
+<li>A bought option can go to zero, so the premium is the amount at risk. Decide the loss you accept first, then work out lots.</li>
+<li>On a ₹2 lakh account even one lot of this option is above the 2–5% band: trade a cheaper contract or skip it.</li>
+<li>If you cannot state the maximum loss in one sentence, do not enter. Long option: the premium. Naked short call: effectively unlimited. Naked short put: very large.</li>
+</ul></div>
+<div class="card b" data-ck="stop-loss-vs-defined-risk" data-skey="ovopt:trading-safely-sizing-defined-risk-mistakes-and-/stop-loss-vs-defined-risk" id="stop-loss-vs-defined-risk"><h3 data-label="Stop-loss vs defined risk">Stop-loss vs defined risk<a aria-label="Link to this card" class="anchor" href="#stop-loss-vs-defined-risk">#</a></h3><ul>
+<li>Stops can gap straight past your level, especially on illiquid strikes and around events; a fill is never guaranteed.</li>
+<li><b>Defined risk</b> means the position itself fixes the worst case. A bought option is the simplest example; a spread caps a sold option with a bought one.</li>
+<li>Prefer structure over stop orders that must execute in a fast market: capped risk cannot be widened by a gap.</li>
+<li><b>Revenge trades</b> (bigger, faster bets to win a loss back) are usually oversized. Expiry day is the worst time for them: steepest theta, cheap OTM temptation, weakest judgement. When the urge appears, stop for the day.</li>
+</ul></div>
+<div class="card r full" data-ck="classic-mistakes-and-their-fixes" data-skey="ovopt:trading-safely-sizing-defined-risk-mistakes-and-/classic-mistakes-and-their-fixes" id="classic-mistakes-and-their-fixes"><h3 data-label="Classic mistakes and their fixes">Classic mistakes and their fixes<a aria-label="Link to this card" class="anchor" href="#classic-mistakes-and-their-fixes">#</a></h3><div class="tw"><table>
+<tr><th>Mistake</th><th>Why it hurts</th><th>Fix</th></tr>
+<tr><td>Far-OTM lottery buying</td><td>Mostly time value and hope; most expire worthless</td><td>Choose delta for your expected move, not the price tag</td></tr>
+<tr><td>Averaging down</td><td>Adds to a decaying asset that can still go to zero</td><td>Size once; exit at the written loss limit</td></tr>
+<tr><td>Holding blindly into expiry</td><td>OTM goes to zero; ITM stock options can mean delivery worth lakhs</td><td>Square off in time</td></tr>
+<tr><td>Ignoring <abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr> crush</td><td>Inflated pre-event premium collapses after the news</td><td>Check the calendar and IV rank</td></tr>
+<tr><td>Illiquid strikes</td><td>Overpay to enter, poor or no exit in a fast market</td><td>Tight spread, real volume and <abbr class="gl" data-tip="Number of futures or options contracts outstanding. Rising price with rising OI means new positions are backing the move." data-tip-title="OI: Open interest">OI</abbr> only</td></tr>
+<tr><td>Naked selling without knowing margin</td><td>Small credit, open-ended risk; one gap erases months</td><td>Define the risk with a spread</td></tr>
+<tr><td>Judging trades by premium</td><td>Charges turn thin wins into losses</td><td>Count the full charges stack</td></tr>
+</table></div><p>Almost every classic mistake is a risk failure (size, liquidity, time, emotion), not a wrong call on direction. Survival beats prediction.</p></div>
+<div class="card o" data-ck="when-not-to-trade-options" data-skey="ovopt:trading-safely-sizing-defined-risk-mistakes-and-/when-not-to-trade-options" id="when-not-to-trade-options"><h3 data-label="When not to trade options">When not to trade options<a aria-label="Link to this card" class="anchor" href="#when-not-to-trade-options">#</a></h3><ul>
+<li>You can't state the maximum loss and the breakeven after charges.</li>
+<li>You are trying to recover a recent loss.</li>
+<li>The strike is illiquid: wide spread, thin volume and <abbr class="gl" data-tip="Number of futures or options contracts outstanding. Rising price with rising OI means new positions are backing the move." data-tip-title="OI: Open interest">OI</abbr>.</li>
+<li>A known event is about to crush <abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr> and you would be buying inflated premium.</li>
+<li>It is expiry afternoon and cheap OTM tickets are tempting you.</li>
+<li>You would sell naked without understanding margin, assignment and delivery.</li>
+<li>The money is needed for living costs, loans or anything you cannot lose.</li>
+</ul></div>
+<div class="card t" data-ck="from-single-legs-to-spreads" data-skey="ovopt:trading-safely-sizing-defined-risk-mistakes-and-/from-single-legs-to-spreads" id="from-single-legs-to-spreads"><h3 data-label="From single legs to spreads">From single legs to spreads<a aria-label="Link to this card" class="anchor" href="#from-single-legs-to-spreads">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Debit spread</th><th>Credit spread</th></tr>
+<tr><td>Cash at entry</td><td>Pay net premium</td><td>Receive net premium</td></tr>
+<tr><td>Max profit</td><td>Capped</td><td>The credit received</td></tr>
+<tr><td>Max loss</td><td>The debit paid</td><td>Capped by the bought leg</td></tr>
+<tr><td>Time decay</td><td>Hurts, but gently</td><td>Helps</td></tr>
+<tr><td>Price needs to</td><td>Move your way</td><td>Stay on the right side of the sold strike</td></tr>
+</table></div><p>A <b>leg</b> is one option; a <b>spread</b> combines legs. Selling one option and buying a further one as a backstop makes the loss known before entry and cuts margin sharply. Named strategies (verticals, straddles, iron condors) are in the Options Strategies sheet.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#choose"><span>Previous</span>06 · Choosing strike and expiry, margin, costs and event risk</a><a class="sn-next" href="#last"><span>Next</span>08 · Checklists and quick reference</a></nav></section>
+<section class="sec g" data-origin="ovopt" data-sid="last" id="last"><h2 data-label="Checklists and quick reference"><span class="n">08</span>Checklists and quick reference</h2>
+<p>Run the checklist before every order, single leg or spread.</p>
+<div class="g2">
+<div class="card g" data-ck="eight-point-pre-trade-checklist" data-skey="ovopt:checklists-and-quick-reference/eight-point-pre-trade-checklist" id="eight-point-pre-trade-checklist"><h3 data-label="Eight-point pre-trade checklist">Eight-point pre-trade checklist<a aria-label="Link to this card" class="anchor" href="#eight-point-pre-trade-checklist">#</a></h3><ol class="steps">
+<li><b>Direction and date:</b> up, down or flat, and by when. A view without a date is not a trade.</li>
+<li><b>Strike:</b> matches the view; far OTM is mostly hope.</li>
+<li><b>Expiry:</b> the clock you rent; near is cheap but decays fast.</li>
+<li><b>Liquidity:</b> tight bid-ask, real volume and <abbr class="gl" data-tip="Number of futures or options contracts outstanding. Rising price with rising OI means new positions are backing the move." data-tip-title="OI: Open interest">OI</abbr>.</li>
+<li><b>Maximum loss:</b> a rupee figure. Bought option = the full premium.</li>
+<li><b>Breakeven after charges:</b> strike ± premium, pushed further out by costs.</li>
+<li><b>Event risk:</b> results, policy or Budget before expiry?</li>
+<li><b>Exit plan:</b> profit target and loss limit written down, e.g. close if the premium doubles or halves, whichever comes first.</li>
+</ol></div>
+<div class="card b" data-ck="one-line-formulas" data-skey="ovopt:checklists-and-quick-reference/one-line-formulas" id="one-line-formulas"><h3 data-label="One-line formulas">One-line formulas<a aria-label="Link to this card" class="anchor" href="#one-line-formulas">#</a></h3><div class="formula"><span class="fl">cost per lot = premium per share × lot size</span><span class="fl">call intrinsic = max(spot − strike, 0)</span><span class="fl">put intrinsic = max(strike − spot, 0)</span><span class="fl">time value = premium − intrinsic</span><span class="fl">long call breakeven = strike + premium</span><span class="fl">long put breakeven = strike − premium</span><span class="fl">P&amp;L at expiry = (intrinsic − premium) × lot</span><span class="fl">IV rank = (IV − low) / (high − low) × 100</span><span class="fl">expected move ≈ ATM call + ATM put</span><span class="fl">PCR = total put OI ÷ total call OI</span><span class="fl">option ₹ move ≈ delta × stock ₹ move</span></div></div>
+<div class="card o" data-ck="about-this-sheet" data-skey="ovopt:checklists-and-quick-reference/about-this-sheet" id="about-this-sheet"><h3 data-label="About this sheet">About this sheet<a aria-label="Link to this card" class="anchor" href="#about-this-sheet">#</a></h3><p>This sheet condenses the free course <a href="https://www.openalgo.in/options-basics">Options Basics</a> from <a href="https://www.openalgo.in/learn">OpenAlgo Open Varsity</a> (26 chapters, 7 modules) into reference cards in our own words. Worked numbers are the course's illustrative examples (RELIANCE ≈ ₹1,318 and NIFTY ≈ 24,056 in mid-2026), not live quotes. Each section links back to its chapters. Lot sizes, margins, charges and settlement rules change, so verify them with the exchange or your broker. Educational, not investment advice.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#safety"><span>Previous</span>07 · Trading safely: sizing, defined risk, mistakes and spreads</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"3e136e90ef16": {"V": "Write the view as direction plus size plus date, e.g. \"RELIANCE above 1351 before 28 July\". Without a date it is not an options trade.", "S": "Delta for confidence and move size; expiry long enough for the move to happen, without paying for time you will not use.", "L": "Tight bid-ask, real volume and OI; IV rank for how rich the premium is; and any result, RBI or Budget date before expiry.", "E": "Buying fills near the ask and selling near the bid, so the spread is a cost you pay before the stock moves.", "H": "Delta passes on part of each move, theta takes a slice every day, and vega moves the premium when implied volatility shifts.", "X": "Close by trading the opposite side at a visible price. This is how most traders finish, and it avoids exercise STT and delivery.", "P": "Time value is zero at expiry. In the money settles at intrinsic value (cash for index, delivery for stock); out of the money pays nothing."}, "82a67020ba0b": {"E": "Index options use the official index close; stock options use the stock's official close. You cannot influence it.", "Q": "Call: settlement above strike. Put: settlement below strike. Exactly at the strike is worthless.", "W": "No partial credit: ₹1 out of the money pays the same as ₹100 out, which is zero.", "T": "An index has no shares behind it; a single-stock option has real deliverable shares.", "C": "NIFTY 24050 call settling at 24350: 300 × 65 = ₹19,500 credited to the buyer and debited from the assigned seller.", "D": "An ITM RELIANCE call means buying 500 shares at the strike, ≈ ₹6.6 lakh; an assigned put seller must buy them.", "X": "Charged on the full intrinsic value, far more than STT on simply selling the option. Squaring off before the close avoids it."}, "7954510051a8": {"C": "Premiums reflect normal expected movement; for RELIANCE the course uses ≈ 20% IV.", "B": "Traders pay up for the possible jump: the 1320 call can go from ≈ ₹31 to ≈ ₹50 with no stock move.", "R": "Results, RBI policy, the Budget or an election outcome is now known, so the reason for the extra premium is gone.", "K": "IV falls back fast and takes the event premium with it, even if the stock moved your way but by less than was priced.", "N": "After the crush, premiums are cheaper again; some traders wait for this point instead of buying the peak."}}</script>
+</body></html>

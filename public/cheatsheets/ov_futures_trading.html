@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Futures Trading · Cheatsheets</title>
+<meta name="description" content="Futures contracts and specs, orders, spread and slippage, long, short and payoff, margin, SPAN and pledging, mark-to-market, costs and tax, basis and carry, expiry, rollover and spreads, settlement, open interest, bans, bands, hedging, sizing and gap risk.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+
+</head>
+<body class="s-ovfut" data-hue="o">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><a href="index.html#ov" class="on" title="OpenAlgo Open Varsity course sheets">Open Varsity</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><h4>Open Varsity</h4><a href="ov_stock_market_basics.html">Stock basics</a><a href="ov_technical_analysis.html">OV technicals</a><a href="ov_python_for_traders.html">Python for traders</a><a href="ov_futures_trading.html" aria-current="page">Futures</a><a href="ov_options_basics.html">Options basics</a><a href="ov_options_strategies.html">Options strategies</a><a href="ov_algo_trading_python.html">Algo trading</a><a href="ov_quantitative_trading.html">Quant trading</a><a href="ov_statistical_arbitrage.html">Stat arb</a><a href="ov_amibroker_afl.html">AmiBroker AFL</a><a href="ov_taxation.html">Taxation</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Open Varsity · Beginner</div><h1>Futures Trading</h1><p>Futures contracts and specs, orders, spread and slippage, long, short and payoff, margin, SPAN and pledging, mark-to-market, costs and tax, basis and carry, expiry, rollover and spreads, settlement, open interest, bans, bands, hedging, sizing and gap risk.</p></div>
+      <div class="stats"><div><b>9</b>sections</div><div><b>36</b>cards</div><div><b>3</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec o" data-origin="ovfut" data-sid="ovfutatlas" id="ovfutatlas"><h2 data-label="Futures trading: atlas and routes"><span class="n">00</span>Futures trading: atlas and routes</h2>
+<p>The course on one screen: what a future is, how orders and payoffs work, margin and daily settlement, pricing and the expiry cycle, settlement and open interest, exchange controls, and surviving leverage. Condensed from OpenAlgo's free Open Varsity course. Educational, not investment advice.</p>
+<div class="g2">
+<div class="card o full" data-ck="futures-trading-topic-atlas" data-skey="ovfut:futures-trading-atlas-and-routes/futures-trading-topic-atlas" id="futures-trading-topic-atlas"><h3 data-label="Futures trading topic atlas">Futures trading topic atlas<a aria-label="Link to this card" class="anchor" href="#futures-trading-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>Futures Trading</b><small>7 areas · 26 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#what" title="Go to: What a future is: contracts, rivals, purpose and specs"><span class="at-n">01</span><span class="at-bl">What a future is</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#a-promise-with-four-fixed-parts" title="Go to: A promise with four fixed parts">Four fixed parts</a><a class="at-chip" href="#futures-vs-forwards-options-and-shares" title="Go to: Futures vs forwards, options and shares">Futures vs forwards, options, shares</a><a class="at-chip" href="#why-futures-exist-hedgers-and-speculators" title="Go to: Why futures exist: hedgers and speculators">Hedgers and speculators</a><a class="at-chip" href="#reading-a-contract-lot-expiry-tick" title="Go to: Reading a contract: lot, expiry, tick">Lot, expiry and tick</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#mech" title="Go to: Trading mechanics: orders, liquidity, direction and payoff"><span class="at-n">02</span><span class="at-bl">Trading mechanics</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#order-types" title="Go to: Order types">Orders and product types</a><a class="at-chip" href="#liquidity-spread-and-slippage" title="Go to: Liquidity, spread and slippage">Spread and slippage</a><a class="at-chip" href="#long-and-short" title="Go to: Long and short">Long and short</a><a class="at-chip" href="#the-straight-line-payoff" title="Go to: The straight-line payoff">Straight-line payoff</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#margin" title="Go to: Margin and money: leverage, SPAN, mark-to-market, costs and tax"><span class="at-n">03</span><span class="at-bl">Margin and money</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#margin-and-leverage-cut-both-ways" title="Go to: Margin and leverage cut both ways">Margin and leverage</a><a class="at-chip" href="#span-exposure-and-pledged-collateral" title="Go to: SPAN, exposure and pledged collateral">SPAN, exposure and pledging</a><a class="at-chip" href="#mark-to-market-settled-every-day" title="Go to: Mark-to-market: settled every day">Mark-to-market</a><a class="at-chip" href="#costs-one-nifty-lot-round-trip" title="Go to: Costs: one NIFTY lot round trip">Costs and taxation</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#pricing" title="Go to: Pricing and the cycle: basis, expiry, rollover and spreads"><span class="at-n">04</span><span class="at-bl">Pricing and the cycle</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#basis-and-cost-of-carry" title="Go to: Basis and cost of carry">Basis and cost of carry</a><a class="at-chip" href="#the-expiry-calendar" title="Go to: The expiry calendar">Expiry calendar</a><a class="at-chip" href="#rollover" title="Go to: Rollover">Rollover</a><a class="at-chip" href="#calendar-spreads-and-basis-trades" title="Go to: Calendar spreads and basis trades">Calendar spreads and basis trades</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#settle" title="Go to: Settlement and positioning: delivery vs cash, index vs stock, open interest"><span class="at-n">05</span><span class="at-bl">Settlement and positioning</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#stock-delivery-vs-index-cash" title="Go to: Stock delivery vs index cash">Stock delivery vs index cash</a><a class="at-chip" href="#index-vs-stock-futures" title="Go to: Index vs stock futures">Index vs stock futures</a><a class="at-chip" href="#open-interest-price-plus-oi" title="Go to: Open interest: price plus OI">Open interest</a></div></div><div class="at-row" style="--b:var(--c-r)"><a class="at-branch" href="#controls" title="Go to: Market controls: position limits, bans, adjustments and halts"><span class="at-n">06</span><span class="at-bl">Market controls</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#position-limits-and-the-f-o-ban" title="Go to: Position limits and the F&amp;O ban">Position limits and F and O ban</a><a class="at-chip" href="#corporate-actions-value-neutral-rescaling" title="Go to: Corporate actions: value-neutral rescaling">Corporate action adjustments</a><a class="at-chip" href="#price-bands-flexing-and-circuit-breakers" title="Go to: Price bands, flexing and circuit breakers">Price bands and halts</a></div></div><div class="at-row" style="--b:var(--c-y)"><a class="at-branch" href="#risk" title="Go to: Risk and discipline: hedging, sizing, gaps and leverage"><span class="at-n">07</span><span class="at-bl">Risk and discipline</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#hedging-a-portfolio-with-index-futures" title="Go to: Hedging a portfolio with index futures">Hedging a portfolio</a><a class="at-chip" href="#position-sizing-loss-first-then-lots" title="Go to: Position sizing: loss first, then lots">Position sizing</a><a class="at-chip" href="#gap-and-event-risk" title="Go to: Gap and event risk">Gap and event risk</a><a class="at-chip" href="#futures-pre-trade-checklist" title="Go to: Futures pre-trade checklist">Leverage survival and checklist</a></div></div></div></div></div>
+<div class="card b" data-ck="how-to-use-this-sheet" data-skey="ovfut:futures-trading-atlas-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li><b>New to futures:</b> what a future is, then margin and money. Most beginner disasters are margin and leverage misunderstandings.</li>
+<li><b>Before your first trade:</b> costs, the expiry calendar and the checklist at the end.</li>
+<li><b>Holding past a week:</b> rollover, settlement and gap risk.</li>
+<li>Practise in OpenAlgo's analyzer (sandbox) mode first: no real money.</li>
+</ol><div class="callout"><b>Educational, not investment advice.</b> Condensed in our own words from <a href="https://www.openalgo.in/futures">OpenAlgo Open Varsity: Futures Trading</a>. Lot sizes, margins and charges change: verify current values with the exchange or broker.</div></div>
+<div class="card r" data-ck="one-reliance-lot-by-the-numbers" data-skey="ovfut:futures-trading-atlas-and-routes/one-reliance-lot-by-the-numbers" id="one-reliance-lot-by-the-numbers"><h3 data-label="One RELIANCE lot, by the numbers">One RELIANCE lot, by the numbers<a aria-label="Link to this card" class="anchor" href="#one-reliance-lot-by-the-numbers">#</a></h3><div class="tw"><table>
+<tr><th>Item</th><th>Value (course example)</th></tr>
+<tr><td>Lot size</td><td>500 shares</td></tr>
+<tr><td>Price</td><td>≈ ₹1,320</td></tr>
+<tr><td>Contract value (exposure)</td><td>≈ ₹6.6 lakh</td></tr>
+<tr><td>Margin posted</td><td>≈ ₹1.1–1.3 lakh (15–20%)</td></tr>
+<tr><td>Leverage</td><td>≈ 6×</td></tr>
+<tr><td>₹1 move</td><td>₹500 per lot</td></tr>
+<tr><td>One tick (₹0.05)</td><td>₹25 per lot</td></tr>
+<tr><td>A 17% fall</td><td>Wipes out the whole margin</td></tr>
+</table></div><p>Size every trade by the ₹6.6 lakh you control, not the ₹1.1 lakh you post.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#what"><span>Next</span>01 · What a future is: contracts, rivals, purpose and specs</a></nav></section>
+<section class="sec b" data-origin="ovfut" data-sid="what" id="what"><h2 data-label="What a future is: contracts, rivals, purpose and specs"><span class="n">01</span>What a future is: contracts, rivals, purpose and specs</h2>
+<p class="src">OpenAlgo Open Varsity · Futures Trading · chapters 1–4 (<a href="https://www.openalgo.in/futures/what-is-a-future">what a future is</a>, <a href="https://www.openalgo.in/futures/futures-vs-forwards-options-equity">futures vs forwards, options, shares</a>, <a href="https://www.openalgo.in/futures/why-futures-exist">why futures exist</a>, <a href="https://www.openalgo.in/futures/contract-specs">contract specs</a>)</p>
+<div class="g2">
+<div class="card b" data-ck="a-promise-with-four-fixed-parts" data-skey="ovfut:what-a-future-is-contracts-rivals-purpose-and-sp/a-promise-with-four-fixed-parts" id="a-promise-with-four-fixed-parts"><h3 data-label="A promise with four fixed parts">A promise with four fixed parts<a aria-label="Link to this card" class="anchor" href="#a-promise-with-four-fixed-parts">#</a></h3><ul>
+<li>A <b>future</b> is a standardised agreement to buy or sell a fixed quantity at a fixed price on a fixed date.</li>
+<li><b>Underlying</b> (RELIANCE, NIFTY, a commodity), <b>price</b> locked today, <b>lot size</b> (RELIANCE 500 shares), <b>expiry</b> (stock futures monthly).</li>
+<li><b>Long</b> (buyer) is obliged to buy and profits if price rises; <b>short</b> (seller) is obliged to sell and profits if it falls. Both sides are bound: unlike an option, nobody can just walk away.</li>
+<li>Most traders square off before expiry in cash. Index futures settle in cash; stock futures can go to physical delivery if held to expiry.</li>
+</ul><p>Standardised rice contracts traded in Japan as early as the 17th century.</p></div>
+<div class="card p full" data-ck="futures-vs-forwards-options-and-shares" data-skey="ovfut:what-a-future-is-contracts-rivals-purpose-and-sp/futures-vs-forwards-options-and-shares" id="futures-vs-forwards-options-and-shares"><h3 data-label="Futures vs forwards, options and shares">Futures vs forwards, options and shares<a aria-label="Link to this card" class="anchor" href="#futures-vs-forwards-options-and-shares">#</a></h3><div class="tw"><table>
+<tr><th>Feature</th><th>Forward</th><th>Future</th><th>Option (buyer)</th><th>Shares</th></tr>
+<tr><td>Traded</td><td>Private, custom</td><td>Exchange, standardised</td><td>Exchange</td><td>Exchange</td></tr>
+<tr><td>Expiry</td><td>Agreed date</td><td>Exchange date</td><td>Exchange date</td><td>None</td></tr>
+<tr><td>Obligation</td><td>Both sides</td><td>Both sides</td><td>Right, not obligation</td><td>None</td></tr>
+<tr><td>Upfront</td><td>Private terms</td><td>Margin (deposit)</td><td>Premium (spent)</td><td>Full value</td></tr>
+<tr><td>Settlement</td><td>At the end</td><td>Daily, in cash</td><td>At exercise or expiry</td><td>Once</td></tr>
+<tr><td>Counterparty risk</td><td>High</td><td>Removed by the clearing house</td><td>Removed</td><td>None</td></tr>
+<tr><td>Max loss</td><td>Large</td><td>Large: the full price move</td><td>The premium paid</td><td>What you paid</td></tr>
+</table></div><p>Match the tool to the goal: long-term ownership with dividends and votes → shares; capped, known downside → buy an option; capital-efficient directional view → a future; custom business hedge → a forward.</p></div>
+<div class="card g" data-ck="why-futures-exist-hedgers-and-speculators" data-skey="ovfut:what-a-future-is-contracts-rivals-purpose-and-sp/why-futures-exist-hedgers-and-speculators" id="why-futures-exist-hedgers-and-speculators"><h3 data-label="Why futures exist: hedgers and speculators">Why futures exist: hedgers and speculators<a aria-label="Link to this card" class="anchor" href="#why-futures-exist-hedgers-and-speculators">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Hedger</th><th>Speculator</th></tr>
+<tr><td>Already owns the risk?</td><td>Yes</td><td>No, seeks it</td></tr>
+<tr><td>Goal</td><td>Remove uncertainty</td><td>Chance of profit</td></tr>
+<tr><td>The future is</td><td>Insurance</td><td>A bet</td></tr>
+<tr><td>OK to lose on it?</td><td>Yes, if holdings gain</td><td>No</td></tr>
+</table></div><ul>
+<li>A fund manager fearing a one-month fall sells index futures instead of dumping the whole portfolio (tax, costs, time).</li>
+<li>Opposite goals make the trade possible: risk is <b>moved</b>, not destroyed. The market gains liquidity and price discovery; news often shows in index futures first.</li>
+<li>Futures weren't invented for gambling; most leveraged speculators lose over time.</li>
+</ul></div>
+<div class="card o" data-ck="reading-a-contract-lot-expiry-tick" data-skey="ovfut:what-a-future-is-contracts-rivals-purpose-and-sp/reading-a-contract-lot-expiry-tick" id="reading-a-contract-lot-expiry-tick"><h3 data-label="Reading a contract: lot, expiry, tick">Reading a contract: lot, expiry, tick<a aria-label="Link to this card" class="anchor" href="#reading-a-contract-lot-expiry-tick">#</a></h3><div class="tw"><table>
+<tr><th>Underlying</th><th>Lot (per course)</th></tr>
+<tr><td>NIFTY</td><td>65</td></tr>
+<tr><td>BANKNIFTY</td><td>30</td></tr>
+<tr><td>FINNIFTY</td><td>60</td></tr>
+<tr><td>MIDCPNIFTY</td><td>120</td></tr>
+<tr><td>RELIANCE</td><td>500 shares</td></tr>
+</table></div><div class="formula"><span class="fl">contract value = lot size × price</span><span class="fl">tick value = tick × lot = 0.05 × 500 = ₹25</span><span class="fl">1,318.00 → 1,318.50 = 10 ticks = ₹250 per lot</span></div><ul>
+<li><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> monthly and weekly contracts expire on <b>Tuesday</b> (monthly: the last Tuesday); <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> (SENSEX) on Thursday.</li>
+<li>OpenAlgo symbol: base + DDMMMYY + FUT, e.g. <code>RELIANCE28JUL26FUT</code>. Read it aloud before every order; options carry a strike and CE/PE instead.</li>
+<li>Exchanges revise lot sizes periodically: verify before trading.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ovfutatlas"><span>Previous</span>00 · Futures trading: atlas and routes</a><a class="sn-next" href="#mech"><span>Next</span>02 · Trading mechanics: orders, liquidity, direction and payoff</a></nav></section>
+<section class="sec t" data-origin="ovfut" data-sid="mech" id="mech"><h2 data-label="Trading mechanics: orders, liquidity, direction and payoff"><span class="n">02</span>Trading mechanics: orders, liquidity, direction and payoff</h2>
+<p class="src">OpenAlgo Open Varsity · Futures Trading · chapters 5–8 (<a href="https://www.openalgo.in/futures/how-futures-orders-work">orders</a>, <a href="https://www.openalgo.in/futures/liquidity-spread-slippage">liquidity and slippage</a>, <a href="https://www.openalgo.in/futures/long-and-short">long and short</a>, <a href="https://www.openalgo.in/futures/futures-payoff">payoff</a>)</p>
+<div class="g2">
+<div class="card t" data-ck="order-types" data-skey="ovfut:trading-mechanics-orders-liquidity-direction-and/order-types" id="order-types"><h3 data-label="Order types">Order types<a aria-label="Link to this card" class="anchor" href="#order-types">#</a></h3><div class="tw"><table>
+<tr><th>Type</th><th>You control</th><th>Fill</th><th>Use when</th></tr>
+<tr><td>Market</td><td>Speed</td><td>Near-certain, price not guaranteed</td><td>You must get in or out now</td></tr>
+<tr><td>Limit</td><td>Price</td><td>Only at your price or better</td><td>You can wait</td></tr>
+<tr><td>Stop-loss market</td><td>Trigger</td><td>At market once triggered</td><td>The exit must happen</td></tr>
+<tr><td>Stop-loss limit</td><td>Trigger and worst price</td><td>May not fill in a fast move</td><td>You need a price floor</td></tr>
+</table></div><ul>
+<li><b>Intraday (MIS):</b> closed the same day, auto square-off near the close, lighter margin. <b>Carryforward (NRML):</b> held overnight, full margin.</li>
+<li>Order states: pending, complete, rejected (margin, price band, market closed), cancelled. The <b>order book</b> holds intentions; the <b>trade book</b> holds actual fills.</li>
+</ul></div>
+<div class="card r" data-ck="stops-don-t-survive-gaps" data-skey="ovfut:trading-mechanics-orders-liquidity-direction-and/stops-don-t-survive-gaps" id="stops-don-t-survive-gaps"><h3 data-label="Stops don't survive gaps">Stops don't survive gaps<a aria-label="Link to this card" class="anchor" href="#stops-don-t-survive-gaps">#</a></h3><p>Long 1 RELIANCE lot from 1,318 with a stop at 1,300 (planned loss ₹9,000). The stock opens at 1,280 after bad news: the stop fills near 1,280, a ₹19,000 loss. A stop limits losses in normal trading, not across overnight gaps, so size positions for the gap, not just the stop.</p></div>
+<div class="card b" data-ck="liquidity-spread-and-slippage" data-skey="ovfut:trading-mechanics-orders-liquidity-direction-and/liquidity-spread-and-slippage" id="liquidity-spread-and-slippage"><h3 data-label="Liquidity, spread and slippage">Liquidity, spread and slippage<a aria-label="Link to this card" class="anchor" href="#liquidity-spread-and-slippage">#</a></h3><div class="formula"><span class="fl">round-trip spread cost ≈ spread (ticks) × tick value × lots</span><span class="fl">slippage cost ≈ (average fill − expected price) × lot size</span></div><ul>
+<li>One-tick spread on RELIANCE: buying at the ask and selling at the bid loses ₹25 per lot with no price change; ten round trips a day cross the spread 20 times.</li>
+<li>Needing 500 when 200 are offered at 1,320.00: the other 300 fill higher. An average fill of 1,320.12 instead of 1,320.00 costs ₹60 per lot.</li>
+<li>Liquidity concentrates in near-month NIFTY and BANKNIFTY and the most active stocks; far months and small stock futures have wide spreads and gaps between levels.</li>
+<li>Read depth before any market order, use limits in thin books, keep size small relative to visible depth.</li>
+</ul></div>
+<div class="card g" data-ck="long-and-short" data-skey="ovfut:trading-mechanics-orders-liquidity-direction-and/long-and-short" id="long-and-short"><h3 data-label="Long and short">Long and short<a aria-label="Link to this card" class="anchor" href="#long-and-short">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Long</th><th>Short</th></tr>
+<tr><td>Open by</td><td>Buying</td><td>Selling</td></tr>
+<tr><td>Profit when</td><td>Price rises</td><td>Price falls</td></tr>
+<tr><td>Borrowing needed</td><td>No</td><td>No</td></tr>
+<tr><td>Can hold to expiry</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Loss grows as</td><td>Price falls (floored at zero)</td><td>Price rises (no ceiling)</td></tr>
+</table></div><p>Buy at 1,320 and sell at 1,360, or sell at 1,320 and buy back at 1,280: either way 40 points × 500 = ₹20,000 before costs. Unlike cash-market shorts (intraday or borrowed), a futures short is just a sell order to open. Shorting is not safer than going long; put a stop on every short.</p></div>
+<div class="card p" data-ck="the-straight-line-payoff" data-skey="ovfut:trading-mechanics-orders-liquidity-direction-and/the-straight-line-payoff" id="the-straight-line-payoff"><h3 data-label="The straight-line payoff">The straight-line payoff<a aria-label="Link to this card" class="anchor" href="#the-straight-line-payoff">#</a></h3><div class="formula"><span class="fl">P&amp;L = (exit − entry) × lot size   (long; negate for short)</span><span class="fl">breakeven = entry price (no premium to recover)</span></div><div class="tw"><table>
+<tr><th>Move from 1,320</th><th>Long 1 lot</th><th>Short 1 lot</th></tr>
+<tr><td>+1</td><td>+₹500</td><td>−₹500</td></tr>
+<tr><td>+20</td><td>+₹10,000</td><td>−₹10,000</td></tr>
+<tr><td>−20</td><td>−₹10,000</td><td>+₹10,000</td></tr>
+</table></div><p>No premium and no time decay make the payoff one symmetric diagonal. Unlike an option buyer's capped loss, a long can lose the whole ₹6.6 lakh if the stock went to zero, and a short's loss has no cap. Sketch entry, breakeven and ₹ per point before every trade.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#what"><span>Previous</span>01 · What a future is: contracts, rivals, purpose and specs</a><a class="sn-next" href="#margin"><span>Next</span>03 · Margin and money: leverage, SPAN, mark-to-market, costs and tax</a></nav></section>
+<section class="sec r" data-origin="ovfut" data-sid="margin" id="margin"><h2 data-label="Margin and money: leverage, SPAN, mark-to-market, costs and tax"><span class="n">03</span>Margin and money: leverage, SPAN, mark-to-market, costs and tax</h2>
+<p class="src">OpenAlgo Open Varsity · Futures Trading · chapters 9–12 (<a href="https://www.openalgo.in/futures/margin-and-leverage">margin and leverage</a>, <a href="https://www.openalgo.in/futures/span-margin-and-pledge">SPAN and pledging</a>, <a href="https://www.openalgo.in/futures/mark-to-market">mark-to-market</a>, <a href="https://www.openalgo.in/futures/costs-and-taxation">costs and taxation</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="margin-and-leverage-cut-both-ways" data-skey="ovfut:margin-and-money-leverage-span-mark-to-market-co/margin-and-leverage-cut-both-ways" id="margin-and-leverage-cut-both-ways"><h3 data-label="Margin and leverage cut both ways">Margin and leverage cut both ways<a aria-label="Link to this card" class="anchor" href="#margin-and-leverage-cut-both-ways">#</a></h3><div class="tw"><table>
+<tr><th>RELIANCE move</th><th>Change in ₹6.6 lakh exposure</th><th>Effect on ₹1.1 lakh margin</th></tr>
+<tr><td>+2%</td><td>+₹13,000</td><td>+12%</td></tr>
+<tr><td>+5%</td><td>+₹33,000</td><td>+30%</td></tr>
+<tr><td>−2%</td><td>−₹13,000</td><td>−12%</td></tr>
+<tr><td>−5%</td><td>−₹33,000</td><td>−30%</td></tr>
+<tr><td>≈ −17%</td><td>−₹1,10,000</td><td>Margin gone</td></tr>
+</table></div><ul>
+<li><b>Margin</b> is a good-faith deposit, not a payment; <b>leverage</b> is what you control per rupee posted (≈ 6× here).</li>
+<li>Initial margin opens the trade; the balance must stay above <b>maintenance</b> or you get a <b>margin call</b>: add funds or cut the position, or the broker closes it at market.</li>
+</ul></div>
+<div class="card o" data-ck="span-exposure-and-pledged-collateral" data-skey="ovfut:margin-and-money-leverage-span-mark-to-market-co/span-exposure-and-pledged-collateral" id="span-exposure-and-pledged-collateral"><h3 data-label="SPAN, exposure and pledged collateral">SPAN, exposure and pledged collateral<a aria-label="Link to this card" class="anchor" href="#span-exposure-and-pledged-collateral">#</a></h3><div class="formula"><span class="fl">total margin = SPAN + exposure</span><span class="fl">usable pledge margin = pledged value × (1 − haircut)</span><span class="fl">₹1,00,000 of shares, 15% haircut → ≈ ₹85,000</span></div><ul>
+<li><b>SPAN</b> is the exchange's worst-case one-day loss estimate (the bulk); <b>exposure</b> is an extra buffer on top. Both must be free in the account before the order goes through.</li>
+<li>Margin is a moving target: it rises with volatility, before budgets, policy meetings, elections and results, and for stock futures ramps up sharply through expiry week towards delivery.</li>
+<li>Pledging shares, ETFs or bonds earns collateral margin after a haircut (smaller for index funds and government bonds, larger for volatile stocks). Roughly half of margin must still be cash, and daily losses are paid only in cash.</li>
+</ul></div>
+<div class="card b" data-ck="mark-to-market-settled-every-day" data-skey="ovfut:margin-and-money-leverage-span-mark-to-market-co/mark-to-market-settled-every-day" id="mark-to-market-settled-every-day"><h3 data-label="Mark-to-market: settled every day">Mark-to-market: settled every day<a aria-label="Link to this card" class="anchor" href="#mark-to-market-settled-every-day">#</a></h3><div class="formula"><span class="fl">daily MTM = (today's settlement − yesterday's) × lot size</span></div><div class="tw"><table>
+<tr><th>Day</th><th>Settlement</th><th>Daily MTM</th><th>Margin account</th></tr>
+<tr><td>Entry</td><td>1,320</td><td>—</td><td>₹1,30,000</td></tr>
+<tr><td>Day 1</td><td>1,335</td><td>+₹7,500</td><td>₹1,37,500</td></tr>
+<tr><td>Day 2</td><td>1,326</td><td>−₹4,500</td><td>₹1,33,000</td></tr>
+<tr><td>Day 3</td><td>1,300</td><td>−₹13,000</td><td>₹1,20,000: likely a margin call</td></tr>
+</table></div><p>Gains are credited and losses debited in cash the same evening, at the official <b>settlement price</b>, not the last price you saw. MTM changes the timing, not the total, and limits everyone's credit risk to one day's move. Unlike shares, a futures loss is never "only on paper".</p></div>
+<div class="card y" data-ck="costs-one-nifty-lot-round-trip" data-skey="ovfut:margin-and-money-leverage-span-mark-to-market-co/costs-one-nifty-lot-round-trip" id="costs-one-nifty-lot-round-trip"><h3 data-label="Costs: one NIFTY lot round trip">Costs: one NIFTY lot round trip<a aria-label="Link to this card" class="anchor" href="#costs-one-nifty-lot-round-trip">#</a></h3><div class="tw"><table>
+<tr><th>Charge</th><th>Rate</th><th>≈ ₹ (65 × 24,000, both legs ≈ ₹31.2 lakh)</th></tr>
+<tr><td>Brokerage</td><td>≈ ₹20 per order</td><td>40</td></tr>
+<tr><td><abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr></td><td>0.05% of sell value</td><td>780</td></tr>
+<tr><td>Exchange charges</td><td>≈ 0.0019% of turnover</td><td>≈ 57–59</td></tr>
+<tr><td><abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> fee</td><td>0.0001% of turnover</td><td>3</td></tr>
+<tr><td>Stamp duty</td><td>0.002% of buy value</td><td>31</td></tr>
+<tr><td><abbr class="gl" data-tip="India's indirect tax; monthly collections are a quick read on consumption." data-tip-title="GST: Goods and services tax">GST</abbr></td><td>18% of brokerage + exchange + SEBI</td><td>18</td></tr>
+<tr><td><b>Total</b></td><td></td><td><b>≈ ₹929 ≈ 14 NIFTY points</b></td></tr>
+</table></div><p>STT dominates; flat brokerage barely matters. The first ~14 points of every NIFTY lot only cover costs, and ten round trips a day cost about ₹9,000. A 500-share stock future costs about ₹330 near ₹1,000 and ₹2,875 near ₹10,000.</p></div>
+<div class="card g" data-ck="how-futures-profits-are-taxed-india" data-skey="ovfut:margin-and-money-leverage-span-mark-to-market-co/how-futures-profits-are-taxed-india" id="how-futures-profits-are-taxed-india"><h3 data-label="How futures profits are taxed (India)">How futures profits are taxed (India)<a aria-label="Link to this card" class="anchor" href="#how-futures-profits-are-taxed-india">#</a></h3><ul>
+<li>Futures P&amp;L is <b>non-speculative business income</b>: reported in <b>ITR-3</b> and taxed at your slab rate. No special rate, and <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr> gives no rebate.</li>
+<li>Losses can be set off against most other income in the same year <b>except salary</b>; unabsorbed losses carry forward <b>8 years</b>, but only if the return is filed on time.</li>
+<li>For the tax-audit test, turnover ≈ sum of absolute profits and losses on each trade.</li>
+<li>Advance tax instalments apply if your tax crosses the threshold; thresholds and rates change, so confirm with a chartered accountant.</li>
+</ul><p>See the Taxation sheet for the full picture.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#mech"><span>Previous</span>02 · Trading mechanics: orders, liquidity, direction and payoff</a><a class="sn-next" href="#pricing"><span>Next</span>04 · Pricing and the cycle: basis, expiry, rollover and spreads</a></nav></section>
+<section class="sec y" data-origin="ovfut" data-sid="pricing" id="pricing"><h2 data-label="Pricing and the cycle: basis, expiry, rollover and spreads"><span class="n">04</span>Pricing and the cycle: basis, expiry, rollover and spreads</h2>
+<p class="src">OpenAlgo Open Varsity · Futures Trading · chapters 13–16 (<a href="https://www.openalgo.in/futures/basis-and-carry">basis and carry</a>, <a href="https://www.openalgo.in/futures/expiry-calendar-and-cycle">expiry calendar</a>, <a href="https://www.openalgo.in/futures/rollover">rollover</a>, <a href="https://www.openalgo.in/futures/calendar-spread-and-basis">calendar spreads and basis</a>)</p>
+<div class="g2">
+<div class="card y" data-ck="basis-and-cost-of-carry" data-skey="ovfut:pricing-and-the-cycle-basis-expiry-rollover-and-/basis-and-cost-of-carry" id="basis-and-cost-of-carry"><h3 data-label="Basis and cost of carry">Basis and cost of carry<a aria-label="Link to this card" class="anchor" href="#basis-and-cost-of-carry">#</a></h3><div class="formula"><span class="fl">basis = futures − spot</span><span class="fl">fair future ≈ spot + spot × financing rate × days ÷ 365</span><span class="fl">1,318 × 7% × 32 ÷ 365 ≈ 8 → fair future ≈ 1,326</span></div><div class="tw"><table>
+<tr><th>State</th><th>Future vs spot</th><th>Usual meaning</th></tr>
+<tr><td>Premium</td><td>Above</td><td>Normal carry; calm to mildly bullish</td></tr>
+<tr><td>Discount</td><td>Below</td><td>A big dividend, or bearish positioning</td></tr>
+<tr><td>Near zero</td><td>Close</td><td>Expiry near; carry nearly gone</td></tr>
+</table></div><p>The premium widens with time and rates and shrinks towards expiry; at settlement the basis must reach zero (<b>convergence</b>). A long future loses the premium even if spot stays flat. Always ask why the gap is that size: carry, dividend or sentiment.</p></div>
+<div class="card t" data-ck="the-expiry-calendar" data-skey="ovfut:pricing-and-the-cycle-basis-expiry-rollover-and-/the-expiry-calendar" id="the-expiry-calendar"><h3 data-label="The expiry calendar">The expiry calendar<a aria-label="Link to this card" class="anchor" href="#the-expiry-calendar">#</a></h3><div class="tw"><table>
+<tr><th>Contract</th><th>Liquidity</th></tr>
+<tr><td>Near month</td><td>High: tight spreads, trade here</td></tr>
+<tr><td>Next month</td><td>Moderate; busy during rollover</td></tr>
+<tr><td>Far month</td><td>Thin: wide spreads</td></tr>
+</table></div><ul>
+<li>Three monthly contracts trade at once; when the near month expires, a new far month is listed.</li>
+<li><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr>: the <b>last Tuesday</b> of the month (moves to the previous trading day on a holiday); NIFTY weeklies every Tuesday, so the last Tuesday has both and is often the wildest session. <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr>: Thursday.</li>
+<li>From 3 Aug 2026, equity derivatives trade until 15:40; the daily settlement price is the 15:10–15:40 <abbr class="gl" data-tip="Average price paid since the session open, weighted by volume. Institutions benchmark executions against it; price above VWAP shows buyers in control intraday." data-tip-title="VWAP: Volume-weighted average price">VWAP</abbr>. Final settlement of stock futures uses the underlying's closing-auction price; index futures use the official closing index value.</li>
+</ul></div>
+<div class="card o" data-ck="rollover" data-skey="ovfut:pricing-and-the-cycle-basis-expiry-rollover-and-/rollover" id="rollover"><h3 data-label="Rollover">Rollover<a aria-label="Link to this card" class="anchor" href="#rollover">#</a></h3><div class="formula"><span class="fl">roll cost per share = next-month price − near-month price</span><span class="fl">sell July 1,322, buy August 1,334 → 12 × 500 = ₹6,000</span></div><ul>
+<li><b>Long roll:</b> sell near, buy next. <b>Short roll:</b> buy back near, sell next. Same size and direction; only the month changes. Longs pay the spread, shorts collect it.</li>
+<li>Roll in the days before expiry in liquid contracts, both legs close together.</li>
+<li><b>Rollover %</b> (share of expiring open interest carried forward): high suggests conviction, low suggests hesitation. A soft hint, never a signal on its own.</li>
+<li>Never let a stock future drift into settlement: holding one RELIANCE lot to expiry means taking or giving 500 shares (≈ ₹6.6 lakh).</li>
+</ul></div>
+<div class="card g" data-ck="expiry-is-coming-close-or-roll" data-skey="ovfut:pricing-and-the-cycle-basis-expiry-rollover-and-/expiry-is-coming-close-or-roll" id="expiry-is-coming-close-or-roll"><h3 data-label="Expiry is coming: close or roll?">Expiry is coming: close or roll?<a aria-label="Link to this card" class="anchor" href="#expiry-is-coming-close-or-roll">#</a></h3><div class="ladder"><div class="l-start">A futures position with expiry in the next few days</div><div class="l-step"><div class="l-q" data-tip="Re-check the original reason for the trade; expiry is a natural point to drop a view that no longer holds." tabindex="0"><span class="l-n">1</span><span>Do you still want this exposure next month?</span></div><div class="l-as"><div class="l-a" data-tip="Square off in the near month. Stock futures held to expiry turn into a delivery obligation for the full contract value." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Close it</b><span>before expiry week; stock futures must never drift into delivery</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Volume moves to the next month in the last days before expiry; before that its spreads are wide." tabindex="0"><span class="l-n">2</span><span>Is the next month liquid yet, in the rollover window?</span></div><div class="l-as"><div class="l-a" data-tip="Roll when the next month has depth, but well before the final day and the expiry-week margin ramp." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Wait for the rollover window</b><span>thin next-month quotes cost slippage</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Roll cost is next-month price minus near-month price, times the lot: a real cost for longs." tabindex="0"><span class="l-n">3</span><span>Is the roll cost small relative to the move you expect?</span></div><div class="l-as"><div class="l-a" data-tip="If carrying the position costs more than the view is likely to earn, exit and reassess later." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Close instead</b><span>the carry eats the expected gain</span></div></div><div class="l-a" data-tip="Sell near and buy next (longs), or buy near and sell next (shorts), together to avoid a gap between legs." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Roll</b><span>place both legs together, same size and direction</span></div></div></div></div></div></div>
+<div class="card p" data-ck="calendar-spreads-and-basis-trades" data-skey="ovfut:pricing-and-the-cycle-basis-expiry-rollover-and-/calendar-spreads-and-basis-trades" id="calendar-spreads-and-basis-trades"><h3 data-label="Calendar spreads and basis trades">Calendar spreads and basis trades<a aria-label="Link to this card" class="anchor" href="#calendar-spreads-and-basis-trades">#</a></h3><ul>
+<li><b>Calendar spread:</b> long one expiry, short another of the same underlying. Direction mostly cancels; the gap between months drives P&amp;L. A 40-point move that makes ₹20,000 on an outright lot barely moves the spread. Not risk-free: the gap can move against you.</li>
+<li><b>Cash-futures arbitrage:</b> spot 1,318, future 1,338 is a 20-point premium against ~8 points of fair carry. Buy 500 shares (full ₹6.6 lakh cash), sell one future, hold to expiry, and the gap converges to zero. Costs and spreads can eat a few points, so this is for large, cheap capital, not retail accounts.</li>
+<li>Arbitrageurs are what keep futures tethered to fair value.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#margin"><span>Previous</span>03 · Margin and money: leverage, SPAN, mark-to-market, costs and tax</a><a class="sn-next" href="#settle"><span>Next</span>05 · Settlement and positioning: delivery vs cash, index vs stock, open interest</a></nav></section>
+<section class="sec g" data-origin="ovfut" data-sid="settle" id="settle"><h2 data-label="Settlement and positioning: delivery vs cash, index vs stock, open interest"><span class="n">05</span>Settlement and positioning: delivery vs cash, index vs stock, open interest</h2>
+<p class="src">OpenAlgo Open Varsity · Futures Trading · chapters 17–19 (<a href="https://www.openalgo.in/futures/settlement-stock-vs-index">settlement</a>, <a href="https://www.openalgo.in/futures/index-vs-stock-futures">index vs stock futures</a>, <a href="https://www.openalgo.in/futures/open-interest-in-futures">open interest</a>)</p>
+<div class="g2">
+<div class="card g" data-ck="stock-delivery-vs-index-cash" data-skey="ovfut:settlement-and-positioning-delivery-vs-cash-inde/stock-delivery-vs-index-cash" id="stock-delivery-vs-index-cash"><h3 data-label="Stock delivery vs index cash">Stock delivery vs index cash<a aria-label="Link to this card" class="anchor" href="#stock-delivery-vs-index-cash">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Stock futures (RELIANCE)</th><th>Index futures (NIFTY, BANKNIFTY)</th></tr>
+<tr><td>Final settlement</td><td>Physical delivery</td><td>Cash difference</td></tr>
+<tr><td>Held to expiry</td><td>Long pays ≈ ₹6.6 lakh and gets 500 shares; short must deliver 500 shares</td><td>Settled in cash: 100 points × 65 = ±₹6,500</td></tr>
+<tr><td>Full value needed</td><td>Yes</td><td>No</td></tr>
+<tr><td>Accidental delivery</td><td>Possible</td><td>Impossible</td></tr>
+</table></div><ul>
+<li>The exchange fixes the method per contract class; you can't choose.</li>
+<li>Daily MTM (funds settlement) is always cash and separate from final settlement.</li>
+<li>Stock futures carry a delivery margin that ramps up in stages through expiry week: treat it as a deadline to close, roll or fund delivery.</li>
+<li>A short that can't deliver is bought in at auction, with costs and penalties on the seller.</li>
+</ul></div>
+<div class="card b" data-ck="index-vs-stock-futures" data-skey="ovfut:settlement-and-positioning-delivery-vs-cash-inde/index-vs-stock-futures" id="index-vs-stock-futures"><h3 data-label="Index vs stock futures">Index vs stock futures<a aria-label="Link to this card" class="anchor" href="#index-vs-stock-futures">#</a></h3><div class="tw"><table>
+<tr><th>Feature</th><th>Index</th><th>Stock</th></tr>
+<tr><td>Underlying</td><td>A diversified basket</td><td>One company</td></tr>
+<tr><td>Lot (per course)</td><td>NIFTY 65, BANKNIFTY 30</td><td>RELIANCE 500</td></tr>
+<tr><td>Settlement</td><td>Cash</td><td>Physical</td></tr>
+<tr><td>Single-company news</td><td>Diluted</td><td>Lands entirely on you</td></tr>
+<tr><td>Liquidity</td><td>Very deep</td><td>Good in large names, thin in smaller ones</td></tr>
+<tr><td>Overnight gap risk</td><td>Lower</td><td>High</td></tr>
+</table></div><p>Index futures are deeper, smoother and cash-settled: the better place to learn and to hedge. Stock futures suit a specific, well-researched view on one company, with respect for gaps.</p></div>
+<div class="card p" data-ck="open-interest-price-plus-oi" data-skey="ovfut:settlement-and-positioning-delivery-vs-cash-inde/open-interest-price-plus-oi" id="open-interest-price-plus-oi"><h3 data-label="Open interest: price plus OI">Open interest: price plus OI<a aria-label="Link to this card" class="anchor" href="#open-interest-price-plus-oi">#</a></h3><div class="tw"><table>
+<tr><th>Price</th><th>OI</th><th>Name</th><th>Read</th></tr>
+<tr><td>Up</td><td>Up</td><td>Long build-up</td><td>Strong: fresh buyers</td></tr>
+<tr><td>Up</td><td>Down</td><td>Short covering</td><td>Weak: shorts closing</td></tr>
+<tr><td>Down</td><td>Up</td><td>Short build-up</td><td>Strong downtrend: fresh sellers</td></tr>
+<tr><td>Down</td><td>Down</td><td>Long unwinding</td><td>Weak: longs exiting</td></tr>
+</table></div><ul>
+<li><b><abbr class="gl" data-tip="Number of futures or options contracts outstanding. Rising price with rising OI means new positions are backing the move." data-tip-title="OI: Open interest">OI</abbr></b> counts open contracts (each once, though it has a buyer and a seller). New buyer meets new seller: OI rises; both close: it falls; a position changes hands: unchanged.</li>
+<li><b>Volume</b> resets daily; OI carries forward. OI data is usually end of day.</li>
+<li>In rollover week near-month OI falls as next-month OI rises.</li>
+<li>OI shows conviction, not direction: a confirming signal, never a standalone trigger.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#pricing"><span>Previous</span>04 · Pricing and the cycle: basis, expiry, rollover and spreads</a><a class="sn-next" href="#controls"><span>Next</span>06 · Market controls: position limits, bans, adjustments and halts</a></nav></section>
+<section class="sec p" data-origin="ovfut" data-sid="controls" id="controls"><h2 data-label="Market controls: position limits, bans, adjustments and halts"><span class="n">06</span>Market controls: position limits, bans, adjustments and halts</h2>
+<p class="src">OpenAlgo Open Varsity · Futures Trading · chapters 20–22 (<a href="https://www.openalgo.in/futures/position-limits-and-ban">position limits and ban</a>, <a href="https://www.openalgo.in/futures/corporate-actions">corporate actions</a>, <a href="https://www.openalgo.in/futures/price-bands-and-halts">price bands and halts</a>)</p>
+<div class="g2">
+<div class="card p" data-ck="position-limits-and-the-f-o-ban" data-skey="ovfut:market-controls-position-limits-bans-adjustments/position-limits-and-the-f-o-ban" id="position-limits-and-the-f-o-ban"><h3 data-label="Position limits and the F&amp;O ban">Position limits and the F&amp;O ban<a aria-label="Link to this card" class="anchor" href="#position-limits-and-the-f-o-ban">#</a></h3><ul>
+<li><b><abbr class="gl" data-tip="Cap on total open interest in a stock's derivatives. Above 95% the stock enters the F&amp;O ban and new positions are not allowed." data-tip-title="MWPL: Market-wide position limit">MWPL</abbr></b> (market-wide position limit) caps total open positions in one stock's <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr>, as a share of free float. Client-level and member-level limits cap individuals and brokers.</li>
+<li><b>Ban:</b> when MWPL use reaches about <b>95%</b>, the stock enters the F&amp;O ban; it exits when use falls to about <b>80%</b>.</li>
+<li>During a ban you may only <b>reduce or square off</b>: no fresh longs or shorts, no adding, even with enough margin. Closing-only trading on thin two-way interest can swing sharply.</li>
+<li>The exchange publishes the ban list daily; check it before every single-stock trade.</li>
+<li><b>Quantity freeze:</b> orders above a maximum size are rejected; split them.</li>
+</ul></div>
+<div class="card o" data-ck="corporate-actions-value-neutral-rescaling" data-skey="ovfut:market-controls-position-limits-bans-adjustments/corporate-actions-value-neutral-rescaling" id="corporate-actions-value-neutral-rescaling"><h3 data-label="Corporate actions: value-neutral rescaling">Corporate actions: value-neutral rescaling<a aria-label="Link to this card" class="anchor" href="#corporate-actions-value-neutral-rescaling">#</a></h3><div class="formula"><span class="fl">adjustment factor = new shares per old share</span><span class="fl">new lot = old lot × factor;  new strike = old strike ÷ factor</span></div><div class="tw"><table>
+<tr><th>RELIANCE 2:1 split</th><th>Before</th><th>After</th></tr>
+<tr><td>Share price</td><td>≈ ₹1,320</td><td>≈ ₹660</td></tr>
+<tr><td>Lot size</td><td>500</td><td>1,000</td></tr>
+<tr><td>Lot value</td><td>≈ ₹6.6 lakh</td><td>≈ ₹6.6 lakh</td></tr>
+<tr><td>1,320 call strike</td><td>1,320</td><td>660</td></tr>
+</table></div><ul>
+<li>Applied from the ex-date automatically: no order, fee, gain or loss.</li>
+<li>Bonus works like a split (1:1 bonus = factor 2). Ordinary dividends: usually no adjustment. Special dividends: adjusted only above an exchange threshold. Rights, mergers and demergers: case by case per exchange circular.</li>
+</ul></div>
+<div class="card r" data-ck="price-bands-flexing-and-circuit-breakers" data-skey="ovfut:market-controls-position-limits-bans-adjustments/price-bands-flexing-and-circuit-breakers" id="price-bands-flexing-and-circuit-breakers"><h3 data-label="Price bands, flexing and circuit breakers">Price bands, flexing and circuit breakers<a aria-label="Link to this card" class="anchor" href="#price-bands-flexing-and-circuit-breakers">#</a></h3><ul>
+<li>Every contract has a daily <b>operating range</b> around the reference price; orders outside it are rejected, not parked. RELIANCE near ₹1,318 with a ~10% band: a buy at ₹1,470 is rejected.</li>
+<li><b>Dynamic bands</b> in <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr>: price pressing the edge triggers a short pause, then the band widens by a step (often ~5%), possibly several times a day.</li>
+<li><b>Market-wide breakers</b> at roughly 10%, 15% and 20% moves in NIFTY or SENSEX halt cash and derivatives together; halt length depends on the level and time of day, and a 20% move ends trading for the day. Reopening uses a call auction, so prices can gap.</li>
+<li>"A stop can only work if the market is open and trading at your level." A position locked at the lower band may not be sellable for hours: size so that is survivable.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#settle"><span>Previous</span>05 · Settlement and positioning: delivery vs cash, index vs stock, open interest</a><a class="sn-next" href="#risk"><span>Next</span>07 · Risk and discipline: hedging, sizing, gaps and leverage</a></nav></section>
+<section class="sec r" data-origin="ovfut" data-sid="risk" id="risk"><h2 data-label="Risk and discipline: hedging, sizing, gaps and leverage"><span class="n">07</span>Risk and discipline: hedging, sizing, gaps and leverage</h2>
+<p class="src">OpenAlgo Open Varsity · Futures Trading · chapters 23–27 (<a href="https://www.openalgo.in/futures/hedging-with-futures">hedging</a>, <a href="https://www.openalgo.in/futures/position-sizing">position sizing</a>, <a href="https://www.openalgo.in/futures/gap-and-event-risk">gap and event risk</a>, <a href="https://www.openalgo.in/futures/risks-of-leverage">risks of leverage</a>, <a href="https://www.openalgo.in/futures/mistakes-and-checklist">mistakes and checklist</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="hedging-a-portfolio-with-index-futures" data-skey="ovfut:risk-and-discipline-hedging-sizing-gaps-and-leve/hedging-a-portfolio-with-index-futures" id="hedging-a-portfolio-with-index-futures"><h3 data-label="Hedging a portfolio with index futures">Hedging a portfolio with index futures<a aria-label="Link to this card" class="anchor" href="#hedging-a-portfolio-with-index-futures">#</a></h3><div class="formula"><span class="fl">lots ≈ (portfolio value × beta) ÷ (index level × lot size)</span><span class="fl">₹15 lakh × 1.0 ÷ (24,000 × 65 = ₹15.6 lakh) ≈ 0.96 → short 1 lot</span></div><div class="tw"><table>
+<tr><th>NIFTY moves</th><th>Portfolio</th><th>Short future</th><th>Net</th></tr>
+<tr><td>−5%</td><td>≈ −₹75,000</td><td>≈ +₹78,000</td><td>≈ flat</td></tr>
+<tr><td>+5%</td><td>≈ +₹75,000</td><td>≈ −₹78,000</td><td>Upside given up</td></tr>
+</table></div><ul>
+<li><b>Beta</b> scales the hedge: above 1 needs more lots (round up), below 1 fewer.</li>
+<li>A hedge is temporary insurance for a specific, time-bound risk; its premium is capped upside plus running costs. Permanent hedges erode returns, and sometimes trimming shares is simpler.</li>
+</ul></div>
+<div class="card b" data-ck="position-sizing-loss-first-then-lots" data-skey="ovfut:risk-and-discipline-hedging-sizing-gaps-and-leve/position-sizing-loss-first-then-lots" id="position-sizing-loss-first-then-lots"><h3 data-label="Position sizing: loss first, then lots">Position sizing: loss first, then lots<a aria-label="Link to this card" class="anchor" href="#position-sizing-loss-first-then-lots">#</a></h3><div class="formula"><span class="fl">risk budget = 1–2% of trading capital (₹5 lakh × 1% = ₹5,000)</span><span class="fl">loss per lot = stop distance × ₹ per point</span><span class="fl">lots = budget ÷ loss per lot, rounded DOWN</span></div><div class="tw"><table>
+<tr><th>Setup</th><th>Loss per lot</th><th>Verdict</th></tr>
+<tr><td>NIFTY, 30-point stop × ₹65</td><td>₹1,950</td><td>Raw 2.5 → take 1 lot after costs</td></tr>
+<tr><td>RELIANCE, ₹8 stop × 500</td><td>₹4,000</td><td>1 lot</td></tr>
+<tr><td>RELIANCE, ₹10 stop × 500</td><td>₹5,000</td><td>Exactly the budget, no cushion</td></tr>
+<tr><td>RELIANCE, ₹12 stop × 500</td><td>₹6,000</td><td>Over budget: no trade</td></tr>
+</table></div><p>Never size by the margin that lets you in. The stop comes from the chart first; a wider stop means fewer lots. At 1% per loss, six losses are a 6% drawdown; at 20%, two losses cripple the account. For many small accounts, one lot is the prudent maximum.</p></div>
+<div class="card o" data-ck="gap-and-event-risk" data-skey="ovfut:risk-and-discipline-hedging-sizing-gaps-and-leve/gap-and-event-risk" id="gap-and-event-risk"><h3 data-label="Gap and event risk">Gap and event risk<a aria-label="Link to this card" class="anchor" href="#gap-and-event-risk">#</a></h3><div class="tw"><table>
+<tr><th>RELIANCE long, close 1,318, stop 1,290</th><th>Loss (500 sh)</th><th>Share of ₹1.1 lakh margin</th></tr>
+<tr><td>Planned stop exit</td><td>≈ ₹14,000</td><td>≈ 13%</td></tr>
+<tr><td>Opens at 1,250, stop fills there</td><td>≈ ₹34,000</td><td>≈ 31%</td></tr>
+<tr><td>6% gap down</td><td>≈ ₹39,500</td><td>Over a third</td></tr>
+<tr><td>10% gap down</td><td>≈ ₹66,000</td><td>Over half</td></tr>
+</table></div><ul>
+<li>Gap triggers: results after the close, <abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr> policy, the Union Budget, election counting, overseas news while India is shut.</li>
+<li>Exchanges also raise margins before such events, which can force you out before the news lands.</li>
+<li>Check the event calendar before carrying anything overnight; cut size or go flat, keep a cash buffer, stay in liquid near-month contracts, and size so a gap through the stop is survivable.</li>
+</ul></div>
+<div class="card y" data-ck="the-margin-call-spiral" data-skey="ovfut:risk-and-discipline-hedging-sizing-gaps-and-leve/the-margin-call-spiral" id="the-margin-call-spiral"><h3 data-label="The margin-call spiral">The margin-call spiral<a aria-label="Link to this card" class="anchor" href="#the-margin-call-spiral">#</a></h3><pre class="mermaid" data-h="402" data-key="a3b0319e87d7" data-w="269">flowchart TD
+  L["Adverse move or gap"] --&gt; MS["Margin falls below maintenance"]
+  MS --&gt; MC["Margin call"]
+  MC --&gt; FX["Forced exit at a poor price"]
+  FX --&gt; SC["Smaller capital"]
+  SC --&gt; BB["Bigger bets to win it back"]
+  BB --&gt; L</pre><p>"Most people who trade leveraged futures lose money." With ≈ 6× leverage a 5% move is ≈ 30% of margin either way, and an 8% gap is nearly half. Leverage, not the instrument, is the danger: keep risk per trade small and fixed and let the stop distance choose the size.</p></div>
+<div class="card t full" data-ck="beginner-mistakes-and-their-fixes" data-skey="ovfut:risk-and-discipline-hedging-sizing-gaps-and-leve/beginner-mistakes-and-their-fixes" id="beginner-mistakes-and-their-fixes"><h3 data-label="Beginner mistakes and their fixes">Beginner mistakes and their fixes<a aria-label="Link to this card" class="anchor" href="#beginner-mistakes-and-their-fixes">#</a></h3><div class="tw"><table>
+<tr><th>Mistake</th><th>Fix</th></tr>
+<tr><td>Sizing off margin, not exposure</td><td>Size off full contract value (≈ ₹6.6 lakh per RELIANCE future)</td></tr>
+<tr><td>Trading without a stop</td><td>Set the exit price before entry</td></tr>
+<tr><td>Averaging into a loser</td><td>Never add to a losing leveraged position</td></tr>
+<tr><td>Trading the far month</td><td>Stay in the near month</td></tr>
+<tr><td>Over-trading, ignoring costs</td><td>Count round-trip costs (≈ 14 NIFTY points) in every target</td></tr>
+<tr><td>Holding stock futures to expiry</td><td>Close or roll before the final days</td></tr>
+<tr><td>Revenge trading</td><td>Follow the pre-written plan after losses</td></tr>
+<tr><td>Treating margin as the maximum loss</td><td>Margin is a deposit; gaps can lose more than it</td></tr>
+</table></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#controls"><span>Previous</span>06 · Market controls: position limits, bans, adjustments and halts</a><a class="sn-next" href="#last"><span>Next</span>08 · Pre-trade checklist and one-line formulas</a></nav></section>
+<section class="sec g" data-origin="ovfut" data-sid="last" id="last"><h2 data-label="Pre-trade checklist and one-line formulas"><span class="n">08</span>Pre-trade checklist and one-line formulas</h2>
+<p>Run this on every futures trade until it is automatic.</p>
+<div class="g2">
+<div class="card g" data-ck="futures-pre-trade-checklist" data-skey="ovfut:pre-trade-checklist-and-one-line-formulas/futures-pre-trade-checklist" id="futures-pre-trade-checklist"><h3 data-label="Futures pre-trade checklist">Futures pre-trade checklist<a aria-label="Link to this card" class="anchor" href="#futures-pre-trade-checklist">#</a></h3><ol class="steps">
+<li><b>Contract:</b> exact symbol, near month, expiry date noted; not in the <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> ban.</li>
+<li><b>Margin:</b> calculator checked; cash buffer above it for hikes and MTM.</li>
+<li><b>Size:</b> 1–2% of capital at risk, from full exposure and stop distance, rounded down.</li>
+<li><b>Stop:</b> set before entry, beyond the invalidation level.</li>
+<li><b>Costs:</b> round-trip cost and breakeven points known.</li>
+<li><b>Events:</b> results, <abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr>, budget, elections, expiry week checked; reduce or flatten ahead of shocks.</li>
+<li><b>Exit plan:</b> target and stop written; no averaging down; stock futures closed or rolled before delivery.</li>
+</ol></div>
+<div class="card b" data-ck="one-line-formulas" data-skey="ovfut:pre-trade-checklist-and-one-line-formulas/one-line-formulas" id="one-line-formulas"><h3 data-label="One-line formulas">One-line formulas<a aria-label="Link to this card" class="anchor" href="#one-line-formulas">#</a></h3><div class="formula"><span class="fl">contract value = lot × price</span><span class="fl">₹ per point = lot size;  tick value = tick × lot</span><span class="fl">P&amp;L = (exit − entry) × lot   (long)</span><span class="fl">daily MTM = (today's settle − yesterday's) × lot</span><span class="fl">fair future ≈ spot × (1 + r × days ÷ 365)</span><span class="fl">roll cost = (next − near) × lot</span><span class="fl">hedge lots ≈ portfolio × beta ÷ (index × lot)</span><span class="fl">lots = risk budget ÷ (stop distance × lot), round down</span></div></div>
+<div class="card o" data-ck="about-this-sheet" data-skey="ovfut:pre-trade-checklist-and-one-line-formulas/about-this-sheet" id="about-this-sheet"><h3 data-label="About this sheet">About this sheet<a aria-label="Link to this card" class="anchor" href="#about-this-sheet">#</a></h3><p>This sheet condenses the free course <a href="https://www.openalgo.in/futures">Futures Trading</a> from <a href="https://www.openalgo.in/learn">OpenAlgo Open Varsity</a> (27 chapters, 7 modules) into reference cards in our own words. Lot sizes, margins, charges and exchange rules are the course's examples at the time of writing and change often; verify current values with <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr>, <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> and your broker. Educational, not investment or tax advice.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#risk"><span>Previous</span>07 · Risk and discipline: hedging, sizing, gaps and leverage</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"a3b0319e87d7": {"L": "A move against a leveraged position, or an overnight gap that skips the stop.", "MS": "Daily MTM losses are debited in cash, pushing the account below the maintenance level.", "MC": "The broker demands more cash, usually by the next morning.", "FX": "If the call isn't met, the broker squares off at market, often near the worst prices.", "SC": "The realised loss leaves a smaller base for every later trade.", "BB": "The urge to win it back with bigger size restarts the cycle; fixed small risk breaks it."}}</script>
+</body></html>

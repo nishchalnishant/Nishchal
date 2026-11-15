@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Algo Trading with Python · Cheatsheets</title>
+<meta name="description" content="OpenAlgo Python SDK setup, symbols, quotes and history, NumPy and pandas, Matplotlib, Plotly and Streamlit, 100+ openalgo.ta indicators, signals and scanners, a strategy playbook, orders, VectorBT backtests, metrics, optimisation, walk-forward, ML, WebSockets and position sizing.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+
+</head>
+<body class="s-ovalgo" data-hue="y">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><a href="index.html#ov" class="on" title="OpenAlgo Open Varsity course sheets">Open Varsity</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><h4>Open Varsity</h4><a href="ov_stock_market_basics.html">Stock basics</a><a href="ov_technical_analysis.html">OV technicals</a><a href="ov_python_for_traders.html">Python for traders</a><a href="ov_futures_trading.html">Futures</a><a href="ov_options_basics.html">Options basics</a><a href="ov_options_strategies.html">Options strategies</a><a href="ov_algo_trading_python.html" aria-current="page">Algo trading</a><a href="ov_quantitative_trading.html">Quant trading</a><a href="ov_statistical_arbitrage.html">Stat arb</a><a href="ov_amibroker_afl.html">AmiBroker AFL</a><a href="ov_taxation.html">Taxation</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Open Varsity · Intermediate</div><h1>Algo Trading with Python</h1><p>OpenAlgo Python SDK setup, symbols, quotes and history, NumPy and pandas, Matplotlib, Plotly and Streamlit, 100+ openalgo.ta indicators, signals and scanners, a strategy playbook, orders, VectorBT backtests, metrics, optimisation, walk-forward, ML, WebSockets and position sizing.</p></div>
+      <div class="stats"><div><b>11</b>sections</div><div><b>53</b>cards</div><div><b>5</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec y" data-origin="ovalgo" data-sid="ovalgoatlas" id="ovalgoatlas"><h2 data-label="Algo trading with Python: atlas and routes"><span class="n">00</span>Algo trading with Python: atlas and routes</h2>
+<p>From an empty folder to a monitored live bot on the OpenAlgo Python SDK: setup and data, charts and dashboards, indicators, signals and scanners, a strategy playbook, orders, honest backtesting, machine learning, streaming and position sizing. Condensed from OpenAlgo's free Open Varsity course. Educational, not investment advice.</p>
+<div class="g2">
+<div class="card y full" data-ck="algo-trading-with-python-topic-atlas" data-skey="ovalgo:algo-trading-with-python-atlas-and-routes/algo-trading-with-python-topic-atlas" id="algo-trading-with-python-topic-atlas"><h3 data-label="Algo trading with Python topic atlas">Algo trading with Python topic atlas<a aria-label="Link to this card" class="anchor" href="#algo-trading-with-python-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>Algo Trading with Python</b><small>8 areas · 35 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#setup" title="Go to: Foundations: setup, secrets, the client and Python essentials"><span class="at-n">01</span><span class="at-bl">Foundations</span><span class="at-c">6</span></a><div class="at-leaves"><a class="at-chip" href="#set-up-once" title="Go to: Set up once">Setup and secrets</a><a class="at-chip" href="#the-client-analyze-mode-and-the-safe-response-pa" title="Go to: The client, analyze mode and the safe-response pattern">Safe responses</a><a class="at-chip" href="#one-symbol-format-for-every-broker" title="Go to: One symbol format for every broker">Symbols and exchanges</a><a class="at-chip" href="#quotes-multiquotes-and-depth" title="Go to: Quotes, multiquotes and depth">Quotes and depth</a><a class="at-chip" href="#historical-candles" title="Go to: Historical candles">History and resampling</a><a class="at-chip" href="#pandas-for-price-series" title="Go to: pandas for price series">NumPy and pandas</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#viz" title="Go to: Charts and apps: Matplotlib, Plotly and Streamlit"><span class="at-n">02</span><span class="at-bl">Charts and apps</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#matplotlib-precise-charts-saved-to-png" title="Go to: Matplotlib: precise charts saved to PNG">Matplotlib</a><a class="at-chip" href="#plotly-interactive-candles" title="Go to: Plotly: interactive candles">Plotly</a><a class="at-chip" href="#streamlit-a-dashboard-in-one-script" title="Go to: Streamlit: a dashboard in one script">Streamlit</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#ind" title="Go to: Indicators with openalgo.ta: trend, momentum, volatility, volume, oscillators and utilities"><span class="at-n">03</span><span class="at-bl">Indicators</span><span class="at-c">7</span></a><div class="at-leaves"><a class="at-chip" href="#know-the-return-type-before-you-index" title="Go to: Know the return type before you index">Return types</a><a class="at-chip" href="#trend-tools" title="Go to: Trend tools">Trend</a><a class="at-chip" href="#momentum-tools" title="Go to: Momentum tools">Momentum</a><a class="at-chip" href="#volatility-tools" title="Go to: Volatility tools">Volatility</a><a class="at-chip" href="#volume-tools" title="Go to: Volume tools">Volume</a><a class="at-chip" href="#oscillators-check-the-regime-first" title="Go to: Oscillators: check the regime first">Oscillators</a><a class="at-chip" href="#utility-functions-from-indicator-to-event" title="Go to: Utility functions: from indicator to event">Utilities</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#signals" title="Go to: Signals and scanning"><span class="at-n">04</span><span class="at-bl">Signals and scanning</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#the-signal-pipeline" title="Go to: The signal pipeline">Signal pipeline</a><a class="at-chip" href="#look-ahead-the-silent-backtest-killer" title="Go to: Look-ahead: the silent backtest killer">Look-ahead</a><a class="at-chip" href="#scanner-universe-loop-rule" title="Go to: Scanner = universe + loop + rule">Scanners</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#play" title="Go to: Strategy playbook: equity, intraday, pairs, momentum, seasonal and options"><span class="at-n">05</span><span class="at-bl">Strategy playbook</span><span class="at-c">6</span></a><div class="at-leaves"><a class="at-chip" href="#cash-and-equity-strategies" title="Go to: Cash and equity strategies">Cash and equity</a><a class="at-chip" href="#intraday-strategies" title="Go to: Intraday strategies">Intraday</a><a class="at-chip" href="#pairs-and-statistical-arbitrage" title="Go to: Pairs and statistical arbitrage">Pairs</a><a class="at-chip" href="#momentum-and-volatility-trading" title="Go to: Momentum and volatility trading">Momentum and volatility</a><a class="at-chip" href="#seasonal-and-calendar-effects" title="Go to: Seasonal and calendar effects">Seasonal</a><a class="at-chip" href="#options-through-the-sdk" title="Go to: Options through the SDK">Options via SDK</a></div></div><div class="at-row" style="--b:var(--c-r)"><a class="at-branch" href="#exec" title="Go to: Execution: placing and managing orders"><span class="at-n">06</span><span class="at-bl">Execution</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#order-parameters" title="Go to: Order parameters">Order parameters</a><a class="at-chip" href="#order-methods" title="Go to: Order methods">Order methods</a><a class="at-chip" href="#reading-the-books" title="Go to: Reading the books">Order books</a></div></div><div class="at-row" style="--b:var(--c-y)"><a class="at-branch" href="#test" title="Go to: Testing: backtests, metrics, optimisation and walk-forward"><span class="at-n">07</span><span class="at-bl">Testing</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#vectorbt-with-costs" title="Go to: VectorBT with costs">VectorBT</a><a class="at-chip" href="#performance-metrics" title="Go to: Performance metrics">Metrics</a><a class="at-chip" href="#optimisation-plateaus-beat-peaks" title="Go to: Optimisation: plateaus beat peaks">Optimisation</a><a class="at-chip" href="#walk-forward-the-only-number-that-counts" title="Go to: Walk-forward: the only number that counts">Walk-forward</a></div></div><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#live" title="Go to: Going live: machine learning, streaming and position sizing"><span class="at-n">08</span><span class="at-bl">Going live</span><span class="at-c">3</span></a><div class="at-leaves"><a class="at-chip" href="#machine-learning-workflow-over-model" title="Go to: Machine learning: workflow over model">Machine learning</a><a class="at-chip" href="#websockets-stream-to-watch-rest-to-act" title="Go to: WebSockets: stream to watch, REST to act">WebSockets</a><a class="at-chip" href="#position-sizing-by-rupee-risk" title="Go to: Position sizing by rupee risk">Position sizing</a></div></div></div></div></div>
+<div class="card b" data-ck="how-to-use-this-sheet" data-skey="ovalgo:algo-trading-with-python-atlas-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li><b>New to Python:</b> foundations, then market data. Every later script is "fetch a DataFrame, compute, decide".</li>
+<li><b>Building a strategy:</b> indicators → signals → playbook → testing, in that order.</li>
+<li><b>Before any real order:</b> execution, the backtest-trust ladder, position sizing and the go-live checklist at the end.</li>
+<li>Keep OpenAlgo in <b>analyze mode</b> (simulated orders) the whole time you learn.</li>
+</ol><div class="callout"><b>Educational, not investment advice.</b> Condensed in our own words from <a href="https://www.openalgo.in/python">OpenAlgo Open Varsity: Algo Trading with Python</a>. Code here is short illustrative idiom in the course's style, not a copy; SDK field names can change between versions, so print a response once before relying on its shape.</div></div>
+<div class="card g" data-ck="from-idea-to-live-bot" data-skey="ovalgo:algo-trading-with-python-atlas-and-routes/from-idea-to-live-bot" id="from-idea-to-live-bot"><h3 data-label="From idea to live bot">From idea to live bot<a aria-label="Link to this card" class="anchor" href="#from-idea-to-live-bot">#</a></h3><pre class="mermaid" data-h="544" data-key="042d573ff596" data-w="305">flowchart TD
+  D["Data: history() and quotes()"] --&gt; I["Indicators: openalgo.ta"]
+  I --&gt; G["Signals: crossover, exrem, shift(1)"]
+  G --&gt; B["Backtest: VectorBT with fees and slippage"]
+  B --&gt; W["Validate: walk-forward, out-of-sample"]
+  W --&gt; Z["Size: risk %, ATR stop, whole lots"]
+  Z --&gt; E["Execute: analyze mode first, then placeorder"]
+  E --&gt; M["Monitor: WebSocket feed, stops, alerts"]</pre><p>Most ideas should die at the validate step. That is the process working, not failing.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#setup"><span>Next</span>01 · Foundations: setup, secrets, the client and Python essentials</a></nav></section>
+<section class="sec b" data-origin="ovalgo" data-sid="setup" id="setup"><h2 data-label="Foundations: setup, secrets, the client and Python essentials"><span class="n">01</span>Foundations: setup, secrets, the client and Python essentials</h2>
+<p class="src">OpenAlgo Open Varsity · Algo Trading with Python · chapters 1–2 (<a href="https://www.openalgo.in/python/getting-started">getting started</a>, <a href="https://www.openalgo.in/python/python-for-traders">Python essentials</a>)</p>
+<div class="g2">
+<div class="card b" data-ck="set-up-once" data-skey="ovalgo:foundations-setup-secrets-the-client-and-python-/set-up-once" id="set-up-once"><h3 data-label="Set up once">Set up once<a aria-label="Link to this card" class="anchor" href="#set-up-once">#</a></h3><ol class="steps">
+<li>Install Python (on Windows tick "Add Python to PATH"); check with <code>python --version</code>.</li>
+<li>Install VS Code and its Python extension.</li>
+<li>Run OpenAlgo locally; the dashboard opens at <code>http://127.0.0.1:5000</code>. Copy your API key from its API Key page.</li>
+<li><code>pip install uv</code>, then <code>uv init my-trading</code>, <code>cd my-trading</code>, <code>uv add openalgo</code>.</li>
+<li>Run scripts with <code>uv run python file.py</code>: one isolated, reproducible project per idea.</li>
+</ol></div>
+<div class="card r" data-ck="keep-secrets-out-of-code" data-skey="ovalgo:foundations-setup-secrets-the-client-and-python-/keep-secrets-out-of-code" id="keep-secrets-out-of-code"><h3 data-label="Keep secrets out of code">Keep secrets out of code<a aria-label="Link to this card" class="anchor" href="#keep-secrets-out-of-code">#</a></h3><ul>
+<li>Put <code>OPENALGO_API_KEY</code>, <code>OPENALGO_HOST</code> (and later <code>OPENALGO_WS_URL</code>) in a <code>.env</code> file; load it with <code>python-dotenv</code> and read with <code>os.getenv()</code>.</li>
+<li>Add <code>.env</code> to <code>.gitignore</code>; commit a blank <code>.env.example</code> instead.</li>
+<li>Treat the key like an <abbr class="gl" data-tip="An option whose strike equals the current price. An ATM straddle's price ÷ stock price approximates the expected move." data-tip-title="ATM: At the money">ATM</abbr> PIN: never hard-code it, paste it in chat or push it to GitHub. Replace any placeholder default before running.</li>
+</ul></div>
+<div class="card g full" data-ck="the-client-analyze-mode-and-the-safe-response-pa" data-skey="ovalgo:foundations-setup-secrets-the-client-and-python-/the-client-analyze-mode-and-the-safe-response-pa" id="the-client-analyze-mode-and-the-safe-response-pa"><h3 data-label="The client, analyze mode and the safe-response pattern">The client, analyze mode and the safe-response pattern<a aria-label="Link to this card" class="anchor" href="#the-client-analyze-mode-and-the-safe-response-pa">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">import</span> os
+<span class="k">from</span> dotenv <span class="k">import</span> load_dotenv
+<span class="k">from</span> openalgo <span class="k">import</span> api, ta
+
+<span class="f">load_dotenv</span>()
+client <span class="o">=</span> <span class="f">api</span>(api_key<span class="o">=</span>os<span class="o">.</span><span class="f">getenv</span>(<span class="s">"OPENALGO_API_KEY"</span>),
+             host<span class="o">=</span>os<span class="o">.</span><span class="f">getenv</span>(<span class="s">"OPENALGO_HOST"</span>, <span class="s">"http://127.0.0.1:5000"</span>))
+
+<span class="c"># confirm analyze mode is ON while learning</span>
+<span class="bi">print</span>(client<span class="o">.</span><span class="f">analyzerstatus</span>()[<span class="s">"data"</span>])
+resp <span class="o">=</span> client<span class="o">.</span><span class="f">quotes</span>(symbol<span class="o">=</span><span class="s">"SBIN"</span>, exchange<span class="o">=</span><span class="s">"NSE"</span>)
+<span class="c"># every reply: status + data (or message)</span>
+<span class="k">if</span> resp<span class="o">.</span><span class="f">get</span>(<span class="s">"status"</span>) <span class="o">==</span> <span class="s">"success"</span>:
+    q <span class="o">=</span> resp[<span class="s">"data"</span>]
+    pct <span class="o">=</span> (q[<span class="s">"ltp"</span>] <span class="o">-</span> q[<span class="s">"prev_close"</span>]) <span class="o">/</span> q[<span class="s">"prev_close"</span>] <span class="o">*</span> <span class="n">100</span>
+<span class="k">else</span>:
+    <span class="bi">print</span>(<span class="s">"failed:"</span>, resp<span class="o">.</span><span class="f">get</span>(<span class="s">"message"</span>))</pre><ul>
+<li><b>Analyze mode</b> simulates orders; nothing reaches the exchange. <code>client.analyzertoggle(mode=True)</code> switches it on. Going live should be a deliberate act, never an accident. (The course shows the mode under both <code>mode</code> and <code>analyze_mode</code> keys, so print it once.)</li>
+<li>Payloads sit one layer down: <code>resp["data"]</code> for most calls, <code>resp["results"]</code> for batch calls. Forgetting that layer is the commonest beginner error.</li>
+<li><code>client.funds()</code> → <code>availablecash</code>, <code>utiliseddebits</code>, <code>m2mrealized</code>, <code>m2munrealized</code>. <code>client.intervals()</code> lists supported timeframes.</li>
+<li>Wrap every live call in <code>try/except</code> so one bad reply can't kill the bot; an unknown symbol returns an HTTP 400 "not found" (check master contracts are downloaded).</li>
+</ul></div>
+<div class="card p" data-ck="python-essentials-that-carry-the-course" data-skey="ovalgo:foundations-setup-secrets-the-client-and-python-/python-essentials-that-carry-the-course" id="python-essentials-that-carry-the-course"><h3 data-label="Python essentials that carry the course">Python essentials that carry the course<a aria-label="Link to this card" class="anchor" href="#python-essentials-that-carry-the-course">#</a></h3><div class="tw"><table>
+<tr><th>Tool</th><th>Trading use</th></tr>
+<tr><td>List</td><td>Watchlists; index from 0, <code>[-1]</code> is the latest</td></tr>
+<tr><td>Dict</td><td>Every SDK reply; nested reads like <code>resp["data"]["ltp"]</code></td></tr>
+<tr><td>f-string</td><td><code>f"{sym:10s} {ltp:&gt;10,.2f}"</code> for aligned output</td></tr>
+<tr><td>for / if / def</td><td>Scale one check to many symbols, branch on data, avoid repetition</td></tr>
+<tr><td>try / except</td><td>Keep a bot alive through errors</td></tr>
+<tr><td>Comprehension</td><td><code>[b - a for a, b in zip(c, c[1:])]</code> day-over-day changes</td></tr>
+</table></div><div class="formula"><span class="fl">P&amp;L = (exit − entry) × qty   (reverse for shorts)</span><span class="fl">long 1300 → 1345 × 50 = +₹2,250</span><span class="fl">short 1300 → 1280 × 50 = +₹1,000</span><span class="fl">SBIN 750 @ 812.4, LTP 818 → +₹4,200</span></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ovalgoatlas"><span>Previous</span>00 · Algo trading with Python: atlas and routes</a><a class="sn-next" href="#data"><span>Next</span>02 · Market data: symbols, quotes, history, NumPy and pandas</a></nav></section>
+<section class="sec g" data-origin="ovalgo" data-sid="data" id="data"><h2 data-label="Market data: symbols, quotes, history, NumPy and pandas"><span class="n">02</span>Market data: symbols, quotes, history, NumPy and pandas</h2>
+<p class="src">OpenAlgo Open Varsity · Algo Trading with Python · chapters 3–7 (<a href="https://www.openalgo.in/python/symbols-exchanges">symbols and exchanges</a>, <a href="https://www.openalgo.in/python/market-data-quotes">quotes and depth</a>, <a href="https://www.openalgo.in/python/historical-data">historical data</a>, <a href="https://www.openalgo.in/python/numpy-for-traders">NumPy</a>, <a href="https://www.openalgo.in/python/pandas-for-traders">pandas</a>)</p>
+<div class="g2">
+<div class="card g" data-ck="one-symbol-format-for-every-broker" data-skey="ovalgo:market-data-symbols-quotes-history-numpy-and-pan/one-symbol-format-for-every-broker" id="one-symbol-format-for-every-broker"><h3 data-label="One symbol format for every broker">One symbol format for every broker<a aria-label="Link to this card" class="anchor" href="#one-symbol-format-for-every-broker">#</a></h3><div class="tw"><table>
+<tr><th>Instrument</th><th>Format</th><th>Example</th></tr>
+<tr><td>Equity</td><td>Base name</td><td><code>RELIANCE</code></td></tr>
+<tr><td>Future</td><td>Base + DDMMMYY + FUT</td><td><code>NIFTY30JUN26FUT</code></td></tr>
+<tr><td>Option</td><td>Base + DDMMMYY + strike + CE/PE</td><td><code>NIFTY30JUN2624000CE</code></td></tr>
+<tr><td>Commodity future</td><td>Same as futures</td><td><code>GOLDM03JUL26FUT</code></td></tr>
+</table></div><div class="tw"><table>
+<tr><th>Exchange code</th><th>Holds</th></tr>
+<tr><td><code>NSE</code> / <code>BSE</code></td><td>Stocks</td></tr>
+<tr><td><code>NFO</code> / <code>BFO</code></td><td>Futures and options</td></tr>
+<tr><td><code>MCX</code></td><td>Commodities, trading into the evening</td></tr>
+<tr><td><code>NSE_INDEX</code></td><td>Indices (quote-only): NIFTY, INDIAVIX</td></tr>
+</table></div><p>Always pair a symbol with its exchange. Asking for NIFTY on <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> instead of NSE_INDEX, or a future on NSE instead of NFO, are classic misses.</p></div>
+<div class="card b" data-ck="discovering-instruments-and-lot-sizes" data-skey="ovalgo:market-data-symbols-quotes-history-numpy-and-pan/discovering-instruments-and-lot-sizes" id="discovering-instruments-and-lot-sizes"><h3 data-label="Discovering instruments and lot sizes">Discovering instruments and lot sizes<a aria-label="Link to this card" class="anchor" href="#discovering-instruments-and-lot-sizes">#</a></h3><pre class="code" data-hl="py" data-lang="py">info <span class="o">=</span> client<span class="o">.</span><span class="f">symbol</span>(symbol<span class="o">=</span><span class="s">"SBIN"</span>, exchange<span class="o">=</span><span class="s">"NSE"</span>)[<span class="s">"data"</span>]
+<span class="c"># keys: symbol, name, lotsize, tick_size, instrumenttype, expiry</span>
+hits <span class="o">=</span> client<span class="o">.</span><span class="f">search</span>(query<span class="o">=</span><span class="s">"NIFTY FUT"</span>, exchange<span class="o">=</span><span class="s">"NFO"</span>)[<span class="s">"data"</span>]
+exps <span class="o">=</span> client<span class="o">.</span><span class="f">expiry</span>(symbol<span class="o">=</span><span class="s">"NIFTY"</span>, exchange<span class="o">=</span><span class="s">"NFO"</span>,
+                     <span class="c"># e.g. "30-JUN-26"</span>
+                     instrumenttype<span class="o">=</span><span class="s">"options"</span>)[<span class="s">"data"</span>]
+<span class="c"># DataFrame, ~9,700 rows</span>
+master <span class="o">=</span> client<span class="o">.</span><span class="f">instruments</span>(exchange<span class="o">=</span><span class="s">"NSE"</span>)
+value <span class="o">=</span> info[<span class="s">"lotsize"</span>] <span class="o">*</span> ltp                 <span class="c"># contract value</span></pre><ul>
+<li>Sample lot sizes: NIFTY 65, BANKNIFTY 30, RELIANCE future 500, GOLDM / CRUDEOIL / SILVERM 1. Ticks: SBIN 0.05, RELIANCE 0.1, BANKNIFTY future 0.2, CRUDEOIL 1.0.</li>
+<li>Exchanges revise lots, so look them up every time; never hard-code. One NIFTY future lot ≈ 65 × 23,810 ≈ ₹15.5 lakh.</li>
+<li>Weekly index options mean one strike has many expiries; the nearest is usually the most active.</li>
+</ul></div>
+<div class="card t full" data-ck="quotes-multiquotes-and-depth" data-skey="ovalgo:market-data-symbols-quotes-history-numpy-and-pan/quotes-multiquotes-and-depth" id="quotes-multiquotes-and-depth"><h3 data-label="Quotes, multiquotes and depth">Quotes, multiquotes and depth<a aria-label="Link to this card" class="anchor" href="#quotes-multiquotes-and-depth">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Returns</th><th>Use</th></tr>
+<tr><td><code>quotes(symbol, exchange)["data"]</code></td><td><code>ltp, open, high, low, prev_close, bid, ask, volume, oi</code></td><td>One snapshot</td></tr>
+<tr><td><code>multiquotes(symbols=[{...}, ...])["results"]</code></td><td>Per item: <code>symbol, exchange, data</code></td><td>Many symbols, mixed exchanges, one request (use beyond 2–3 symbols)</td></tr>
+<tr><td><code>depth(symbol, exchange)["data"]</code></td><td><code>ltp, totalbuyqty, totalsellqty, bids, asks</code> (5 levels of price and quantity)</td><td>The order book</td></tr>
+</table></div><div class="formula"><span class="fl">change % = (ltp − prev_close) / prev_close × 100</span><span class="fl">spread = best ask − best bid       (GOLDM: 22 points ≈ 0.015%)</span><span class="fl">buy pressure % = buy qty / (buy + sell) × 100</span><span class="fl">range position % = (ltp − low) / (high − low) × 100</span></div><ul>
+<li><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> and <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> cash trade 09:15–15:30 IST; depth is empty and quotes can show zeros when the market is shut, so guard <code>bids[0]</code> and zero division. Practise depth on MCX in the evening.</li>
+<li>Check the spread before trading anything unfamiliar. Imbalance and <abbr class="gl" data-tip="Number of futures or options contracts outstanding. Rising price with rising OI means new positions are backing the move." data-tip-title="OI: Open interest">OI</abbr> are supporting clues, never triggers on their own.</li>
+</ul></div>
+<div class="card o" data-ck="historical-candles" data-skey="ovalgo:market-data-symbols-quotes-history-numpy-and-pan/historical-candles" id="historical-candles"><h3 data-label="Historical candles">Historical candles<a aria-label="Link to this card" class="anchor" href="#historical-candles">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">from</span> datetime <span class="k">import</span> datetime, timedelta
+end <span class="o">=</span> datetime<span class="o">.</span><span class="f">now</span>(); start <span class="o">=</span> end <span class="o">-</span> <span class="f">timedelta</span>(days<span class="o">=</span><span class="n">120</span>)
+df <span class="o">=</span> client<span class="o">.</span><span class="f">history</span>(symbol<span class="o">=</span><span class="s">"TCS"</span>, exchange<span class="o">=</span><span class="s">"NSE"</span>, interval<span class="o">=</span><span class="s">"D"</span>,
+                    start_date<span class="o">=</span>start<span class="o">.</span><span class="f">strftime</span>(<span class="s">"%Y-%m-%d"</span>),
+                    end_date<span class="o">=</span>end<span class="o">.</span><span class="f">strftime</span>(<span class="s">"%Y-%m-%d"</span>))
+<span class="c"># DataFrame indexed by timestamp: open high low close volume oi</span></pre><ul>
+<li>Intervals: <code>1m 3m 5m 10m 15m 30m 60m 1h D</code>. Ten calendar days of TCS: D 7 rows, 1h 49, 15m 175, 5m 525.</li>
+<li>Calendar days are not sessions: 7 days gave 6 rows, 30 gave 21, 90 gave 59. Ask for a generous window and count rows.</li>
+<li>Intraday timestamps carry +05:30 IST; the first 5-minute bar is 09:15, the last 15:25. <code>oi</code> is 0 for stocks.</li>
+<li><code>source="db"</code> reads OpenAlgo's local store instead of the broker; wrap it in <code>try/except</code>. Build dates from <code>datetime</code> so scripts never go stale.</li>
+</ul></div>
+<div class="card r" data-ck="resample-the-right-way" data-skey="ovalgo:market-data-symbols-quotes-history-numpy-and-pan/resample-the-right-way" id="resample-the-right-way"><h3 data-label="Resample the right way">Resample the right way<a aria-label="Link to this card" class="anchor" href="#resample-the-right-way">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="b">OHLCV</span> <span class="o">=</span> {<span class="s">"open"</span>: <span class="s">"first"</span>, <span class="s">"high"</span>: <span class="s">"max"</span>, <span class="s">"low"</span>: <span class="s">"min"</span>,
+         <span class="s">"close"</span>: <span class="s">"last"</span>, <span class="s">"volume"</span>: <span class="s">"sum"</span>}
+weekly <span class="o">=</span> df<span class="o">.</span><span class="f">resample</span>(<span class="s">"W"</span>)<span class="o">.</span><span class="f">agg</span>(<span class="b">OHLCV</span>)<span class="o">.</span><span class="f">dropna</span>()  <span class="c"># "ME" = month-end</span>
+hourly <span class="o">=</span> df5<span class="o">.</span><span class="f">resample</span>(<span class="s">"60min"</span>)<span class="o">.</span><span class="f">agg</span>(<span class="b">OHLCV</span>)<span class="o">.</span><span class="f">dropna</span>()
+df<span class="o">.</span><span class="f">to_csv</span>(<span class="s">"tcs.csv"</span>)  <span class="c"># reproducible tests</span>
+df <span class="o">=</span> pd<span class="o">.</span><span class="f">read_csv</span>(<span class="s">"tcs.csv"</span>, index_col<span class="o">=</span><span class="n">0</span>, parse_dates<span class="o">=</span><span class="b">True</span>)</pre><ul>
+<li>Never average OHLC bars. First, max, min, last, sum is the only recipe.</li>
+<li>Resampling only goes up (5m → 1h, never back). Download the smallest interval you will need.</li>
+</ul></div>
+<div class="card p" data-ck="numpy-in-five-moves" data-skey="ovalgo:market-data-symbols-quotes-history-numpy-and-pan/numpy-in-five-moves" id="numpy-in-five-moves"><h3 data-label="NumPy in five moves">NumPy in five moves<a aria-label="Link to this card" class="anchor" href="#numpy-in-five-moves">#</a></h3><ul>
+<li><b>Arrays:</b> <code>np.array</code>, <code>np.arange(1, 6)</code> (6 excluded), <code>np.linspace(100, 200, 5)</code>; check <code>shape</code>, <code>ndim</code>, <code>size</code>, <code>dtype</code> (prices are <code>float64</code>).</li>
+<li><b>Indexing:</b> <code>a[-1]</code> latest; <code>a[1:4]</code> is three items; <code>a[-5:]</code> last five; 2D <code>p[:, -1]</code> last column.</li>
+<li><b>Vectorise:</b> <code>closes * 1.05</code>, <code>closes * qty</code>: no Python loops over prices.</li>
+<li><b>Aggregate:</b> <code>mean, max, min, std, median, sum, cumsum</code>; <code>axis=1</code> across rows, <code>axis=0</code> down columns.</li>
+<li><b>Masks:</b> <code>mask = closes &gt; closes.mean()</code>; <code>closes[mask]</code>; <code>mask.sum()</code>; <code>np.where(cond, 1, 0)</code>: the seed of every signal.</li>
+</ul><p>Five RELIANCE closes 1305.0 … 1312.7: mean 1309.04, std 6.84, three days above average.</p></div>
+<div class="card y full" data-ck="pandas-for-price-series" data-skey="ovalgo:market-data-symbols-quotes-history-numpy-and-pan/pandas-for-price-series" id="pandas-for-price-series"><h3 data-label="pandas for price series">pandas for price series<a aria-label="Link to this card" class="anchor" href="#pandas-for-price-series">#</a></h3><div class="tw"><table>
+<tr><th>Task</th><th>Idiom</th><th>Watch out</th></tr>
+<tr><td>Pick a column</td><td><code>df["close"]</code> (Series) vs <code>df[["high","low"]]</code> (DataFrame)</td><td>Single vs double brackets</td></tr>
+<tr><td>Latest / date slice</td><td><code>.iloc[-1]</code>, <code>.loc["2026-05-01":]</code></td><td>Keep the timestamp index: it powers dates, resampling and weekdays</td></tr>
+<tr><td>Rolling window</td><td><code>.rolling(20).mean()</code>, <code>.max()</code>, <code>.min()</code>, <code>.std()</code></td><td>First 19 values are NaN by design</td></tr>
+<tr><td>Returns and growth</td><td><code>r = close.pct_change()</code>; <code>(1 + r).cumprod() * 100000</code></td><td>First return is NaN</td></tr>
+<tr><td>Drawdown</td><td><code>close / close.cummax() - 1</code>; its minimum is max drawdown</td><td>The core risk number</td></tr>
+<tr><td>Group and combine</td><td><code>groupby(df.index.day_name())</code>; <code>pd.concat({"A": a, "B": b}, axis=1).dropna()</code>; <code>ra.corr(rb)</code></td><td>Correlate returns, not prices</td></tr>
+<tr><td>Summarise</td><td><code>.describe()</code>; annual vol = daily std × √252</td><td>A "best weekday" from a few months is noise</td></tr>
+</table></div><p>Check <code>.shape</code> and <code>.head()</code> on every new download before doing any maths.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#setup"><span>Previous</span>01 · Foundations: setup, secrets, the client and Python essentials</a><a class="sn-next" href="#viz"><span>Next</span>03 · Charts and apps: Matplotlib, Plotly and Streamlit</a></nav></section>
+<section class="sec p" data-origin="ovalgo" data-sid="viz" id="viz"><h2 data-label="Charts and apps: Matplotlib, Plotly and Streamlit"><span class="n">03</span>Charts and apps: Matplotlib, Plotly and Streamlit</h2>
+<p class="src">OpenAlgo Open Varsity · Algo Trading with Python · chapters 8–10 (<a href="https://www.openalgo.in/python/matplotlib-charts">Matplotlib</a>, <a href="https://www.openalgo.in/python/plotly-charts">Plotly</a>, <a href="https://www.openalgo.in/python/streamlit-apps">Streamlit</a>)</p>
+<div class="g2">
+<div class="card p" data-ck="matplotlib-precise-charts-saved-to-png" data-skey="ovalgo:charts-and-apps-matplotlib-plotly-and-streamlit/matplotlib-precise-charts-saved-to-png" id="matplotlib-precise-charts-saved-to-png"><h3 data-label="Matplotlib: precise charts saved to PNG">Matplotlib: precise charts saved to PNG<a aria-label="Link to this card" class="anchor" href="#matplotlib-precise-charts-saved-to-png">#</a></h3><ul>
+<li><code>fig, ax = plt.subplots(figsize=(9, 4.5))</code>; draw with <code>plot, bar, hist, scatter, fill_between, axhline</code>; finish with <code>plt.savefig(path, dpi=110, bbox_inches="tight")</code> (headless: no window appears).</li>
+<li><b>No weekend gaps:</b> plot against <code>range(len(df))</code> and label every Nth tick with <code>df.index.strftime("%d %b")</code>.</li>
+<li><b>Price over volume:</b> <code>plt.subplots(2, 1, sharex=True, gridspec_kw={"height_ratios": [2, 1]})</code>.</li>
+<li>Overlays (<abbr class="gl" data-tip="Plain average of the last N closes. Slower than an EMA; the 50- and 200-day SMAs are the most watched trend lines." data-tip-title="SMA: Simple moving average">SMA</abbr>/EMA from <code>openalgo.ta</code>), buy/sell markers (<code>^</code>, <code>v</code>), hand-built candles (wick line + body bar), equity curve with a line at 1.0, drawdown filled to zero, and rebasing to 100 for comparing stocks.</li>
+<li>Seaborn for statistics: return histograms, correlation heatmaps (from returns, not prices), seasonality grids.</li>
+<li>Markers sit on the signal bar's close; a backtest must act on the next bar.</li>
+</ul></div>
+<div class="card b" data-ck="plotly-interactive-candles" data-skey="ovalgo:charts-and-apps-matplotlib-plotly-and-streamlit/plotly-interactive-candles" id="plotly-interactive-candles"><h3 data-label="Plotly: interactive candles">Plotly: interactive candles<a aria-label="Link to this card" class="anchor" href="#plotly-interactive-candles">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">import</span> plotly.graph_objects <span class="k">as</span> go
+<span class="k">from</span> plotly.subplots <span class="k">import</span> make_subplots
+x <span class="o">=</span> df<span class="o">.</span>index<span class="o">.</span><span class="f">strftime</span>(<span class="s">"%d %b"</span>)
+fig <span class="o">=</span> <span class="f">make_subplots</span>(rows<span class="o">=</span><span class="n">2</span>, cols<span class="o">=</span><span class="n">1</span>, shared_xaxes<span class="o">=</span><span class="b">True</span>,
+                    row_heights<span class="o">=</span>[<span class="n">0.7</span>, <span class="n">0.3</span>], vertical_spacing<span class="o">=</span><span class="n">0.03</span>)
+fig<span class="o">.</span><span class="f">add_trace</span>(go<span class="o">.</span><span class="t">Candlestick</span>(x<span class="o">=</span>x, <span class="bi">open</span><span class="o">=</span>df<span class="o">.</span>open, high<span class="o">=</span>df<span class="o">.</span>high,
+              low<span class="o">=</span>df<span class="o">.</span>low, close<span class="o">=</span>df<span class="o">.</span>close), row<span class="o">=</span><span class="n">1</span>, col<span class="o">=</span><span class="n">1</span>)
+fig<span class="o">.</span><span class="f">add_trace</span>(go<span class="o">.</span><span class="t">Bar</span>(x<span class="o">=</span>x, y<span class="o">=</span>df<span class="o">.</span>volume), row<span class="o">=</span><span class="n">2</span>, col<span class="o">=</span><span class="n">1</span>)
+fig<span class="o">.</span><span class="f">update_xaxes</span>(<span class="bi">type</span><span class="o">=</span><span class="s">"category"</span>)             <span class="c"># no weekend gaps</span>
+fig<span class="o">.</span><span class="f">update_layout</span>(xaxis_rangeslider_visible<span class="o">=</span><span class="b">False</span>)
+fig<span class="o">.</span><span class="f">write_html</span>(<span class="s">"chart.html"</span>)  <span class="c"># interactive, offline</span></pre><ul>
+<li>Figure = chart, trace = one series, layout = axes and titles. Overlays in price units share the price pane; bounded indicators (<abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr>, <abbr class="gl" data-tip="EMA12 minus EMA26, with a 9-period EMA signal line and a histogram of the difference. Used for crossovers, zero-line tests and divergence." data-tip-title="MACD: Moving average convergence divergence">MACD</abbr>) get their own pane, with <code>add_hline</code> for 70/30.</li>
+<li>Set <code>row=</code> and <code>col=</code> on every trace. <code>write_image</code> needs <code>kaleido</code> and loses interactivity.</li>
+</ul></div>
+<div class="card g full" data-ck="streamlit-a-dashboard-in-one-script" data-skey="ovalgo:charts-and-apps-matplotlib-plotly-and-streamlit/streamlit-a-dashboard-in-one-script" id="streamlit-a-dashboard-in-one-script"><h3 data-label="Streamlit: a dashboard in one script">Streamlit: a dashboard in one script<a aria-label="Link to this card" class="anchor" href="#streamlit-a-dashboard-in-one-script">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">import</span> streamlit <span class="k">as</span> st
+
+<span class="c"># seconds for quotes, hours for daily history</span>
+<span class="d">@st</span><span class="o">.</span><span class="f">cache_data</span>(ttl<span class="o">=</span><span class="n">60</span>)
+<span class="k">def</span> <span class="f">load</span>(sym, exch):
+    <span class="k">return</span> client<span class="o">.</span><span class="f">history</span>(symbol<span class="o">=</span>sym, exchange<span class="o">=</span>exch, interval<span class="o">=</span><span class="s">"D"</span>,
+                          start_date<span class="o">=</span>start, end_date<span class="o">=</span>end)
+
+sym <span class="o">=</span> st<span class="o">.</span><span class="f">text_input</span>(<span class="s">"Symbol"</span>, value<span class="o">=</span><span class="s">"RELIANCE"</span>)
+exch <span class="o">=</span> st<span class="o">.</span><span class="f">selectbox</span>(<span class="s">"Exchange"</span>, [<span class="s">"NSE"</span>, <span class="s">"NFO"</span>, <span class="s">"MCX"</span>])
+df <span class="o">=</span> <span class="f">load</span>(sym, exch)
+st<span class="o">.</span><span class="f">metric</span>(<span class="s">"Last close"</span>, <span class="s">f"{</span>df[<span class="s">'close'</span>]<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>]<span class="s">:,.2f}"</span>)
+st<span class="o">.</span><span class="f">line_chart</span>(df[<span class="s">"close"</span>])</pre><ul>
+<li>Launch with <code>streamlit run app.py</code> (not <code>python</code>); it opens at <code>localhost:8501</code>.</li>
+<li>The whole script re-runs from the top whenever a widget changes. Write it as if it runs once, and cache every network call, or each slider move refetches history. Plain variables don't persist between runs.</li>
+<li>Building blocks: <code>st.title</code>, <code>st.metric</code>, <code>st.table</code>, <code>st.line_chart</code>, <code>st.plotly_chart(fig, use_container_width=True)</code>; widgets <code>text_input</code>, <code>selectbox</code>, <code>slider</code>. A watchlist board is one <code>multiquotes</code> call; a scanner is a loop of <code>history</code> + <code>ta.rsi</code>.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#data"><span>Previous</span>02 · Market data: symbols, quotes, history, NumPy and pandas</a><a class="sn-next" href="#ind"><span>Next</span>04 · Indicators with openalgo.ta: trend, momentum, volatility, volume, oscillators and utilities</a></nav></section>
+<section class="sec o" data-origin="ovalgo" data-sid="ind" id="ind"><h2 data-label="Indicators with openalgo.ta: trend, momentum, volatility, volume, oscillators and utilities"><span class="n">04</span>Indicators with openalgo.ta: trend, momentum, volatility, volume, oscillators and utilities</h2>
+<p class="src">OpenAlgo Open Varsity · Algo Trading with Python · chapters 11–16 (<a href="https://www.openalgo.in/python/trend-indicators">trend</a>, <a href="https://www.openalgo.in/python/momentum-indicators">momentum</a>, <a href="https://www.openalgo.in/python/volatility-indicators">volatility</a>, <a href="https://www.openalgo.in/python/volume-indicators">volume</a>, <a href="https://www.openalgo.in/python/oscillators">oscillators</a>, <a href="https://www.openalgo.in/python/statistical-hybrid">statistical, hybrid and utility</a>)</p>
+<div class="g2">
+<div class="card o full" data-ck="know-the-return-type-before-you-index" data-skey="ovalgo:indicators-with-openalgo-ta-trend-momentum-volat/know-the-return-type-before-you-index" id="know-the-return-type-before-you-index"><h3 data-label="Know the return type before you index">Know the return type before you index<a aria-label="Link to this card" class="anchor" href="#know-the-return-type-before-you-index">#</a></h3><div class="tw"><table>
+<tr><th>Returns</th><th>Functions</th><th>Read the latest with</th></tr>
+<tr><td>pandas Series</td><td>sma, ema, wma, hma, vwma, kama, rsi, cci, williams_r, crsi, bop, atr, natr, bbpercent, bbwidth, hv, obv, adl, cmf, mfi, force_index, emv, vwap, rvol, vroc, cmo, trix, dpo, chop, linreg, lrslope, psar</td><td><code>.iloc[-1]</code></td></tr>
+<tr><td>Tuple of Series</td><td>macd (3), bbands / keltner / donchian / ma_envelopes (3), supertrend (2), ichimoku (5), alligator (3), stochastic (2), fisher (2), chandelier_exit (2), ppo (3), stochrsi (2), tsi (2), adx (3), dmi (2), aroon (2), pivot_points (7), fractals (2)</td><td>Unpack first: <code>m, s, h = ta.macd(c)</code></td></tr>
+<tr><td>NumPy array</td><td>crossover, crossunder, highest, lowest, exrem, flip, valuewhen, rising, falling, roc</td><td><code>[-1]</code>, or wrap: <code>pd.Series(arr, index=df.index)</code></td></tr>
+</table></div><p>Mixing these up (calling <code>.iloc</code> on an array, unpacking a Series, assigning a tuple to one name) is the most common indicator bug. Import with <code>from openalgo import ta</code>.</p></div>
+<div class="card g" data-ck="trend-tools" data-skey="ovalgo:indicators-with-openalgo-ta-trend-momentum-volat/trend-tools" id="trend-tools"><h3 data-label="Trend tools">Trend tools<a aria-label="Link to this card" class="anchor" href="#trend-tools">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Read</th></tr>
+<tr><td><code>sma, ema, wma, hma(close, n)</code></td><td>Price above the average = uptrend. Less lag means more whipsaws (HMA hugs price)</td></tr>
+<tr><td><code>vwma(close, volume, n)</code></td><td>Volume-weighted; needs volume</td></tr>
+<tr><td><code>kama(close)</code></td><td>Adapts: fast in clean trends, slow in chop</td></tr>
+<tr><td><code>supertrend(h, l, c, period=10, multiplier=3.0)</code></td><td>(line, direction): <b>−1 = uptrend, +1 = downtrend</b></td></tr>
+<tr><td><code>ichimoku(h, l, c)</code></td><td>Above the cloud bullish, below bearish, inside: stand aside</td></tr>
+<tr><td><code>psar(high, low, 0.02, 0.2)</code></td><td>Dot below price bullish; doubles as a trailing stop. Takes high/low, not close</td></tr>
+<tr><td><code>ma_envelopes(close, 20, 2.5)</code></td><td>Fixed-% band: how stretched price is</td></tr>
+<tr><td><code>alligator(close)</code></td><td>Lips &gt; teeth &gt; jaw = trending up; tangled = range</td></tr>
+</table></div><p>Periods: 9/20 for trading, 50/100/200 for the big picture; the 200-day is the classic bull/bear line. Trend filter: poll price &gt; EMA50, Supertrend up and price &gt; PSAR, and lean long only when 2 of 3 agree.</p></div>
+<div class="card r" data-ck="momentum-tools" data-skey="ovalgo:indicators-with-openalgo-ta-trend-momentum-volat/momentum-tools" id="momentum-tools"><h3 data-label="Momentum tools">Momentum tools<a aria-label="Link to this card" class="anchor" href="#momentum-tools">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Zones</th></tr>
+<tr><td><code>rsi(close, 14)</code></td><td>&gt; 70 overbought, &lt; 30 oversold, 50 = bull/bear line</td></tr>
+<tr><td><code>macd(close)</code></td><td>(macd, signal, hist): <abbr class="gl" data-tip="EMA12 minus EMA26, with a 9-period EMA signal line and a histogram of the difference. Used for crossovers, zero-line tests and divergence." data-tip-title="MACD: Moving average convergence divergence">MACD</abbr> above signal bullish; histogram = building or fading</td></tr>
+<tr><td><code>stochastic(h, l, c, 14, 3)</code></td><td>(%K, %D): &gt; 80 / &lt; 20</td></tr>
+<tr><td><code>cci(h, l, c, 20)</code></td><td>Unbounded: &gt; +100 strong up, &lt; −100 strong down</td></tr>
+<tr><td><code>williams_r(h, l, c, 14)</code></td><td>0 to −100: above −20 overbought, below −80 oversold</td></tr>
+<tr><td><code>fisher(high, low, 9)</code></td><td>(fisher, trigger): cross after an extreme beyond ±1.5</td></tr>
+<tr><td><code>crsi(close)</code></td><td>Short-term mean reversion: &lt; 10 / &gt; 90</td></tr>
+<tr><td><code>bop(o, h, l, c)</code></td><td>−1 to +1: who won the bar</td></tr>
+</table></div><p>Zones are context, not triggers: overbought can stay overbought in a strong trend. Divergence (price higher high, <abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr> lower high) is a warning; wait for confirmation.</p></div>
+<div class="card y" data-ck="volatility-tools" data-skey="ovalgo:indicators-with-openalgo-ta-trend-momentum-volat/volatility-tools" id="volatility-tools"><h3 data-label="Volatility tools">Volatility tools<a aria-label="Link to this card" class="anchor" href="#volatility-tools">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Use</th></tr>
+<tr><td><code>atr(h, l, c, 14)</code></td><td>Unit of risk in price: stop = price − 2 × <abbr class="gl" data-tip="Average size of each bar including gaps, usually over 14 bars with Wilder smoothing. Used for stop distance and position size, not direction." data-tip-title="ATR: Average true range">ATR</abbr></td></tr>
+<tr><td><code>natr(h, l, c, 14)</code></td><td>ATR as % of price: compare and size across assets</td></tr>
+<tr><td><code>bbands(close, 20, 2.0)</code></td><td><abbr class="gl" data-tip="Plain average of the last N closes. Slower than an EMA; the 50- and 200-day SMAs are the most watched trend lines." data-tip-title="SMA: Simple moving average">SMA</abbr> ± 2σ; a band touch flags a stretch, not a reversal</td></tr>
+<tr><td><code>bbpercent</code> / <code>bbwidth(close)</code></td><td>Where in the band (0–1); squeeze when width ≤ 1.1 × its 60-day low</td></tr>
+<tr><td><code>keltner(h, l, c)</code></td><td><abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr> ± ATR; Bollinger inside Keltner = compression</td></tr>
+<tr><td><code>donchian(high, low, 20)</code></td><td>N-bar high/low breakout levels (55 = Turtle)</td></tr>
+<tr><td><code>chandelier_exit(h, l, c, 22, 3.0)</code></td><td>(long stop, short stop) trailing from the extreme</td></tr>
+<tr><td><code>hv(close, 20)</code></td><td>Annualised %; HV20 above HV60 = expanding</td></tr>
+</table></div><p>RELIANCE: ATR(14) 27.52 → stop 1,250.97 from 1,306, risk ₹55 a share; NATR 2.11%. Volatility gives size and range, never direction, and it mean-reverts: calm follows storms.</p></div>
+<div class="card b" data-ck="volume-tools" data-skey="ovalgo:indicators-with-openalgo-ta-trend-momentum-volat/volume-tools" id="volume-tools"><h3 data-label="Volume tools">Volume tools<a aria-label="Link to this card" class="anchor" href="#volume-tools">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Read</th></tr>
+<tr><td><code>obv(close, volume)</code>, <code>adl(h, l, c, v)</code></td><td>Cumulative: read the slope and divergences, not the level</td></tr>
+<tr><td><code>cmf(h, l, c, v, 20)</code></td><td>−1 to +1; beyond ±0.20 strong</td></tr>
+<tr><td><code>mfi(h, l, c, v, 14)</code></td><td>Volume-weighted <abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr>: &gt; 80 / &lt; 20, best in ranges</td></tr>
+<tr><td><code>force_index(c, v, 13)</code></td><td>Fresh zero-line cross = possible shift</td></tr>
+<tr><td><code>emv(h, l, v, 14)</code></td><td>How easily price moved per unit of volume</td></tr>
+<tr><td><code>vwap(h, l, c, v)</code></td><td>Session-anchored; intraday candles only</td></tr>
+<tr><td><code>rvol(volume, 20)</code></td><td>&gt; 1.5 breakouts more trustworthy; &lt; 0.7 quiet</td></tr>
+<tr><td><code>vroc(volume, 12)</code></td><td>±50% surge or fade in participation</td></tr>
+</table></div><p>Workflow: price event → participation (RVOL, VROC) → money flow (<abbr class="gl" data-tip="Running total that adds the day's volume on up closes and subtracts it on down closes. Only its slope and divergences matter." data-tip-title="OBV: On-balance volume">OBV</abbr>/ADL, CMF) → act when they agree. Index spot has no real volume; use index futures on NFO.</p></div>
+<div class="card t" data-ck="oscillators-check-the-regime-first" data-skey="ovalgo:indicators-with-openalgo-ta-trend-momentum-volat/oscillators-check-the-regime-first" id="oscillators-check-the-regime-first"><h3 data-label="Oscillators: check the regime first">Oscillators: check the regime first<a aria-label="Link to this card" class="anchor" href="#oscillators-check-the-regime-first">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Read</th></tr>
+<tr><td><code>chop(h, l, c, 14)</code></td><td>&gt; 61.8 choppy (use range tools), &lt; 38.2 trending (use trend tools)</td></tr>
+<tr><td><code>cmo(close, 14)</code></td><td>±50 extremes</td></tr>
+<tr><td><code>ultimate_oscillator(h, l, c)</code></td><td>7/14/28 blend: 70 / 30</td></tr>
+<tr><td><code>stochrsi(close)</code></td><td>80 / 20; whipsaws in trends</td></tr>
+<tr><td><code>aroon_oscillator(h, l, 14)</code></td><td>Near ±100 = fresh trend, near 0 = none</td></tr>
+<tr><td><code>roc(close, 12)</code>, <code>trix(close, 15)</code>, <code>awesome_oscillator(h, l)</code>, <code>ppo</code>, <code>tsi</code></td><td>Unbounded: zero-line side and crosses confirm trend strength; PPO compares across symbols</td></tr>
+<tr><td><code>dpo(close, 20)</code></td><td>Exposes cycles; not a direction signal</td></tr>
+</table></div><p>"Never trade an oscillator blind to the regime." Bounded oscillators suit ranges; unbounded ones confirm trends. <code>roc</code> returns a NumPy array.</p></div>
+<div class="card p" data-ck="statistical-and-hybrid-tools" data-skey="ovalgo:indicators-with-openalgo-ta-trend-momentum-volat/statistical-and-hybrid-tools" id="statistical-and-hybrid-tools"><h3 data-label="Statistical and hybrid tools">Statistical and hybrid tools<a aria-label="Link to this card" class="anchor" href="#statistical-and-hybrid-tools">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Tells you</th></tr>
+<tr><td><code>linreg</code>, <code>lrslope(close, 20)</code>, <code>tsf</code></td><td>Regression fair value, its slope (&gt; 0 up), one-bar projection</td></tr>
+<tr><td><code>correlation(a, b, n)</code>, <code>beta(stock, mkt, 60)</code></td><td>Pair strength; market sensitivity (1 tracks the index)</td></tr>
+<tr><td><code>variance</code>, <code>median</code></td><td>Swing size; spike-resistant centre</td></tr>
+<tr><td><code>adx(h, l, c, 14)</code></td><td>(+DI, −DI, <abbr class="gl" data-tip="Measures trend strength from 0 to 100 regardless of direction. Above 25 suggests a trend; below 20 a range." data-tip-title="ADX: Average directional index">ADX</abbr>): ADX &gt; 25 strong, &lt; 20 weak; larger DI gives direction</td></tr>
+<tr><td><code>aroon(h, l, 14)</code></td><td>(up, down) 0–100</td></tr>
+<tr><td><code>pivot_points(h, l, c)</code></td><td>pivot, r1, s1, r2, s2, r3, s3</td></tr>
+<tr><td><code>fractals(h, l, 2)</code></td><td>Swing-high and swing-low flags</td></tr>
+</table></div><p>Align date ranges before beta or correlation, and sanity-check odd outputs (the course flags a suspiciously low beta in one run).</p></div>
+<div class="card r" data-ck="utility-functions-from-indicator-to-event" data-skey="ovalgo:indicators-with-openalgo-ta-trend-momentum-volat/utility-functions-from-indicator-to-event" id="utility-functions-from-indicator-to-event"><h3 data-label="Utility functions: from indicator to event">Utility functions: from indicator to event<a aria-label="Link to this card" class="anchor" href="#utility-functions-from-indicator-to-event">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Does</th></tr>
+<tr><td><code>crossover(a, b)</code> / <code>crossunder</code></td><td>True only on the bar of the cross</td></tr>
+<tr><td><code>highest(x, n)</code> / <code>lowest</code></td><td>Rolling max/min: breakout levels</td></tr>
+<tr><td><code>exrem(primary, secondary)</code></td><td>Drops repeat signals until the other side fires</td></tr>
+<tr><td><code>flip(on, off)</code></td><td>1 from entry until exit: an in-position flag</td></tr>
+<tr><td><code>valuewhen(cond, x, 1)</code></td><td>Value of x at the latest true bar, e.g. entry price</td></tr>
+<tr><td><code>rising(x, n)</code> / <code>falling</code></td><td>Higher or lower than n bars ago</td></tr>
+</table></div><ul>
+<li>Combine arrays with <code>&amp;</code>, <code>|</code>, <code>~</code> and parentheses, never <code>and</code>/<code>or</code>.</li>
+<li><code>highest(high, 20)[-1]</code> already includes today, so a breakout test against it can never fire. Compare with <code>[-2]</code>.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#viz"><span>Previous</span>03 · Charts and apps: Matplotlib, Plotly and Streamlit</a><a class="sn-next" href="#signals"><span>Next</span>05 · Signals and scanning</a></nav></section>
+<section class="sec r" data-origin="ovalgo" data-sid="signals" id="signals"><h2 data-label="Signals and scanning"><span class="n">05</span>Signals and scanning</h2>
+<p class="src">OpenAlgo Open Varsity · Algo Trading with Python · chapters 17–18 (<a href="https://www.openalgo.in/python/signals">from indicators to signals</a>, <a href="https://www.openalgo.in/python/scanning">scanning and screeners</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="the-signal-pipeline" data-skey="ovalgo:signals-and-scanning/the-signal-pipeline" id="the-signal-pipeline"><h3 data-label="The signal pipeline">The signal pipeline<a aria-label="Link to this card" class="anchor" href="#the-signal-pipeline">#</a></h3><ol class="steps">
+<li>Fetch history.</li>
+<li>Compute indicators.</li>
+<li>Write raw conditions: <code>(close &gt; ema50) &amp; (rsi &gt; 50)</code>.</li>
+<li>Find turning points with <code>crossover</code> / <code>crossunder</code>.</li>
+<li>De-duplicate with <code>exrem</code> so buys and sells alternate.</li>
+<li>Shift one bar: <code>.shift(1)</code>.</li>
+<li>Hand <code>entries</code> and <code>exits</code> (boolean Series) to the backtester.</li>
+</ol><p>A signal is one True/False answer per bar, aligned to timestamps, not a single decision.</p></div>
+<div class="card g" data-ck="ema-crossover-done-properly" data-skey="ovalgo:signals-and-scanning/ema-crossover-done-properly" id="ema-crossover-done-properly"><h3 data-label="EMA crossover, done properly">EMA crossover, done properly<a aria-label="Link to this card" class="anchor" href="#ema-crossover-done-properly">#</a></h3><pre class="code" data-hl="py" data-lang="py">c <span class="o">=</span> df[<span class="s">"close"</span>]
+fast, slow <span class="o">=</span> ta<span class="o">.</span><span class="f">ema</span>(c, <span class="n">20</span>), ta<span class="o">.</span><span class="f">ema</span>(c, <span class="n">50</span>)
+S <span class="o">=</span> <span class="k">lambda</span> a: pd<span class="o">.</span><span class="t">Series</span>(a, index<span class="o">=</span>c<span class="o">.</span>index)
+buy  <span class="o">=</span> <span class="f">S</span>(ta<span class="o">.</span><span class="f">crossover</span>(fast, slow))
+sell <span class="o">=</span> <span class="f">S</span>(ta<span class="o">.</span><span class="f">crossunder</span>(fast, slow))
+buy, sell <span class="o">=</span> <span class="f">S</span>(ta<span class="o">.</span><span class="f">exrem</span>(buy, sell)), <span class="f">S</span>(ta<span class="o">.</span><span class="f">exrem</span>(sell, buy))
+entries <span class="o">=</span> buy<span class="o">.</span><span class="f">shift</span>(<span class="n">1</span>)<span class="o">.</span><span class="f">fillna</span>(<span class="b">False</span>)    <span class="c"># act on the NEXT bar</span>
+exits   <span class="o">=</span> sell<span class="o">.</span><span class="f">shift</span>(<span class="n">1</span>)<span class="o">.</span><span class="f">fillna</span>(<span class="b">False</span>)
+inpos   <span class="o">=</span> <span class="f">S</span>(ta<span class="o">.</span><span class="f">flip</span>(buy, sell))          <span class="c"># 1 while holding</span>
+entry_px <span class="o">=</span> <span class="f">S</span>(ta<span class="o">.</span><span class="f">valuewhen</span>(buy, c, <span class="n">1</span>))   <span class="c"># price at the last buy</span></pre><p><abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr> example: raw buys 7 → 2 and raw sells 47 → 3 after <code>exrem</code>. Without it you stack repeated buys before any sell.</p></div>
+<div class="card y" data-ck="look-ahead-the-silent-backtest-killer" data-skey="ovalgo:signals-and-scanning/look-ahead-the-silent-backtest-killer" id="look-ahead-the-silent-backtest-killer"><h3 data-label="Look-ahead: the silent backtest killer">Look-ahead: the silent backtest killer<a aria-label="Link to this card" class="anchor" href="#look-ahead-the-silent-backtest-killer">#</a></h3><ul>
+<li>A signal computed from today's close only exists after the close. Trading on that same close assumes you knew the future.</li>
+<li>Fix: <code>signal.shift(1)</code> for crossovers, <abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr> levels and breakouts alike; compare breakouts with the <b>previous</b> bar's level.</li>
+<li>Remove the shift and an untradeable backtest becomes a flattering one. The same applies to charts: markers sit on the signal bar's close.</li>
+</ul></div>
+<div class="card b full" data-ck="scanner-universe-loop-rule" data-skey="ovalgo:signals-and-scanning/scanner-universe-loop-rule" id="scanner-universe-loop-rule"><h3 data-label="Scanner = universe + loop + rule">Scanner = universe + loop + rule<a aria-label="Link to this card" class="anchor" href="#scanner-universe-loop-rule">#</a></h3><pre class="code" data-hl="py" data-lang="py">rows <span class="o">=</span> []
+<span class="k">for</span> s <span class="k">in</span> universe:
+    <span class="k">try</span>:
+        df <span class="o">=</span> client<span class="o">.</span><span class="f">history</span>(symbol<span class="o">=</span>s, exchange<span class="o">=</span><span class="s">"NSE"</span>, interval<span class="o">=</span><span class="s">"D"</span>,
+                            start_date<span class="o">=</span>start, end_date<span class="o">=</span>end)
+    <span class="k">except</span> <span class="t">Exception</span>:
+        <span class="k">continue</span>
+    <span class="k">if</span> <span class="k">not</span> <span class="bi">isinstance</span>(df, pd<span class="o">.</span><span class="t">DataFrame</span>) <span class="k">or</span> df<span class="o">.</span>empty:
+        <span class="k">continue</span>  <span class="c"># one bad symbol must not kill the scan</span>
+    c, h, v <span class="o">=</span> df[<span class="s">"close"</span>], df[<span class="s">"high"</span>], df[<span class="s">"volume"</span>]
+    rows<span class="o">.</span><span class="f">append</span>({<span class="s">"symbol"</span>: s,
+        <span class="s">"rsi"</span>: <span class="bi">float</span>(ta<span class="o">.</span><span class="f">rsi</span>(c, <span class="n">14</span>)<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>]),
+        <span class="s">"above_ema50"</span>: c<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>] <span class="o">&gt;</span> ta<span class="o">.</span><span class="f">ema</span>(c, <span class="n">50</span>)<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>],
+        <span class="s">"breakout"</span>: c<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>] <span class="o">&gt;</span> np<span class="o">.</span><span class="f">asarray</span>(ta<span class="o">.</span><span class="f">highest</span>(h, <span class="n">20</span>))[<span class="o">-</span><span class="n">2</span>],
+        <span class="s">"rvol"</span>: v<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>] <span class="o">/</span> v<span class="o">.</span><span class="f">rolling</span>(<span class="n">20</span>)<span class="o">.</span><span class="f">mean</span>()<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>],
+        <span class="s">"ret20"</span>: c<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>] <span class="o">/</span> c<span class="o">.</span>iloc[<span class="o">-</span><span class="n">21</span>] <span class="o">-</span> <span class="n">1</span>})
+board <span class="o">=</span> pd<span class="o">.</span><span class="t">DataFrame</span>(rows)<span class="o">.</span><span class="f">sort_values</span>(<span class="s">"ret20"</span>, ascending<span class="o">=</span><span class="b">False</span>)<span class="o">.</span><span class="f">reset_index</span>(drop<span class="o">=</span><span class="b">True</span>)
+board<span class="o">.</span>index <span class="o">+=</span> <span class="n">1</span>                                   <span class="c"># 1-based ranks</span></pre><p>Filters: <abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr> &lt; 30 or &gt; 70, close above EMA50, 20-day breakout against yesterday's high, RVOL &gt; 1.5. For a live snapshot of many names, one <code>multiquotes()</code> call beats a loop; loop <code>history()</code> only when you need time-series indicators. The same loop works for NFO and MCX (whose futures symbols carry the expiry).</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ind"><span>Previous</span>04 · Indicators with openalgo.ta: trend, momentum, volatility, volume, oscillators and utilities</a><a class="sn-next" href="#play"><span>Next</span>06 · Strategy playbook: equity, intraday, pairs, momentum, seasonal and options</a></nav></section>
+<section class="sec t" data-origin="ovalgo" data-sid="play" id="play"><h2 data-label="Strategy playbook: equity, intraday, pairs, momentum, seasonal and options"><span class="n">06</span>Strategy playbook: equity, intraday, pairs, momentum, seasonal and options</h2>
+<p class="src">OpenAlgo Open Varsity · Algo Trading with Python · chapters 19–24 (<a href="https://www.openalgo.in/python/cash-equity-strategies">cash and equity</a>, <a href="https://www.openalgo.in/python/intraday-strategies">intraday</a>, <a href="https://www.openalgo.in/python/pair-stat-arb">pairs and stat arb</a>, <a href="https://www.openalgo.in/python/momentum-volatility">momentum and volatility</a>, <a href="https://www.openalgo.in/python/seasonal-strategies">seasonal</a>, <a href="https://www.openalgo.in/python/options-strategies">options</a>)</p>
+<div class="g2">
+<div class="card t full" data-ck="cash-and-equity-strategies" data-skey="ovalgo:strategy-playbook-equity-intraday-pairs-momentum/cash-and-equity-strategies" id="cash-and-equity-strategies"><h3 data-label="Cash and equity strategies">Cash and equity strategies<a aria-label="Link to this card" class="anchor" href="#cash-and-equity-strategies">#</a></h3><div class="tw"><table>
+<tr><th>Strategy</th><th>Rules</th><th>Course run</th></tr>
+<tr><td>Golden cross</td><td>Enter on 50-SMA crossing above 200-SMA, exit on the death cross; trade only in a bullish regime</td><td>Needs ≈ 400 calendar days of data or it silently does nothing; RELIANCE regime was bearish (SMA50 1,347 vs SMA200 1,421)</td></tr>
+<tr><td><abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr> 20/50 crossover</td><td>Enter on the 20 crossing above the 50, exit on the reverse</td><td>ICICIBANK −15.5% vs buy-and-hold −7.8%</td></tr>
+<tr><td>Momentum rotation</td><td>Rank 12 <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> stocks by 60-bar return, hold the top 3, re-rank monthly</td><td>Leaders LT +24.8%, AXISBANK +16.0%; laggard INFY −16.4%</td></tr>
+<tr><td>Donchian 20 breakout</td><td>Enter above the prior bar's 20-day high, exit below the prior 20-day low</td><td>LT −3.8% vs buy-and-hold +15.8%</td></tr>
+</table></div><div class="formula"><span class="fl">position = flip(buy, sell) · strat = pct_change × position.shift(1) · curve = (1 + strat).cumprod()</span></div><p>Delivery trades use <code>product="CNC"</code>; guard orders with a regime check so the bot stays flat in downtrends. Cost-free previews are a smell test: if a rule can't beat buy-and-hold, its complexity isn't earning its keep.</p></div>
+<div class="card o" data-ck="intraday-strategies" data-skey="ovalgo:strategy-playbook-equity-intraday-pairs-momentum/intraday-strategies" id="intraday-strategies"><h3 data-label="Intraday strategies">Intraday strategies<a aria-label="Link to this card" class="anchor" href="#intraday-strategies">#</a></h3><div class="tw"><table>
+<tr><th>Strategy</th><th>Rules</th></tr>
+<tr><td>Opening range breakout</td><td>Range = 09:15–09:29 high/low; enter on a later close beyond it, ≈ 09:30–15:15. 15 vs 30 minutes trades speed for fewer fakeouts</td></tr>
+<tr><td><abbr class="gl" data-tip="Average price paid since the session open, weighted by volume. Institutions benchmark executions against it; price above VWAP shows buyers in control intraday." data-tip-title="VWAP: Volume-weighted average price">VWAP</abbr> reversion</td><td>Buy when stretched below session VWAP by a threshold (0.40% in the course); range days only, with a trend filter to switch it off</td></tr>
+<tr><td><abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr> 9/21 on 5-minute</td><td>Cross up / cross down; wrap the arrays in Series</td></tr>
+<tr><td>Time exit</td><td>No new entries and force flat after a cutoff (15:10 in the course)</td></tr>
+</table></div><ul>
+<li>≈ 75 five-minute bars per <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> session; split days with <code>df.groupby(df.index.normalize())</code> and windows with <code>between_time("09:15", "09:29")</code>.</li>
+<li>Equity MIS orders are rejected after ≈ 15:15; MCX runs into the evening. Never carry MIS into the close.</li>
+<li>NIFTY future, 5-minute 9/21, VectorBT with fees 0.03%: −2.08%, 32 trades, 28.1% wins. Costs dominate intraday.</li>
+</ul></div>
+<div class="card p" data-ck="pairs-and-statistical-arbitrage" data-skey="ovalgo:strategy-playbook-equity-intraday-pairs-momentum/pairs-and-statistical-arbitrage" id="pairs-and-statistical-arbitrage"><h3 data-label="Pairs and statistical arbitrage">Pairs and statistical arbitrage<a aria-label="Link to this card" class="anchor" href="#pairs-and-statistical-arbitrage">#</a></h3><div class="formula"><span class="fl">spread = A / B   or   A − β·B   (β from np.polyfit(B, A, 1))</span><span class="fl">z = (spread − 30-day mean) / 30-day std</span><span class="fl">z &gt; +2 → sell A, buy B · z &lt; −2 → buy A, sell B</span><span class="fl">exit when |z| &lt; 0.5 · trade only if return corr ≥ ≈ 0.6</span></div><ul>
+<li>ICICIBANK / HDFCBANK: return correlation 0.601, β 0.597, latest z 1.26, but rolling 30-day correlation fell as low as −0.097. Monitor it and stand aside when it breaks.</li>
+<li>Correlate returns, not prices; size legs by β, not one-for-one; count both legs' costs, borrow fees and squeeze risk. Spreads can stay dislocated longer than capital lasts.</li>
+<li>The course's single-leg backtest: −3.18% over 6 trades. Cointegration is covered in the Statistical Arbitrage sheet.</li>
+</ul></div>
+<div class="card g" data-ck="momentum-and-volatility-trading" data-skey="ovalgo:strategy-playbook-equity-intraday-pairs-momentum/momentum-and-volatility-trading" id="momentum-and-volatility-trading"><h3 data-label="Momentum and volatility trading">Momentum and volatility trading<a aria-label="Link to this card" class="anchor" href="#momentum-and-volatility-trading">#</a></h3><div class="tw"><table>
+<tr><th>Tool</th><th>Rule</th></tr>
+<tr><td>Cross-sectional momentum</td><td>Rank by 60-day return, hold the top 3; skipping the latest week ("12-1") is a refinement</td></tr>
+<tr><td><abbr class="gl" data-tip="Average size of each bar including gaps, usually over 14 bars with Wilder smoothing. Used for stop distance and position size, not direction." data-tip-title="ATR: Average true range">ATR</abbr> breakout</td><td>Close &gt; previous close + 1 × ATR (1.5 × on GOLDM); shift inputs a bar</td></tr>
+<tr><td>Bollinger squeeze</td><td>Bandwidth in the bottom 20% of its 60-day range: timing, not direction</td></tr>
+<tr><td>Regime filter</td><td>Long only when close &gt; 200-day <abbr class="gl" data-tip="Plain average of the last N closes. Slower than an EMA; the 50- and 200-day SMAs are the most watched trend lines." data-tip-title="SMA: Simple moving average">SMA</abbr></td></tr>
+<tr><td>Volatility targeting</td><td>Size = 15% target ÷ realised vol (20-day std × √252), capped at 3×</td></tr>
+</table></div><p>SBIN realised vol 15.4% → size 0.97× ≈ 190 shares on ₹2 lakh. Momentum + regime backtest on ICICIBANK: −9.76%, 8 trades, max drawdown −11.3%. Judge momentum on a rebalanced basket, not one stock over one year.</p></div>
+<div class="card y" data-ck="seasonal-and-calendar-effects" data-skey="ovalgo:strategy-playbook-equity-intraday-pairs-momentum/seasonal-and-calendar-effects" id="seasonal-and-calendar-effects"><h3 data-label="Seasonal and calendar effects">Seasonal and calendar effects<a aria-label="Link to this card" class="anchor" href="#seasonal-and-calendar-effects">#</a></h3><div class="tw"><table>
+<tr><th>Effect (NIFTY, ≈ 610 sessions)</th><th>Result</th></tr>
+<tr><td>Day of week</td><td>Wed +0.189%, Tue −0.064%; ≈ 120 samples each</td></tr>
+<tr><td>Month</td><td>Apr +4.06% (start of the Indian financial year), Jan −1.84%</td></tr>
+<tr><td>Turn of month (last 2 + first 3 days)</td><td>−0.053% vs +0.042% otherwise: folklore not supported</td></tr>
+<tr><td>Expiry Tuesday</td><td>−0.064% vs +0.041%, 49.2% up days</td></tr>
+</table></div><p>"Long only on Mondays and Wednesdays" grew 100 → 130.1 vs 109.6 for buy-and-hold, but the days were picked on the same data, so it proves nothing. Measure on returns, always print counts, check the year × month heatmap for outlier-driven averages, and discover the expiry weekday at runtime with <code>client.expiry()</code>.</p></div>
+<div class="card b full" data-ck="options-through-the-sdk" data-skey="ovalgo:strategy-playbook-equity-intraday-pairs-momentum/options-through-the-sdk" id="options-through-the-sdk"><h3 data-label="Options through the SDK">Options through the SDK<a aria-label="Link to this card" class="anchor" href="#options-through-the-sdk">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Returns / does</th></tr>
+<tr><td><code>expiry(symbol, "NFO", instrumenttype="options")</code></td><td>Expiry list as <code>DD-MON-YY</code></td></tr>
+<tr><td><code>optionchain(underlying, exchange, expiry_date, strike_count)</code></td><td><code>underlying_ltp</code>, <code>atm_strike</code>, <code>chain[]</code> with per-side LTP and labels</td></tr>
+<tr><td><code>optionsymbol(underlying, exchange, expiry_date, offset, option_type)</code></td><td>Resolves <code>ATM</code>, <code>ITMn</code>, <code>OTMn</code> to a symbol and lot size</td></tr>
+<tr><td><code>optiongreeks(symbol, exchange, interest_rate, underlying_symbol, underlying_exchange)</code></td><td>Days to expiry, <abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr>, delta, gamma, theta, vega</td></tr>
+<tr><td><code>syntheticfuture(underlying, exchange, expiry_date)</code></td><td>Synthetic future price, <abbr class="gl" data-tip="An option whose strike equals the current price. An ATM straddle's price ÷ stock price approximates the expected move." data-tip-title="ATM: At the money">ATM</abbr> strike, spot</td></tr>
+<tr><td><code>optionsorder(...)</code> / <code>optionsmultiorder(..., legs=[...])</code></td><td>Single leg by offset; multi-leg with overall status plus per-leg <code>results</code></td></tr>
+</table></div><ul>
+<li>Order endpoints want <code>DDMMMYY</code>: convert with <code>strftime("%d%b%y").upper()</code>. Discover the nearest expiry at runtime and resolve strikes by offset instead of hard-coding.</li>
+<li>Live run: NIFTY 23,824.1, ATM 23,800, call 173.35, put 159.45; ATM call delta 0.517, theta −12.1, vega 13.0, IV 12.78%; synthetic future 23,813.9 (basis −10.2).</li>
+<li>Coded examples: long call and put, bull call spread (buy ATM, sell OTM3), long straddle, protective put. Quantity must be a lot multiple; use NRML to carry; check analyze mode first and every leg's status, not just the overall one.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#signals"><span>Previous</span>05 · Signals and scanning</a><a class="sn-next" href="#exec"><span>Next</span>07 · Execution: placing and managing orders</a></nav></section>
+<section class="sec b" data-origin="ovalgo" data-sid="exec" id="exec"><h2 data-label="Execution: placing and managing orders"><span class="n">07</span>Execution: placing and managing orders</h2>
+<p class="src">OpenAlgo Open Varsity · Algo Trading with Python · chapter 25 (<a href="https://www.openalgo.in/python/placing-orders">placing and managing orders</a>)</p>
+<div class="g2">
+<div class="card b" data-ck="order-parameters" data-skey="ovalgo:execution-placing-and-managing-orders/order-parameters" id="order-parameters"><h3 data-label="Order parameters">Order parameters<a aria-label="Link to this card" class="anchor" href="#order-parameters">#</a></h3><div class="tw"><table>
+<tr><th>Field</th><th>Values</th></tr>
+<tr><td><code>action</code></td><td><code>BUY</code> / <code>SELL</code></td></tr>
+<tr><td><code>product</code></td><td><code>CNC</code> delivery · <code>MIS</code> intraday, auto squared off · <code>NRML</code> <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> carried overnight</td></tr>
+<tr><td><code>price_type</code></td><td><code>MARKET</code>: no price · <code>LIMIT</code>: <code>price</code> · <code>SL</code>: <code>price</code> + <code>trigger_price</code> · <code>SL-M</code>: <code>trigger_price</code></td></tr>
+</table></div><pre class="code" data-hl="py" data-lang="py">r <span class="o">=</span> client<span class="o">.</span><span class="f">placeorder</span>(
+    strategy<span class="o">=</span><span class="s">"ema_x"</span>, symbol<span class="o">=</span><span class="s">"SBIN"</span>, exchange<span class="o">=</span><span class="s">"NSE"</span>,
+    action<span class="o">=</span><span class="s">"BUY"</span>, price_type<span class="o">=</span><span class="s">"LIMIT"</span>, product<span class="o">=</span><span class="s">"CNC"</span>,
+    quantity<span class="o">=</span><span class="n">1</span>, price<span class="o">=</span><span class="n">810.0</span>)
+<span class="bi">print</span>(r[<span class="s">"status"</span>], r<span class="o">.</span><span class="f">get</span>(<span class="s">"orderid"</span>))</pre><p>Spelling trap: <code>price_type</code> in <code>placeorder</code>, <code>placesmartorder</code> and <code>splitorder</code>, but <code>pricetype</code> inside basket legs. Match the product to the holding period.</p></div>
+<div class="card g" data-ck="order-methods" data-skey="ovalgo:execution-placing-and-managing-orders/order-methods" id="order-methods"><h3 data-label="Order methods">Order methods<a aria-label="Link to this card" class="anchor" href="#order-methods">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th>Does</th></tr>
+<tr><td><code>placeorder</code></td><td>One order</td></tr>
+<tr><td><code>placesmartorder(..., position_size=)</code></td><td>Trades only the difference to an <b>absolute</b> target; 0 flattens</td></tr>
+<tr><td><code>basketorder(orders=[...])</code></td><td>Many orders at once; per-leg <code>results</code></td></tr>
+<tr><td><code>splitorder(..., quantity, splitsize)</code></td><td>Chunks a large order (5 by 2 → 2, 2, 1) under the exchange freeze quantity</td></tr>
+<tr><td><code>modifyorder(order_id, ...)</code></td><td>Re-send full details for an <b>open</b> order; can't flip BUY to SELL</td></tr>
+<tr><td><code>cancelorder(order_id, strategy)</code></td><td>Cancel one</td></tr>
+<tr><td><code>cancelallorder(strategy)</code></td><td>Cancel every pending order</td></tr>
+<tr><td><code>closeposition(strategy)</code></td><td>Market-close everything, no confirmation: an emergency tool</td></tr>
+</table></div></div>
+<div class="card y" data-ck="which-order-call" data-skey="ovalgo:execution-placing-and-managing-orders/which-order-call" id="which-order-call"><h3 data-label="Which order call?">Which order call?<a aria-label="Link to this card" class="anchor" href="#which-order-call">#</a></h3><div class="ladder"><div class="l-start">You know what you want to trade</div><div class="l-step"><div class="l-q" data-tip='Bots that recompute "how much should I hold" each run want a target, not an increment.' tabindex="0"><span class="l-n">1</span><span>Do you want to reach a target position, not add to one?</span></div><div class="l-as"><div class="l-a" data-tip="Sends only the difference between your current and target position, so re-running it is safe; position_size=0 exits." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>placesmartorder</b><span>position_size is the absolute target; 0 flattens</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Spreads, hedges and rebalances need all legs sent together." tabindex="0"><span class="l-n">2</span><span>Several symbols or option legs at once?</span></div><div class="l-as"><div class="l-a" data-tip='Basket legs use "pricetype" (no underscore). Overall success does not mean every leg filled: loop the results.' tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>basketorder or optionsmultiorder</b><span>then check every leg's status</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Each F&amp;O contract has a maximum quantity per order; larger orders are rejected." tabindex="0"><span class="l-n">3</span><span>Is the quantity above the exchange freeze limit?</span></div><div class="l-as"><div class="l-a" data-tip="Breaks one quantity into child orders of splitsize, e.g. 5 in chunks of 2 → 2, 2, 1." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>splitorder</b><span>child orders of splitsize each</span></div></div><div class="l-a" data-tip="MARKET needs no price, LIMIT needs price, SL needs price and trigger_price, SL-M needs trigger_price." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>placeorder</b><span>with the right price_type and product</span></div></div></div></div></div></div>
+<div class="card t" data-ck="reading-the-books" data-skey="ovalgo:execution-placing-and-managing-orders/reading-the-books" id="reading-the-books"><h3 data-label="Reading the books">Reading the books<a aria-label="Link to this card" class="anchor" href="#reading-the-books">#</a></h3><div class="tw"><table>
+<tr><th>Call</th><th><code>data</code> shape</th><th>Useful fields</th></tr>
+<tr><td><code>orderbook()</code></td><td>Dict: <code>orders</code> list + <code>statistics</code></td><td><code>order_status</code>; totals of completed, open, rejected</td></tr>
+<tr><td><code>tradebook()</code></td><td>List of fills</td><td><code>action, symbol, average_price</code></td></tr>
+<tr><td><code>positionbook()</code></td><td>List</td><td><code>symbol, quantity, ltp, pnl</code>; open = <code>quantity != 0</code></td></tr>
+<tr><td><code>funds()</code></td><td>Dict</td><td><code>availablecash</code>, M2M realised and unrealised</td></tr>
+</table></div><ul>
+<li>Shapes differ (dict vs list): print each once before writing code against it.</li>
+<li><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> cash closes 15:30 and MIS is rejected after the broker's square-off time; MCX is the evening practice ground.</li>
+<li>Never wire <code>closeposition()</code> to a hair-trigger.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#play"><span>Previous</span>06 · Strategy playbook: equity, intraday, pairs, momentum, seasonal and options</a><a class="sn-next" href="#test"><span>Next</span>08 · Testing: backtests, metrics, optimisation and walk-forward</a></nav></section>
+<section class="sec g" data-origin="ovalgo" data-sid="test" id="test"><h2 data-label="Testing: backtests, metrics, optimisation and walk-forward"><span class="n">08</span>Testing: backtests, metrics, optimisation and walk-forward</h2>
+<p class="src">OpenAlgo Open Varsity · Algo Trading with Python · chapters 26–29 (<a href="https://www.openalgo.in/python/backtesting-basics">backtesting and VectorBT</a>, <a href="https://www.openalgo.in/python/performance-metrics">performance metrics</a>, <a href="https://www.openalgo.in/python/optimization">optimisation</a>, <a href="https://www.openalgo.in/python/walk-forward">walk-forward</a>)</p>
+<div class="g2">
+<div class="card g" data-ck="backtest-by-hand-first" data-skey="ovalgo:testing-backtests-metrics-optimisation-and-walk-/backtest-by-hand-first" id="backtest-by-hand-first"><h3 data-label="Backtest by hand first">Backtest by hand first<a aria-label="Link to this card" class="anchor" href="#backtest-by-hand-first">#</a></h3><pre class="code" data-hl="py" data-lang="py">fast, slow <span class="o">=</span> c<span class="o">.</span><span class="f">ewm</span>(span<span class="o">=</span><span class="n">10</span>)<span class="o">.</span><span class="f">mean</span>(), c<span class="o">.</span><span class="f">ewm</span>(span<span class="o">=</span><span class="n">30</span>)<span class="o">.</span><span class="f">mean</span>()
+signal <span class="o">=</span> (fast <span class="o">&gt;</span> slow)<span class="o">.</span><span class="f">astype</span>(<span class="bi">int</span>)
+pos    <span class="o">=</span> signal<span class="o">.</span><span class="f">shift</span>(<span class="n">1</span>)<span class="o">.</span><span class="f">fillna</span>(<span class="n">0</span>)          <span class="c"># yesterday's decision</span>
+ret    <span class="o">=</span> c<span class="o">.</span><span class="f">pct_change</span>()<span class="o">.</span><span class="f">fillna</span>(<span class="n">0</span>)
+equity <span class="o">=</span> <span class="n">100000</span> <span class="o">*</span> (<span class="n">1</span> <span class="o">+</span> pos <span class="o">*</span> ret)<span class="o">.</span><span class="f">cumprod</span>()
+bh     <span class="o">=</span> <span class="n">100000</span> <span class="o">*</span> (<span class="n">1</span> <span class="o">+</span> ret)<span class="o">.</span><span class="f">cumprod</span>()       <span class="c"># always compare</span></pre><p>SBIN 10/30 <abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr>, no costs: +12.71% vs buy-and-hold +28.75%. Positive is not the same as good.</p></div>
+<div class="card b" data-ck="vectorbt-with-costs" data-skey="ovalgo:testing-backtests-metrics-optimisation-and-walk-/vectorbt-with-costs" id="vectorbt-with-costs"><h3 data-label="VectorBT with costs">VectorBT with costs<a aria-label="Link to this card" class="anchor" href="#vectorbt-with-costs">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">import</span> vectorbt <span class="k">as</span> vbt
+entries <span class="o">=</span> (fast <span class="o">&gt;</span> slow) <span class="o">&amp;</span> (fast<span class="o">.</span><span class="f">shift</span>(<span class="n">1</span>) <span class="o">&lt;=</span> slow<span class="o">.</span><span class="f">shift</span>(<span class="n">1</span>))
+exits   <span class="o">=</span> (fast <span class="o">&lt;</span> slow) <span class="o">&amp;</span> (fast<span class="o">.</span><span class="f">shift</span>(<span class="n">1</span>) <span class="o">&gt;=</span> slow<span class="o">.</span><span class="f">shift</span>(<span class="n">1</span>))
+pf <span class="o">=</span> vbt<span class="o">.</span><span class="t">Portfolio</span><span class="o">.</span><span class="f">from_signals</span>(
+    c, entries, exits, init_cash<span class="o">=</span><span class="n">100000</span>,
+    fees<span class="o">=</span><span class="n">0.001</span>, slippage<span class="o">=</span><span class="n">0.0005</span>, freq<span class="o">=</span><span class="s">"1D"</span>,
+    direction<span class="o">=</span><span class="s">"longonly"</span>)
+pf<span class="o">.</span><span class="f">total_return</span>(); pf<span class="o">.</span>trades<span class="o">.</span><span class="f">count</span>()
+pf<span class="o">.</span><span class="f">max_drawdown</span>(); pf<span class="o">.</span><span class="f">stats</span>()</pre><ul>
+<li>SBIN with costs: +10.87%, 6 trades, ≈ ₹1,136 fees, max drawdown ≈ 19.7%, 20% wins, Sharpe ≈ 0.75. Going both ways (<code>direction="both"</code>): −6.25%.</li>
+<li>Same settings on GOLDM 20/50: −11.43% vs −3.05% buy-and-hold, −32% drawdown. Results don't transfer between instruments.</li>
+</ul></div>
+<div class="card y full" data-ck="performance-metrics" data-skey="ovalgo:testing-backtests-metrics-optimisation-and-walk-/performance-metrics" id="performance-metrics"><h3 data-label="Performance metrics">Performance metrics<a aria-label="Link to this card" class="anchor" href="#performance-metrics">#</a></h3><div class="tw"><table>
+<tr><th>Metric</th><th>Formula</th><th>Read</th><th>RELIANCE run</th></tr>
+<tr><td>Total return</td><td>final ÷ initial − 1</td><td>Ignores time: compare equal-length tests only</td><td>−7.24%</td></tr>
+<tr><td><abbr class="gl" data-tip="(End value ÷ start value)^(1 ÷ years) − 1. The constant yearly rate that would produce the same total growth." data-tip-title="CAGR: Compound annual growth rate">CAGR</abbr></td><td><code>(1+r).prod() ** (252/n) − 1</code></td><td>The fair yardstick across lengths</td><td>−9.57%</td></tr>
+<tr><td>Sharpe</td><td>mean ÷ std of daily returns × √252</td><td>&lt; 0 losing · ≈ 1 good · 2 excellent · 3+ suspicious</td><td>−0.66</td></tr>
+<tr><td>Sortino</td><td>Like Sharpe, downside volatility only</td><td>Usually a bit above Sharpe</td><td>−0.88</td></tr>
+<tr><td>Max drawdown</td><td>min of equity ÷ running peak − 1</td><td>A 50% loss needs +100% to recover</td><td>−13.8%</td></tr>
+<tr><td>Calmar</td><td>CAGR ÷ |max drawdown|</td><td>Return per unit of worst pain</td><td>−0.69</td></tr>
+<tr><td>Win rate</td><td>Winning trades ÷ trades</td><td>Meaningless alone</td><td>25% of 4</td></tr>
+<tr><td>Profit factor</td><td>Gross profit ÷ gross loss</td><td>Must exceed 1</td><td>0.32</td></tr>
+<tr><td>Benchmark edge</td><td>Strategy − NIFTY buy-and-hold</td><td>The question that matters</td><td>−2.63%</td></tr>
+</table></div><p>VectorBT exposes these on <code>pf</code> (<code>annualized_return, sharpe_ratio, sortino_ratio, calmar_ratio, trades.win_rate, trades.profit_factor</code>); QuantStats builds full tearsheets (<code>qs.reports.metrics(rets, benchmark=bench)</code>). Judge a strategy by its worst night, not only its destination.</p></div>
+<div class="card p" data-ck="optimisation-plateaus-beat-peaks" data-skey="ovalgo:testing-backtests-metrics-optimisation-and-walk-/optimisation-plateaus-beat-peaks" id="optimisation-plateaus-beat-peaks"><h3 data-label="Optimisation: plateaus beat peaks">Optimisation: plateaus beat peaks<a aria-label="Link to this card" class="anchor" href="#optimisation-plateaus-beat-peaks">#</a></h3><ul>
+<li>Grid = small lists → <code>itertools.product</code> → drop invalid pairs (fast ≥ slow) → one backtest per combo → rank. Every extra value multiplies work and false winners.</li>
+<li>Vectorise: 2D entries/exits with a <code>MultiIndex</code> of (fast, slow), one <code>from_signals</code> call, <code>pf.sharpe_ratio().idxmax()</code>, then <code>.unstack("slow")</code> for a heatmap.</li>
+<li>Broad green plateau = robust; a lone green cell beating its neighbours by a mile, or a winner with very few trades, is luck.</li>
+<li>RELIANCE 16-combo grid: best 5/40 at +3.10% with 0.1% fees. Adding realistic costs dropped 5/30 from 4.23% to 1.76% and changed the winner; on GOLDM most combos lost. Re-optimise per instrument, with costs, then validate out of sample.</li>
+</ul></div>
+<div class="card o" data-ck="walk-forward-the-only-number-that-counts" data-skey="ovalgo:testing-backtests-metrics-optimisation-and-walk-/walk-forward-the-only-number-that-counts" id="walk-forward-the-only-number-that-counts"><h3 data-label="Walk-forward: the only number that counts">Walk-forward: the only number that counts<a aria-label="Link to this card" class="anchor" href="#walk-forward-the-only-number-that-counts">#</a></h3><ol class="steps">
+<li>Split by time, never shuffle: first ≈ 70% in-sample, last ≈ 30% out-of-sample.</li>
+<li>Tune on in-sample only; pick the best Sharpe.</li>
+<li>Run that one winner on the unseen slice.</li>
+<li>Roll it: tune 250 bars, test the next 100, slide by 100, repeat; log picks and results.</li>
+<li>Check parameter stability, the in/out gap and trade counts.</li>
+</ol><p>RELIANCE, 610 bars (427 / 183): <abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr> 30/60 won in-sample at +15.90% (Sharpe 0.71) and lost −4.57% out of sample; rolling windows: −3.30%, −6.07%, −4.15%. Expect honest results from simple ideas to look like this, and deflate any winner picked from many tries.</p></div>
+<div class="card r full" data-ck="can-i-trust-this-backtest" data-skey="ovalgo:testing-backtests-metrics-optimisation-and-walk-/can-i-trust-this-backtest" id="can-i-trust-this-backtest"><h3 data-label="Can I trust this backtest?">Can I trust this backtest?<a aria-label="Link to this card" class="anchor" href="#can-i-trust-this-backtest">#</a></h3><div class="ladder"><div class="l-start">A backtest that looks promising</div><div class="l-step"><div class="l-q" data-tip="A close-based signal only exists after the close; acting on that same close is look-ahead." tabindex="0"><span class="l-n">1</span><span>Are signals shifted one bar so trades use only past data?</span></div><div class="l-as"><div class="l-a" data-tip="Every other number is meaningless until the backtest stops peeking at the bar it trades on." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Fix look-ahead first</b><span>shift(1), and compare breakouts with the prior bar</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="The course uses fees ≈ 0.1% and slippage ≈ 0.05% for equity delivery tests." tabindex="0"><span class="l-n">2</span><span>Are realistic fees and slippage included?</span></div><div class="l-as"><div class="l-a" data-tip="In the optimisation run, costs cut the best combo from 4.23% to 1.76% and changed which combo won." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Add realistic costs</b><span>they often flip the winner</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Use CAGR for different lengths and look at max drawdown, not just return." tabindex="0"><span class="l-n">3</span><span>Does it beat buy-and-hold or NIFTY on CAGR and drawdown?</span></div><div class="l-as"><div class="l-a" data-tip="A rule that loses to simply holding the stock or the index is not worth its extra risk and effort." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Drop it or rethink</b><span>complexity must earn its keep</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Walk-forward it; jumpy parameters, a big in/out gap or a handful of trades all point to luck." tabindex="0"><span class="l-n">4</span><span>Does it hold out of sample, with stable parameters and enough trades?</span></div><div class="l-as"><div class="l-a" data-tip="The course's 30/60 EMA made +15.9% in-sample and −4.6% out of sample: a typical overfit pattern." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Treat it as overfit</b><span>a lucky peak, not an edge</span></div></div><div class="l-a" data-tip="Run it unchanged in analyze mode for weeks, then go live with small, risk-based size." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Paper trade in analyze mode</b><span>then go small, with a human watching</span></div></div></div></div></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#exec"><span>Previous</span>07 · Execution: placing and managing orders</a><a class="sn-next" href="#live"><span>Next</span>09 · Going live: machine learning, streaming and position sizing</a></nav></section>
+<section class="sec p" data-origin="ovalgo" data-sid="live" id="live"><h2 data-label="Going live: machine learning, streaming and position sizing"><span class="n">09</span>Going live: machine learning, streaming and position sizing</h2>
+<p class="src">OpenAlgo Open Varsity · Algo Trading with Python · chapters 30–32 (<a href="https://www.openalgo.in/python/ml-neural-capstone">ML, neural nets and a complete bot</a>, <a href="https://www.openalgo.in/python/websockets">WebSockets</a>, <a href="https://www.openalgo.in/python/risk-position-sizing">risk and position sizing</a>)</p>
+<div class="g2">
+<div class="card p" data-ck="machine-learning-workflow-over-model" data-skey="ovalgo:going-live-machine-learning-streaming-and-positi/machine-learning-workflow-over-model" id="machine-learning-workflow-over-model"><h3 data-label="Machine learning: workflow over model">Machine learning: workflow over model<a aria-label="Link to this card" class="anchor" href="#machine-learning-workflow-over-model">#</a></h3><ul>
+<li><b>Features:</b> <abbr class="gl" data-tip="Momentum oscillator from 0 to 100 comparing average gains with average losses over N bars (usually 14). 70/30 are the classic overbought and oversold lines." data-tip-title="RSI: Relative strength index">RSI</abbr>, <abbr class="gl" data-tip="Average size of each bar including gaps, usually over 14 bars with Wilder smoothing. Used for stop distance and position size, not direction." data-tip-title="ATR: Average true range">ATR</abbr>, distance from <abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr>, recent returns; <code>dropna()</code> the warm-up rows.</li>
+<li><b>Label:</b> next bar up, <code>(c.shift(-1) &gt; c).astype(int)</code>. The bar to beat is the base rate: always guessing the majority class.</li>
+<li><b>Split by time</b> (<code>train_test_split(..., shuffle=False)</code>) and fit any scaler on the training set only; then walk-forward (train 300, test 100, slide).</li>
+<li><b>Models:</b> logistic regression, random forest (depth 4, 100–150 trees), a small neural net <code>MLPClassifier((16, 8))</code> with scaled inputs. Bigger nets fit noise faster.</li>
+</ul><div class="tw"><table>
+<tr><th>RELIANCE test set</th><th>Accuracy</th></tr>
+<tr><td>Naive baseline</td><td>54.4%</td></tr>
+<tr><td>Logistic regression</td><td>47.0%</td></tr>
+<tr><td>Random forest</td><td>47.7%</td></tr>
+<tr><td>Neural net</td><td>49.0%</td></tr>
+</table></div><p>None beat the baseline, and walk-forward averaged ≈ 49.5%. Expect coin-flip accuracy; feature importance is a hint, not proof.</p></div>
+<div class="card b" data-ck="anatomy-of-the-capstone-bot" data-skey="ovalgo:going-live-machine-learning-streaming-and-positi/anatomy-of-the-capstone-bot" id="anatomy-of-the-capstone-bot"><h3 data-label="Anatomy of the capstone bot">Anatomy of the capstone bot<a aria-label="Link to this card" class="anchor" href="#anatomy-of-the-capstone-bot">#</a></h3><ol class="steps">
+<li>Fetch daily history.</li>
+<li>Engineer features and the label.</li>
+<li>Train, then predict the latest row.</li>
+<li>Act: BUY 1 (MARKET, CNC) on an up signal; <code>placesmartorder(position_size=0)</code> to flatten on a down signal.</li>
+<li>Alert via Telegram inside <code>try/except</code> so a missing link can't crash it.</li>
+<li>Schedule after the close with cron, Task Scheduler or OpenAlgo's strategy host.</li>
+</ol><p>Gaps to fill before real money: a proper loop, risk checks, sizing (below) and real logging. Run in analyze mode, small, with a human watching.</p></div>
+<div class="card t" data-ck="websockets-stream-to-watch-rest-to-act" data-skey="ovalgo:going-live-machine-learning-streaming-and-positi/websockets-stream-to-watch-rest-to-act" id="websockets-stream-to-watch-rest-to-act"><h3 data-label="WebSockets: stream to watch, REST to act">WebSockets: stream to watch, REST to act<a aria-label="Link to this card" class="anchor" href="#websockets-stream-to-watch-rest-to-act">#</a></h3><pre class="mermaid" data-h="444" data-key="35d40b7c24d7" data-w="354">flowchart TD
+  C["connect() once"] --&gt; SUB["subscribe_ltp / quote / depth"]
+  SUB --&gt; CB["Callback: read tick, update state, decide; keep it fast"]
+  CB --&gt; X{{"Stop, target or trail hit?"}}
+  X --&gt;|no| CB
+  X --&gt;|yes| R["Send the exit through REST placeorder"]
+  R --&gt; U["unsubscribe, then disconnect()"]
+  classDef dec fill:__DF__,stroke:__DS__,color:__FG__
+  class X dec</pre></div>
+<div class="card g" data-ck="streaming-details" data-skey="ovalgo:going-live-machine-learning-streaming-and-positi/streaming-details" id="streaming-details"><h3 data-label="Streaming details">Streaming details<a aria-label="Link to this card" class="anchor" href="#streaming-details">#</a></h3><ul>
+<li>Client: <code>api(api_key, host, ws_url)</code>; local feed <code>ws://127.0.0.1:8765</code>, production <code>wss://…/ws</code> via <code>OPENALGO_WS_URL</code>.</li>
+<li>Instruments: <code>[{"exchange": "NSE", "symbol": "RELIANCE"}]</code>; callback <code>def cb(message)</code> reads <code>message["data"]["ltp"]</code>.</li>
+<li>Modes: LTP (lightest), Quote (OHLC and volume), Depth (order book).</li>
+<li>Callbacks run on a background thread: no downloads or heavy maths inside. Keep trade state (entry, stop, target) in long-lived variables or a class.</li>
+<li>The server pings about every 30 s and the client reconnects and re-subscribes on drops.</li>
+</ul><div class="formula"><span class="fl">entry 6000 · stop 5970 · target 6060 → risk : reward 1 : 2</span><span class="fl">trailing: stop = max(stop, high_since_entry − 25)</span></div></div>
+<div class="card y full" data-ck="position-sizing-by-rupee-risk" data-skey="ovalgo:going-live-machine-learning-streaming-and-positi/position-sizing-by-rupee-risk" id="position-sizing-by-rupee-risk"><h3 data-label="Position sizing by rupee risk">Position sizing by rupee risk<a aria-label="Link to this card" class="anchor" href="#position-sizing-by-rupee-risk">#</a></h3><div class="formula"><span class="fl">risk budget = capital × 1%</span><span class="fl">qty = floor(risk budget ÷ (entry − stop))          round DOWN, guard zero distance</span><span class="fl">ATR stop = entry − 2 × ATR(14) → qty = budget ÷ (2 × ATR)</span><span class="fl">F&amp;O: units = (qty // lot_size) × lot_size          whole lots only</span><span class="fl">heat = Σ qty × (entry − stop) over open trades ≤ 6% of capital</span></div><ul>
+<li>RELIANCE entry 1,400, stop 1,372 → ₹28 risk a share: on ₹5 lakh at 1% (₹5,000) that is 178 shares (our illustration).</li>
+<li>NIFTY entry 25,900, stop 25,750 → ₹150 a unit; with ₹5,000 at risk that is 33 units, which rounds down to zero lots of 65: the trade is too big for the account.</li>
+<li>Heat example: RELIANCE 40 × 28 + INFY 30 × 30 + TATASTEEL 200 × 4 = ₹2,820. Correlated positions are one bigger bet; size them together.</li>
+<li>Survival maths: with a 55% win rate, risking 2% a trade survives losing streaks that 20% cannot; a 50% loss needs +100%. Don't raise size after a winning run, and don't let a tight stop create an oversized position.</li>
+<li>Pull capital from <code>funds()["data"]["availablecash"]</code> and price from <code>quotes()</code>; wrap it all in one <code>position_size()</code> helper.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#test"><span>Previous</span>08 · Testing: backtests, metrics, optimisation and walk-forward</a><a class="sn-next" href="#last"><span>Next</span>10 · Checklists and quick reference</a></nav></section>
+<section class="sec y" data-origin="ovalgo" data-sid="last" id="last"><h2 data-label="Checklists and quick reference"><span class="n">10</span>Checklists and quick reference</h2>
+<p>Read this before the first real-money order.</p>
+<div class="g2">
+<div class="card y" data-ck="go-live-checklist" data-skey="ovalgo:checklists-and-quick-reference/go-live-checklist" id="go-live-checklist"><h3 data-label="Go-live checklist">Go-live checklist<a aria-label="Link to this card" class="anchor" href="#go-live-checklist">#</a></h3><ol class="steps">
+<li>Keys live in <code>.env</code>, never in code or Git.</li>
+<li>Every call checks <code>status</code> and survives errors.</li>
+<li>Signals are shifted one bar; breakouts use the prior bar's level.</li>
+<li>The backtest has realistic fees and slippage and beats the benchmark.</li>
+<li>It holds out of sample with stable parameters and enough trades.</li>
+<li>Size comes from rupee risk, rounded down to whole lots; total heat is capped.</li>
+<li>Intraday code stops entries before the MIS cutoff and forces flat.</li>
+<li>Multi-leg orders check every leg's status.</li>
+<li>Weeks of analyze-mode running, logs and alerts, then small live size with a human watching.</li>
+</ol></div>
+<div class="card b" data-ck="idioms-to-keep" data-skey="ovalgo:checklists-and-quick-reference/idioms-to-keep" id="idioms-to-keep"><h3 data-label="Idioms to keep">Idioms to keep<a aria-label="Link to this card" class="anchor" href="#idioms-to-keep">#</a></h3><div class="formula"><span class="fl">resp["data"]  ·  resp["results"]  (batch)</span><span class="fl">r = close.pct_change()</span><span class="fl">equity = (1 + pos.shift(1) * r).cumprod()</span><span class="fl">drawdown = equity / equity.cummax() − 1</span><span class="fl">OHLCV resample: first, max, min, last, sum</span><span class="fl">signal = pd.Series(ta.crossover(f, s), index=df.index)</span><span class="fl">breakout: close[-1] &gt; highest(high, n)[-2]</span><span class="fl">annual vol = daily std × √252</span><span class="fl">Sharpe = mean / std × √252</span><span class="fl">expiry for orders: strftime("%d%b%y").upper()</span></div></div>
+<div class="card o" data-ck="about-this-sheet" data-skey="ovalgo:checklists-and-quick-reference/about-this-sheet" id="about-this-sheet"><h3 data-label="About this sheet">About this sheet<a aria-label="Link to this card" class="anchor" href="#about-this-sheet">#</a></h3><p>This sheet condenses the free course <a href="https://www.openalgo.in/python">Algo Trading with Python</a> from <a href="https://www.openalgo.in/learn">OpenAlgo Open Varsity</a> (32 chapters, 9 modules, built on the OpenAlgo Python SDK) into reference cards in our own words. Numbers are from the course's own runs on mid-2026 data and will differ when you run them. Code is short illustrative idiom, not copied listings. Each section links back to its chapters. Educational, not investment advice.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#live"><span>Previous</span>09 · Going live: machine learning, streaming and position sizing</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"042d573ff596": {"D": "history() returns an OHLCV DataFrame; quotes() and multiquotes() give live snapshots. Count sessions, not calendar days.", "I": "Know each function's return type (Series, tuple or NumPy array) before indexing it.", "G": "crossover marks the turn, exrem removes repeats, shift(1) makes the backtest trade on the next bar.", "B": "vbt.Portfolio.from_signals with fees and slippage, compared against buy-and-hold.", "W": "Tune in-sample, grade out-of-sample, roll the window forward. Stable parameters and a small in/out gap earn trust.", "Z": "Risk a fixed 1% of capital: qty = budget ÷ (entry − stop), rounded down to whole lots; cap total heat.", "E": "Confirm analyze mode, then placeorder / placesmartorder with the right product and price_type; check every leg.", "M": "Stream ticks over the WebSocket to watch stops and targets; send exits through REST and alert yourself."}, "35d40b7c24d7": {"C": "One persistent two-way connection; the server pushes ticks instead of you polling for them.", "SUB": "LTP is lightest; Quote adds OHLC and volume; Depth streams the order book. Instruments are exchange + symbol dicts.", "CB": "Runs on a background thread: read message[\"data\"], update long-lived state, decide. No downloads or heavy maths here.", "X": "Compare the tick with stop, target and a trailing stop that only ever moves up for a long.", "R": "The feed is for watching; orders always go through the REST API, using the real fill price for state.", "U": "Always clean up: unsubscribe the instruments, then disconnect()."}}</script>
+</body></html>

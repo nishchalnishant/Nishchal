@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Python for Traders · Cheatsheets</title>
+<meta name="description" content="Python from zero for market data: setup, types, f-strings and strings, lists, dicts, loops and functions, modules, venv, errors, files, JSON and dates, NumPy and pandas, cleaning, resampling and charts, symbols, timings, APIs, quotes, WebSockets and returns.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+
+</head>
+<body class="s-ovpy" data-hue="g">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><a href="index.html#ov" class="on" title="OpenAlgo Open Varsity course sheets">Open Varsity</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><h4>Open Varsity</h4><a href="ov_stock_market_basics.html">Stock basics</a><a href="ov_technical_analysis.html">OV technicals</a><a href="ov_python_for_traders.html" aria-current="page">Python for traders</a><a href="ov_futures_trading.html">Futures</a><a href="ov_options_basics.html">Options basics</a><a href="ov_options_strategies.html">Options strategies</a><a href="ov_algo_trading_python.html">Algo trading</a><a href="ov_quantitative_trading.html">Quant trading</a><a href="ov_statistical_arbitrage.html">Stat arb</a><a href="ov_amibroker_afl.html">AmiBroker AFL</a><a href="ov_taxation.html">Taxation</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Open Varsity · Beginner</div><h1>Python for Traders</h1><p>Python from zero for market data: setup, types, f-strings and strings, lists, dicts, loops and functions, modules, venv, errors, files, JSON and dates, NumPy and pandas, cleaning, resampling and charts, symbols, timings, APIs, quotes, WebSockets and returns.</p></div>
+      <div class="stats"><div><b>7</b>sections</div><div><b>50</b>cards</div><div><b>2</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec g" data-origin="ovpy" data-sid="ovpyatlas" id="ovpyatlas"><h2 data-label="Python for traders: atlas and routes"><span class="n">00</span>Python for traders: atlas and routes</h2>
+<p>Python from zero with market data: the language basics, core data structures, files and robust code, NumPy and pandas, and Indian and US market data. Condensed from OpenAlgo's free Open Varsity course. Educational, not investment advice.</p>
+<div class="g2">
+<div class="card g full" data-ck="python-for-traders-topic-atlas" data-skey="ovpy:python-for-traders-atlas-and-routes/python-for-traders-topic-atlas" id="python-for-traders-topic-atlas"><h3 data-label="Python for traders topic atlas">Python for traders topic atlas<a aria-label="Link to this card" class="anchor" href="#python-for-traders-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>Python for Traders</b><small>5 areas · 25 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#basics" title="Go to: Getting started: setup, variables, types, operators and strings"><span class="at-n">01</span><span class="at-bl">Getting started</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#why-python-for-finance" title="Go to: Why Python for finance">Why Python for finance</a><a class="at-chip" href="#install-and-set-up" title="Go to: Install and set up">Install, pip and editors</a><a class="at-chip" href="#numbers-and-types" title="Go to: Numbers and types">Variables and types</a><a class="at-chip" href="#operators-and-p-l-maths" title="Go to: Operators and P&amp;L maths">Operators and P and L maths</a><a class="at-chip" href="#printing-money-f-string-formats" title="Go to: Printing money: f-string formats">f-strings and strings</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#core" title="Go to: Core programming: data structures, decisions, loops and functions"><span class="at-n">02</span><span class="at-bl">Core programming</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#lists" title="Go to: Lists">Lists and tuples</a><a class="at-chip" href="#dictionaries-quotes-and-json" title="Go to: Dictionaries: quotes and JSON">Dictionaries and sets</a><a class="at-chip" href="#decisions-if-elif-else" title="Go to: Decisions: if, elif, else">if, elif, else</a><a class="at-chip" href="#loops-for-while-break-continue" title="Go to: Loops: for, while, break, continue">Loops and comprehensions</a><a class="at-chip" href="#functions" title="Go to: Functions">Functions</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#libs" title="Go to: Libraries, files and robust code"><span class="at-n">03</span><span class="at-bl">Libraries and robust code</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#modules-and-imports" title="Go to: Modules and imports">Modules and imports</a><a class="at-chip" href="#standard-library-drawers" title="Go to: Standard library drawers">Standard library</a><a class="at-chip" href="#pip-and-virtual-environments" title="Go to: pip and virtual environments">pip and virtual environments</a><a class="at-chip" href="#errors-you-will-meet" title="Go to: Errors you will meet">Errors and debugging</a><a class="at-chip" href="#json-the-language-of-market-apis" title="Go to: JSON: the language of market APIs">Files, JSON, dates</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#pandas" title="Go to: NumPy and pandas: arrays, tables, cleaning, time series and charts"><span class="at-n">04</span><span class="at-bl">NumPy and pandas</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#numpy-vectorised-maths" title="Go to: NumPy: vectorised maths">NumPy arrays</a><a class="at-chip" href="#dataframes-select-filter-add-combine" title="Go to: DataFrames: select, filter, add, combine">Series and DataFrames</a><a class="at-chip" href="#cleaning-checklist" title="Go to: Cleaning checklist">Loading and cleaning data</a><a class="at-chip" href="#time-series-slice-resample-roll-shift" title="Go to: Time series: slice, resample, roll, shift">Time series and resampling</a><a class="at-chip" href="#grouping-split-apply-combine" title="Go to: Grouping: split, apply, combine">Grouping and charts</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#markets" title="Go to: Python for the markets: symbols, timings, OHLCV, APIs and returns"><span class="at-n">05</span><span class="at-bl">Python for the markets</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#one-stock-many-symbols" title="Go to: One stock, many symbols">Market landscape and symbols</a><a class="at-chip" href="#money-formatting-and-market-hours" title="Go to: Money formatting and market hours">Timings and holidays</a><a class="at-chip" href="#working-with-ohlcv" title="Go to: Working with OHLCV">OHLCV data</a><a class="at-chip" href="#fetching-data-over-http" title="Go to: Fetching data over HTTP">HTTP, quotes and WebSockets</a><a class="at-chip" href="#prices-returns-signal-scorecard" title="Go to: Prices → returns → signal → scorecard">Returns, signals, performance</a></div></div></div></div></div>
+<div class="card b" data-ck="how-to-use-this-sheet" data-skey="ovpy:python-for-traders-atlas-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li><b>New to code:</b> getting started and core programming, typing every example yourself.</li>
+<li><b>Know Python, new to data:</b> jump to NumPy and pandas.</li>
+<li><b>Ready to touch markets:</b> symbols, timings, OHLCV and returns, then the Algo Trading sheet.</li>
+<li>All code on this sheet is our own short example in the course's spirit, not copied from it.</li>
+</ol><div class="callout"><b>Educational, not investment advice.</b> Condensed in our own words from <a href="https://www.openalgo.in/fundamentals">OpenAlgo Open Varsity: Python for Traders</a>.</div></div>
+<div class="card t" data-ck="the-trader-s-data-pipeline" data-skey="ovpy:python-for-traders-atlas-and-routes/the-trader-s-data-pipeline" id="the-trader-s-data-pipeline"><h3 data-label="The trader's data pipeline">The trader's data pipeline<a aria-label="Link to this card" class="anchor" href="#the-trader-s-data-pipeline">#</a></h3><pre class="mermaid" data-h="473" data-key="9fcb9c07189e" data-w="266">flowchart TD
+  F["Fetch: yfinance or a broker API"] --&gt; S["Save to CSV"]
+  S --&gt; L["Load with a date index"]
+  L --&gt; C["Clean: gaps, types, duplicates"]
+  C --&gt; X["Features: returns, averages, ranges"]
+  X --&gt; G["Signal: 0 or 1 position"]
+  G --&gt; K["Scorecard: return, win rate, drawdown"]</pre><p>Every module of the course feeds one step: the language basics, files and JSON, pandas, then market data.</p></div>
+<div class="card o" data-ck="why-python-for-finance" data-skey="ovpy:python-for-traders-atlas-and-routes/why-python-for-finance" id="why-python-for-finance"><h3 data-label="Why Python for finance">Why Python for finance<a aria-label="Link to this card" class="anchor" href="#why-python-for-finance">#</a></h3><ul>
+<li><b>Pure Python is slow</b> at big loops: it handles one value per step.</li>
+<li><b>Libraries are fast</b> because a readable Python layer sits on a compiled core: NumPy and pandas (C), TA-Lib (C), TensorFlow (C++), OpenAlgo and OpenGreeks (Rust). "Python is the steering wheel; C and Rust are the engine."</li>
+<li>Summing the squares of 5 million numbers: a plain loop took about 468 ms, NumPy about 15 ms, roughly 30× faster for the identical answer.</li>
+<li>pandas was created in 2008 at a hedge fund (AQR); its name comes from "panel data". Banks, quant funds and Indian prop desks run research and automation in Python.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#basics"><span>Next</span>01 · Getting started: setup, variables, types, operators and strings</a></nav></section>
+<section class="sec b" data-origin="ovpy" data-sid="basics" id="basics"><h2 data-label="Getting started: setup, variables, types, operators and strings"><span class="n">01</span>Getting started: setup, variables, types, operators and strings</h2>
+<p class="src">OpenAlgo Open Varsity · Python for Traders · chapters 1–8 (<a href="https://www.openalgo.in/fundamentals/installing-python">installing</a>, <a href="https://www.openalgo.in/fundamentals/vscode-and-jupyter">VS Code and Jupyter</a>, <a href="https://www.openalgo.in/fundamentals/variables-and-comments">variables</a>, <a href="https://www.openalgo.in/fundamentals/numbers-and-types">numbers and types</a>, <a href="https://www.openalgo.in/fundamentals/operators">operators</a>, <a href="https://www.openalgo.in/fundamentals/input-output-fstrings">f-strings</a>, <a href="https://www.openalgo.in/fundamentals/strings">strings</a>)</p>
+<div class="g2">
+<div class="card b" data-ck="install-and-set-up" data-skey="ovpy:getting-started-setup-variables-types-operators-/install-and-set-up" id="install-and-set-up"><h3 data-label="Install and set up">Install and set up<a aria-label="Link to this card" class="anchor" href="#install-and-set-up">#</a></h3><div class="tw"><table>
+<tr><th>Task</th><th>Command</th></tr>
+<tr><td>Check Python (any 3.x)</td><td><code>python --version</code> (or <code>python3</code> on some Mac/Linux)</td></tr>
+<tr><td>Check pip</td><td><code>pip --version</code> (or <code>python -m pip</code>)</td></tr>
+<tr><td>Install a library from PyPI</td><td><code>pip install pandas</code></td></tr>
+<tr><td>Run a script</td><td><code>python hello.py</code></td></tr>
+</table></div><ul>
+<li>Install from python.org; on Windows tick <b>Add python.exe to PATH</b> or the terminal won't find it.</li>
+<li>Edit in VS Code with the Python extension; open a <b>folder</b>, not a single file.</li>
+<li>"Permission denied" on installs: use a virtual environment rather than admin rights.</li>
+</ul></div>
+<div class="card t" data-ck="scripts-vs-notebooks" data-skey="ovpy:getting-started-setup-variables-types-operators-/scripts-vs-notebooks" id="scripts-vs-notebooks"><h3 data-label="Scripts vs notebooks">Scripts vs notebooks<a aria-label="Link to this card" class="anchor" href="#scripts-vs-notebooks">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Script (.py)</th><th>Notebook (.ipynb)</th></tr>
+<tr><td>Best for</td><td>Reusable, automated runs</td><td>Exploring and learning</td></tr>
+<tr><td>Runs</td><td>Top to bottom</td><td>Cell by cell</td></tr>
+<tr><td>Output</td><td>Terminal; needs <code>print()</code></td><td>Inline; a cell's last line shows itself</td></tr>
+</table></div><p>The Python inside is identical. Explore in a notebook, then move what works into a script you can schedule.</p></div>
+<div class="card g" data-ck="variables-and-comments" data-skey="ovpy:getting-started-setup-variables-types-operators-/variables-and-comments" id="variables-and-comments"><h3 data-label="Variables and comments">Variables and comments<a aria-label="Link to this card" class="anchor" href="#variables-and-comments">#</a></h3><pre class="code" data-hl="py" data-lang="py">symbol <span class="o">=</span> <span class="s">"RELIANCE"</span>        <span class="c"># str</span>
+quantity <span class="o">=</span> <span class="n">50</span>              <span class="c"># int</span>
+buy_price <span class="o">=</span> <span class="n">1300.00</span>        <span class="c"># float</span>
+ltp <span class="o">=</span> <span class="n">1313.60</span>
+invested <span class="o">=</span> quantity <span class="o">*</span> buy_price          <span class="c"># 65000.0</span>
+profit <span class="o">=</span> (ltp <span class="o">-</span> buy_price) <span class="o">*</span> quantity    <span class="c"># 680.0</span>
+stop_loss <span class="o">=</span> buy_price <span class="o">*</span> <span class="n">0.98</span>   <span class="c"># exit 2% below entry: say WHY</span></pre><ul>
+<li><code>=</code> assigns ("gets"); equality is <code>==</code>.</li>
+<li>Reassigning keeps only the newest value; use a list to keep history.</li>
+<li>Names: letters, digits and underscores, no leading digit, in <code>snake_case</code>. <code>invested = quantity * buy_price</code> beats <code>x = 50 * 1300</code>.</li>
+</ul></div>
+<div class="card p" data-ck="numbers-and-types" data-skey="ovpy:getting-started-setup-variables-types-operators-/numbers-and-types" id="numbers-and-types"><h3 data-label="Numbers and types">Numbers and types<a aria-label="Link to this card" class="anchor" href="#numbers-and-types">#</a></h3><div class="tw"><table>
+<tr><th>Type</th><th>Example</th><th>Use</th></tr>
+<tr><td>int</td><td>50</td><td>Shares, lots (no size limit)</td></tr>
+<tr><td>float</td><td>1313.60</td><td>Prices, returns</td></tr>
+<tr><td>str</td><td>"RELIANCE"</td><td>Symbols, labels</td></tr>
+<tr><td>bool</td><td>True</td><td>Flags</td></tr>
+</table></div><ul>
+<li><code>100 / 4</code> is <code>25.0</code>, a float. <code>0.1 + 0.2</code> is <code>0.30000000000000004</code>: floats are binary approximations, so round for display and use <code>Decimal</code> for exact accounting.</li>
+<li>Keyboard, file and web input arrives as <b>text</b>: <code>"50" * 3</code> is <code>"505050"</code>; convert with <code>int()</code> or <code>float()</code> first.</li>
+<li>Falsy: <code>0</code>, <code>""</code>, empty containers, <code>None</code>; almost everything else is truthy.</li>
+</ul></div>
+<div class="card o" data-ck="operators-and-p-l-maths" data-skey="ovpy:getting-started-setup-variables-types-operators-/operators-and-p-l-maths" id="operators-and-p-l-maths"><h3 data-label="Operators and P&amp;L maths">Operators and P&amp;L maths<a aria-label="Link to this card" class="anchor" href="#operators-and-p-l-maths">#</a></h3><div class="tw"><table>
+<tr><th>Operator</th><th>Meaning</th><th>Example</th></tr>
+<tr><td><code>//</code></td><td>Floor division</td><td><code>100000 // 65680</code> → 1 whole lot</td></tr>
+<tr><td><code>%</code></td><td>Remainder</td><td><code>100000 % 65680</code> → 34320 cash left</td></tr>
+<tr><td><code>**</code></td><td>Power</td><td><code>(1.01 ** 5 - 1) * 100</code> ≈ 5.10% (1% a day for 5 days)</td></tr>
+<tr><td><code>== != &gt; &lt;</code></td><td>Comparisons → True/False</td><td><code>price &gt; sma</code></td></tr>
+<tr><td><code>and or not</code></td><td>Combine conditions</td><td><code>support &lt; price &lt; resistance</code></td></tr>
+</table></div><div class="formula"><span class="fl">pct change = (new − old) ÷ old × 100</span><span class="fl">(1313.60 − 1300) ÷ 1300 × 100 ≈ +1.05%</span></div><p><code>//</code> truncates (1.52 lots → 1), and <code>*</code> binds before <code>+</code>: parenthesise anything not obvious.</p></div>
+<div class="card y" data-ck="printing-money-f-string-formats" data-skey="ovpy:getting-started-setup-variables-types-operators-/printing-money-f-string-formats" id="printing-money-f-string-formats"><h3 data-label="Printing money: f-string formats">Printing money: f-string formats<a aria-label="Link to this card" class="anchor" href="#printing-money-f-string-formats">#</a></h3><div class="tw"><table>
+<tr><th>Spec</th><th>Output</th><th>Use</th></tr>
+<tr><td><code>{v:,.2f}</code></td><td>65,680.00</td><td>Money with commas</td></tr>
+<tr><td><code>{v:+.2f}</code></td><td>+13.60</td><td>Signed change</td></tr>
+<tr><td><code>{r:.2%}</code></td><td>1.05%</td><td>Returns (multiplies by 100)</td></tr>
+<tr><td><code>{s:&lt;10}</code> / <code>{v:&gt;10.2f}</code></td><td>aligned columns</td><td>Labels left, numbers right</td></tr>
+<tr><td><code>{n:05d}</code></td><td>00042</td><td>Zero-padded IDs</td></tr>
+<tr><td><code>{d:%d %b %Y}</code></td><td>25 Jun 2026</td><td>Dates</td></tr>
+<tr><td><code>{x=}</code></td><td>x=1313.6</td><td>Quick debugging</td></tr>
+</table></div><p><code>input()</code> always returns a string: <code>qty = int(input("Shares? "))</code>. Forgetting the <code>f</code> prefix prints the braces literally.</p></div>
+<div class="card r" data-ck="strings-symbols-dates-and-messy-text" data-skey="ovpy:getting-started-setup-variables-types-operators-/strings-symbols-dates-and-messy-text" id="strings-symbols-dates-and-messy-text"><h3 data-label="Strings: symbols, dates and messy text">Strings: symbols, dates and messy text<a aria-label="Link to this card" class="anchor" href="#strings-symbols-dates-and-messy-text">#</a></h3><pre class="code" data-hl="py" data-lang="py">s <span class="o">=</span> <span class="s">"RELIANCE"</span>
+s[<span class="n">0</span>], s[<span class="o">-</span><span class="n">1</span>], s[:<span class="n">3</span>]               <span class="c"># 'R', 'E', 'REL'</span>
+d <span class="o">=</span> <span class="s">"2026-06-25"</span>
+d[:<span class="n">4</span>], d[<span class="n">5</span>:<span class="n">7</span>], d[<span class="n">8</span>:]             <span class="c"># '2026', '06', '25'</span>
+clean <span class="o">=</span> <span class="s">"  reliance  "</span><span class="o">.</span><span class="f">strip</span>()<span class="o">.</span><span class="f">upper</span>()     <span class="c"># capture the result!</span>
+<span class="s">"NSE:RELIANCE"</span><span class="o">.</span><span class="f">replace</span>(<span class="s">"NSE"</span>, <span class="s">"BSE"</span>)       <span class="c"># 'BSE:RELIANCE'</span>
+syms <span class="o">=</span> <span class="s">"RELIANCE,TCS,INFY"</span><span class="o">.</span><span class="f">split</span>(<span class="s">","</span>)      <span class="c"># list of 3</span>
+<span class="s">" | "</span><span class="o">.</span><span class="f">join</span>(syms)  <span class="c"># 'RELIANCE | TCS | INFY'</span>
+yahoo <span class="o">=</span> s <span class="o">+</span> <span class="s">".NS"</span>                          <span class="c"># 'RELIANCE.NS'</span></pre><ul>
+<li>Indexes start at 0; slices stop <b>before</b> the end index.</li>
+<li>Strings are immutable: methods return a new string, so assign it.</li>
+<li><code>join</code> is called on the separator, not the list.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ovpyatlas"><span>Previous</span>00 · Python for traders: atlas and routes</a><a class="sn-next" href="#core"><span>Next</span>02 · Core programming: data structures, decisions, loops and functions</a></nav></section>
+<section class="sec p" data-origin="ovpy" data-sid="core" id="core"><h2 data-label="Core programming: data structures, decisions, loops and functions"><span class="n">02</span>Core programming: data structures, decisions, loops and functions</h2>
+<p class="src">OpenAlgo Open Varsity · Python for Traders · chapters 9–16 (<a href="https://www.openalgo.in/fundamentals/lists">lists</a>, <a href="https://www.openalgo.in/fundamentals/tuples">tuples</a>, <a href="https://www.openalgo.in/fundamentals/dictionaries">dictionaries</a>, <a href="https://www.openalgo.in/fundamentals/sets">sets</a>, <a href="https://www.openalgo.in/fundamentals/conditionals">conditionals</a>, <a href="https://www.openalgo.in/fundamentals/loops">loops</a>, <a href="https://www.openalgo.in/fundamentals/comprehensions">comprehensions</a>, <a href="https://www.openalgo.in/fundamentals/functions">functions</a>)</p>
+<div class="g2">
+<div class="card p full" data-ck="which-container" data-skey="ovpy:core-programming-data-structures-decisions-loops/which-container" id="which-container"><h3 data-label="Which container?">Which container?<a aria-label="Link to this card" class="anchor" href="#which-container">#</a></h3><div class="tw"><table>
+<tr><th>Container</th><th>Syntax</th><th>Access by</th><th>Mutable</th><th>Trading use</th></tr>
+<tr><td>List</td><td><code>[101.2, 103.5]</code></td><td>Position</td><td>Yes</td><td>Price series, watchlist, trades</td></tr>
+<tr><td>Tuple</td><td><code>(o, h, l, c)</code></td><td>Position</td><td>No</td><td>A fixed record: an OHLC bar, multiple return values</td></tr>
+<tr><td>Dict</td><td><code>{"ltp": 1313.6}</code></td><td>Key (name)</td><td>Yes</td><td>A quote, API JSON, symbol → data lookup</td></tr>
+<tr><td>Set</td><td><code>{"TCS", "INFY"}</code></td><td>Membership</td><td>Yes</td><td>Unique symbols, watchlist overlaps</td></tr>
+</table></div><p>Rule of thumb: if changing one item alone would be a bug, use a tuple; if the collection is meant to change, a list; to look up by name, a dict; for uniqueness and fast "is it in here?", a set.</p></div>
+<div class="card b" data-ck="lists" data-skey="ovpy:core-programming-data-structures-decisions-loops/lists" id="lists"><h3 data-label="Lists">Lists<a aria-label="Link to this card" class="anchor" href="#lists">#</a></h3><pre class="code" data-hl="py" data-lang="py">closes <span class="o">=</span> [<span class="n">101.2</span>, <span class="n">103.5</span>, <span class="n">102.8</span>, <span class="n">104.1</span>, <span class="n">104.9</span>, <span class="n">106.3</span>]
+closes[<span class="o">-</span><span class="n">1</span>], closes[<span class="o">-</span><span class="n">2</span>:]          <span class="c"># today, last two days</span>
+<span class="bi">round</span>(<span class="bi">sum</span>(closes) <span class="o">/</span> <span class="bi">len</span>(closes), <span class="n">2</span>)
+watch <span class="o">=</span> [<span class="s">"RELIANCE"</span>, <span class="s">"TCS"</span>, <span class="s">"INFY"</span>]
+watch<span class="o">.</span><span class="f">append</span>(<span class="s">"HDFCBANK"</span>); watch<span class="o">.</span><span class="f">insert</span>(<span class="n">0</span>, <span class="s">"NIFTY"</span>)
+watch<span class="o">.</span><span class="f">remove</span>(<span class="s">"TCS"</span>); last <span class="o">=</span> watch<span class="o">.</span><span class="f">pop</span>()
+ranked <span class="o">=</span> <span class="bi">sorted</span>(closes, reverse<span class="o">=</span><span class="b">True</span>)    <span class="c"># new list</span>
+closes<span class="o">.</span><span class="f">sort</span>()                            <span class="c"># in place, returns None</span></pre><ul>
+<li><code>x = lst.sort()</code> gives <code>None</code>; prefer <code>sorted()</code> to keep the original.</li>
+<li><code>remove()</code> deletes only the first match and errors if absent.</li>
+<li>A list of lists is a table: the idea behind DataFrames.</li>
+</ul></div>
+<div class="card t" data-ck="tuples-and-unpacking" data-skey="ovpy:core-programming-data-structures-decisions-loops/tuples-and-unpacking" id="tuples-and-unpacking"><h3 data-label="Tuples and unpacking">Tuples and unpacking<a aria-label="Link to this card" class="anchor" href="#tuples-and-unpacking">#</a></h3><pre class="code" data-hl="py" data-lang="py">bar <span class="o">=</span> (<span class="n">1300.0</span>, <span class="n">1318.4</span>, <span class="n">1297.2</span>, <span class="n">1313.6</span>)
+open_, high, low, close <span class="o">=</span> bar     <span class="c"># 'open' is a built-in</span>
+day_range <span class="o">=</span> high <span class="o">-</span> low            <span class="c"># 21.2</span>
+lots, rem <span class="o">=</span> <span class="bi">divmod</span>(<span class="n">250</span>, <span class="n">75</span>)  <span class="c"># (3, 25): 3 lots, 25 shares spare</span>
+support, resistance <span class="o">=</span> resistance, support   <span class="c"># swap, no temp</span></pre><p>Assigning <code>bar[0] = x</code> raises <code>TypeError</code>: that protection is the point.</p></div>
+<div class="card g" data-ck="dictionaries-quotes-and-json" data-skey="ovpy:core-programming-data-structures-decisions-loops/dictionaries-quotes-and-json" id="dictionaries-quotes-and-json"><h3 data-label="Dictionaries: quotes and JSON">Dictionaries: quotes and JSON<a aria-label="Link to this card" class="anchor" href="#dictionaries-quotes-and-json">#</a></h3><pre class="code" data-hl="py" data-lang="py">quote <span class="o">=</span> {<span class="s">"symbol"</span>: <span class="s">"RELIANCE"</span>, <span class="s">"ltp"</span>: <span class="n">1313.60</span>, <span class="s">"volume"</span>: <span class="n">4521000</span>}
+quote[<span class="s">"ltp"</span>] <span class="o">=</span> <span class="n">1315.20</span>             <span class="c"># update</span>
+quote[<span class="s">"high"</span>] <span class="o">=</span> <span class="n">1318.40</span>            <span class="c"># assignment adds a key</span>
+quote<span class="o">.</span><span class="f">get</span>(<span class="s">"bid"</span>, <span class="s">"n/a"</span>)            <span class="c"># safe read, no KeyError</span>
+watch <span class="o">=</span> {<span class="s">"TCS"</span>: {<span class="s">"ltp"</span>: <span class="n">2109.0</span>, <span class="s">"chg"</span>: <span class="o">-</span><span class="n">8.5</span>}}
+watch[<span class="s">"TCS"</span>][<span class="s">"ltp"</span>]                <span class="c"># nested, like API JSON</span>
+<span class="k">for</span> sym, data <span class="k">in</span> watch<span class="o">.</span><span class="f">items</span>():
+    <span class="bi">print</span>(<span class="s">f"{</span>sym<span class="s">:9} ltp {</span>data[<span class="s">'ltp'</span>]<span class="s">:&gt;9.2f}"</span>)</pre><p>Keys are case-sensitive (<code>"ltp"</code> ≠ <code>"LTP"</code>), a typo on assignment silently creates a new key, and lookups stay fast at any size.</p></div>
+<div class="card o" data-ck="sets-unique-and-overlapping" data-skey="ovpy:core-programming-data-structures-decisions-loops/sets-unique-and-overlapping" id="sets-unique-and-overlapping"><h3 data-label="Sets: unique and overlapping">Sets: unique and overlapping<a aria-label="Link to this card" class="anchor" href="#sets-unique-and-overlapping">#</a></h3><pre class="code" data-hl="py" data-lang="py">trades <span class="o">=</span> [<span class="s">"RELIANCE"</span>, <span class="s">"TCS"</span>, <span class="s">"RELIANCE"</span>, <span class="s">"INFY"</span>, <span class="s">"TCS"</span>]
+unique <span class="o">=</span> <span class="bi">sorted</span>(<span class="bi">set</span>(trades))       <span class="c"># 3 names, sorted for display</span>
+mine <span class="o">=</span> {<span class="s">"RELIANCE"</span>, <span class="s">"TCS"</span>, <span class="s">"INFY"</span>, <span class="s">"HDFCBANK"</span>}
+friend <span class="o">=</span> {<span class="s">"INFY"</span>, <span class="s">"HDFCBANK"</span>, <span class="s">"ITC"</span>, <span class="s">"SBIN"</span>}
+mine <span class="o">&amp;</span> friend     <span class="c"># in both</span>
+mine <span class="o">|</span> friend     <span class="c"># in either (6 unique)</span>
+mine <span class="o">-</span> friend     <span class="c"># only mine</span></pre><p><code>{}</code> is an empty dict; an empty set is <code>set()</code>. Sets have no order and no <code>[0]</code>.</p></div>
+<div class="card r" data-ck="decisions-if-elif-else" data-skey="ovpy:core-programming-data-structures-decisions-loops/decisions-if-elif-else" id="decisions-if-elif-else"><h3 data-label="Decisions: if, elif, else">Decisions: if, elif, else<a aria-label="Link to this card" class="anchor" href="#decisions-if-elif-else">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">def</span> <span class="f">signal</span>(price, sma, rsi):
+    <span class="k">if</span> price <span class="o">&lt;=</span> <span class="n">0</span>:                      <span class="c"># guard clause first</span>
+        <span class="k">return</span> <span class="s">"BAD DATA"</span>
+    <span class="k">if</span> price <span class="o">&gt;</span> sma <span class="k">and</span> rsi <span class="o">&lt;</span> <span class="n">70</span>:
+        <span class="k">return</span> <span class="s">"BUY"</span>
+    <span class="k">elif</span> price <span class="o">&lt;</span> sma:
+        <span class="k">return</span> <span class="s">"SELL"</span>
+    <span class="k">else</span>:
+        <span class="k">return</span> <span class="s">"HOLD"</span>
+
+<span class="f">signal</span>(<span class="n">1313.60</span>, <span class="n">1305.00</span>, <span class="n">45</span>)   <span class="c"># BUY</span>
+<span class="f">signal</span>(<span class="n">1313.60</span>, <span class="n">1305.00</span>, <span class="n">75</span>)   <span class="c"># HOLD: overbought, still above SMA</span></pre><ul>
+<li>Only the <b>first</b> true branch runs, so order matters.</li>
+<li>Indentation (4 spaces) is syntax: it defines the block.</li>
+<li>Test bad cases first and return early instead of nesting deeply.</li>
+</ul></div>
+<div class="card y" data-ck="loops-for-while-break-continue" data-skey="ovpy:core-programming-data-structures-decisions-loops/loops-for-while-break-continue" id="loops-for-while-break-continue"><h3 data-label="Loops: for, while, break, continue">Loops: for, while, break, continue<a aria-label="Link to this card" class="anchor" href="#loops-for-while-break-continue">#</a></h3><pre class="code" data-hl="py" data-lang="py">total <span class="o">=</span> <span class="n">0.0</span>
+<span class="k">for</span> i, c <span class="k">in</span> <span class="bi">enumerate</span>(closes, start<span class="o">=</span><span class="n">1</span>):
+    total <span class="o">+=</span> c
+capital, price, shares <span class="o">=</span> <span class="n">100000</span>, <span class="n">1313.60</span>, <span class="n">0</span>
+<span class="k">while</span> capital <span class="o">&gt;=</span> price:          <span class="c"># must move towards stopping</span>
+    capital <span class="o">-=</span> price; shares <span class="o">+=</span> <span class="n">1</span>   <span class="c"># 76 shares, 166.40 left</span>
+<span class="k">for</span> p <span class="k">in</span> [<span class="n">101.2</span>, <span class="n">99.8</span>, <span class="n">104.1</span>, <span class="n">106.3</span>]:
+    <span class="k">if</span> p <span class="o">&lt;</span> <span class="n">100</span>:
+        <span class="k">continue</span>                   <span class="c"># skip this one</span>
+    <span class="k">if</span> p <span class="o">&gt;=</span> <span class="n">105</span>:
+        <span class="bi">print</span>(<span class="s">"alert"</span>, p); <span class="k">break</span>   <span class="c"># stop scanning</span></pre><p><code>for</code> visits a known collection; <code>while</code> runs until a condition fails (an unchanging condition hangs forever: Ctrl+C). <code>range(1, 6)</code> stops at 5.</p></div>
+<div class="card b" data-ck="comprehensions" data-skey="ovpy:core-programming-data-structures-decisions-loops/comprehensions" id="comprehensions"><h3 data-label="Comprehensions">Comprehensions<a aria-label="Link to this card" class="anchor" href="#comprehensions">#</a></h3><pre class="code" data-hl="py" data-lang="py">tickers <span class="o">=</span> [s <span class="o">+</span> <span class="s">".NS"</span> <span class="k">for</span> s <span class="k">in</span> symbols]
+up <span class="o">=</span> [c <span class="k">for</span> c <span class="k">in</span> closes <span class="k">if</span> c <span class="o">&gt;</span> <span class="n">100</span>]
+<span class="c"># filter, then transform</span>
+big <span class="o">=</span> [<span class="bi">round</span>(c, <span class="n">1</span>) <span class="k">for</span> c <span class="k">in</span> closes <span class="k">if</span> c <span class="o">&gt;</span> <span class="n">104</span>]
+<span class="c"># parallel lists → dict</span>
+ltp <span class="o">=</span> {s: p <span class="k">for</span> s, p <span class="k">in</span> <span class="bi">zip</span>(symbols, prices)}</pre><p>Order is value, loop, optional filter. Use the one-breath test: if the purpose doesn't fit a short sentence, write a normal loop. Clear beats clever.</p></div>
+<div class="card p" data-ck="functions" data-skey="ovpy:core-programming-data-structures-decisions-loops/functions" id="functions"><h3 data-label="Functions">Functions<a aria-label="Link to this card" class="anchor" href="#functions">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">def</span> <span class="f">pct_change</span>(old, new):
+    <span class="s">"""Percentage change from old to new."""</span>
+    <span class="k">return</span> (new <span class="o">-</span> old) <span class="o">/</span> old <span class="o">*</span> <span class="n">100</span>
+
+<span class="k">def</span> <span class="f">brokerage</span>(turnover, rate<span class="o">=</span><span class="n">0.0003</span>, cap<span class="o">=</span><span class="n">20.0</span>):
+    <span class="s">"""0.03% of turnover, capped at ₹20 per order."""</span>
+    <span class="k">return</span> <span class="bi">min</span>(turnover <span class="o">*</span> rate, cap)
+
+<span class="k">def</span> <span class="f">trade_summary</span>(buy, sell, qty):
+    profit <span class="o">=</span> (sell <span class="o">-</span> buy) <span class="o">*</span> qty
+    <span class="k">return</span> profit, <span class="f">pct_change</span>(buy, sell)   <span class="c"># a tuple</span>
+
+<span class="f">brokerage</span>(<span class="n">10000</span>)              <span class="c"># 3.0</span>
+<span class="f">brokerage</span>(<span class="n">500000</span>)             <span class="c"># 20.0 (150 capped)</span>
+p, move <span class="o">=</span> <span class="f">trade_summary</span>(<span class="n">1300</span>, <span class="n">1313.60</span>, <span class="n">50</span>)  <span class="c"># 680.0, 1.05</span></pre><p>One function means one place to fix a bug. A function without <code>return</code> gives back <code>None</code>; defaults apply only when the argument is left out.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#basics"><span>Previous</span>01 · Getting started: setup, variables, types, operators and strings</a><a class="sn-next" href="#libs"><span>Next</span>03 · Libraries, files and robust code</a></nav></section>
+<section class="sec o" data-origin="ovpy" data-sid="libs" id="libs"><h2 data-label="Libraries, files and robust code"><span class="n">03</span>Libraries, files and robust code</h2>
+<p class="src">OpenAlgo Open Varsity · Python for Traders · chapters 17–24 (<a href="https://www.openalgo.in/fundamentals/modules-and-imports">modules</a>, <a href="https://www.openalgo.in/fundamentals/standard-library">standard library</a>, <a href="https://www.openalgo.in/fundamentals/installing-libraries">pip and venv</a>, <a href="https://www.openalgo.in/fundamentals/errors-and-debugging">errors</a>, <a href="https://www.openalgo.in/fundamentals/files">files</a>, <a href="https://www.openalgo.in/fundamentals/json-data">JSON</a>, <a href="https://www.openalgo.in/fundamentals/dates-and-times">dates</a>, <a href="https://www.openalgo.in/fundamentals/getting-unstuck">getting unstuck</a>)</p>
+<div class="g2">
+<div class="card o" data-ck="modules-and-imports" data-skey="ovpy:libraries-files-and-robust-code/modules-and-imports" id="modules-and-imports"><h3 data-label="Modules and imports">Modules and imports<a aria-label="Link to this card" class="anchor" href="#modules-and-imports">#</a></h3><div class="tw"><table>
+<tr><th>Style</th><th>Syntax</th><th>Call as</th></tr>
+<tr><td>Whole module</td><td><code>import math</code></td><td><code>math.sqrt(2)</code></td></tr>
+<tr><td>Specific names</td><td><code>from statistics import mean, stdev</code></td><td><code>mean(x)</code></td></tr>
+<tr><td>Alias</td><td><code>import pandas as pd</code></td><td><code>pd.read_csv(...)</code></td></tr>
+<tr><td>Wildcard</td><td><code>from m import *</code></td><td>Avoid: name clashes, hidden origins</td></tr>
+</table></div><ul>
+<li>Any <code>.py</code> file is a module: put <code>pnl()</code> and <code>pct_change()</code> in <code>tradetools.py</code> and <code>import tradetools</code> (no <code>.py</code>).</li>
+<li>Python looks in your script's folder first, so a local <code>pandas.py</code> would shadow the real library.</li>
+<li>Whole lots: <code>math.floor(76.12)</code> → 76, <code>math.ceil(76.12)</code> → 77.</li>
+</ul></div>
+<div class="card b" data-ck="standard-library-drawers" data-skey="ovpy:libraries-files-and-robust-code/standard-library-drawers" id="standard-library-drawers"><h3 data-label="Standard library drawers">Standard library drawers<a aria-label="Link to this card" class="anchor" href="#standard-library-drawers">#</a></h3><div class="tw"><table>
+<tr><th>Module</th><th>Use</th></tr>
+<tr><td><code>datetime</code></td><td>Dates, times, date maths, formatting</td></tr>
+<tr><td><code>random</code></td><td>Simulations; <code>random.seed(42)</code> makes runs repeatable</td></tr>
+<tr><td><code>json</code></td><td>API data in and out</td></tr>
+<tr><td><code>math</code>, <code>statistics</code></td><td>Roots, rounding, mean, median, stdev</td></tr>
+<tr><td><code>csv</code>, <code>pathlib</code></td><td>Simple tables, file paths</td></tr>
+</table></div><p>No install needed. Know which drawer exists and look up the details. <code>timedelta</code> counts calendar days, not trading days, and <code>random</code> is for simulation, never security.</p></div>
+<div class="card g" data-ck="pip-and-virtual-environments" data-skey="ovpy:libraries-files-and-robust-code/pip-and-virtual-environments" id="pip-and-virtual-environments"><h3 data-label="pip and virtual environments">pip and virtual environments<a aria-label="Link to this card" class="anchor" href="#pip-and-virtual-environments">#</a></h3><pre class="code" data-hl="text" data-lang="text">python -m venv .venv               <span class="c"># one environment per project</span>
+.venv\Scripts\activate             <span class="c"># Windows</span>
+source .venv/bin/activate          <span class="c"># Mac / Linux</span>
+pip install pandas yfinance matplotlib
+pip freeze &gt; requirements.txt      <span class="c"># record exact versions</span>
+pip install -r requirements.txt    <span class="c"># rebuild anywhere</span>
+deactivate</pre><ul>
+<li>Run pip in the terminal, not inside Python; activate first (the prompt shows <code>(.venv)</code>) or installs go global.</li>
+<li>A clean <code>import</code> proves the install; a missing one raises <code>ModuleNotFoundError</code>.</li>
+<li>"pip not recognised": use <code>python -m pip</code>.</li>
+</ul></div>
+<div class="card r full" data-ck="errors-you-will-meet" data-skey="ovpy:libraries-files-and-robust-code/errors-you-will-meet" id="errors-you-will-meet"><h3 data-label="Errors you will meet">Errors you will meet<a aria-label="Link to this card" class="anchor" href="#errors-you-will-meet">#</a></h3><div class="tw"><table>
+<tr><th>Error</th><th>Cause</th><th>Trading example</th><th>Fix</th></tr>
+<tr><td><code>SyntaxError</code></td><td>Missing colon or bracket</td><td>An <code>if</code> without <code>:</code></td><td>Fix the layout; nothing runs until then</td></tr>
+<tr><td><code>NameError</code></td><td>Undefined or misspelt name</td><td><code>ltp</code> vs <code>LTP</code></td><td>Check spelling and definition</td></tr>
+<tr><td><code>TypeError</code></td><td>Wrong type for the operation</td><td>Text price + number</td><td>Convert types</td></tr>
+<tr><td><code>ValueError</code></td><td>Right type, bad value</td><td><code>int("fifty")</code>; price of 0 in sizing</td><td>Validate; raise your own clear error</td></tr>
+<tr><td><code>IndexError</code></td><td>Position doesn't exist</td><td><code>closes[10]</code> on 7 closes</td><td>Check the length</td></tr>
+<tr><td><code>KeyError</code></td><td>Dict key missing</td><td>Quote without <code>"bid"</code></td><td><code>q.get("bid")</code></td></tr>
+<tr><td><code>ZeroDivisionError</code></td><td>Divide by zero</td><td>Average of an empty list</td><td>Guard or return a fallback</td></tr>
+<tr><td><code>ModuleNotFoundError</code></td><td>Library not installed</td><td><code>import yfinance</code></td><td><code>pip install</code> in the active venv</td></tr>
+</table></div></div>
+<div class="card y" data-ck="try-except-done-right" data-skey="ovpy:libraries-files-and-robust-code/try-except-done-right" id="try-except-done-right"><h3 data-label="try / except done right">try / except done right<a aria-label="Link to this card" class="anchor" href="#try-except-done-right">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">def</span> <span class="f">avg</span>(prices):
+    <span class="k">try</span>:
+        <span class="k">return</span> <span class="bi">sum</span>(prices) <span class="o">/</span> <span class="bi">len</span>(prices)
+    <span class="k">except</span> <span class="t">ZeroDivisionError</span>:          <span class="c"># catch the specific error</span>
+        <span class="k">return</span> <span class="n">0.0</span>
+
+<span class="k">def</span> <span class="f">position_size</span>(capital, price):
+    <span class="k">if</span> price <span class="o">&lt;=</span> <span class="n">0</span>:
+        <span class="c"># fail early, clearly</span>
+        <span class="k">raise</span> <span class="t">ValueError</span>(<span class="s">"price must be positive"</span>)
+    <span class="k">return</span> <span class="bi">int</span>(capital <span class="o">//</span> price)</pre><ul>
+<li>Wrap only the risky line; never a bare <code>except:</code>, which hides real bugs.</li>
+<li>Read a traceback <b>bottom-up</b>: the last line says what, the lines above say where.</li>
+<li>Print actual values and change one thing at a time.</li>
+</ul></div>
+<div class="card t" data-ck="files-read-write-append" data-skey="ovpy:libraries-files-and-robust-code/files-read-write-append" id="files-read-write-append"><h3 data-label="Files: read, write, append">Files: read, write, append<a aria-label="Link to this card" class="anchor" href="#files-read-write-append">#</a></h3><div class="tw"><table>
+<tr><th>Mode</th><th>Does</th></tr>
+<tr><td><code>"r"</code></td><td>Read (default)</td></tr>
+<tr><td><code>"w"</code></td><td>Create or <b>overwrite</b> immediately</td></tr>
+<tr><td><code>"a"</code></td><td>Append; ideal for logs and journals</td></tr>
+</table></div><pre class="code" data-hl="py" data-lang="py"><span class="k">with</span> <span class="bi">open</span>(<span class="s">"watchlist.txt"</span>, <span class="s">"a"</span>) <span class="k">as</span> f:
+    f<span class="o">.</span><span class="f">write</span>(<span class="s">"HDFCBANK,1642.40\n"</span>)      <span class="c"># add the newline yourself</span>
+<span class="k">with</span> <span class="bi">open</span>(<span class="s">"watchlist.txt"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> line <span class="k">in</span> f:
+        sym, price <span class="o">=</span> line<span class="o">.</span><span class="f">strip</span>()<span class="o">.</span><span class="f">split</span>(<span class="s">","</span>)
+        <span class="bi">print</span>(<span class="s">f"{</span>sym<span class="s">:&lt;10}{</span><span class="bi">float</span>(price)<span class="s">:&gt;10.2f}"</span>)</pre><p>Always use <code>with</code> so the file closes; lines keep their trailing newline until stripped; relative paths depend on where you run from.</p></div>
+<div class="card p" data-ck="json-the-language-of-market-apis" data-skey="ovpy:libraries-files-and-robust-code/json-the-language-of-market-apis" id="json-the-language-of-market-apis"><h3 data-label="JSON: the language of market APIs">JSON: the language of market APIs<a aria-label="Link to this card" class="anchor" href="#json-the-language-of-market-apis">#</a></h3><div class="tw"><table>
+<tr><th>JSON</th><th>Python</th></tr>
+<tr><td>object <code>{}</code></td><td>dict</td></tr>
+<tr><td>array <code>[]</code></td><td>list</td></tr>
+<tr><td>string, number</td><td>str, int / float</td></tr>
+<tr><td><code>true</code> / <code>false</code> / <code>null</code></td><td><code>True</code> / <code>False</code> / <code>None</code></td></tr>
+</table></div><pre class="code" data-hl="py" data-lang="py"><span class="k">import</span> json
+resp <span class="o">=</span> json<span class="o">.</span><span class="f">loads</span>(text)                 <span class="c"># s = string</span>
+best_bid <span class="o">=</span> resp[<span class="s">"data"</span>][<span class="s">"depth"</span>][<span class="s">"buy"</span>][<span class="n">0</span>][<span class="s">"price"</span>]
+<span class="k">with</span> <span class="bi">open</span>(<span class="s">"watch.json"</span>, <span class="s">"w"</span>) <span class="k">as</span> f:
+    json<span class="o">.</span><span class="f">dump</span>(watch, f, indent<span class="o">=</span><span class="n">2</span>)       <span class="c"># no s = file</span></pre><p>JSON needs double quotes. Until you parse it, it is just text, so <code>text["ltp"]</code> fails.</p></div>
+<div class="card b" data-ck="dates-and-market-hours" data-skey="ovpy:libraries-files-and-robust-code/dates-and-market-hours" id="dates-and-market-hours"><h3 data-label="Dates and market hours">Dates and market hours<a aria-label="Link to this card" class="anchor" href="#dates-and-market-hours">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">from</span> datetime <span class="k">import</span> datetime, time, timedelta
+<span class="c"># text → datetime</span>
+dt <span class="o">=</span> datetime<span class="o">.</span><span class="f">strptime</span>(<span class="s">"2026-06-25 09:15"</span>, <span class="s">"%Y-%m-%d %H:%M"</span>)
+dt<span class="o">.</span><span class="f">strftime</span>(<span class="s">"%A %d %b %Y"</span>)              <span class="c"># datetime → text</span>
+dt <span class="o">+</span> <span class="f">timedelta</span>(weeks<span class="o">=</span><span class="n">1</span>); dt <span class="o">-</span> <span class="f">timedelta</span>(minutes<span class="o">=</span><span class="n">90</span>)
+<span class="k">def</span> <span class="f">market_open</span>(dt):                    <span class="c"># NSE cash 09:15–15:30 IST</span>
+    in_hours <span class="o">=</span> <span class="f">time</span>(<span class="n">9</span>, <span class="n">15</span>) <span class="o">&lt;=</span> dt<span class="o">.</span><span class="f">time</span>() <span class="o">&lt;=</span> <span class="f">time</span>(<span class="n">15</span>, <span class="n">30</span>)
+    <span class="k">return</span> dt<span class="o">.</span><span class="f">weekday</span>() <span class="o">&lt;</span> <span class="n">5</span> <span class="k">and</span> in_hours</pre><div class="tw"><table>
+<tr><th>Code</th><th>Meaning</th><th>Code</th><th>Meaning</th></tr>
+<tr><td><code>%Y %m %d</code></td><td>Year, month, day</td><td><code>%H %M</code></td><td>24-hour, minute</td></tr>
+<tr><td><code>%I %p</code></td><td>12-hour, AM/PM</td><td><code>%A %b</code></td><td>Weekday, short month</td></tr>
+</table></div><p><code>weekday()</code> is Mon 0 to Sun 6 and knows nothing about exchange holidays: keep a holiday list.</p></div>
+<div class="card g" data-ck="the-unstuck-ladder" data-skey="ovpy:libraries-files-and-robust-code/the-unstuck-ladder" id="the-unstuck-ladder"><h3 data-label="The unstuck ladder">The unstuck ladder<a aria-label="Link to this card" class="anchor" href="#the-unstuck-ladder">#</a></h3><ol class="steps">
+<li><b>Read the error:</b> the last line names the problem.</li>
+<li><b>Ask Python:</b> <code>type(x)</code> (what is it?), <code>dir(x)</code> (what can it do?), <code>help(x)</code> (how?).</li>
+<li><b>Search the exact message</b>, in quotes.</li>
+<li><b>Shrink it</b> to the smallest snippet that still fails; that often reveals the bug.</li>
+<li><b>Ask clearly:</b> code, output, and what you tried.</li>
+</ol><p>Experts look things up constantly. Be wary of pasting code you don't understand, from anywhere.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#core"><span>Previous</span>02 · Core programming: data structures, decisions, loops and functions</a><a class="sn-next" href="#pandas"><span>Next</span>04 · NumPy and pandas: arrays, tables, cleaning, time series and charts</a></nav></section>
+<section class="sec t" data-origin="ovpy" data-sid="pandas" id="pandas"><h2 data-label="NumPy and pandas: arrays, tables, cleaning, time series and charts"><span class="n">04</span>NumPy and pandas: arrays, tables, cleaning, time series and charts</h2>
+<p class="src">OpenAlgo Open Varsity · Python for Traders · chapters 25–32 (<a href="https://www.openalgo.in/fundamentals/numpy-basics">NumPy</a>, <a href="https://www.openalgo.in/fundamentals/pandas-series">Series</a>, <a href="https://www.openalgo.in/fundamentals/dataframes">DataFrames</a>, <a href="https://www.openalgo.in/fundamentals/loading-data">loading data</a>, <a href="https://www.openalgo.in/fundamentals/data-cleaning">cleaning</a>, <a href="https://www.openalgo.in/fundamentals/dates-in-pandas">time series</a>, <a href="https://www.openalgo.in/fundamentals/grouping-data">grouping</a>, <a href="https://www.openalgo.in/fundamentals/visualization">charts</a>)</p>
+<div class="g2">
+<div class="card t" data-ck="numpy-vectorised-maths" data-skey="ovpy:numpy-and-pandas-arrays-tables-cleaning-time-ser/numpy-vectorised-maths" id="numpy-vectorised-maths"><h3 data-label="NumPy: vectorised maths">NumPy: vectorised maths<a aria-label="Link to this card" class="anchor" href="#numpy-vectorised-maths">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">import</span> numpy <span class="k">as</span> np
+c <span class="o">=</span> np<span class="o">.</span><span class="f">array</span>([<span class="n">291.58</span>, <span class="n">295.63</span>, <span class="n">291.13</span>, <span class="n">296.42</span>, <span class="n">299.24</span>])
+c <span class="o">-</span> c[<span class="n">0</span>]                         <span class="c"># rebase to day 1</span>
+c <span class="o">/</span> c[<span class="n">0</span>] <span class="o">*</span> <span class="n">100</span>                   <span class="c"># % of start</span>
+ret <span class="o">=</span> np<span class="o">.</span><span class="f">diff</span>(c) <span class="o">/</span> c[:<span class="o">-</span><span class="n">1</span>] <span class="o">*</span> <span class="n">100</span>  <span class="c"># daily returns, no loop</span>
+(c <span class="o">&gt;</span> c<span class="o">.</span><span class="f">mean</span>())<span class="o">.</span><span class="f">sum</span>()             <span class="c"># count days above average</span>
+np<span class="o">.</span><span class="f">where</span>(ret <span class="o">&gt;</span> <span class="n">0</span>, <span class="s">"up"</span>, <span class="s">"down"</span>)
+rng <span class="o">=</span> np<span class="o">.</span>random<span class="o">.</span><span class="f">default_rng</span>(<span class="n">42</span>); rng<span class="o">.</span><span class="f">normal</span>(<span class="n">0</span>, <span class="n">1</span>, <span class="n">5</span>)</pre><ul>
+<li>Arrays hold one numeric type and one shape; <code>.shape</code>, <code>.ndim</code>, <code>.reshape</code>, <code>.T</code>.</li>
+<li><code>axis=0</code> runs down columns, <code>axis=1</code> across rows; scalars and smaller arrays broadcast.</li>
+<li><code>*</code> is element-wise, not matrix multiplication. NumPy's <code>std</code> defaults to population (ddof 0), pandas to sample (ddof 1).</li>
+</ul></div>
+<div class="card b" data-ck="pandas-series" data-skey="ovpy:numpy-and-pandas-arrays-tables-cleaning-time-ser/pandas-series" id="pandas-series"><h3 data-label="pandas Series">pandas Series<a aria-label="Link to this card" class="anchor" href="#pandas-series">#</a></h3><div class="tw"><table>
+<tr><th>Job</th><th>Methods</th></tr>
+<tr><td>Peek</td><td><code>head tail describe value_counts</code></td></tr>
+<tr><td>Running</td><td><code>cumsum cumprod cummax rolling(n).mean() expanding()</code></td></tr>
+<tr><td>Change</td><td><code>pct_change diff shift clip</code></td></tr>
+<tr><td>Filter and rank</td><td><code>s[s &gt; x] between nlargest nsmallest where</code></td></tr>
+<tr><td>Transform</td><td><code>apply map round astype fillna sort_values</code></td></tr>
+</table></div><ul>
+<li>A Series is values plus an <b>index</b> (dates, symbols) that travels with every operation.</li>
+<li><code>s.pct_change() * 100</code> is the go-to for returns; its first value is NaN.</li>
+<li><code>iloc[0:3]</code> excludes the stop; <code>loc["Tue":"Thu"]</code> includes it.</li>
+<li><code>apply</code> is a Python loop in disguise: prefer built-in methods.</li>
+</ul></div>
+<div class="card p full" data-ck="dataframes-select-filter-add-combine" data-skey="ovpy:numpy-and-pandas-arrays-tables-cleaning-time-ser/dataframes-select-filter-add-combine" id="dataframes-select-filter-add-combine"><h3 data-label="DataFrames: select, filter, add, combine">DataFrames: select, filter, add, combine<a aria-label="Link to this card" class="anchor" href="#dataframes-select-filter-add-combine">#</a></h3><div class="tw"><table>
+<tr><th>Task</th><th>Syntax</th></tr>
+<tr><td>One / several columns</td><td><code>df["Close"]</code>, <code>df[["Open", "Close"]]</code></td></tr>
+<tr><td>By label / position</td><td><code>df.loc["2026-06-24", "Close"]</code>, <code>df.iloc[0:2, 0:4]</code></td></tr>
+<tr><td>Filter</td><td><code>df[(df["Chg%"] &gt; 2) &amp; (df["Range"] &gt; 40)]</code> (use &amp; and |, parenthesise each)</td></tr>
+<tr><td>New column</td><td><code>df["Chg%"] = (df["Close"] - df["Open"]) / df["Open"] * 100</code></td></tr>
+<tr><td>Conditional column</td><td><code>np.where(df["Close"] &gt;= df["Open"], "up", "down")</code></td></tr>
+<tr><td>Sort, stack, join</td><td><code>sort_values("Range", ascending=False)</code>, <code>pd.concat([a, b])</code>, <code>a.merge(b, on="Symbol")</code></td></tr>
+<tr><td>Inspect</td><td><code>shape info dtypes describe head tail</code></td></tr>
+</table></div><p>Gotcha: <code>yf.download()</code> returns two-level columns (field, ticker), so <code>df["Close"]</code> is a table; use <code>df["Close"]["AAPL"]</code> or <code>droplevel(1, axis=1)</code>. <code>yf.Ticker(t).history()</code> returns flat columns.</p></div>
+<div class="card g" data-ck="loading-market-data" data-skey="ovpy:numpy-and-pandas-arrays-tables-cleaning-time-ser/loading-market-data" id="loading-market-data"><h3 data-label="Loading market data">Loading market data<a aria-label="Link to this card" class="anchor" href="#loading-market-data">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">import</span> yfinance <span class="k">as</span> yf<span class="o">,</span> pandas <span class="k">as</span> pd
+<span class="c"># .NS for NSE on Yahoo</span>
+df <span class="o">=</span> yf<span class="o">.</span><span class="t">Ticker</span>(<span class="s">"RELIANCE.NS"</span>)<span class="o">.</span><span class="f">history</span>(period<span class="o">=</span><span class="s">"6mo"</span>)
+df <span class="o">=</span> df<span class="o">.</span><span class="f">round</span>(<span class="n">2</span>)<span class="o">.</span><span class="f">dropna</span>()  <span class="c"># today's bar may be empty until close</span>
+df<span class="o">.</span><span class="f">to_csv</span>(<span class="s">"reliance.csv"</span>)
+df <span class="o">=</span> pd<span class="o">.</span><span class="f">read_csv</span>(<span class="s">"reliance.csv"</span>, index_col<span class="o">=</span><span class="s">"Date"</span>,
+                 parse_dates<span class="o">=</span><span class="b">True</span>)
+df<span class="o">.</span><span class="f">describe</span>()</pre><p>Fetch once, save, then work offline. Without <code>index_col</code> you get a 0, 1, 2 counter; without <code>parse_dates=True</code> dates stay text and time maths fails.</p></div>
+<div class="card r" data-ck="cleaning-checklist" data-skey="ovpy:numpy-and-pandas-arrays-tables-cleaning-time-ser/cleaning-checklist" id="cleaning-checklist"><h3 data-label="Cleaning checklist">Cleaning checklist<a aria-label="Link to this card" class="anchor" href="#cleaning-checklist">#</a></h3><div class="tw"><table>
+<tr><th>Problem</th><th>Fix</th></tr>
+<tr><td>Missing values at the end</td><td><code>dropna()</code></td></tr>
+<tr><td>Gap in the middle</td><td><code>ffill()</code> carries the last value</td></tr>
+<tr><td>Numbers stored as text</td><td><code>.astype(float)</code></td></tr>
+<tr><td>Duplicate rows</td><td><code>drop_duplicates()</code></td></tr>
+<tr><td>Impossible values</td><td>Spot with <code>describe()</code>, then investigate</td></tr>
+</table></div><p>Five-line check on every dataset: <code>shape</code>, <code>isna().sum()</code>, <code>dtypes</code>, <code>duplicated().sum()</code>, <code>describe()</code>. Never <code>fillna(0)</code> a price, and test missing values with <code>isna()</code> because <code>NaN == NaN</code> is False.</p></div>
+<div class="card o" data-ck="time-series-slice-resample-roll-shift" data-skey="ovpy:numpy-and-pandas-arrays-tables-cleaning-time-ser/time-series-slice-resample-roll-shift" id="time-series-slice-resample-roll-shift"><h3 data-label="Time series: slice, resample, roll, shift">Time series: slice, resample, roll, shift<a aria-label="Link to this card" class="anchor" href="#time-series-slice-resample-roll-shift">#</a></h3><pre class="code" data-hl="py" data-lang="py">close <span class="o">=</span> df[<span class="s">"Close"</span>]<span class="o">.</span><span class="f">sort_index</span>()          <span class="c"># time order first!</span>
+close<span class="o">.</span>loc[<span class="s">"2026-05"</span>]                      <span class="c"># a whole month</span>
+close<span class="o">.</span>loc[<span class="s">"2026-06-01"</span>:<span class="s">"2026-06-10"</span>]
+weekly <span class="o">=</span> close<span class="o">.</span><span class="f">resample</span>(<span class="s">"W"</span>)<span class="o">.</span><span class="f">last</span>()       <span class="c"># daily → weekly</span>
+ohlc <span class="o">=</span> close<span class="o">.</span><span class="f">resample</span>(<span class="s">"ME"</span>)<span class="o">.</span><span class="f">agg</span>([<span class="s">"first"</span>, <span class="s">"max"</span>, <span class="s">"min"</span>, <span class="s">"last"</span>])
+sma20 <span class="o">=</span> close<span class="o">.</span><span class="f">rolling</span>(<span class="n">20</span>)<span class="o">.</span><span class="f">mean</span>()          <span class="c"># first 19 values NaN</span>
+ret <span class="o">=</span> (close <span class="o">/</span> close<span class="o">.</span><span class="f">shift</span>(<span class="n">1</span>) <span class="o">-</span> <span class="n">1</span>) <span class="o">*</span> <span class="n">100</span></pre><p>Frequency codes: <code>"W"</code> week, <code>"ME"</code> month-end, <code>"QE"</code> quarter-end, <code>"B"</code> business day, <code>"h"</code> hour, <code>"min"</code> minute. First, max, min, last build open, high, low, close.</p></div>
+<div class="card y" data-ck="grouping-split-apply-combine" data-skey="ovpy:numpy-and-pandas-arrays-tables-cleaning-time-ser/grouping-split-apply-combine" id="grouping-split-apply-combine"><h3 data-label="Grouping: split, apply, combine">Grouping: split, apply, combine<a aria-label="Link to this card" class="anchor" href="#grouping-split-apply-combine">#</a></h3><pre class="code" data-hl="py" data-lang="py">ret <span class="o">=</span> df[<span class="s">"Close"</span>]<span class="o">.</span><span class="f">pct_change</span>()<span class="o">.</span><span class="f">dropna</span>() <span class="o">*</span> <span class="n">100</span>
+ret<span class="o">.</span><span class="f">groupby</span>(ret<span class="o">.</span>index<span class="o">.</span><span class="f">day_name</span>())<span class="o">.</span><span class="f">mean</span>()          <span class="c"># by weekday</span>
+monthly <span class="o">=</span> ret<span class="o">.</span><span class="f">groupby</span>(ret<span class="o">.</span>index<span class="o">.</span><span class="f">to_period</span>(<span class="s">"M"</span>))
+monthly<span class="o">.</span><span class="f">agg</span>([<span class="s">"mean"</span>, <span class="s">"std"</span>, <span class="s">"min"</span>, <span class="s">"max"</span>])
+<span class="c"># long format</span>
+basket<span class="o">.</span><span class="f">groupby</span>(<span class="s">"Stock"</span>)[<span class="s">"Return"</span>]<span class="o">.</span><span class="f">agg</span>([<span class="s">"mean"</span>, <span class="s">"std"</span>])</pre><ul>
+<li>Standard deviation of returns is a quick volatility ranking.</li>
+<li>Groups sort alphabetically (Friday before Monday): <code>reindex</code> to your order.</li>
+<li>Six months is far too little data to claim a weekday effect; learn the mechanics, not the "pattern".</li>
+</ul></div>
+<div class="card b" data-ck="charts-that-tell-the-truth" data-skey="ovpy:numpy-and-pandas-arrays-tables-cleaning-time-ser/charts-that-tell-the-truth" id="charts-that-tell-the-truth"><h3 data-label="Charts that tell the truth">Charts that tell the truth<a aria-label="Link to this card" class="anchor" href="#charts-that-tell-the-truth">#</a></h3><div class="tw"><table>
+<tr><th>Chart</th><th>Use for</th></tr>
+<tr><td>Line</td><td>Price or equity over time</td></tr>
+<tr><td>Histogram of returns</td><td>Risk and fat tails</td></tr>
+<tr><td>Rebased lines (start = 100)</td><td>Comparing growth of different stocks</td></tr>
+<tr><td>Bar</td><td>Comparing categories</td></tr>
+<tr><td>Subplots</td><td>Price beside its return distribution</td></tr>
+</table></div><pre class="code" data-hl="py" data-lang="py">fig, ax <span class="o">=</span> plt<span class="o">.</span><span class="f">subplots</span>(figsize<span class="o">=</span>(<span class="n">8</span>, <span class="n">4</span>))
+rebased <span class="o">=</span> close <span class="o">/</span> close<span class="o">.</span>iloc[<span class="n">0</span>] <span class="o">*</span> <span class="n">100</span>
+ax<span class="o">.</span><span class="f">plot</span>(close<span class="o">.</span>index, rebased, label<span class="o">=</span><span class="s">"RELIANCE"</span>)
+ax<span class="o">.</span><span class="f">set_title</span>(<span class="s">"Rebased to 100"</span>); ax<span class="o">.</span><span class="f">legend</span>()
+plt<span class="o">.</span><span class="f">savefig</span>(<span class="s">"chart.png"</span>, dpi<span class="o">=</span><span class="n">110</span>, bbox_inches<span class="o">=</span><span class="s">"tight"</span>)</pre></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#libs"><span>Previous</span>03 · Libraries, files and robust code</a><a class="sn-next" href="#markets"><span>Next</span>05 · Python for the markets: symbols, timings, OHLCV, APIs and returns</a></nav></section>
+<section class="sec r" data-origin="ovpy" data-sid="markets" id="markets"><h2 data-label="Python for the markets: symbols, timings, OHLCV, APIs and returns"><span class="n">05</span>Python for the markets: symbols, timings, OHLCV, APIs and returns</h2>
+<p class="src">OpenAlgo Open Varsity · Python for Traders · chapters 33–40 (<a href="https://www.openalgo.in/fundamentals/market-landscape">market landscape</a>, <a href="https://www.openalgo.in/fundamentals/symbols-and-tickers">symbols and lot sizes</a>, <a href="https://www.openalgo.in/fundamentals/money-timings-holidays">money, timings, holidays</a>, <a href="https://www.openalgo.in/fundamentals/ohlcv-data">OHLCV</a>, <a href="https://www.openalgo.in/fundamentals/fetching-data">HTTP</a>, <a href="https://www.openalgo.in/fundamentals/quotes-and-live">quotes</a>, <a href="https://www.openalgo.in/fundamentals/websockets-concept">WebSockets</a>, <a href="https://www.openalgo.in/fundamentals/returns-signals-performance">returns and signals</a>)</p>
+<div class="g2">
+<div class="card r" data-ck="the-market-landscape" data-skey="ovpy:python-for-the-markets-symbols-timings-ohlcv-api/the-market-landscape" id="the-market-landscape"><h3 data-label="The market landscape">The market landscape<a aria-label="Link to this card" class="anchor" href="#the-market-landscape">#</a></h3><div class="tw"><table>
+<tr><th>Layer</th><th>India</th><th>US</th></tr>
+<tr><td>Regulator</td><td><abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr></td><td>SEC</td></tr>
+<tr><td>Exchanges</td><td><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr>, <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> (1875)</td><td>NYSE, Nasdaq</td></tr>
+<tr><td>Holding shares</td><td>Demat at NSDL / CDSL</td><td>Broker custody</td></tr>
+<tr><td>Headline indices</td><td>Nifty 50, Sensex</td><td>S&amp;P 500, Nasdaq Composite, Dow</td></tr>
+<tr><td>Segments</td><td colspan="2">Cash (shares) and derivatives (futures and options)</td></tr>
+</table></div><p>Data flows exchange → vendor → your tool. Delayed data is for study; live data is for trading. Index symbols such as <code>^NSEI</code> or <code>^GSPC</code> are not tradeable.</p></div>
+<div class="card b" data-ck="one-stock-many-symbols" data-skey="ovpy:python-for-the-markets-symbols-timings-ohlcv-api/one-stock-many-symbols" id="one-stock-many-symbols"><h3 data-label="One stock, many symbols">One stock, many symbols<a aria-label="Link to this card" class="anchor" href="#one-stock-many-symbols">#</a></h3><div class="tw"><table>
+<tr><th>System</th><th>Format</th><th>Example</th></tr>
+<tr><td><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> / <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr></td><td>Plain symbol</td><td><code>RELIANCE</code></td></tr>
+<tr><td>Yahoo, NSE</td><td><code>.NS</code> suffix</td><td><code>RELIANCE.NS</code></td></tr>
+<tr><td>Yahoo, BSE</td><td><code>.BO</code> suffix</td><td><code>RELIANCE.BO</code></td></tr>
+<tr><td>Yahoo, US</td><td>No suffix</td><td><code>AAPL</code></td></tr>
+<tr><td>Yahoo, index</td><td><code>^</code> prefix</td><td><code>^NSEI</code></td></tr>
+<tr><td>Global ID</td><td>ISIN</td><td><code>INE002A01018</code></td></tr>
+</table></div><pre class="code" data-hl="py" data-lang="py"><span class="b">SUFFIX</span> <span class="o">=</span> {<span class="s">"NSE"</span>: <span class="s">".NS"</span>, <span class="s">"BSE"</span>: <span class="s">".BO"</span>, <span class="s">"US"</span>: <span class="s">""</span>}
+<span class="k">def</span> <span class="f">to_yahoo</span>(sym, exch):
+    <span class="c"># KeyError beats a silent wrong ticker</span>
+    <span class="k">return</span> sym <span class="o">+</span> <span class="b">SUFFIX</span>[exch]</pre><p>A wrong suffix returns an empty result, not an error. Keep one mapper so strategy code uses plain symbols.</p></div>
+<div class="card y" data-ck="lot-sizes-and-contract-value" data-skey="ovpy:python-for-the-markets-symbols-timings-ohlcv-api/lot-sizes-and-contract-value" id="lot-sizes-and-contract-value"><h3 data-label="Lot sizes and contract value">Lot sizes and contract value<a aria-label="Link to this card" class="anchor" href="#lot-sizes-and-contract-value">#</a></h3><div class="formula"><span class="fl">contract value = price × lot size</span><span class="fl">RELIANCE: ₹1,313.60 × 500 ≈ ₹6.57 lakh</span><span class="fl">TCS: ₹2,109 × 175 ≈ ₹3.69 lakh</span></div><p>Futures and options trade in fixed lots, and exchanges revise lot sizes periodically under <abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> rules. Fetch current lot sizes from the exchange or broker instead of hard-coding them.</p></div>
+<div class="card g" data-ck="money-formatting-and-market-hours" data-skey="ovpy:python-for-the-markets-symbols-timings-ohlcv-api/money-formatting-and-market-hours" id="money-formatting-and-market-hours"><h3 data-label="Money formatting and market hours">Money formatting and market hours<a aria-label="Link to this card" class="anchor" href="#money-formatting-and-market-hours">#</a></h3><div class="tw"><table>
+<tr><th>Session</th><th>Local</th><th>In IST</th></tr>
+<tr><td><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> pre-open</td><td>09:00–09:15</td><td>09:00–09:15</td></tr>
+<tr><td>NSE cash</td><td>09:15–15:30, weekdays</td><td>09:15–15:30</td></tr>
+<tr><td>US cash</td><td>09:30–16:00 ET</td><td>19:00–01:30 next day in US summer time; an hour later in winter</td></tr>
+</table></div><pre class="code" data-hl="py" data-lang="py"><span class="k">from</span> zoneinfo <span class="k">import</span> <span class="t">ZoneInfo</span>
+<span class="b">NY</span> <span class="o">=</span> <span class="t">ZoneInfo</span>(<span class="s">"America/New_York"</span>)
+ny <span class="o">=</span> <span class="f">datetime</span>(<span class="n">2026</span>, <span class="n">6</span>, <span class="n">25</span>, <span class="n">9</span>, <span class="n">30</span>, tzinfo<span class="o">=</span><span class="b">NY</span>)
+ny<span class="o">.</span><span class="f">astimezone</span>(<span class="t">ZoneInfo</span>(<span class="s">"Asia/Kolkata"</span>))      <span class="c"># 19:00 IST (EDT)</span></pre><ul>
+<li>Lakh = 1,00,000; crore = 1,00,00,000 = 100 lakh = 10 million. Indian grouping is 2-2-3: 18016237 → 1,80,16,237 (Python's <code>:,</code> gives Western grouping, so write a small helper).</li>
+<li>IST is UTC+5:30, a half-hour offset. Never hard-code offsets across daylight saving; attach a zone.</li>
+<li>A weekend check misses exchange holidays (Republic Day, Holi, Diwali…); load the exchange's annual list. Diwali Muhurat is a one-hour exception.</li>
+</ul></div>
+<div class="card t" data-ck="working-with-ohlcv" data-skey="ovpy:python-for-the-markets-symbols-timings-ohlcv-api/working-with-ohlcv" id="working-with-ohlcv"><h3 data-label="Working with OHLCV">Working with OHLCV<a aria-label="Link to this card" class="anchor" href="#working-with-ohlcv">#</a></h3><pre class="code" data-hl="py" data-lang="py">df <span class="o">=</span> pd<span class="o">.</span><span class="f">read_csv</span>(<span class="s">"reliance.csv"</span>, index_col<span class="o">=</span><span class="s">"Date"</span>,
+                 parse_dates<span class="o">=</span><span class="b">True</span>)
+bar <span class="o">=</span> df<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>]                       <span class="c"># latest bar</span>
+df[<span class="s">"Range"</span>] <span class="o">=</span> df[<span class="s">"High"</span>] <span class="o">-</span> df[<span class="s">"Low"</span>]    <span class="c"># volatility gauge</span>
+df[<span class="s">"Body"</span>] <span class="o">=</span> df[<span class="s">"Close"</span>] <span class="o">-</span> df[<span class="s">"Open"</span>]   <span class="c"># net move within the day</span>
+df[<span class="s">"Ret%"</span>] <span class="o">=</span> df[<span class="s">"Close"</span>]<span class="o">.</span><span class="f">pct_change</span>() <span class="o">*</span> <span class="n">100</span>
+(df[<span class="s">"Close"</span>] <span class="o">&gt;=</span> df[<span class="s">"Open"</span>])<span class="o">.</span><span class="f">sum</span>()       <span class="c"># up days</span>
+df[<span class="s">"Range"</span>]<span class="o">.</span><span class="f">idxmax</span>()                    <span class="c"># widest day</span></pre><ul>
+<li>One bar: O 1305.7, H 1322.0, L 1297.5, C 1313.6 → range 24.5, body +7.9.</li>
+<li>Body sign compares close with this bar's open; return compares with the previous close. They can disagree.</li>
+<li>In the course's 124-day sample: 60 up days, 64 down, close to a coin flip.</li>
+</ul></div>
+<div class="card p" data-ck="fetching-data-over-http" data-skey="ovpy:python-for-the-markets-symbols-timings-ohlcv-api/fetching-data-over-http" id="fetching-data-over-http"><h3 data-label="Fetching data over HTTP">Fetching data over HTTP<a aria-label="Link to this card" class="anchor" href="#fetching-data-over-http">#</a></h3><pre class="code" data-hl="py" data-lang="py"><span class="k">import</span> os<span class="o">,</span> requests
+url <span class="o">=</span> os<span class="o">.</span><span class="f">getenv</span>(<span class="s">"OPENALGO_HOST"</span>) <span class="o">+</span> <span class="s">"/api/v1/quotes"</span>
+<span class="c"># never hard-code keys</span>
+body <span class="o">=</span> {<span class="s">"apikey"</span>: os<span class="o">.</span><span class="f">getenv</span>(<span class="s">"OPENALGO_API_KEY"</span>),
+        <span class="s">"symbol"</span>: <span class="s">"RELIANCE"</span>, <span class="s">"exchange"</span>: <span class="s">"NSE"</span>}
+<span class="k">try</span>:
+    <span class="c"># always a timeout</span>
+    r <span class="o">=</span> requests<span class="o">.</span><span class="f">post</span>(url, json<span class="o">=</span>body, timeout<span class="o">=</span><span class="n">10</span>)
+    r<span class="o">.</span><span class="f">raise_for_status</span>()  <span class="c"># 4xx / 5xx → error</span>
+    q <span class="o">=</span> r<span class="o">.</span><span class="f">json</span>()[<span class="s">"data"</span>]
+    <span class="bi">print</span>(q[<span class="s">"ltp"</span>], q<span class="o">.</span><span class="f">get</span>(<span class="s">"bid"</span>))
+<span class="k">except</span> requests<span class="o">.</span><span class="t">RequestException</span> <span class="k">as</span> e:
+    <span class="bi">print</span>(<span class="s">"network problem:"</span>, e)</pre><div class="tw"><table>
+<tr><th>Status</th><th>Meaning</th></tr>
+<tr><td>200</td><td>OK</td></tr>
+<tr><td>404</td><td>Endpoint not found</td></tr>
+<tr><td>500</td><td>Server error</td></tr>
+</table></div><p>The universal pattern: request, check status, parse JSON. GET fetches; POST sends a JSON body. Keep keys in environment variables, never in code or GitHub. An SDK such as OpenAlgo's hides the boilerplate and can return history as a DataFrame.</p></div>
+<div class="card o" data-ck="quotes-delayed-vs-live-polling-vs-streaming" data-skey="ovpy:python-for-the-markets-symbols-timings-ohlcv-api/quotes-delayed-vs-live-polling-vs-streaming" id="quotes-delayed-vs-live-polling-vs-streaming"><h3 data-label="Quotes: delayed vs live, polling vs streaming">Quotes: delayed vs live, polling vs streaming<a aria-label="Link to this card" class="anchor" href="#quotes-delayed-vs-live-polling-vs-streaming">#</a></h3><div class="tw"><table>
+<tr><th>Field</th><th>Meaning</th></tr>
+<tr><td><code>ltp</code></td><td>Last traded price</td></tr>
+<tr><td><code>prev_close</code></td><td>Yesterday's close; change = ltp − prev_close</td></tr>
+<tr><td><code>open high low</code></td><td>Today so far</td></tr>
+<tr><td><code>bid ask</code></td><td>Top of the book; spread = ask − bid</td></tr>
+<tr><td><code>volume</code></td><td>Shares traded today</td></tr>
+</table></div><ul>
+<li>yfinance is free but delayed about 15 minutes: fine for study and backtests, never for placing orders. Broker-fed APIs are live.</li>
+<li>The gap between delayed and live widens when price moves fast.</li>
+<li>Sandboxes may return zeros for fields other than the last price; that is expected, not a bug.</li>
+</ul></div>
+<div class="card b" data-ck="websockets-polling-pulls-streaming-pushes" data-skey="ovpy:python-for-the-markets-symbols-timings-ohlcv-api/websockets-polling-pulls-streaming-pushes" id="websockets-polling-pulls-streaming-pushes"><h3 data-label="WebSockets: polling pulls, streaming pushes">WebSockets: polling pulls, streaming pushes<a aria-label="Link to this card" class="anchor" href="#websockets-polling-pulls-streaming-pushes">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Polling (HTTP)</th><th>WebSocket</th></tr>
+<tr><td>Pattern</td><td>Ask, reply, repeat</td><td>Subscribe once, server pushes ticks</td></tr>
+<tr><td>Connection</td><td>New per request</td><td>One long-lived, two-way</td></tr>
+<tr><td>Latency</td><td>As often as you ask</td><td>Near-instant per tick</td></tr>
+<tr><td>Best for</td><td>Occasional checks, history</td><td>Live dashboards, tick-level reactions</td></tr>
+</table></div><p>You write a callback that receives each tick; the SDK handles the handshake, drops and reconnects. Beginners rarely need streaming: polling is simpler for checking prices or studying history, and hand-written socket code is error-prone.</p></div>
+<div class="card r full" data-ck="prices-returns-signal-scorecard" data-skey="ovpy:python-for-the-markets-symbols-timings-ohlcv-api/prices-returns-signal-scorecard" id="prices-returns-signal-scorecard"><h3 data-label="Prices → returns → signal → scorecard">Prices → returns → signal → scorecard<a aria-label="Link to this card" class="anchor" href="#prices-returns-signal-scorecard">#</a></h3><pre class="code" data-hl="py" data-lang="py">close <span class="o">=</span> df[<span class="s">"Close"</span>]
+ret <span class="o">=</span> close<span class="o">.</span><span class="f">pct_change</span>()
+growth <span class="o">=</span> (<span class="n">1</span> <span class="o">+</span> ret)<span class="o">.</span><span class="f">cumprod</span>()                       <span class="c"># growth of ₹1</span>
+total <span class="o">=</span> (growth<span class="o">.</span>iloc[<span class="o">-</span><span class="n">1</span>] <span class="o">-</span> <span class="n">1</span>) <span class="o">*</span> <span class="n">100</span>
+fast, slow <span class="o">=</span> close<span class="o">.</span><span class="f">rolling</span>(<span class="n">10</span>)<span class="o">.</span><span class="f">mean</span>(), close<span class="o">.</span><span class="f">rolling</span>(<span class="n">30</span>)<span class="o">.</span><span class="f">mean</span>()
+position <span class="o">=</span> (fast <span class="o">&gt;</span> slow)<span class="o">.</span><span class="f">astype</span>(<span class="bi">int</span>)  <span class="c"># 1 = in the market</span>
+trades <span class="o">=</span> position<span class="o">.</span><span class="f">diff</span>()  <span class="c"># +1 buy, −1 sell</span>
+strat <span class="o">=</span> position<span class="o">.</span><span class="f">shift</span>(<span class="n">1</span>) <span class="o">*</span> ret  <span class="c"># act on the NEXT bar</span>
+win_rate <span class="o">=</span> (ret <span class="o">&gt;</span> <span class="n">0</span>)<span class="o">.</span><span class="f">sum</span>() <span class="o">/</span> ret<span class="o">.</span><span class="f">notna</span>()<span class="o">.</span><span class="f">sum</span>()
+drawdown <span class="o">=</span> (growth <span class="o">/</span> growth<span class="o">.</span><span class="f">cummax</span>() <span class="o">-</span> <span class="n">1</span>) <span class="o">*</span> <span class="n">100</span>
+max_dd <span class="o">=</span> drawdown<span class="o">.</span><span class="f">min</span>()</pre><ul>
+<li>In the course's six-month RELIANCE sample: buy-and-hold −15.31%, best day +3.36%, worst −4.60%, 44.7% up days, max drawdown −20.58%. Buy-and-hold can lose.</li>
+<li>The course's scorecard measures the stock's own returns; to judge a strategy, score <code>strat</code>. The <code>shift(1)</code> is our addition: a signal from today's close can only be acted on tomorrow, otherwise the test peeks into the future.</li>
+<li>Six months, no costs and one stock prove nothing: distrust attractive results. The Algo Trading and Quant sheets go further.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#pandas"><span>Previous</span>04 · NumPy and pandas: arrays, tables, cleaning, time series and charts</a><a class="sn-next" href="#last"><span>Next</span>06 · Checklists and quick reference</a></nav></section>
+<section class="sec g" data-origin="ovpy" data-sid="last" id="last"><h2 data-label="Checklists and quick reference"><span class="n">06</span>Checklists and quick reference</h2>
+<p>Keep these next to your editor.</p>
+<div class="g2">
+<div class="card g" data-ck="new-project-checklist" data-skey="ovpy:checklists-and-quick-reference/new-project-checklist" id="new-project-checklist"><h3 data-label="New project checklist">New project checklist<a aria-label="Link to this card" class="anchor" href="#new-project-checklist">#</a></h3><ul>
+<li>New folder, <code>python -m venv .venv</code>, activate, install, <code>pip freeze &gt; requirements.txt</code>.</li>
+<li>API keys in environment variables, never in code.</li>
+<li>Save downloaded data to CSV; work offline from the file.</li>
+<li>Run the five-line data check before any maths.</li>
+<li>Sort time series by date before rolling, shift or resample.</li>
+</ul></div>
+<div class="card b" data-ck="bug-hunting-checklist" data-skey="ovpy:checklists-and-quick-reference/bug-hunting-checklist" id="bug-hunting-checklist"><h3 data-label="Bug-hunting checklist">Bug-hunting checklist<a aria-label="Link to this card" class="anchor" href="#bug-hunting-checklist">#</a></h3><ul>
+<li>Read the traceback from the bottom.</li>
+<li>Check <code>type()</code> of anything that came from input, files or the web.</li>
+<li><code>=</code> vs <code>==</code>; <code>&amp;</code> and parentheses in pandas filters.</li>
+<li>Slice ends: positions exclude, labels include.</li>
+<li>NaNs at the start of rolling windows and returns.</li>
+<li>Did a string method's result get assigned?</li>
+</ul></div>
+<div class="card t" data-ck="one-line-idioms" data-skey="ovpy:checklists-and-quick-reference/one-line-idioms" id="one-line-idioms"><h3 data-label="One-line idioms">One-line idioms<a aria-label="Link to this card" class="anchor" href="#one-line-idioms">#</a></h3><div class="formula"><span class="fl">pct change = (new − old) / old * 100</span><span class="fl">returns = close.pct_change()</span><span class="fl">growth = (1 + returns).cumprod()</span><span class="fl">drawdown = growth / growth.cummax() − 1</span><span class="fl">sma = close.rolling(n).mean()</span><span class="fl">weekly = close.resample("W").last()</span><span class="fl">contract value = price × lot size</span></div></div>
+<div class="card o" data-ck="about-this-sheet" data-skey="ovpy:checklists-and-quick-reference/about-this-sheet" id="about-this-sheet"><h3 data-label="About this sheet">About this sheet<a aria-label="Link to this card" class="anchor" href="#about-this-sheet">#</a></h3><p>This sheet condenses the free course <a href="https://www.openalgo.in/fundamentals">Python for Traders</a> from <a href="https://www.openalgo.in/learn">OpenAlgo Open Varsity</a> (40 chapters, 5 modules) into reference cards in our own words. Code snippets are short examples in the course's spirit, not copies. Each section links back to its chapters. Educational, not investment advice.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#markets"><span>Previous</span>05 · Python for the markets: symbols, timings, OHLCV, APIs and returns</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{"9fcb9c07189e": {"F": "Pull daily bars from yfinance (delayed, free) or a broker API such as OpenAlgo (live).", "S": "Save once with to_csv so you can work offline and get the same data every run.", "L": "read_csv with index_col=\"Date\" and parse_dates=True gives a DatetimeIndex for time-series tools.", "C": "Find gaps with isna(), drop trailing gaps, forward-fill middle gaps, fix types and remove duplicates.", "X": "Vectorised columns: pct_change returns, rolling averages, high minus low ranges.", "G": "Turn a rule into a 0 or 1 position column, and act on it from the next bar.", "K": "Growth of ₹1, win rate and maximum drawdown; one short backtest proves nothing."}}</script>
+</body></html>
