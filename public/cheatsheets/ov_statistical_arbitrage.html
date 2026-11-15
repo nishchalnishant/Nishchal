@@ -199,7 +199,7 @@
 <tr><td>Walk-forward, quarterly refit</td><td>0.62</td><td>+22.3%</td></tr>
 </table></div><ul>
 <li><b>Leak 1, out of sample:</b> about two-thirds of the edge vanished.</li>
-<li><b>Leak 2, costs:</b> 8 fills a round trip, dominated by the 0.1% sell-side <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr>; 33 trips × 0.474% = 15.9% of capital. Out-of-sample net Sharpe hits zero near a 1.9% round-trip cost.</li>
+<li><b>Leak 2, costs:</b> 8 fills a round trip, dominated by delivery <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr> (0.1% on both the buy and the sell); 33 trips × 0.474% = 15.9% of capital. Out-of-sample net Sharpe hits zero near a 1.9% round-trip cost.</li>
 <li><b>Leak 3, de-cointegration:</b> rolling 252-day p ranged 0.005–0.978 (latest 0.734) and failed the 5% test in ≈ 90% of windows; the frozen β was ≈ 63% above the test-period average, leaving directional risk.</li>
 <li><b>Leak 4, look-ahead and survivorship:</b> full-sample z normalisation inflated OOS Sharpe 0.34 → 1.12; same-bar fills flip +135% into −64%; this pair was the best of 10 bank pairs, and 5 of the 10 lost money net out of sample.</li>
 </ul></div>

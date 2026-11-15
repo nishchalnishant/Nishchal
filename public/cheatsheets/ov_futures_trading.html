@@ -66,7 +66,7 @@
 <tr><td>Margin posted</td><td>≈ ₹1.1–1.3 lakh (15–20%)</td></tr>
 <tr><td>Leverage</td><td>≈ 6×</td></tr>
 <tr><td>₹1 move</td><td>₹500 per lot</td></tr>
-<tr><td>One tick (₹0.05)</td><td>₹25 per lot</td></tr>
+<tr><td>One tick (₹0.10 for stocks priced ₹1,000–5,000)</td><td>₹50 per lot</td></tr>
 <tr><td>A 17% fall</td><td>Wipes out the whole margin</td></tr>
 </table></div><p>Size every trade by the ₹6.6 lakh you control, not the ₹1.1 lakh you post.</p></div>
 </div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#what"><span>Next</span>01 · What a future is: contracts, rivals, purpose and specs</a></nav></section>
@@ -107,7 +107,7 @@
 <tr><td>FINNIFTY</td><td>60</td></tr>
 <tr><td>MIDCPNIFTY</td><td>120</td></tr>
 <tr><td>RELIANCE</td><td>500 shares</td></tr>
-</table></div><div class="formula"><span class="fl">contract value = lot size × price</span><span class="fl">tick value = tick × lot = 0.05 × 500 = ₹25</span><span class="fl">1,318.00 → 1,318.50 = 10 ticks = ₹250 per lot</span></div><ul>
+</table></div><div class="formula"><span class="fl">contract value = lot size × price</span><span class="fl">tick value = tick × lot = 0.10 × 500 = ₹50 (NSE price-band ticks from Apr 2025)</span><span class="fl">1,318.00 → 1,318.50 = 5 ticks = ₹250 per lot</span></div><ul>
 <li><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> monthly and weekly contracts expire on <b>Tuesday</b> (monthly: the last Tuesday); <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> (SENSEX) on Thursday.</li>
 <li>OpenAlgo symbol: base + DDMMMYY + FUT, e.g. <code>RELIANCE28JUL26FUT</code>. Read it aloud before every order; options carry a strike and CE/PE instead.</li>
 <li>Exchanges revise lot sizes periodically: verify before trading.</li>
@@ -128,7 +128,7 @@
 </ul></div>
 <div class="card r" data-ck="stops-don-t-survive-gaps" data-skey="ovfut:trading-mechanics-orders-liquidity-direction-and/stops-don-t-survive-gaps" id="stops-don-t-survive-gaps"><h3 data-label="Stops don't survive gaps">Stops don't survive gaps<a aria-label="Link to this card" class="anchor" href="#stops-don-t-survive-gaps">#</a></h3><p>Long 1 RELIANCE lot from 1,318 with a stop at 1,300 (planned loss ₹9,000). The stock opens at 1,280 after bad news: the stop fills near 1,280, a ₹19,000 loss. A stop limits losses in normal trading, not across overnight gaps, so size positions for the gap, not just the stop.</p></div>
 <div class="card b" data-ck="liquidity-spread-and-slippage" data-skey="ovfut:trading-mechanics-orders-liquidity-direction-and/liquidity-spread-and-slippage" id="liquidity-spread-and-slippage"><h3 data-label="Liquidity, spread and slippage">Liquidity, spread and slippage<a aria-label="Link to this card" class="anchor" href="#liquidity-spread-and-slippage">#</a></h3><div class="formula"><span class="fl">round-trip spread cost ≈ spread (ticks) × tick value × lots</span><span class="fl">slippage cost ≈ (average fill − expected price) × lot size</span></div><ul>
-<li>One-tick spread on RELIANCE: buying at the ask and selling at the bid loses ₹25 per lot with no price change; ten round trips a day cross the spread 20 times.</li>
+<li>One-tick spread on RELIANCE: buying at the ask and selling at the bid loses ₹50 per lot with no price change; ten round trips a day cross the spread 20 times.</li>
 <li>Needing 500 when 200 are offered at 1,320.00: the other 300 fill higher. An average fill of 1,320.12 instead of 1,320.00 costs ₹60 per lot.</li>
 <li>Liquidity concentrates in near-month NIFTY and BANKNIFTY and the most active stocks; far months and small stock futures have wide spreads and gaps between levels.</li>
 <li>Read depth before any market order, use limits in thin books, keep size small relative to visible depth.</li>
@@ -194,7 +194,7 @@
 <section class="sec y" data-origin="ovfut" data-sid="pricing" id="pricing"><h2 data-label="Pricing and the cycle: basis, expiry, rollover and spreads"><span class="n">04</span>Pricing and the cycle: basis, expiry, rollover and spreads</h2>
 <p class="src">OpenAlgo Open Varsity · Futures Trading · chapters 13–16 (<a href="https://www.openalgo.in/futures/basis-and-carry">basis and carry</a>, <a href="https://www.openalgo.in/futures/expiry-calendar-and-cycle">expiry calendar</a>, <a href="https://www.openalgo.in/futures/rollover">rollover</a>, <a href="https://www.openalgo.in/futures/calendar-spread-and-basis">calendar spreads and basis</a>)</p>
 <div class="g2">
-<div class="card y" data-ck="basis-and-cost-of-carry" data-skey="ovfut:pricing-and-the-cycle-basis-expiry-rollover-and-/basis-and-cost-of-carry" id="basis-and-cost-of-carry"><h3 data-label="Basis and cost of carry">Basis and cost of carry<a aria-label="Link to this card" class="anchor" href="#basis-and-cost-of-carry">#</a></h3><div class="formula"><span class="fl">basis = futures − spot</span><span class="fl">fair future ≈ spot + spot × financing rate × days ÷ 365</span><span class="fl">1,318 × 7% × 32 ÷ 365 ≈ 8 → fair future ≈ 1,326</span></div><div class="tw"><table>
+<div class="card y" data-ck="basis-and-cost-of-carry" data-skey="ovfut:pricing-and-the-cycle-basis-expiry-rollover-and-/basis-and-cost-of-carry" id="basis-and-cost-of-carry"><h3 data-label="Basis and cost of carry">Basis and cost of carry<a aria-label="Link to this card" class="anchor" href="#basis-and-cost-of-carry">#</a></h3><div class="formula"><span class="fl">basis = futures − spot</span><span class="fl">fair future ≈ spot + spot × financing rate × days ÷ 365</span><span class="fl">1,318 × 7% × 32 ÷ 365 ≈ 8 → fair future ≈ 1,326</span><span class="fl">(the Stat Arb sheet's 6.5% less a 0.6% dividend yield over 30 days gives ≈ ₹6.4: carry moves with the rate, dividend and days assumed)</span></div><div class="tw"><table>
 <tr><th>State</th><th>Future vs spot</th><th>Usual meaning</th></tr>
 <tr><td>Premium</td><td>Above</td><td>Normal carry; calm to mildly bullish</td></tr>
 <tr><td>Discount</td><td>Below</td><td>A big dividend, or bearish positioning</td></tr>
@@ -267,7 +267,7 @@
 <li><b><abbr class="gl" data-tip="Cap on total open interest in a stock's derivatives. Above 95% the stock enters the F&amp;O ban and new positions are not allowed." data-tip-title="MWPL: Market-wide position limit">MWPL</abbr></b> (market-wide position limit) caps total open positions in one stock's <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr>, as a share of free float. Client-level and member-level limits cap individuals and brokers.</li>
 <li><b>Ban:</b> when MWPL use reaches about <b>95%</b>, the stock enters the F&amp;O ban; it exits when use falls to about <b>80%</b>.</li>
 <li>During a ban you may only <b>reduce or square off</b>: no fresh longs or shorts, no adding, even with enough margin. Closing-only trading on thin two-way interest can swing sharply.</li>
-<li>The exchange publishes the ban list daily; check it before every single-stock trade.</li>
+<li>The exchange publishes the ban list daily; check it before every single-stock trade. <abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> has been moving <abbr class="gl" data-tip="Number of futures or options contracts outstanding. Rising price with rising OI means new positions are backing the move." data-tip-title="OI: Open interest">OI</abbr> and ban measurement toward delta-based (future-equivalent) OI, so check the current circular for the exact method.</li>
 <li><b>Quantity freeze:</b> orders above a maximum size are rejected; split them.</li>
 </ul></div>
 <div class="card o" data-ck="corporate-actions-value-neutral-rescaling" data-skey="ovfut:market-controls-position-limits-bans-adjustments/corporate-actions-value-neutral-rescaling" id="corporate-actions-value-neutral-rescaling"><h3 data-label="Corporate actions: value-neutral rescaling">Corporate actions: value-neutral rescaling<a aria-label="Link to this card" class="anchor" href="#corporate-actions-value-neutral-rescaling">#</a></h3><div class="formula"><span class="fl">adjustment factor = new shares per old share</span><span class="fl">new lot = old lot × factor;  new strike = old strike ÷ factor</span></div><div class="tw"><table>

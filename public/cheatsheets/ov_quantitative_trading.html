@@ -239,7 +239,7 @@
 <div class="card t" data-ck="the-spread-is-the-price-of-liquidity" data-skey="ovquant:module-c-indian-market-microstructure/the-spread-is-the-price-of-liquidity" id="the-spread-is-the-price-of-liquidity"><h3 data-label="The spread is the price of liquidity">The spread is the price of liquidity<a aria-label="Link to this card" class="anchor" href="#the-spread-is-the-price-of-liquidity">#</a></h3><ul>
 <li>A chart shows past last-traded prices, not a price you can trade at. Microstructure is how orders become trades, and what that costs.</li>
 <li>Measure costs in <b>basis points</b> (1 bp = 0.01%) so they compare across price levels. A spread can never be tighter than one tick.</li>
-<li>MCX crude: spread ≈ ₹6 on ≈ ₹6,570 ≈ 9.1 bps, so a market-in, market-out round trip costs ≈ ₹91 per ₹1 lakh; ten a day ≈ ₹900–1,000 per lakh before any move.</li>
+<li>MCX crude, a wide snapshot: spread ≈ ₹6 on ≈ ₹6,570 (other cards here use calmer ₹1–2 books; spreads change minute to minute) ≈ 9.1 bps, so a market-in, market-out round trip costs ≈ ₹91 per ₹1 lakh; ten a day ≈ ₹900–1,000 per lakh before any move.</li>
 <li>RELIANCE spread proxy through one day: open ≈ 12.2 bps, midday ≈ 5.6, close ≈ 6.4. The U-shape means the open is often the most expensive minute.</li>
 <li>A strategy netting 2 bps a trade is dead against a 9 bps spread. Backtests on mid or close prices promise edges live markets don't pay.</li>
 </ul></div>
@@ -367,7 +367,7 @@
 <tr><td>Edge</td><td>Being first</td><td>Short-term signal</td><td>Research depth, patience</td></tr>
 </table></div><ul>
 <li><b>Algo</b> = no human placing orders; <b>systematic</b> = pre-defined testable rules (the opposite of discretionary); <b><abbr class="gl" data-tip="Automated strategies holding positions for milliseconds to seconds, mostly market making and arbitrage." data-tip-title="HFT: High-frequency trading">HFT</abbr></b> = a speed-defined subset of algo.</li>
-<li>NIFTY: median 1-minute move 1.4 bps vs 0.50% a day (daily ≈ 23× minute, close to √375 ≈ 19×). A 9/21 <abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr> fires ≈ 16 times a day on 1-minute bars (≈ 23-minute holds) vs once in ≈ 23 days on daily bars.</li>
+<li>NIFTY: median 1-minute move 1.4 bps vs 0.50% a day (daily ≈ 36× minute; a pure random walk would give √375 ≈ 19×, and medians of a fat-tailed series don't scale cleanly). A 9/21 <abbr class="gl" data-tip="Moving average that weights recent prices more: EMA = α × price + (1 − α) × previous EMA, with α = 2 ÷ (N + 1). Reacts faster than an SMA." data-tip-title="EMA: Exponential moving average">EMA</abbr> fires ≈ 16 times a day on 1-minute bars (≈ 23-minute holds) vs once in ≈ 23 days on daily bars.</li>
 <li>Speed buys frequency; horizon buys size. First question for any idea: what is the holding period? Seconds: drop it. Days: home ground.</li>
 </ul></div>
 <div class="card y" data-ck="latency-physics-sets-the-gap" data-skey="ovquant:module-d-hft-execution-and-trading-technology/latency-physics-sets-the-gap" id="latency-physics-sets-the-gap"><h3 data-label="Latency: physics sets the gap">Latency: physics sets the gap<a aria-label="Link to this card" class="anchor" href="#latency-physics-sets-the-gap">#</a></h3><div class="tw"><table>
