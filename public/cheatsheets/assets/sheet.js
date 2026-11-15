@@ -709,24 +709,64 @@
 
 
 
-  /* ---------- problem bank filter ---------- */
+  /* ---------- problem bank filter + marks (saved per browser) ---------- */
   function initProblemBank() {
     const card = $('.pf-card'); if (!card) return;
-    const input = $('#pf', card), count = $('#pfc', card), rows = $$('#ptab tbody tr, #ptab tr', card).filter(r => !r.querySelector('th'));
+    const input = $('#pf', card), count = $('#pfc', card), table = $('#ptab', card);
+    const rows = $$('#ptab tbody tr, #ptab tr', card).filter(r => !r.querySelector('th'));
+    const KEY = 'cs.pbMarks.v1';
+    let M = {}; try { M = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
+    const save = () => { try { localStorage.setItem(KEY, JSON.stringify(M)); } catch (e) {} };
+    const slug = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const head = table && table.querySelector('tr');
+    if (head && !head.querySelector('.pf-mk-h')) { const th = document.createElement('th'); th.className = 'pf-mk-h'; th.innerHTML = '<span class="vh">Mark to revisit</span>★'; head.insertBefore(th, head.firstChild); }
+    rows.forEach(r => {
+      const cells = r.querySelectorAll('td');
+      const id = slug((cells[0] ? cells[0].textContent : '') + ' ' + (cells[1] ? cells[1].textContent : ''));
+      r.dataset.pk = id;
+      const td = document.createElement('td'); td.className = 'pf-mk';
+      const b = document.createElement('button'); b.type = 'button';
+      const name = cells[1] ? cells[1].textContent.trim() : 'problem';
+      const paint = () => { const on = !!M[id]; b.setAttribute('aria-pressed', String(on)); b.textContent = on ? '★' : '☆';
+        b.title = on ? 'Marked to revisit (click to unmark)' : 'Mark to revisit later'; b.setAttribute('aria-label', (on ? 'Unmark ' : 'Mark ') + name); r.classList.toggle('pf-marked', on); };
+      b.addEventListener('click', e => { e.stopPropagation(); if (M[id]) delete M[id]; else M[id] = Date.now(); save(); paint(); updateMarked(); if (group === '*') run(); });
+      paint(); td.appendChild(b); r.insertBefore(td, r.firstChild);
+    });
+    const chips = $('.pf-chips', card);
+    const mchip = document.createElement('button'); mchip.type = 'button'; mchip.dataset.g = '*'; mchip.className = 'pf-mchip'; mchip.setAttribute('aria-pressed', 'false');
+    chips.insertBefore(mchip, chips.children[1] || null);
+    const nMarked = () => rows.filter(r => M[r.dataset.pk]).length;
+    function updateMarked() {
+      const n = nMarked(); mchip.innerHTML = `★ Marked<span>${n}</span>`;
+      const sp = $('#stPbMarked'); if (sp) { sp.textContent = n ? `${n} problem${n > 1 ? 's' : ''} marked to revisit` : ''; sp.hidden = !n; }
+      const go = $('#stPbGo'); if (go) go.hidden = !n;
+    }
     let group = '';
     const run = () => {
       const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean);
       let n = 0;
       rows.forEach(r => {
-        const ok = (!group || r.dataset.g === group) && terms.every(t => r.textContent.toLowerCase().includes(t));
+        const g = group === '*' ? !!M[r.dataset.pk] : (!group || r.dataset.g === group);
+        const ok = g && terms.every(t => r.textContent.toLowerCase().includes(t));
         r.classList.toggle('pf-hide', !ok); if (ok) n++;
       });
-      count.textContent = n + (n === 1 ? ' problem' : ' problems');
+      count.textContent = n + (n === 1 ? ' problem' : ' problems') + (group === '*' && !n ? ' (tap ☆ on a row to mark it)' : '');
     };
     input.addEventListener('input', debounce(run, 120));
     $$('.pf-chips button', card).forEach(b => b.addEventListener('click', () => {
       group = b.dataset.g; $$('.pf-chips button', card).forEach(x => x.setAttribute('aria-pressed', String(x === b))); run();
     }));
+    window.addEventListener('storage', e => { if (e.key === KEY) { try { M = JSON.parse(e.newValue || '{}') || {}; } catch (x) { M = {}; }
+      rows.forEach(r => { const b = r.querySelector('.pf-mk button'); const on = !!M[r.dataset.pk]; b.setAttribute('aria-pressed', String(on)); b.textContent = on ? '★' : '☆'; r.classList.toggle('pf-marked', on); }); updateMarked(); run(); } });
+    // Study panel shortcut
+    const note = document.querySelector('.study-panel .sp-note, #studyPanel .sp-note');
+    if (note && !$('#stPbMarked')) {
+      const wrap = document.createElement('div'); wrap.className = 'sp-pb';
+      wrap.innerHTML = '<span id="stPbMarked" hidden></span><button type="button" class="sp-ghost" id="stPbGo" hidden>Show marked problems</button>';
+      note.parentNode.insertBefore(wrap, note);
+      $('#stPbGo').addEventListener('click', () => { const p = $('#studyPanel'); if (p) p.hidden = true; mchip.click(); card.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    }
+    updateMarked();
   }
 
   /* ---------- first-visit guide, shortcuts, resume ---------- */

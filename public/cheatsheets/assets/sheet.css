@@ -621,3 +621,24 @@ body.buddy-open .totop{display:none}
 .rc-a>summary{padding:2px 0;font-weight:400}
 .rc-a>:not(summary){margin-left:0;margin-right:0}
 .recall .rc-list{margin-left:0}
+/* problem bank marks */
+.pf-mk-h{width:34px;text-align:center}
+.pf-mk{text-align:center;padding:2px 4px!important;width:34px}
+.pf-mk button{width:28px;height:28px;border:0;background:none;cursor:pointer;font-size:17px;line-height:1;color:var(--muted);border-radius:6px}
+.pf-mk button:hover{background:var(--sunk);color:var(--h,var(--accent))}
+.pf-mk button[aria-pressed="true"]{color:#e0a100}
+#ptab tr.pf-marked td{background:color-mix(in srgb,#e0a100 7%,transparent)}
+.pf-mchip[aria-pressed="false"]{border-style:dashed}
+.sp-pb{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0;font-size:.9em;color:var(--fg-2)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pf-scroll td:nth-child(3){min-width:180px}
+.pf-scroll td:nth-child(2){min-width:0}
+.pf-scroll td:nth-child(4),.pf-scroll td:nth-child(7),.pf-scroll td:nth-child(8){min-width:220px}
+.pf-scroll td:nth-child(3):not(.pf-mk){min-width:180px}
+.pf-scroll td:nth-child(6){min-width:0}
+/* cross-sheet "main card" links */
+.xref{margin:10px 0 0;padding:6px 10px;border-radius:6px;background:var(--sunk);font-size:.86em;color:var(--fg-2);line-height:1.5}
+.xref b{color:var(--fg);font-weight:600}
+.xref a{color:var(--h,var(--accent));text-decoration:none;font-weight:500}
+.xref a:hover{text-decoration:underline}
+.xref span{color:var(--muted)}
