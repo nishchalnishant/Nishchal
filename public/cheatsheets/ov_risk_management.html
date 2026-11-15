@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Risk Management · Cheatsheets</title>
+<meta name="description" content="Risk management for Indian markets: survival maths, the risk pyramid and money-safety base, asset allocation and rebalancing, position sizing, stops, expectancy, drawdowns, limits and heat, leverage, margin and the broker RMS, slippage and gaps, and F&amp;O risk from futures to expiry day.">
+<script>try{var t=localStorage.getItem('cs.theme');if(t)document.documentElement.dataset.theme=t;var d=localStorage.getItem('cs.density');if(d)document.documentElement.dataset.density=d;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/sheet.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script defer src="assets/sheet.js"></script>
+<script defer src="assets/study.js"></script>
+<script defer src="assets/narration/ovrisk.js"></script><script defer src="assets/narrator.js"></script>
+</head>
+<body class="s-ovrisk" data-hue="r">
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open contents" aria-expanded="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <a class="brand" href="index.html"><i>CS</i><span>Cheatsheets</span></a>
+  <nav class="tabs" aria-label="Sheets"><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><a href="index.html#ov" class="on" title="OpenAlgo Open Varsity course sheets">Open Varsity</a></nav>
+  <div class="tb-right">
+    <label class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg><input id="q" type="search" placeholder="Search…" aria-label="Search this sheet" autocomplete="off"><kbd>/</kbd><span class="count" id="qcount" aria-live="polite"></span></label>
+    <div class="study-wrap"><button class="iconbtn study-btn" id="studyBtn" type="button" aria-expanded="false" aria-controls="studyPanel">Study<span class="st-count"></span></button>
+      <div class="study-panel" id="studyPanel" hidden>
+        <p class="sp-sum" id="stSummary"></p>
+        <fieldset><legend>Show cards</legend>
+          <label><input type="radio" name="stf" value="all" checked> All</label>
+          <label><input type="radio" name="stf" value="review"> To review</label>
+          <label><input type="radio" name="stf" value="todo"> Not started</label>
+          <label><input type="radio" name="stf" value="known"> Known</label>
+        </fieldset>
+        <button type="button" class="sp-primary" id="stDrill">Start flashcards</button>
+        <button type="button" class="sp-ghost" id="stReset">Reset this sheet</button>
+        <p class="sp-note">Mark cards with Known or Review on each card. Progress is saved in this browser.</p>
+      </div></div>
+    <button class="iconbtn dens" id="densBtn" type="button" title="Change density">Compact</button>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+  <aside class="rail" aria-label="Contents">
+    <h4>On this page</h4>
+    <ol id="railList"></ol>
+    <div class="rail-sheets"><h4>Sheets</h4><a href="/">← Home</a><a href="dsa_dp_patterns.html">DSA</a><a href="ml_llm_genai.html">ML · AI · LLM</a><a href="hld_cheatsheet.html">HLD</a><a href="lld_cheatsheet.html">LLD</a><a href="system_design.html">HLD + LLD</a><a href="technical_analysis.html">Technical</a><a href="fundamental_analysis.html">Fundamental</a><h4>Open Varsity</h4><a href="ov_stock_market_basics.html">Stock basics</a><a href="ov_technical_analysis.html">OV technicals</a><a href="ov_python_for_traders.html">Python for traders</a><a href="ov_futures_trading.html">Futures</a><a href="ov_options_basics.html">Options basics</a><a href="ov_options_strategies.html">Options strategies</a><a href="ov_algo_trading_python.html">Algo trading</a><a href="ov_quantitative_trading.html">Quant trading</a><a href="ov_statistical_arbitrage.html">Stat arb</a><a href="ov_amibroker_afl.html">AmiBroker AFL</a><a href="ov_taxation.html">Taxation</a><a href="ov_risk_management.html" aria-current="page">Risk management</a></div>
+    <div class="rail-tools"><button class="iconbtn" id="expandAll" type="button">Expand all</button><button class="iconbtn" id="collapseAll" type="button">Collapse all</button></div>
+  </aside>
+  <div class="scrim"></div>
+  <main id="top">
+    <header class="hero">
+      <div><div class="kicker">Open Varsity · Beginner</div><h1>Risk Management</h1><p>Risk management for Indian markets: survival maths, the risk pyramid and money-safety base, asset allocation and rebalancing, position sizing, stops, expectancy, drawdowns, limits and heat, leverage, margin and the broker RMS, slippage and gaps, and F&amp;O risk from futures to expiry day.</p></div>
+      <div class="stats"><div><b>8</b>sections</div><div><b>43</b>cards</div><div><b>5</b>diagrams</div><div id="studyStat"><b>0%</b>known</div></div>
+    </header>
+    <div class="st-note" id="stFilterNote" hidden><span></span><button type="button">Show all cards</button></div>
+<section class="sec r" data-origin="ovrisk" data-sid="ovriskatlas" id="ovriskatlas"><h2 data-label="Risk management: atlas and routes"><span class="n">00</span>Risk management: atlas and routes</h2>
+<p>Risk management for Indian markets, from the money-safety base outside the market to investor allocation, trader sizing and limits, leverage and execution, and F&amp;O. Condensed from OpenAlgo's free Open Varsity course. Educational, not investment advice: every percentage here is an illustration, not a personal recommendation.</p>
+<div class="g2">
+<div class="card r full" data-ck="risk-management-topic-atlas" data-skey="ovrisk:risk-management-atlas-and-routes/risk-management-topic-atlas" id="risk-management-topic-atlas"><h3 data-label="Risk management topic atlas">Risk management topic atlas<a aria-label="Link to this card" class="anchor" href="#risk-management-topic-atlas">#</a></h3><div class="atlas"><div class="at-root"><b>Risk Management</b><small>6 areas · 32 topics · select a topic to jump to it</small></div><div class="at-rows"><div class="at-row" style="--b:var(--c-b)"><a class="at-branch" href="#basics" title="Go to: Risk is not just losing money"><span class="at-n">01</span><span class="at-bl">Risk basics</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#what-risk-really-means" title="Go to: What risk really means">What risk means</a><a class="at-chip" href="#survive-first-the-recovery-math" title="Go to: Survive first: the recovery math">Survive first</a><a class="at-chip" href="#risk-vs-reward-name-the-risk" title="Go to: Risk vs reward: name the risk">Risk vs reward</a><a class="at-chip" href="#the-risk-pyramid" title="Go to: The risk pyramid">Risk pyramid</a></div></div><div class="at-row" style="--b:var(--c-p)"><a class="at-branch" href="#base" title="Go to: The money-safety system"><span class="at-n">02</span><span class="at-bl">Money safety</span><span class="at-c">4</span></a><div class="at-leaves"><a class="at-chip" href="#fix-your-base-five-pillars" title="Go to: Fix your base: five pillars">Fix your base</a><a class="at-chip" href="#capital-buckets-and-the-walls-between-them" title="Go to: Capital buckets and the walls between them">Capital buckets</a><a class="at-chip" href="#time-horizon-picks-the-asset" title="Go to: Time horizon picks the asset">Time horizon</a><a class="at-chip" href="#capacity-vs-tolerance" title="Go to: Capacity vs tolerance">Capacity vs tolerance</a></div></div><div class="at-row" style="--b:var(--c-g)"><a class="at-branch" href="#investor" title="Go to: Investor risk management"><span class="at-n">03</span><span class="at-bl">Investor risk</span><span class="at-c">6</span></a><div class="at-leaves"><a class="at-chip" href="#asset-allocation-the-biggest-decision" title="Go to: Asset allocation: the biggest decision">Asset allocation</a><a class="at-chip" href="#diversification-without-overdoing-it" title="Go to: Diversification without overdoing it">Diversification</a><a class="at-chip" href="#sips-lumpsum-and-market-falls" title="Go to: SIPs, lumpsum and market falls">SIP vs lumpsum</a><a class="at-chip" href="#rebalancing-sell-winners-buy-laggards" title="Go to: Rebalancing: sell winners, buy laggards">Rebalancing</a><a class="at-chip" href="#concentrated-stock-risk" title="Go to: Concentrated stock risk">Concentration</a><a class="at-chip" href="#investor-mistakes-that-look-smart" title="Go to: Investor mistakes that look smart">Investor mistakes</a></div></div><div class="at-row" style="--b:var(--c-o)"><a class="at-branch" href="#trader" title="Go to: Trader risk management"><span class="at-n">04</span><span class="at-bl">Trader risk</span><span class="at-c">7</span></a><div class="at-leaves"><a class="at-chip" href="#trading-is-not-investing" title="Go to: Trading is not investing">Trading vs investing</a><a class="at-chip" href="#position-sizing-risk-sets-size" title="Go to: Position sizing: risk sets size">Position sizing</a><a class="at-chip" href="#stop-loss-five-kinds" title="Go to: Stop-loss: five kinds">Stop-loss</a><a class="at-chip" href="#win-rate-vs-payoff-expectancy" title="Go to: Win rate vs payoff: expectancy">Win rate and payoff</a><a class="at-chip" href="#drawdowns-and-losing-streaks" title="Go to: Drawdowns and losing streaks">Drawdowns</a><a class="at-chip" href="#daily-weekly-and-monthly-risk-limits" title="Go to: Daily, weekly and monthly risk limits">Risk limits</a><a class="at-chip" href="#portfolio-heat-total-open-risk" title="Go to: Portfolio heat: total open risk">Portfolio heat</a></div></div><div class="at-row" style="--b:var(--c-t)"><a class="at-branch" href="#leverage" title="Go to: Leverage, margin and execution risk"><span class="at-n">05</span><span class="at-bl">Leverage and execution</span><span class="at-c">5</span></a><div class="at-leaves"><a class="at-chip" href="#leverage-measure-moves-against-your-margin" title="Go to: Leverage: measure moves against your margin">Leverage</a><a class="at-chip" href="#margin-calls-and-forced-exits" title="Go to: Margin calls and forced exits">Margin calls</a><a class="at-chip" href="#the-broker-s-risk-system-rms" title="Go to: The broker's risk system (RMS)">Broker RMS</a><a class="at-chip" href="#slippage-liquidity-and-spread" title="Go to: Slippage, liquidity and spread">Slippage and spread</a><a class="at-chip" href="#gap-and-event-risk" title="Go to: Gap and event risk">Gap and event risk</a></div></div><div class="at-row" style="--b:var(--c-r)"><a class="at-branch" href="#fno" title="Go to: F&amp;O risk for beginners"><span class="at-n">06</span><span class="at-bl">F and O risk</span><span class="at-c">6</span></a><div class="at-leaves"><a class="at-chip" href="#why-f-o-is-a-different-risk-world" title="Go to: Why F&amp;O is a different risk world">Why F and O differs</a><a class="at-chip" href="#futures-linear-no-cushion-billed-daily" title="Go to: Futures: linear, no cushion, billed daily">Futures risk</a><a class="at-chip" href="#option-buyer-capped-loss-low-odds" title="Go to: Option buyer: capped loss, low odds">Option buyer</a><a class="at-chip" href="#option-seller-high-probability-not-low-risk" title="Go to: Option seller: high probability, not low risk">Option seller</a><a class="at-chip" href="#greeks-as-a-risk-dashboard" title="Go to: Greeks as a risk dashboard">Greeks</a><a class="at-chip" href="#expiry-day-risk" title="Go to: Expiry-day risk">Expiry day</a></div></div></div></div></div>
+<div class="card b" data-ck="how-to-use-this-sheet" data-skey="ovrisk:risk-management-atlas-and-routes/how-to-use-this-sheet" id="how-to-use-this-sheet"><h3 data-label="How to use this sheet">How to use this sheet<a aria-label="Link to this card" class="anchor" href="#how-to-use-this-sheet">#</a></h3><ol class="steps">
+<li>Run the "Is this money ready?" ladder before any rupee enters the market.</li>
+<li><b>Investors:</b> money safety, then the investor section (allocation, rebalancing, concentration).</li>
+<li><b>Traders:</b> position sizing, stop-loss, limits and heat, then leverage and execution.</li>
+<li><b><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> beginners:</b> read the F&amp;O section only after the base and sizing are in place.</li>
+</ol><div class="callout"><b>Educational only, not investment advice.</b> Condensed in our own words from <a href="https://www.openalgo.in/risk-management">OpenAlgo Open Varsity: Risk Management</a>. Percentages and rupee figures are the course's illustrations; size to your own situation.</div></div>
+<div class="card y" data-ck="is-this-money-ready-for-the-market" data-skey="ovrisk:risk-management-atlas-and-routes/is-this-money-ready-for-the-market" id="is-this-money-ready-for-the-market"><h3 data-label="Is this money ready for the market?">Is this money ready for the market?<a aria-label="Link to this card" class="anchor" href="#is-this-money-ready-for-the-market">#</a></h3><div class="ladder"><div class="l-start">A sum you want to put to work</div><div class="l-step"><div class="l-q" data-tip="Kept in cash or a liquid fund you can reach in a day, never in stocks or property." tabindex="0"><span class="l-n">1</span><span>Is an emergency fund of 3 to 6 months of expenses filled and untouched?</span></div><div class="l-as"><div class="l-a" data-tip="Fill the emergency fund before any market money; it's what stops a job loss from forcing a sale at the bottom." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Build the base first</b><span>cash or liquid fund, reachable in a day</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Card and personal-loan rates of 14–40% beat any market return you can count on." tabindex="0"><span class="l-n">2</span><span>Any credit-card or personal-loan balance outstanding?</span></div><div class="l-as"><div class="l-a" data-tip="Repaying an 18% loan is a guaranteed, tax-free 18%; no trade offers that." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Clear the costly debt first</b><span>an 18% loan repaid is a sure 18%</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Equities can fall 30–50% and stay down for years; short money can't wait." tabindex="0"><span class="l-n">3</span><span>Will you need this money within about 3 years?</span></div><div class="l-as"><div class="l-a" data-tip="Liquid fund, FD or short debt, held separately so a trading loss can't drain it." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Goal bucket: keep it safe</b><span>liquid fund, FD or short debt</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="The honest test for speculation money: rent, EMIs, fees and borrowed money all fail it." tabindex="0"><span class="l-n">4</span><span>Could you lose all of it without your life changing?</span></div><div class="l-as"><div class="l-a" data-tip="Keep it to the thin top of the pyramid and stop when the bucket is empty." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Small trading or speculation slice</b><span>sized so a total loss is survivable</span></div></div><div class="l-a" data-tip="Diversified, 5+ years, allocation set by the lower of your capacity and tolerance." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Long-term investing bucket</b><span>diversified, 5+ year horizon</span></div></div></div></div></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><span></span><a class="sn-next" href="#basics"><span>Next</span>01 · Risk is not just losing money</a></nav></section>
+<section class="sec o" data-origin="ovrisk" data-sid="basics" id="basics"><h2 data-label="Risk is not just losing money"><span class="n">01</span>Risk is not just losing money</h2>
+<p class="src">OpenAlgo Open Varsity · Risk Management · module A, chapters 1–4 (<a href="https://www.openalgo.in/risk-management/what-risk-really-means">what risk means</a>, <a href="https://www.openalgo.in/risk-management/survive-first">survive first</a>, <a href="https://www.openalgo.in/risk-management/risk-vs-reward">risk vs reward</a>, <a href="https://www.openalgo.in/risk-management/the-risk-pyramid">the risk pyramid</a>)</p>
+<div class="g2">
+<div class="card o" data-ck="what-risk-really-means" data-skey="ovrisk:risk-is-not-just-losing-money/what-risk-really-means" id="what-risk-really-means"><h3 data-label="What risk really means">What risk really means<a aria-label="Link to this card" class="anchor" href="#what-risk-really-means">#</a></h3><ul>
+<li>Risk is anything that can knock you out of the game: lost capital, but also lost sleep, discipline, time, and being <b>forced to sell at the worst price</b>.</li>
+<li><b>Temporary dip:</b> a sound asset falls and can recover. <b>Permanent loss:</b> the business is broken, or a sound asset was sold at the bottom.</li>
+<li>Arjun put ₹3 lakh into large companies in Jan 2020; NIFTY fell ≈ 38% by late March, his portfolio showed ≈ ₹1.85 lakh and he sold. The market made new highs within about a year: the sale, not the fall, made the loss permanent.</li>
+<li>Three things create forced sellers: <b>leverage</b> (the broker squares you off), <b>money needed soon</b>, and <b>emotional capacity running out</b>.</li>
+<li>Quiet, self-made risks matter most: widening a stop "just this once", 40% of savings in one weekly expiry, leverage taken on a calm day. Calm is not safe.</li>
+</ul><div class="callout">Test: would a 35% fall trigger a margin call or break this month's budget? Then the position is too big.</div></div>
+<div class="card r" data-ck="survive-first-the-recovery-math" data-skey="ovrisk:risk-is-not-just-losing-money/survive-first-the-recovery-math" id="survive-first-the-recovery-math"><h3 data-label="Survive first: the recovery math">Survive first: the recovery math<a aria-label="Link to this card" class="anchor" href="#survive-first-the-recovery-math">#</a></h3><div class="formula"><span class="fl">gain needed to get back = loss ÷ (1 − loss)</span><span class="fl">−10% → +11% · −25% → +33% · −50% → +100%</span><span class="fl">−75% → +300% · −90% → +900%</span></div><ul>
+<li><b>Risk of ruin:</b> the chance losses get so deep you can't continue. It rises fast with the share of the account risked per trade.</li>
+<li>Risking about a third per trade: 3–4 losses in a row and you're done (0.67³ leaves ≈ 30%). Risking 1–2%: 10 straight losses leave ≈ 82–90% of the account.</li>
+<li>COVID 2020: NIFTY fell ≈ 38–40% in weeks and needed ≈ 65% to recover, close to a year, and that was a diversified index.</li>
+<li>Ravi grew ₹1 lakh to ≈ ₹1.3 lakh, then a gap-down on an oversized leveraged position left ₹41,000 by lunch. The mistake was size, not direction.</li>
+<li><abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr>'s Sept 2024 study: ≈ 91% of individual equity-derivatives traders lost money in FY24; uncontrolled size is a central cause. After losses, trade smaller, never bigger.</li>
+</ul></div>
+<div class="card y" data-ck="risk-vs-reward-name-the-risk" data-skey="ovrisk:risk-is-not-just-losing-money/risk-vs-reward-name-the-risk" id="risk-vs-reward-name-the-risk"><h3 data-label="Risk vs reward: name the risk">Risk vs reward: name the risk<a aria-label="Link to this card" class="anchor" href="#risk-vs-reward-name-the-risk">#</a></h3><div class="tw"><table>
+<tr><th>Kind</th><th>What it is</th><th>Response</th></tr>
+<tr><td>Known</td><td>Visible, measurable (a 38–40% index crash)</td><td>Plan and size for it</td></tr>
+<tr><td>Unknown</td><td>Fraud, war, rule changes, pandemics</td><td>Never bet so big one surprise ends you</td></tr>
+<tr><td>Ignored</td><td>Seen but denied (moving a stop, holding a mistake)</td><td>Stop pretending: it's avoidable</td></tr>
+</table></div><ul>
+<li>You're paid only for carrying risk. FD ≈ 7%: low risk, low reward. A small-cap multibagger can also fall 70–80% or become impossible to exit.</li>
+<li>"Guaranteed 3% a month" compounds to ≈ 43% a year: a high return with "no risk" is a lie, often paid to early joiners from later money.</li>
+</ul><ol class="steps">
+<li>What's the reward in rupees, and when?</li>
+<li>Where exactly is the risk? If nobody can say, that's the answer.</li>
+<li>What's the worst realistic loss, and could you survive it?</li>
+<li>Why is this being offered to me?</li>
+</ol></div>
+<div class="card g" data-ck="the-risk-pyramid" data-skey="ovrisk:risk-is-not-just-losing-money/the-risk-pyramid" id="the-risk-pyramid"><h3 data-label="The risk pyramid">The risk pyramid<a aria-label="Link to this card" class="anchor" href="#the-risk-pyramid">#</a></h3><div class="tw"><table>
+<tr><th>Layer</th><th>What goes there</th></tr>
+<tr><td>Base (outside the market)</td><td>Emergency fund 3–6 months, health and term insurance, no high-interest debt</td></tr>
+<tr><td>Investing</td><td>Goals 5+ years out: index funds, quality businesses. The bulk.</td></tr>
+<tr><td>Trading</td><td>Days to weeks; planned exit and stop on every position. Thinner.</td></tr>
+<tr><td>Speculation (tip)</td><td>Weekly <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr>, hot small caps: only money you'd never miss</td></tr>
+</table></div><ul>
+<li>Teaching split per ₹100 after the base: ₹80 investing, ₹15 trading, ₹5 speculation. Many beginners keep the top two at zero while learning.</li>
+<li>Never in the market: rent, this month's EMI, fees due in 1–3 years, borrowed or margin-funded money.</li>
+<li>Meera, 26, put a ₹1.2 lakh bonus into expiry-day BANKNIFTY options; by 3 pm it was ≈ ₹18,000, and ₹40,000 of it was her father's surgery deposit. The error was letting money that wasn't hers to risk enter the market.</li>
+</ul></div>
+<div class="card p full" data-ck="hidden-risk-by-participant" data-skey="ovrisk:risk-is-not-just-losing-money/hidden-risk-by-participant" id="hidden-risk-by-participant"><h3 data-label="Hidden risk by participant">Hidden risk by participant<a aria-label="Link to this card" class="anchor" href="#hidden-risk-by-participant">#</a></h3><div class="tw"><table>
+<tr><th>Who</th><th>Reward chased</th><th>Risk ignored</th><th>Worst case</th></tr>
+<tr><td>Long-term investor</td><td>Compounding</td><td>Overpaying for a great company; "it always comes back"</td><td>Panic-selling near the bottom of a 50–60% fall</td></tr>
+<tr><td>Stock trader</td><td>Quick price gains</td><td>Losing streaks; costs and slippage eating the edge</td><td>A gap through the stop</td></tr>
+<tr><td><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> buyer</td><td>Big payoff from a small outlay</td><td>Time decay; most buyers lose over time</td><td>Premium goes to zero</td></tr>
+<tr><td>Option seller</td><td>Steady income, high win rate</td><td>The rare violent move</td><td>One overnight gap erases months of premium</td></tr>
+</table></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#ovriskatlas"><span>Previous</span>00 · Risk management: atlas and routes</a><a class="sn-next" href="#base"><span>Next</span>02 · The money-safety system</a></nav></section>
+<section class="sec b" data-origin="ovrisk" data-sid="base" id="base"><h2 data-label="The money-safety system"><span class="n">02</span>The money-safety system</h2>
+<p class="src">OpenAlgo Open Varsity · Risk Management · module B, chapters 5–8 (<a href="https://www.openalgo.in/risk-management/fix-your-base">fix your base</a>, <a href="https://www.openalgo.in/risk-management/capital-buckets">capital buckets</a>, <a href="https://www.openalgo.in/risk-management/time-horizon-is-risk">time horizon</a>, <a href="https://www.openalgo.in/risk-management/risk-capacity-vs-tolerance">capacity vs tolerance</a>)</p>
+<div class="g2">
+<div class="card b" data-ck="fix-your-base-five-pillars" data-skey="ovrisk:the-money-safety-system/fix-your-base-five-pillars" id="fix-your-base-five-pillars"><h3 data-label="Fix your base: five pillars">Fix your base: five pillars<a aria-label="Link to this card" class="anchor" href="#fix-your-base-five-pillars">#</a></h3><div class="tw"><table>
+<tr><th>Pillar</th><th>Rule of thumb</th></tr>
+<tr><td>Emergency fund</td><td>≈ 6 months of expenses in cash or a liquid fund, never in stocks (₹40,000 × 6 = ₹2.4 lakh)</td></tr>
+<tr><td>Health insurance</td><td>Your own policy for you and family, not only the employer's</td></tr>
+<tr><td>Term life</td><td>Only if others depend on your income: pure cover, no investment mixed in</td></tr>
+<tr><td>No costly debt</td><td>Cards and personal loans charge 14–40%; clearing 18% is a sure, tax-free 18%</td></tr>
+<tr><td>Income stability</td><td>Salaried ≈ 6 months; freelancers and business owners 9–12 months</td></tr>
+</table></div><p>Arjun had ₹4 lakh invested and no buffer; he lost his job in early 2020 and sold near the March lows to pay rent. The market roughly doubled off the lows within a year. The base turns a life shock into a personal problem instead of a forced sale.</p></div>
+<div class="card t" data-ck="capital-buckets-and-the-walls-between-them" data-skey="ovrisk:the-money-safety-system/capital-buckets-and-the-walls-between-them" id="capital-buckets-and-the-walls-between-them"><h3 data-label="Capital buckets and the walls between them">Capital buckets and the walls between them<a aria-label="Link to this card" class="anchor" href="#capital-buckets-and-the-walls-between-them">#</a></h3><div class="tw"><table>
+<tr><th>Bucket</th><th>Horizon and job</th><th>Size</th></tr>
+<tr><td>Long-term investing</td><td>5+ years: index funds, SIPs, quality stocks</td><td>Largest</td></tr>
+<tr><td>Short-term goal</td><td>1–3 years: car, wedding, deposit. Kept whole.</td><td>As needed</td></tr>
+<tr><td>Trading</td><td>Days to weeks, always with a stop and a plan</td><td>Small, capped</td></tr>
+<tr><td><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> / speculation</td><td>Assume total loss is possible</td><td>Tiny</td></tr>
+<tr><td>Learning</td><td>Tuition while you learn (a few thousand rupees)</td><td>Smallest</td></tr>
+</table></div><ul>
+<li>The rule: a loss in one bucket must never drain another. Keep goal money in an FD or liquid fund you'd have to break consciously.</li>
+<li>An empty risk bucket means the system worked: stop. Refill only from genuinely spare money.</li>
+<li>Arjun ran salary, savings and weekly options through one account; one bad expiry cost ≈ ₹35,000, his sister's college fee due in two months.</li>
+</ul></div>
+<div class="card g" data-ck="time-horizon-picks-the-asset" data-skey="ovrisk:the-money-safety-system/time-horizon-picks-the-asset" id="time-horizon-picks-the-asset"><h3 data-label="Time horizon picks the asset">Time horizon picks the asset<a aria-label="Link to this card" class="anchor" href="#time-horizon-picks-the-asset">#</a></h3><div class="tw"><table>
+<tr><th>Needed in</th><th>Where it sits</th></tr>
+<tr><td>Under 1 year</td><td>Savings account or liquid fund</td></tr>
+<tr><td>1–3 years</td><td>Mostly debt funds and short FDs</td></tr>
+<tr><td>3–7 years</td><td>Balanced debt and equity</td></tr>
+<tr><td>7+ years</td><td>Mostly equity (index funds, quality stocks)</td></tr>
+</table></div><ul>
+<li>Short money: equities can fall 30–50% and stay down for years; when the need date and the market clash, you sell low.</li>
+<li>Long money: inflation is the threat. Prices up ≈ 6% a year against 3–4% in savings is a guaranteed slow loss.</li>
+<li>Arjun moved a ₹8 lakh down payment into stocks in late 2019; it was ≈ ₹5.2 lakh in March 2020 when the builder's payment fell due. The mismatch was the mistake.</li>
+<li>Shorter deadlines, like an <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> expiry, need tighter risk control, not looser: you can't wait for recovery.</li>
+</ul></div>
+<div class="card r" data-ck="capacity-vs-tolerance" data-skey="ovrisk:the-money-safety-system/capacity-vs-tolerance" id="capacity-vs-tolerance"><h3 data-label="Capacity vs tolerance">Capacity vs tolerance<a aria-label="Link to this card" class="anchor" href="#capacity-vs-tolerance">#</a></h3><div class="formula"><span class="fl">capacity  = what your finances can survive (arithmetic)</span><span class="fl">tolerance = what your nerves can hold through a fall</span><span class="fl">usable risk = the LOWER of the two</span></div><div class="tw"><table>
+<tr><th>Profile</th><th>Capacity / tolerance</th><th>Sensible level</th></tr>
+<tr><td>Young salaried</td><td>High / untested</td><td>Moderate; build the habit</td></tr>
+<tr><td>Retiree</td><td>Low / often calm</td><td>Low: capacity caps it</td></tr>
+<tr><td>Lumpy-income business owner</td><td>Unstable / varies</td><td>Low–moderate, bigger base</td></tr>
+<tr><td>Full-time trader</td><td>Fragile / high</td><td>Moderate, strict per-trade caps</td></tr>
+</table></div><ol class="steps">
+<li>Keep the emergency fund full; score capacity (income, dependents, debt, horizon).</li>
+<li>Score tolerance with the 2 am test: at −20%, hold, freeze or sell?</li>
+<li>Take the lower score and turn it into rupees: ₹2 lakh × 20% = ₹40,000 of pre-accepted pain.</li>
+<li>Write it down; re-check yearly and after life changes. Tolerance is overstated in bull markets.</li>
+</ol></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#basics"><span>Previous</span>01 · Risk is not just losing money</a><a class="sn-next" href="#investor"><span>Next</span>03 · Investor risk management</a></nav></section>
+<section class="sec g" data-origin="ovrisk" data-sid="investor" id="investor"><h2 data-label="Investor risk management"><span class="n">03</span>Investor risk management</h2>
+<p class="src">OpenAlgo Open Varsity · Risk Management · module C, chapters 9–14 (<a href="https://www.openalgo.in/risk-management/asset-allocation">asset allocation</a>, <a href="https://www.openalgo.in/risk-management/diversification">diversification</a>, <a href="https://www.openalgo.in/risk-management/sip-lumpsum-falls">SIPs and lumpsum</a>, <a href="https://www.openalgo.in/risk-management/rebalancing">rebalancing</a>, <a href="https://www.openalgo.in/risk-management/concentrated-stock-risk">concentrated stock risk</a>, <a href="https://www.openalgo.in/risk-management/investor-mistakes">investor mistakes</a>)</p>
+<div class="g2">
+<div class="card g" data-ck="asset-allocation-the-biggest-decision" data-skey="ovrisk:investor-risk-management/asset-allocation-the-biggest-decision" id="asset-allocation-the-biggest-decision"><h3 data-label="Asset allocation: the biggest decision">Asset allocation: the biggest decision<a aria-label="Link to this card" class="anchor" href="#asset-allocation-the-biggest-decision">#</a></h3><ul>
+<li>The split across equity, debt, gold and cash sets how violent the ride is; stock picking only decides how you do against the market. For investors, allocation is the main risk lever.</li>
+<li>A 40% market fall costs a 70%-equity portfolio ≈ 28%, a 30%-equity one ≈ 12%.</li>
+<li>Jan–Mar 2020 (illustrative): NIFTY ≈ −38%, gold in rupees ≈ +8%, debt ≈ flat. A 60/30/10 mix lost ≈ 21% and needed ≈ +27% to recover, against ≈ +61% for pure equity.</li>
+</ul><div class="tw"><table>
+<tr><th>Stage</th><th>Equity</th><th>Debt</th><th>Gold / cash</th></tr>
+<tr><td>20s</td><td>70–80%</td><td>10–20%</td><td>5–10%</td></tr>
+<tr><td>30s–40s</td><td>55–70%</td><td>20–35%</td><td>5–10%</td></tr>
+<tr><td>50s</td><td>40–55%</td><td>35–50%</td><td>5–10%</td></tr>
+<tr><td>60s+</td><td>25–40%</td><td>50–65%</td><td>5–15%</td></tr>
+</table></div><p>Shortcut: equity ≈ 100 − age. A pension supports more equity; panicking at a 10% dip argues for less. All-equity invites panic selling; all-FD or gold barely beats inflation after tax. In a real panic everything can dip briefly, gold included.</p></div>
+<div class="card t" data-ck="diversification-without-overdoing-it" data-skey="ovrisk:investor-risk-management/diversification-without-overdoing-it" id="diversification-without-overdoing-it"><h3 data-label="Diversification without overdoing it">Diversification without overdoing it<a aria-label="Link to this card" class="anchor" href="#diversification-without-overdoing-it">#</a></h3><ul>
+<li>It removes <b>company risk</b> (fraud, debt, a lost client), never <b>market risk</b>; in a crash correlations jump towards 1 and most stocks fall together.</li>
+<li>Most of the benefit arrives by ≈ 15–20 stocks; past 20–30 names you add fees and confusion, not safety ("diworsification"). Forty overlapping funds buy index returns at higher cost.</li>
+<li>A ₹5,000-a-month <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr> into a NIFTY index fund owns 50 large companies at once.</li>
+<li>Meera put ₹5 lakh into one stock in 2018 and lost most of it when the story cracked.</li>
+</ul><ol class="steps">
+<li>No single stock above ≈ 5–10% of the portfolio.</li>
+<li>At least 4–5 sectors: ten bank stocks are one bet.</li>
+<li>Some non-equity assets: debt or FDs, maybe gold.</li>
+<li>Every holding nameable and tracked; funds that don't secretly hold the same large caps.</li>
+</ol></div>
+<div class="card b" data-ck="sips-lumpsum-and-market-falls" data-skey="ovrisk:investor-risk-management/sips-lumpsum-and-market-falls" id="sips-lumpsum-and-market-falls"><h3 data-label="SIPs, lumpsum and market falls">SIPs, lumpsum and market falls<a aria-label="Link to this card" class="anchor" href="#sips-lumpsum-and-market-falls">#</a></h3><div class="tw"><table>
+<tr><th>Month</th><th>NAV</th><th>Units for ₹10,000</th></tr>
+<tr><td>1</td><td>₹100</td><td>100.00</td></tr>
+<tr><td>2</td><td>₹90</td><td>111.11</td></tr>
+<tr><td>3</td><td>₹70</td><td>142.86</td></tr>
+<tr><td>4</td><td>₹60</td><td>166.67</td></tr>
+<tr><td>5</td><td>₹75</td><td>133.33</td></tr>
+<tr><td>6</td><td>₹100</td><td>100.00</td></tr>
+</table></div><ul>
+<li>753.97 units for ₹60,000: average cost ≈ ₹79.58. At ₹100 that's ≈ ₹75,397, a gain while the price ended where it began. A ₹60,000 lumpsum at ₹100 ends flat.</li>
+<li>A <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr>'s real value is behavioural: it keeps buying through fear. In a straight rising market a lumpsum wins because money works sooner.</li>
+<li>Lumpsum suits money already in hand, a long horizon and the stomach for an early fall. Stopping a SIP in a crash cancels the cheapest buying, as Ravi did in 2020 while Meera's ₹10,000 SIP kept going.</li>
+<li>Averaging fails on a single stock heading to zero, or when you must sell mid-fall.</li>
+</ul></div>
+<div class="card y" data-ck="rebalancing-sell-winners-buy-laggards" data-skey="ovrisk:investor-risk-management/rebalancing-sell-winners-buy-laggards" id="rebalancing-sell-winners-buy-laggards"><h3 data-label="Rebalancing: sell winners, buy laggards">Rebalancing: sell winners, buy laggards<a aria-label="Link to this card" class="anchor" href="#rebalancing-sell-winners-buy-laggards">#</a></h3><div class="formula"><span class="fl">start   ₹10 lakh = ₹6 lakh equity (60%) + ₹4 lakh debt (40%)</span><span class="fl">equity doubles → ₹12 lakh + ₹4 lakh = ₹16 lakh (75 / 25)</span><span class="fl">target  60% of ₹16 lakh = ₹9.6 lakh equity, ₹6.4 lakh debt</span><span class="fl">action  sell ₹2.4 lakh of equity, move it to debt</span></div><div class="tw"><table>
+<tr><th>Method</th><th>How</th></tr>
+<tr><td>Calendar</td><td>Reset on a fixed date, e.g. yearly</td></tr>
+<tr><td>Band</td><td>Act when a sleeve drifts 5–10 points (60% target → 50–70% band)</td></tr>
+<tr><td>Hybrid</td><td>Check on the date, trade only if a band is breached</td></tr>
+</table></div><p>Drift is a hidden risk increase, not a win. Once a year is enough for beginners: more often adds capital-gains tax, exit loads and charges. Route fresh <abbr class="gl" data-tip="Fixed monthly investment into a mutual fund. Steady SIP flows support Indian equities." data-tip-title="SIP: Systematic investment plan">SIP</abbr> money to the laggard to rebalance without selling. Rebalance only between sound, diversified sleeves, never into a collapsing stock.</p></div>
+<div class="card r" data-ck="concentrated-stock-risk" data-skey="ovrisk:investor-risk-management/concentrated-stock-risk" id="concentrated-stock-risk"><h3 data-label="Concentrated stock risk">Concentrated stock risk<a aria-label="Link to this card" class="anchor" href="#concentrated-stock-risk">#</a></h3><ul>
+<li>An employee holding employer stock carries one bet three ways: salary, vested ESOPs or RSUs, and shares bought. A bad patch can cut all three at once.</li>
+<li>Concentration builds fortunes and destroys them from the same starting decision; trimming keeps upside while limiting ruin.</li>
+<li>Traps: employer loyalty, family business plus same-sector savings, a favourite stock, IPO hype. A healthy 10% position left alone can drift to a reckless 60%.</li>
+</ul><ol class="steps">
+<li>Add up true exposure (salary, vested and unvested ESOPs, shares, fund weight) as a share of net worth.</li>
+<li>Set a ceiling while calm: illustratively 10–20% of investable wealth in one stock.</li>
+<li>Trim on a schedule (a set fraction each quarter), using vesting dates and strong rallies.</li>
+<li>Plan tax timing, possibly across financial years; redeploy into broad index funds or other sectors.</li>
+<li>Keep 3–6 months of expenses outside the employer's stock.</li>
+</ol></div>
+<div class="card o" data-ck="investor-mistakes-that-look-smart" data-skey="ovrisk:investor-risk-management/investor-mistakes-that-look-smart" id="investor-mistakes-that-look-smart"><h3 data-label="Investor mistakes that look smart">Investor mistakes that look smart<a aria-label="Link to this card" class="anchor" href="#investor-mistakes-that-look-smart">#</a></h3><div class="tw"><table>
+<tr><th>Mistake</th><th>Better move</th></tr>
+<tr><td>Averaging down with no thesis</td><td>A written reason the business is sound, a fixed total size and pre-planned tranches</td></tr>
+<tr><td>Chasing last year's winner</td><td>Stick to the plan; diversify broadly</td></tr>
+<tr><td>Panic-selling a crash</td><td>Own only what you can hold through a 30–40% fall; keep the emergency fund</td></tr>
+<tr><td>"It fell, so it's cheap"</td><td>Judge the business, not the old high: −70% can be followed by another −70%</td></tr>
+<tr><td>Trusting a fat dividend yield</td><td>Yield = dividend ÷ price, so it spikes as the price collapses; check why</td></tr>
+</table></div><p>Meera bought at ₹500 and averaged down at ₹400, ₹300 and ₹200 without asking why it fell: a ₹50,000 mistake became ₹2 lakh. Each trap feels rational in the moment; ask for the actual reason before every add, sale or buy.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#base"><span>Previous</span>02 · The money-safety system</a><a class="sn-next" href="#trader"><span>Next</span>04 · Trader risk management</a></nav></section>
+<section class="sec t" data-origin="ovrisk" data-sid="trader" id="trader"><h2 data-label="Trader risk management"><span class="n">04</span>Trader risk management</h2>
+<p class="src">OpenAlgo Open Varsity · Risk Management · module D, chapters 15–21 (<a href="https://www.openalgo.in/risk-management/trading-is-not-investing">trading is not investing</a>, <a href="https://www.openalgo.in/risk-management/position-sizing">position sizing</a>, <a href="https://www.openalgo.in/risk-management/stop-loss">stop-loss</a>, <a href="https://www.openalgo.in/risk-management/risk-reward-win-rate">risk-reward and win rate</a>, <a href="https://www.openalgo.in/risk-management/drawdowns-losing-streaks">drawdowns</a>, <a href="https://www.openalgo.in/risk-management/risk-limits">risk limits</a>, <a href="https://www.openalgo.in/risk-management/portfolio-heat">portfolio heat</a>)</p>
+<div class="g2">
+<div class="card t" data-ck="trading-is-not-investing" data-skey="ovrisk:trader-risk-management/trading-is-not-investing" id="trading-is-not-investing"><h3 data-label="Trading is not investing">Trading is not investing<a aria-label="Link to this card" class="anchor" href="#trading-is-not-investing">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Investor</th><th>Trader</th></tr>
+<tr><td>Owns</td><td>A slice of a business</td><td>A bet on a price move</td></tr>
+<tr><td>Works for you</td><td>Time, growth, compounding</td><td>A repeatable edge</td></tr>
+<tr><td>Holding</td><td>Years</td><td>Minutes to days</td></tr>
+<tr><td>Exit decided</td><td>Loosely</td><td>Exactly, before entry</td></tr>
+<tr><td>Biggest risk</td><td>Wrong business</td><td>Skipping the risk rules</td></tr>
+</table></div><ul>
+<li>Every trade needs five tools: a pre-defined exit, a position size, a stop-loss, a journal entry and a daily risk limit.</li>
+<li>Arjun bought at ₹1,020 because it "looked strong", held through ₹1,005 and ₹990 with no plan, and was down ₹18,000 by 3:15 pm: investor habits on a trade.</li>
+<li>Edge is a small advantage that pays across many trades, not conviction in one. Relabelling a stuck trade as an investment isn't investing.</li>
+</ul></div>
+<div class="card y" data-ck="can-i-take-this-trade" data-skey="ovrisk:trader-risk-management/can-i-take-this-trade" id="can-i-take-this-trade"><h3 data-label="Can I take this trade?">Can I take this trade?<a aria-label="Link to this card" class="anchor" href="#can-i-take-this-trade">#</a></h3><div class="ladder"><div class="l-start">A setup your process calls for</div><div class="l-step"><div class="l-q" data-tip="Whichever comes first ends the day; the limit is set while calm, not mid-session." tabindex="0"><span class="l-n">1</span><span>Has today already hit the daily limit of 3 losses or −3%?</span></div><div class="l-as"><div class="l-a" data-tip="Sizing up to win it back is how a −2% morning becomes −22% by lunch." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Stop trading for today</b><span>losses already taken are sunk</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="A mental stop drifts; a stop inside the stock's normal daily swing just donates the spread." tabindex="0"><span class="l-n">2</span><span>Is the stop a real order, placed at entry and outside normal noise?</span></div><div class="l-as"><div class="l-a" data-tip="Use structure or 1.5–2× ATR, avoid round numbers, and only ever move it in your favour." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Set a real stop order first</b><span>structure or 1.5–2× ATR, not a round number</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Eight 1% trades in one sector are one 8% bet; example caps are 5–6% for active traders, 3–5% for F&amp;O." tabindex="0"><span class="l-n">3</span><span>Counting correlated names as one bet, does open heat stay under your cap?</span></div><div class="l-as"><div class="l-a" data-tip="Skip the new trade or close an existing one first." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Pass: heat cap reached</b><span>or close something first</span></div></div><div class="l-a" data-tip="Quantity = rupee risk ÷ stop distance, rounded down, whole lots for F&amp;O." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Take it at the computed size</b><span>quantity = rupee risk ÷ stop distance</span></div></div></div></div></div></div>
+<div class="card b full" data-ck="position-sizing-risk-sets-size" data-skey="ovrisk:trader-risk-management/position-sizing-risk-sets-size" id="position-sizing-risk-sets-size"><h3 data-label="Position sizing: risk sets size">Position sizing: risk sets size<a aria-label="Link to this card" class="anchor" href="#position-sizing-risk-sets-size">#</a></h3><div class="formula"><span class="fl">1  risk per trade   = a small % of capital (teaching example 1%)</span><span class="fl">2  rupee risk       = capital × %            ₹2,00,000 × 1% = ₹2,000</span><span class="fl">3  stop distance    = entry − stop           ₹100 − ₹92 = ₹8 a share</span><span class="fl">4  quantity         = rupee risk ÷ distance  ₹2,000 ÷ ₹8 = 250 shares (₹25,000 deployed)</span></div><div class="tw"><table>
+<tr><th>Risk %</th><th>Rupee risk (₹2 lakh)</th><th>₹4 stop</th><th>₹8 stop</th><th>₹16 stop</th></tr>
+<tr><td>0.5%</td><td>₹1,000</td><td>250</td><td>125</td><td>62</td></tr>
+<tr><td>1%</td><td>₹2,000</td><td>500</td><td>250</td><td>125</td></tr>
+<tr><td>2% (aggressive for beginners)</td><td>₹4,000</td><td>1,000</td><td>500</td><td>250</td></tr>
+</table></div><pre class="code" data-hl="py" data-lang="py"><span class="k">def</span> <span class="f">position_size</span>(capital, risk_pct, entry, stop, lot<span class="o">=</span><span class="n">1</span>):
+    risk_rs <span class="o">=</span> capital <span class="o">*</span> risk_pct <span class="o">/</span> <span class="n">100</span>
+    qty <span class="o">=</span> <span class="bi">int</span>(risk_rs <span class="o">//</span> <span class="bi">abs</span>(entry <span class="o">-</span> stop))
+    <span class="k">return</span> qty <span class="o">-</span> qty <span class="o">%</span> lot              <span class="c"># whole lots for F&amp;O</span>
+
+<span class="f">position_size</span>(<span class="n">200000</span>, <span class="n">1</span>, <span class="n">100</span>, <span class="n">92</span>)               <span class="c"># 250 shares</span>
+<span class="f">position_size</span>(<span class="n">200000</span>, <span class="n">1</span>, <span class="n">24000</span>, <span class="n">23970</span>, lot<span class="o">=</span><span class="n">65</span>)  <span class="c"># 65 = one NIFTY lot</span></pre><ul>
+<li>A wider stop means a smaller position for the same loss. Ravi bought 1,000 shares at ₹100 on a ₹2 lakh account by feel; a fall to ₹85 cost ₹15,000, over 7%.</li>
+<li>Futures come in whole lots: a NIFTY lot of 65 (check current specs) with a 30-point stop risks ₹1,950. Option sellers face a tail far beyond the premium: size tiny, often one lot or none.</li>
+<li>Percentage sizing shrinks after losses and grows after gains; fixed-rupee sizing doesn't adjust. Sizing caps the planned loss, not the worst case: a gap from a ₹92 stop to ₹80 doubles the hit to ≈ ₹5,000.</li>
+</ul></div>
+<div class="card r" data-ck="stop-loss-five-kinds" data-skey="ovrisk:trader-risk-management/stop-loss-five-kinds" id="stop-loss-five-kinds"><h3 data-label="Stop-loss: five kinds">Stop-loss: five kinds<a aria-label="Link to this card" class="anchor" href="#stop-loss-five-kinds">#</a></h3><div class="tw"><table>
+<tr><th>Type</th><th>Where it sits</th><th>Use when</th></tr>
+<tr><td>Technical</td><td>Just beyond support, a swing low or a trendline</td><td>The idea depends on a level</td></tr>
+<tr><td>Volatility</td><td>1.5–2 × <abbr class="gl" data-tip="Average size of each bar including gaps, usually over 14 bars with Wilder smoothing. Used for stop distance and position size, not direction." data-tip-title="ATR: Average true range">ATR</abbr> from entry</td><td>Choppy instruments</td></tr>
+<tr><td>Time</td><td>Exit after X bars or days without progress</td><td>It should have moved by now</td></tr>
+<tr><td>Mental</td><td>In your head only</td><td>Almost never</td></tr>
+<tr><td>Disaster</td><td>The maximum tolerable loss, as a resting order</td><td>Always, every style</td></tr>
+</table></div><ul>
+<li>Place a real order at entry and move it only in your favour. Arjun's ₹95 "plan" drifted to ₹92, ₹90 and lower; he sold at ₹81.</li>
+<li>Avoid round numbers (₹500, NIFTY 24,000), where stops crowd, and stops inside normal noise: a ₹3 stop on a stock that swings ₹8 a day is a donation.</li>
+<li>Stops fill at the next traded price, so a ₹95 stop on a stock opening at ₹80 fills near ₹80. The defence is size. Stop-outs before the move you expected are the insurance premium.</li>
+</ul></div>
+<div class="card g" data-ck="win-rate-vs-payoff-expectancy" data-skey="ovrisk:trader-risk-management/win-rate-vs-payoff-expectancy" id="win-rate-vs-payoff-expectancy"><h3 data-label="Win rate vs payoff: expectancy">Win rate vs payoff: expectancy<a aria-label="Link to this card" class="anchor" href="#win-rate-vs-payoff-expectancy">#</a></h3><div class="formula"><span class="fl">expectancy = win rate × avg win − loss rate × avg loss</span><span class="fl">break-even win rate = risk ÷ (risk + reward)</span><span class="fl">1:3 → 25% · 1:2 → 33% · 1:1 → 50% · 5:1 against → 83%</span></div><div class="tw"><table>
+<tr><th>₹1,000 risk a trade</th><th>Trader A</th><th>Trader B</th></tr>
+<tr><td>Win rate</td><td>80%</td><td>40%</td></tr>
+<tr><td>Avg win / avg loss</td><td>₹500 / ₹2,500</td><td>₹3,000 / ₹1,000</td></tr>
+<tr><td>Expectancy a trade</td><td>−₹100</td><td>+₹600</td></tr>
+<tr><td>Over 100 trades</td><td>−₹10,000</td><td>+₹60,000</td></tr>
+</table></div><p>Chasing accuracy (banking small wins early, holding losers) turns a Trader B into a Trader A. Compute expectancy net of brokerage, <abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr>, fees and slippage, and judge it over a few hundred trades, not 20. Typical active traders win 40–55%; option buyers win rarely but big; option sellers win often but face the fat loss.</p></div>
+<div class="card p" data-ck="drawdowns-and-losing-streaks" data-skey="ovrisk:trader-risk-management/drawdowns-and-losing-streaks" id="drawdowns-and-losing-streaks"><h3 data-label="Drawdowns and losing streaks">Drawdowns and losing streaks<a aria-label="Link to this card" class="anchor" href="#drawdowns-and-losing-streaks">#</a></h3><div class="tw"><table>
+<tr><th>Drawdown from peak</th><th>Gain to recover</th><th>How it feels on ₹1 lakh</th></tr>
+<tr><td>−10%</td><td>+11%</td><td>Annoying, normal</td></tr>
+<tr><td>−20%</td><td>+25%</td><td>Rattled, checking often</td></tr>
+<tr><td>−30%</td><td>+43%</td><td></td></tr>
+<tr><td>−40%</td><td>+67%</td><td>Fear: peak time for bad decisions</td></tr>
+<tr><td>−50%</td><td>+100%</td><td></td></tr>
+</table></div><ul>
+<li>At a 50% win rate, a run of 5 losses has odds of 1 in 32 and 6 of 1 in 64: over hundreds of trades long streaks are certain. A 65% system can still lose 7 of 20.</li>
+<li>Arjun took ₹2 lakh to ₹2.2 lakh, fell ≈ 10% below peak, then doubled size twice: a ≈ 45% hole in two weeks. Size down while down, never up.</li>
+<li><abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> (Sept 2024): the average loss-making <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> trader lost ≈ ₹1.2 lakh in FY24.</li>
+</ul></div>
+<div class="card o" data-ck="variance-or-a-broken-edge" data-skey="ovrisk:trader-risk-management/variance-or-a-broken-edge" id="variance-or-a-broken-edge"><h3 data-label="Variance or a broken edge?">Variance or a broken edge?<a aria-label="Link to this card" class="anchor" href="#variance-or-a-broken-edge">#</a></h3><div class="ladder"><div class="l-start">Inside a losing streak: halve the size first</div><div class="l-step"><div class="l-q" data-tip="If losses are bigger than planned, the problem is process, not the market." tabindex="0"><span class="l-n">1</span><span>Are losses staying at the planned size, with every rule followed?</span></div><div class="l-as"><div class="l-a" data-tip="Fix sizing and stops before judging the strategy." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Process problem</b><span>fix sizing and stops before anything else</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Compare both depth and duration with what the system has survived before." tabindex="0"><span class="l-n">2</span><span>Is the drawdown within the backtest's deepest and longest?</span></div><div class="l-as"><div class="l-a" data-tip="Pause it; review or retire it rather than trading through hope." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Edge may be broken</b><span>pause the strategy, review or retire it</span></div></div></div><div class="l-next">yes<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="At a 50% win rate, 5 losses in a row happen 1 time in 32; small samples lie." tabindex="0"><span class="l-n">3</span><span>Judged over dozens of trades, not a handful?</span></div><div class="l-as"><div class="l-a" data-tip="Keep logging every trade at reduced size until the sample is big enough." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Too early to tell</b><span>keep logging at reduced size</span></div></div><div class="l-a" data-tip="Keep the rules, rebuild size slowly; never size up to get back to the peak." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Likely variance</b><span>keep the rules, rebuild size slowly</span></div></div></div></div></div></div>
+<div class="card r" data-ck="daily-weekly-and-monthly-risk-limits" data-skey="ovrisk:trader-risk-management/daily-weekly-and-monthly-risk-limits" id="daily-weekly-and-monthly-risk-limits"><h3 data-label="Daily, weekly and monthly risk limits">Daily, weekly and monthly risk limits<a aria-label="Link to this card" class="anchor" href="#daily-weekly-and-monthly-risk-limits">#</a></h3><div class="tw"><table>
+<tr><th>Layer</th><th>Example on ₹1 lakh</th><th>When hit</th></tr>
+<tr><td>Per trade</td><td>≈ 1% = ₹1,000</td><td>Built into the size</td></tr>
+<tr><td>Per day</td><td>3 losing trades or −3% (₹3,000), whichever first</td><td>Done for the day</td></tr>
+<tr><td>Per week</td><td>≈ −6% (₹6,000)</td><td>Done until next week</td></tr>
+<tr><td>Per strategy</td><td>Its own −X% over Y weeks</td><td>Pause that method only</td></tr>
+<tr><td>Per month</td><td>≈ −10% (₹10,000)</td><td>Stop real money; review; practise in analyzer mode</td></tr>
+</table></div><ul>
+<li>Arjun lost ₹1,800 on two trades, sized up to win it back, took 9 trades instead of 3 and was ≈ −22% by lunch. A −3% daily stop would have ended the same morning flat.</li>
+<li><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> example: −3% a day, −8 to −10% a month. Option sellers: exit a short at 2–3 × the premium collected.</li>
+<li>Limits that are too tight for the strategy's normal swing just cause noise stop-outs. The biggest failure is overriding one "just this once".</li>
+</ul></div>
+<div class="card t" data-ck="portfolio-heat-total-open-risk" data-skey="ovrisk:trader-risk-management/portfolio-heat-total-open-risk" id="portfolio-heat-total-open-risk"><h3 data-label="Portfolio heat: total open risk">Portfolio heat: total open risk<a aria-label="Link to this card" class="anchor" href="#portfolio-heat-total-open-risk">#</a></h3><div class="formula"><span class="fl">position risk = stop distance × quantity</span><span class="fl">heat         = Σ position risk across every open trade (as % of capital)</span><span class="fl">gross = longs + shorts · net = longs − shorts</span></div><ul>
+<li>Priya (₹2 lakh) ran eight 1% trades, all financials: 8% heat. One bad sector day hit every stop for ₹16,000. Count themes, not tickers: correlated names behave like one larger bet, and correlations rise towards 1 in stress.</li>
+<li>Long ₹60,000 and short ₹20,000: gross ₹80,000 in play, net ₹40,000 long.</li>
+<li>Example caps: active traders ≈ 5–6% total open heat; <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> ≈ 3–5%; long-term investors no sector above ≈ 20–25%; option sellers cap the combined max loss and stress-test a gap.</li>
+<li>Lot sizes cited for the Apr–Jun 2026 cycle: NIFTY 65, BANKNIFTY 30; exchanges revise them.</li>
+</ul></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#investor"><span>Previous</span>03 · Investor risk management</a><a class="sn-next" href="#leverage"><span>Next</span>05 · Leverage, margin and execution risk</a></nav></section>
+<section class="sec p" data-origin="ovrisk" data-sid="leverage" id="leverage"><h2 data-label="Leverage, margin and execution risk"><span class="n">05</span>Leverage, margin and execution risk</h2>
+<p class="src">OpenAlgo Open Varsity · Risk Management · module E, chapters 22–26 (<a href="https://www.openalgo.in/risk-management/leverage">leverage</a>, <a href="https://www.openalgo.in/risk-management/margin-calls">margin calls</a>, <a href="https://www.openalgo.in/risk-management/broker-rms-reality">the broker's RMS</a>, <a href="https://www.openalgo.in/risk-management/slippage-liquidity-spread">slippage, liquidity and spread</a>, <a href="https://www.openalgo.in/risk-management/gap-and-event-risk">gap and event risk</a>)</p>
+<div class="g2">
+<div class="card p" data-ck="leverage-measure-moves-against-your-margin" data-skey="ovrisk:leverage-margin-and-execution-risk/leverage-measure-moves-against-your-margin" id="leverage-measure-moves-against-your-margin"><h3 data-label="Leverage: measure moves against your margin">Leverage: measure moves against your margin<a aria-label="Link to this card" class="anchor" href="#leverage-measure-moves-against-your-margin">#</a></h3><div class="formula"><span class="fl">position          = margin × leverage</span><span class="fl">hit to your money = price move % × leverage</span><span class="fl">2% move at 5× = 10% of your capital</span></div><div class="tw"><table>
+<tr><th>Leverage</th><th>Adverse move that eats the whole margin</th></tr>
+<tr><td>1×</td><td>Effectively never (the stock itself can still go to zero)</td></tr>
+<tr><td>2×</td><td>50%</td></tr>
+<tr><td>5×</td><td>20%</td></tr>
+<tr><td>10×</td><td>10%</td></tr>
+<tr><td>20×</td><td>5%</td></tr>
+</table></div><ul>
+<li>Vikram: ₹50,000 account, ₹2.5 lakh position (5×); an ordinary 4% morning dip cost ₹10,000, 20% of the account.</li>
+<li>India: intraday equity ≈ 5× at most under peak-margin rules; futures carry built-in leverage (the course gives ≈ 5–6× in one chapter, ≈ 8× in another, depending on margin); option buying is leveraged through premium with loss capped; option selling posts margin with losses that can far exceed the premium.</li>
+<li>Higher leverage shortens the time you have to be right: a normal dip forces you out before the move comes. The maximum offered is a ceiling, not a recommendation.</li>
+<li>Work backwards: pick the worst move you must survive (say 15%) and choose leverage that move can't wipe out, often 1–2×. A futures lot's leverage can only be cut by trading fewer lots.</li>
+</ul></div>
+<div class="card r" data-ck="margin-calls-and-forced-exits" data-skey="ovrisk:leverage-margin-and-execution-risk/margin-calls-and-forced-exits" id="margin-calls-and-forced-exits"><h3 data-label="Margin calls and forced exits">Margin calls and forced exits<a aria-label="Link to this card" class="anchor" href="#margin-calls-and-forced-exits">#</a></h3><div class="tw"><table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Margin</td><td>A security deposit behind a leveraged position, not its price</td></tr>
+<tr><td>Mark-to-market</td><td>The position revalued at the latest price; losses come out of margin</td></tr>
+<tr><td>Shortfall</td><td>Remaining margin below what the position needs</td></tr>
+<tr><td>Square-off</td><td>The broker closes the position for you, without asking</td></tr>
+<tr><td>Free margin</td><td>The buffer that absorbs normal swings</td></tr>
+</table></div><ul>
+<li>Forced exits fire when price has moved hardest against you, so they land later and lower than your own stop; the difference is loss you never chose.</li>
+<li><b>Available margin is a ceiling, not capital.</b> A trader with ₹1 lakh saw ≈ ₹5 lakh "available", used nearly all of it on one index future and was squared off near the intraday low.</li>
+<li>Peak-margin rules collect margin upfront and check it at random intraday snapshots; unclosed intraday positions are squared off mid-afternoon at whatever price prevails, and a sharp move can trigger it earlier.</li>
+</ul><ol class="steps">
+<li>Size from your risk rule, then confirm margin stays comfortably free.</li>
+<li>Know how far price can move before a call; keep your stop well before that point.</li>
+<li>Add funds or cut early; exit intraday trades before the square-off window.</li>
+</ol></div>
+<div class="card b" data-ck="the-broker-s-risk-system-rms" data-skey="ovrisk:leverage-margin-and-execution-risk/the-broker-s-risk-system-rms" id="the-broker-s-risk-system-rms"><h3 data-label="The broker's risk system (RMS)">The broker's risk system (RMS)<a aria-label="Link to this card" class="anchor" href="#the-broker-s-risk-system-rms">#</a></h3><ul>
+<li>An automatic margin guard that runs on the broker's rules and clock, protects the broker first, and closes positions <b>at market</b> on a shortfall without waiting for your stop.</li>
+<li><b>Cash vs collateral:</b> <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> needs a minimum cash component (roughly half, as the course states for 2026) because daily losses settle in cash, which pledged shares can't pay. All-collateral positions trigger cash shortfalls and penalties even when total margin looks full.</li>
+<li><b>Haircut:</b> pledging ₹1 lakh of stock typically gives ≈ ₹80,000–90,000 of margin; volatile or illiquid stocks get bigger haircuts, never zero.</li>
+<li><b>Auto square-off:</b> intraday (MIS) positions close in a window around 3:20–3:30 pm, broker and segment dependent. Exit before it yourself.</li>
+<li><b>Peak-margin snapshots:</b> a shortfall for a few minutes at a random snapshot can bring a penalty without any square-off. Aim to be covered at every snapshot.</li>
+<li>Arjun ran pledged-only intraday futures, lost track of time and was closed at ≈ 3:25 pm below his stop in a thin market, then drew a peak-margin penalty on another day.</li>
+</ul></div>
+<div class="card g" data-ck="slippage-liquidity-and-spread" data-skey="ovrisk:leverage-margin-and-execution-risk/slippage-liquidity-and-spread" id="slippage-liquidity-and-spread"><h3 data-label="Slippage, liquidity and spread">Slippage, liquidity and spread<a aria-label="Link to this card" class="anchor" href="#slippage-liquidity-and-spread">#</a></h3><div class="tw"><table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>LTP</td><td>Last traded price: history, not a price you can trade now</td></tr>
+<tr><td>Best ask / bid</td><td>What you pay to buy now / receive to sell now</td></tr>
+<tr><td>Spread</td><td>Ask − bid, paid on entry and again on exit</td></tr>
+<tr><td>Impact cost</td><td>Average-fill drift as a big order walks up the book</td></tr>
+<tr><td>Slippage</td><td>Expected price − actual fill</td></tr>
+</table></div><ul>
+<li>Meera's far-OTM option showed ₹12; a market order for a few lots walked ₹13.0 → ₹13.5 → ₹14.0 and averaged ≈ ₹13.40, ≈ 11% lost before the trade moved, with a similar slice due on exit.</li>
+<li><b>Market</b> orders guarantee the fill, not the price; <b>limit</b> orders guarantee the price, not the fill. Default to limits at or near the touch; use market only when urgent and the instrument is liquid.</li>
+<li>Index futures and large caps trade a few paise wide; far-OTM options and small caps are thin, and your own order moves the price.</li>
+<li>A ₹2 scalp with ₹1.50 of round-trip slippage keeps ₹0.50 even when right, before charges; the same ₹1.50 barely matters on a ₹40 swing. Thin edges get eaten first.</li>
+</ul></div>
+<div class="card y full" data-ck="gap-and-event-risk" data-skey="ovrisk:leverage-margin-and-execution-risk/gap-and-event-risk" id="gap-and-event-risk"><h3 data-label="Gap and event risk">Gap and event risk<a aria-label="Link to this card" class="anchor" href="#gap-and-event-risk">#</a></h3><div class="tw"><table>
+<tr><th>Scheduled (known date, unknown outcome)</th><th>Unscheduled (no warning)</th></tr>
+<tr><td>Company results; <abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr> and US Fed decisions; the Union Budget (1 Feb); weekly and monthly expiry; election counting (4 Jun 2024, a sharp NIFTY fall that morning)</td><td>Demonetisation (Nov 2016, after the close); COVID (Mar 2020, gap-downs and lower-circuit halts); wars; an overnight foreign bank collapse; sudden regulatory orders</td></tr>
+</table></div><ul>
+<li>A stop caps the price you <b>trigger</b> at, not the price you <b>fill</b> at. Bought at ₹105 with a ₹100 stop; poor results; opened at ₹85: planned risk ₹5 a share, actual ₹20.</li>
+<li>True overnight risk is the size of the surprise. On ₹1 lakh, a 15% gap costs ₹15,000 on a ₹1 lakh position and ₹7,500 on half that: you choose only the size.</li>
+<li>Before an event ask: can I absorb a 10% adverse open in rupees? Is there leverage I can close before the bell? Am I short an option with open-ended loss? Protective options cap the loss but bleed premium; going to cash avoids gaps but misses moves.</li>
+</ul></div>
+<div class="card t" data-ck="hold-this-position-overnight" data-skey="ovrisk:leverage-margin-and-execution-risk/hold-this-position-overnight" id="hold-this-position-overnight"><h3 data-label="Hold this position overnight?">Hold this position overnight?<a aria-label="Link to this card" class="anchor" href="#hold-this-position-overnight">#</a></h3><div class="ladder"><div class="l-start">An open position near the close</div><div class="l-step"><div class="l-q" data-tip="Scheduled events have known dates and unknown outcomes; check the calendar before the close." tabindex="0"><span class="l-n">1</span><span>Is a results, RBI, Budget, expiry or counting-day event due before the next session?</span></div><div class="l-as"><div class="l-a" data-tip="Drop leverage first; a gap on a leveraged position is what turns a bruise into a wipeout." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Cut size before the close</b><span>and drop the leverage</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Small capped premium, uncapped loss: a gap can cost many times what was collected." tabindex="0"><span class="l-n">2</span><span>Is it a naked short option with open-ended loss?</span></div><div class="l-as"><div class="l-a" data-tip="A bought protective option turns it into a spread with a known worst case." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Hedge it or close it</b><span>a protective option defines the worst case</span></div></div></div><div class="l-next">no<span aria-hidden="true"> ↓</span></div></div><div class="l-step"><div class="l-q" data-tip="Work it out in rupees on the full position, not the margin posted." tabindex="0"><span class="l-n">3</span><span>Could you take a 10% adverse open in rupees and keep trading?</span></div><div class="l-as"><div class="l-a" data-tip="The gap, not the stop, sets the overnight loss." tabindex="0"><span class="l-lab">no</span><div class="l-t"><b>Shrink until you could</b><span>the gap, not the stop, sets the loss</span></div></div><div class="l-a" data-tip="Stops can't fill while the market is shut; it may open far beyond them." tabindex="0"><span class="l-lab">yes</span><div class="l-t"><b>Carry it, treating the stop as absent</b><span>until the market reopens</span></div></div></div></div></div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#trader"><span>Previous</span>04 · Trader risk management</a><a class="sn-next" href="#fno"><span>Next</span>06 · F&amp;O risk for beginners</a></nav></section>
+<section class="sec y" data-origin="ovrisk" data-sid="fno" id="fno"><h2 data-label="F&amp;O risk for beginners"><span class="n">06</span>F&amp;O risk for beginners</h2>
+<p class="src">OpenAlgo Open Varsity · Risk Management · module F, chapters 27–32 (<a href="https://www.openalgo.in/risk-management/why-fno-is-different">why F&amp;O is different</a>, <a href="https://www.openalgo.in/risk-management/futures-risk">futures risk</a>, <a href="https://www.openalgo.in/risk-management/option-buyer-risk">option buyer risk</a>, <a href="https://www.openalgo.in/risk-management/option-seller-risk">option seller risk</a>, <a href="https://www.openalgo.in/risk-management/greeks-as-risk">Greeks as risk</a>, <a href="https://www.openalgo.in/risk-management/expiry-day-risk">expiry-day risk</a>)</p>
+<div class="g2">
+<div class="card y" data-ck="why-f-o-is-a-different-risk-world" data-skey="ovrisk:f-o-risk-for-beginners/why-f-o-is-a-different-risk-world" id="why-f-o-is-a-different-risk-world"><h3 data-label="Why F&amp;O is a different risk world">Why F&amp;O is a different risk world<a aria-label="Link to this card" class="anchor" href="#why-f-o-is-a-different-risk-world">#</a></h3><div class="tw"><table>
+<tr><th></th><th>Stocks</th><th>F&amp;O</th></tr>
+<tr><td>Expiry</td><td>None</td><td>Fixed: weekly index options, monthly futures</td></tr>
+<tr><td>Leverage</td><td>Little on delivery</td><td>Built in</td></tr>
+<tr><td>Settlement</td><td>Paper loss until sold</td><td>Cash, daily</td></tr>
+<tr><td>Time decay</td><td>None</td><td>Options lose value daily</td></tr>
+<tr><td>Minimum size</td><td>One share</td><td>One lot (NIFTY ≈ 65, BANKNIFTY ≈ 30)</td></tr>
+<tr><td>Worst case short</td><td>Hard to short cash</td><td>Seller can lose many times the premium</td></tr>
+</table></div><ul>
+<li>Arjun bought 5 lots of the NIFTY 24,500 call at ₹40 (325 units, ₹13,000). NIFTY rallied to ≈ 24,300 and expired at 24,350, below the strike: right direction, total loss.</li>
+<li>"It's only ₹40" isn't low risk. <abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr>'s Sept 2024 study: ≈ 91% of individual <abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> traders lost in FY24, the average loser ≈ ₹1.2 lakh. Approach with humility and tiny size.</li>
+</ul></div>
+<div class="card r" data-ck="futures-linear-no-cushion-billed-daily" data-skey="ovrisk:f-o-risk-for-beginners/futures-linear-no-cushion-billed-daily" id="futures-linear-no-cushion-billed-daily"><h3 data-label="Futures: linear, no cushion, billed daily">Futures: linear, no cushion, billed daily<a aria-label="Link to this card" class="anchor" href="#futures-linear-no-cushion-billed-daily">#</a></h3><div class="tw"><table>
+<tr><th>NIFTY move</th><th>Per lot (≈ ₹65 a point)</th><th>Feels like</th></tr>
+<tr><td>10 pts</td><td>₹650</td><td>Normal wiggle</td></tr>
+<tr><td>50 pts</td><td>₹3,250</td><td>One headline</td></tr>
+<tr><td>100 pts</td><td>₹6,500</td><td>Bad session</td></tr>
+<tr><td>200 pts</td><td>₹13,000</td><td>Two-day move</td></tr>
+<tr><td>500 pts</td><td>₹32,500</td><td>Gap or shock day</td></tr>
+</table></div><div class="formula"><span class="fl">1 lot at 24,000 ≈ 24,000 × 65 = ₹15.6 lakh of exposure</span><span class="fl">margin ≈ ₹1.8–2 lakh → ≈ 8× leverage</span><span class="fl">MTM on a ₹2 lakh account: −40, −50, −60, −30 pts</span><span class="fl">₹1,97,400 → ₹1,94,150 → ₹1,90,250 → ₹1,88,300 → margin rises → squared off</span></div><ul>
+<li>Overnight gaps hit in full: 300 points on one lot is ₹19,500, debited the same day.</li>
+<li>Monthly contracts must be rolled (spread, brokerage, slippage each time); basis (future − spot) converges to zero at expiry. Exchanges raise margins in volatile markets, often just as MTM losses arrive.</li>
+<li>Don't "hold and wait" a future like a stock: fund a bad week in cash, or don't carry it.</li>
+</ul></div>
+<div class="card b" data-ck="option-buyer-capped-loss-low-odds" data-skey="ovrisk:f-o-risk-for-beginners/option-buyer-capped-loss-low-odds" id="option-buyer-capped-loss-low-odds"><h3 data-label="Option buyer: capped loss, low odds">Option buyer: capped loss, low odds<a aria-label="Link to this card" class="anchor" href="#option-buyer-capped-loss-low-odds">#</a></h3><ul>
+<li>Max loss = premium; no margin calls. Call break-even = strike + premium, reached before expiry.</li>
+<li><b>Killer 1, time decay:</b> time value leaks daily, steepest in the last 2–3 days; cheap OTM weeklies are almost all time value.</li>
+<li><b>Killer 2, timing:</b> the move comes after expiry, or is too small or slow.</li>
+<li><b>Killer 3, <abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr> crush:</b> events inflate premiums, then implied volatility collapses: ₹90 before results, ₹55 after, though the price rose a little.</li>
+<li>Arjun bought far-OTM weekly calls at ₹6 most Thursdays (₹390 a lot): 4 wins, 9 losses in three months, a slow bleed.</li>
+</ul><ol class="steps">
+<li>Know the rupee premium at risk and accept losing all of it.</li>
+<li>Prefer near-the-money strikes with real value and more than 1–2 days left.</li>
+<li>Avoid IV inflated by an event; set a price or time exit before buying.</li>
+</ol></div>
+<div class="card o" data-ck="option-seller-high-probability-not-low-risk" data-skey="ovrisk:f-o-risk-for-beginners/option-seller-high-probability-not-low-risk" id="option-seller-high-probability-not-low-risk"><h3 data-label="Option seller: high probability, not low risk">Option seller: high probability, not low risk<a aria-label="Link to this card" class="anchor" href="#option-seller-high-probability-not-low-risk">#</a></h3><div class="formula"><span class="fl">9 wins × ₹2,000 = +₹18,000 · 1 loss = −₹40,000</span><span class="fl">EV = 0.9 × 2,000 − 0.1 × 40,000 = −₹2,200 a trade</span><span class="fl">10 trades: −₹22,000 at a 90% win rate</span></div><div class="tw"><table>
+<tr><th></th><th>Buyer</th><th>Seller</th></tr>
+<tr><td>Cash</td><td>Pays premium</td><td>Collects premium</td></tr>
+<tr><td>Best case</td><td>Large, open-ended</td><td>Small, capped</td></tr>
+<tr><td>Worst case</td><td>Premium lost</td><td>Large or unlimited</td></tr>
+<tr><td>Margin</td><td>None beyond premium</td><td>Large, and it can rise</td></tr>
+</table></div><ul>
+<li>The equity curve is a gentle staircase, then a cliff. A volatility spike alone can reprice an ₹80 option to ₹500.</li>
+<li>Index options are cash-settled; stock options and futures can go to physical delivery. If you don't understand settlement, close before expiry.</li>
+<li>Beginner default: defined risk. Sell one option and buy a cheaper, further-out one (a spread), and keep size constant through winning streaks. Never sell naked.</li>
+</ul></div>
+<div class="card t" data-ck="greeks-as-a-risk-dashboard" data-skey="ovrisk:f-o-risk-for-beginners/greeks-as-a-risk-dashboard" id="greeks-as-a-risk-dashboard"><h3 data-label="Greeks as a risk dashboard">Greeks as a risk dashboard<a aria-label="Link to this card" class="anchor" href="#greeks-as-a-risk-dashboard">#</a></h3><div class="tw"><table>
+<tr><th>Gauge</th><th>Measures</th><th>Who it hurts</th></tr>
+<tr><td>Delta</td><td>Price change per 1-point move (≈ 0.5 → ≈ 50 paise)</td><td>Anyone on the wrong side</td></tr>
+<tr><td>Theta</td><td>Daily time decay, weekends included</td><td>Buyers, every day (sellers' income)</td></tr>
+<tr><td>Vega</td><td>Sensitivity to implied volatility</td><td>Buyers after <abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr> crush; sellers on IV spikes</td></tr>
+<tr><td>Gamma</td><td>How fast delta changes; explosive near the strike at expiry</td><td>Holders near the strike on expiry day</td></tr>
+</table></div><p>Arjun bought a NIFTY call at ₹120 before an <abbr class="gl" data-tip="India's central bank: sets the repo rate, regulates banks and NBFCs, manages the rupee." data-tip-title="RBI: Reserve Bank of India">RBI</abbr> policy; NIFTY rose ≈ 80 points by the next morning and the call was worth ₹95, sunk by theta and vega. Read all four gauges, not just delta. Greeks describe small, smooth moves (gaps break them) and say which risks you carry, not how much: sizing is separate.</p></div>
+<div class="card p" data-ck="expiry-day-risk" data-skey="ovrisk:f-o-risk-for-beginners/expiry-day-risk" id="expiry-day-risk"><h3 data-label="Expiry-day risk">Expiry-day risk<a aria-label="Link to this card" class="anchor" href="#expiry-day-risk">#</a></h3><ul>
+<li>Weekly index options settle on Tuesday at <abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> and Thursday at <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> (as the course states; exchanges revise these).</li>
+<li><b>Gamma</b> peaks near the strike, so a 20–30 point wiggle can swing the premium within minutes.</li>
+<li><b>Liquidity trap:</b> a ₹2 screen price may sell for ₹0.50, or find no bid. Far-OTM expiry options at 50 paise to ₹1 should be assumed worthless.</li>
+<li><b>Pin risk:</b> the index sits on a heavy strike, then breaks away. <b>Execution freeze:</b> queues lengthen and fills land far from the screen.</li>
+<li><b>Adjustment panic:</b> adding to, hedging or rolling a losing expiry trade usually deepens it.</li>
+<li>Arjun put ₹8,000 into a ₹4 call hoping for a ten-bagger; NIFTY rose ≈ 30 points, the call touched ₹5, was 30 paise at 3:20 pm and zero at the close.</li>
+</ul><div class="callout">Before an expiry trade: is it cheap because it's unlikely? Is there a real bid to exit into? Is the loss limit set, and will you take it without adjusting?</div></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#leverage"><span>Previous</span>05 · Leverage, margin and execution risk</a><a class="sn-next" href="#last"><span>Next</span>07 · Staying current and quick reference</a></nav></section>
+<section class="sec r" data-origin="ovrisk" data-sid="last" id="last"><h2 data-label="Staying current and quick reference"><span class="n">07</span>Staying current and quick reference</h2>
+<p class="src">OpenAlgo Open Varsity · Risk Management · module G, chapter 33 (<a href="https://www.openalgo.in/risk-management/sources-and-staying-current">sources and staying current</a>)</p>
+<div class="g2">
+<div class="card g" data-ck="keep-the-method-refresh-the-numbers" data-skey="ovrisk:staying-current-and-quick-reference/keep-the-method-refresh-the-numbers" id="keep-the-method-refresh-the-numbers"><h3 data-label="Keep the method, refresh the numbers">Keep the method, refresh the numbers<a aria-label="Link to this card" class="anchor" href="#keep-the-method-refresh-the-numbers">#</a></h3><div class="tw"><table>
+<tr><th>Fact</th><th>Where to check</th></tr>
+<tr><td>Lot sizes and contract specs</td><td><abbr class="gl" data-tip="India's largest exchange by volume; home of the Nifty indices." data-tip-title="NSE: National Stock Exchange of India">NSE</abbr> equity-derivatives contract pages</td></tr>
+<tr><td>Expiry calendar and holidays</td><td>NSE and <abbr class="gl" data-tip="Asia's oldest exchange; home of the Sensex." data-tip-title="BSE: BSE (Bombay Stock Exchange)">BSE</abbr> websites</td></tr>
+<tr><td><abbr class="gl" data-tip="Derivatives segment of Indian exchanges. Stocks in F&amp;O have no fixed circuit bands and can enter the F&amp;O ban list." data-tip-title="F&amp;O: Futures and options">F&amp;O</abbr> profit and loss studies</td><td><abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> reports and press releases</td></tr>
+<tr><td>Margin, peak margin, T+1, pledges</td><td>SEBI and NSE circulars, and your broker</td></tr>
+<tr><td>Charges (<abbr class="gl" data-tip="Indian tax charged on equity and derivative trades by value. It is a fixed cost every backtest and intraday plan must include." data-tip-title="STT: Securities transaction tax">STT</abbr>, fees, <abbr class="gl" data-tip="India's indirect tax; monthly collections are a quick read on consumption." data-tip-title="GST: Goods and services tax">GST</abbr>, stamp duty)</td><td>Notifications and your contract note</td></tr>
+</table></div><ul>
+<li>Date-stamp every figure ("NIFTY lot 65, checked 26 Jun 2026"); an undated number looks equally trustworthy at 12 months and 12 minutes.</li>
+<li>Meera planned ≈ ₹1,000 a lot with a 50-unit lot; at 65 units the same ₹20-a-unit loss is ₹1,300, ≈ 30% more risk than intended.</li>
+<li>Your broker may block more margin or cut off earlier than the headline rule; its figures govern your account. Re-check just before placing the order.</li>
+</ul></div>
+<div class="card b" data-ck="numbers-at-a-glance" data-skey="ovrisk:staying-current-and-quick-reference/numbers-at-a-glance" id="numbers-at-a-glance"><h3 data-label="Numbers at a glance">Numbers at a glance<a aria-label="Link to this card" class="anchor" href="#numbers-at-a-glance">#</a></h3><div class="formula"><span class="fl">recovery gain      = loss ÷ (1 − loss)   −20% → +25%, −50% → +100%</span><span class="fl">quantity           = capital × risk% ÷ (entry − stop)</span><span class="fl">expectancy         = W × avg win − (1 − W) × avg loss</span><span class="fl">break-even win %   = risk ÷ (risk + reward)</span><span class="fl">heat               = Σ (stop distance × qty), correlated names as one</span><span class="fl">leverage wipe-out  = 100% ÷ leverage   5× → 20% move</span><span class="fl">example limits     = 1% a trade · −3% a day · −6% a week · −10% a month</span><span class="fl">emergency fund     = 3–6 months of expenses (9–12 if income is lumpy)</span></div></div>
+<div class="card t" data-ck="before-every-trade" data-skey="ovrisk:staying-current-and-quick-reference/before-every-trade" id="before-every-trade"><h3 data-label="Before every trade">Before every trade<a aria-label="Link to this card" class="anchor" href="#before-every-trade">#</a></h3><ol class="steps">
+<li>Money is from the right bucket: base full, no costly debt, not goal money.</li>
+<li>Rupee risk fixed first; quantity computed from a real stop.</li>
+<li>Daily, weekly and monthly limits not hit; heat under the cap.</li>
+<li>Leverage chosen so the worst plausible move doesn't wipe the margin.</li>
+<li>Event calendar checked; overnight size survives a gap.</li>
+<li>Liquid instrument, limit order, costs counted against the target.</li>
+<li>For options: Greeks read, <abbr class="gl" data-tip="Volatility implied by option prices. It rises before results and collapses after them (IV crush)." data-tip-title="IV: Implied volatility">IV</abbr> checked, worst case defined.</li>
+</ol></div>
+<div class="card o" data-ck="about-this-sheet" data-skey="ovrisk:staying-current-and-quick-reference/about-this-sheet" id="about-this-sheet"><h3 data-label="About this sheet">About this sheet<a aria-label="Link to this card" class="anchor" href="#about-this-sheet">#</a></h3><p>This sheet condenses the free course <a href="https://www.openalgo.in/risk-management">Risk Management</a> from <a href="https://www.openalgo.in/learn">OpenAlgo Open Varsity</a> (33 chapters, 7 modules) into reference cards in our own words. Lot sizes, margins, settlement days and <abbr class="gl" data-tip="India's market regulator for exchanges, brokers, listed companies, funds and advisers." data-tip-title="SEBI: Securities and Exchange Board of India">SEBI</abbr> figures are as the course gives them in 2026 and will change; every percentage and rupee amount is a teaching illustration. Each section links back to its chapters. Educational only, not investment advice.</p></div>
+</div><nav aria-label="Section navigation" class="sec-nav"><a class="sn-prev" href="#fno"><span>Previous</span>06 · F&amp;O risk for beginners</a><a class="sn-next" href="#top"><span>End of sheet</span>Back to top</a></nav></section>
+    <div class="search-empty">No cards match. Try fewer or different words, or press Esc to clear.</div>
+  </main>
+</div>
+<button class="iconbtn totop" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></button>
+<script type="application/json" id="cs-tips">{}</script>
+</body></html>

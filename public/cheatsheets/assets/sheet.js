@@ -352,7 +352,7 @@
 
   async function renderDiagrams(rerender) {
     const pres = $$('pre.mermaid');
-    if (!pres.length) return;
+    if (!pres.length) { document.body.classList.add('diagrams-ready'); return; }
     pres.forEach(p => { if (p.dataset.src === undefined) p.dataset.src = p.textContent; wrap(p); });
     if (!rerender) window.__csReserve();
     if (!window.mermaid) {
